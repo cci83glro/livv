@@ -1,6 +1,6 @@
 <?php
-// Include database connection file
-require_once "db_connection.php";
+
+require_once '../users/init.php';
 
 // Check if booking ID is provided
 if (!isset($_POST['booking_id'])) {
@@ -12,11 +12,8 @@ $booking_id = $_POST['booking_id'];
 
 // Delete booking from database
 $db = DB::getInstance();
-$query = "DELETE FROM Bookings WHERE booking_id = ?";
-$stmt = $db->prepare($query);
-$stmt->bind_param("i", $booking_id);
 
-if ($stmt->execute()) {
+if ($db->query("DELETE FROM Bookings WHERE booking_id = $booking_id")) {
     // Deletion successful
     echo "Booking deleted successfully!";
 } else {

@@ -78,10 +78,6 @@ button {
         </tr>
     </thead>
     <tbody id="bookingsBody">
-        <?php
-        // Include PHP script to retrieve bookings
-        require_once "retrieve_bookings.php";
-        ?>
     </tbody>
 </table>
 
@@ -94,6 +90,48 @@ button {
 </div>
 
 <script>
+
+// Function to load bookings from backend with pagination
+function loadBookings(page) {
+    var recordsPerPage = 10; // Adjust as needed
+    var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
+    
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        var tbody = document.getElementById('bookingsBody');
+        tbody.innerHTML = ''; // Clear existing data
+        
+        // Populate table with retrieved bookings
+        data.forEach(booking => {
+            var row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${booking.place}</td>
+                <td>${booking.date}</td>
+                <td>${booking.hours}</td>
+                <td>${booking.shift_name}</td>
+                <td>${booking.qualification_name}</td>
+                <td><button onclick="deleteBooking(${booking.booking_id})">Delete</button></td>
+            `;
+            tbody.appendChild(row);
+        });
+        
+        // Generate pagination links
+        var paginationDiv = document.getElementById('pagination');
+        paginationDiv.innerHTML = ''; // Clear existing pagination links
+        var totalPages = Math.ceil(data.total_records / recordsPerPage);
+        for (var i = 1; i <= totalPages; i++) {
+            var link = document.createElement('a');
+            link.href = '#';
+            link.textContent = i;
+            link.onclick = function() {
+                loadBookings(this.textContent); // Load bookings for clicked page
+            };
+            paginationDiv.appendChild(link);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
 // JavaScript code for interacting with backend scripts and updating frontend dynamically
 // Function to delete a booking
 function deleteBooking(bookingId) {
@@ -115,6 +153,11 @@ function deleteBooking(bookingId) {
         .catch(error => console.error('Error:', error));
     }
 }
+
+// Load bookings when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadBookings(1);
+});
 </script>
 
 </body>
