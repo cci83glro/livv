@@ -1,3 +1,9 @@
+<?php
+
+    require_once '../master.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +39,7 @@ button {
 
 <!-- Booking Creation Form -->
 <h3>Create Booking</h3>
-<form id="bookingForm" method="post" action="create_booking.php">
+<form id="bookingForm" method="post" action="create_booking.php" data-user-id="<?php echo $user_id; ?>">
     <label for="place">Place:</label>
     <input type="text" id="place" name="place" required><br><br>
     
@@ -74,6 +80,7 @@ button {
             <th>Hours</th>
             <th>Shift</th>
             <th>Qualification</th>
+            <th>Assigned user</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -88,9 +95,90 @@ button {
 
 <script>
 
+function assignUserToBooking(bookingId, userId) {
+    // Data to be sent in the request body
+    var data = {
+        booking_id: bookingId,
+        user_id: userId
+    };
+
+    // Options for the fetch request
+    var options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+
+    // URL of the assign_user.php script
+    var url = 'assign_user.php';
+
+    // Send the POST request
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Assuming the script returns a text response
+        })
+        .then(data => {
+            console.log('Assignment successful:', data);
+            // Add code to display success message or perform other actions
+        })
+        .catch(error => {
+            console.error('Error assigning user:', error);
+            // Add code to display error message or handle the error
+        });
+}
+
+// Function to assign user to a booking
+function assignUser(bookingId) {
+    assignUserToBooking(bookingId, 1);
+    
+}
+
+// Function to unassign user from a booking
+function unassignUser(bookingId) {
+    
+    // Data to be sent in the request body
+    var data = {
+        booking_id: bookingId
+    };
+
+    // Options for the fetch request
+    var options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+
+    // URL of the assign_user.php script
+    var url = 'unassign_user.php';
+
+    // Send the POST request
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); // Assuming the script returns a text response
+        })
+        .then(data => {
+            console.log('Unassignment successful:', data);
+            // Add code to display success message or perform other actions
+        })
+        .catch(error => {
+            console.error('Error unassigning user:', error);
+            // Add code to display error message or handle the error
+        });
+}
+
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
-    var recordsPerPage = 2; // Adjust as needed
+    var recordsPerPage = 4; // Adjust as needed
     var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
     
     fetch(url)
@@ -101,7 +189,7 @@ function loadBookings(page) {
         
         var totalCount = data.length;
         var lowerBound = (page-1) * recordsPerPage;
-        var upperBound = Math.min(lowerBound + recordsPerPage, totalCount -1);
+        var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);
 
         // Populate table with retrieved bookings
         data.slice(lowerBound, upperBound)
@@ -114,6 +202,11 @@ function loadBookings(page) {
                 <td>${booking.shift_name}</td>
                 <td>${booking.qualification_name}</td>
                 <td><button onclick="deleteBooking(${booking.booking_id})">Delete</button></td>
+                <td>
+                    ${booking.assigned_user_id ? 'Assigned' : 'Unassigned'}                
+                    <button onclick="assignUser(${booking.booking_id})">Assign</button>
+                    <button onclick="unassignUser(${booking.booking_id})">Unassign</button>
+                </td>
             `;
             tbody.appendChild(row);
         });
