@@ -83,17 +83,14 @@ button {
 
 <!-- Pagination -->
 <div id="pagination">
-    <?php
-    // Include PHP script to generate pagination links
-    require_once "pagination.php";
-    ?>
+    
 </div>
 
 <script>
 
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
-    var recordsPerPage = 10; // Adjust as needed
+    var recordsPerPage = 2; // Adjust as needed
     var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
     
     fetch(url)
@@ -102,8 +99,13 @@ function loadBookings(page) {
         var tbody = document.getElementById('bookingsBody');
         tbody.innerHTML = ''; // Clear existing data
         
+        var totalCount = data.length;
+        var lowerBound = (page-1) * recordsPerPage;
+        var upperBound = Math.min(lowerBound + recordsPerPage, totalCount -1);
+
         // Populate table with retrieved bookings
-        data.forEach(booking => {
+        data.slice(lowerBound, upperBound)
+            .forEach(booking => {
             var row = document.createElement('tr');
             row.innerHTML = `
                 <td>${booking.place}</td>
@@ -119,7 +121,7 @@ function loadBookings(page) {
         // Generate pagination links
         var paginationDiv = document.getElementById('pagination');
         paginationDiv.innerHTML = ''; // Clear existing pagination links
-        var totalPages = Math.ceil(data.total_records / recordsPerPage);
+        var totalPages = Math.ceil(totalCount / recordsPerPage);
         for (var i = 1; i <= totalPages; i++) {
             var link = document.createElement('a');
             link.href = '#';
