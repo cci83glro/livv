@@ -52,10 +52,10 @@ button {
     <label for="shift">Shift:</label>
     <select id="shift" name="shift" required>
         <option value="">Select Shift</option>
-        <option value="1">dagvagt</option>
-        <option value="2">aftenvagt</option>
-        <option value="3">natvagt</option>
-        <option value="4">fastvagt</option>
+        <option value="1">Dagvagt</option>
+        <option value="2">Aftenvagt</option>
+        <option value="3">Natvagt</option>
+        <option value="4">Fastvagt</option>
     </select><br><br>
     
     <label for="qualification">Qualification:</label>
@@ -81,7 +81,7 @@ button {
             <th>Shift</th>
             <th>Qualification</th>
             <th>Assigned user</th>
-            <th>Action</th>
+            <th>Action</th>            
         </tr>
     </thead>
     <tbody id="bookingsBody">
@@ -102,39 +102,34 @@ function assignUserToBooking(bookingId, userId) {
         user_id: userId
     };
 
-    // Options for the fetch request
-    var options = {
+    var formData = new FormData();
+    formData.append('booking_id', bookingId);
+    formData.append('user_id', userId);
+    
+    fetch('assign_user.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
-
-    // URL of the assign_user.php script
-    var url = 'assign_user.php';
-
-    // Send the POST request
-    fetch(url, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text(); // Assuming the script returns a text response
-        })
-        .then(data => {
-            console.log('Assignment successful:', data);
-            // Add code to display success message or perform other actions
-        })
-        .catch(error => {
-            console.error('Error assigning user:', error);
-            // Add code to display error message or handle the error
-        });
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Assuming the script returns a text response
+    })
+    .then(data => {
+        console.log('Assignment successful:', data);
+        // Add code to display success message or perform other actions
+        location.reload();
+    })
+    .catch(error => {
+        console.error('Error assigning user:', error);
+        // Add code to display error message or handle the error
+    });
 }
 
 // Function to assign user to a booking
 function assignUser(bookingId) {
-    assignUserToBooking(bookingId, 1);
+    assignUserToBooking(bookingId, 3);
     
 }
 
@@ -147,33 +142,40 @@ function unassignUser(bookingId) {
     };
 
     // Options for the fetch request
-    var options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
+    // var options = {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // };
 
     // URL of the assign_user.php script
-    var url = 'unassign_user.php';
+    //var url = 'unassign_user.php';
 
     // Send the POST request
-    fetch(url, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text(); // Assuming the script returns a text response
-        })
-        .then(data => {
-            console.log('Unassignment successful:', data);
-            // Add code to display success message or perform other actions
-        })
-        .catch(error => {
-            console.error('Error unassigning user:', error);
-            // Add code to display error message or handle the error
-        });
+    var formData = new FormData();
+    formData.append('booking_id', bookingId);
+    
+    fetch('unassign_user.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Assuming the script returns a text response
+    })
+    .then(data => {
+        console.log('Unassignment successful:', data);
+        // Add code to display success message or perform other actions
+        location.reload();
+    })
+    .catch(error => {
+        console.error('Error unassigning user:', error);
+        // Add code to display error message or handle the error
+    });
 }
 
 // Function to load bookings from backend with pagination
@@ -195,18 +197,19 @@ function loadBookings(page) {
         data.slice(lowerBound, upperBound)
             .forEach(booking => {
             var row = document.createElement('tr');
+            var assignAction = `<button onclick="assignUser(${booking.booking_id})">Assign</button>`;
+            if (booking.assigned_user_id) {
+                assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+            }
             row.innerHTML = `
                 <td>${booking.place}</td>
                 <td>${booking.date}</td>
                 <td>${booking.hours}</td>
                 <td>${booking.shift_name}</td>
                 <td>${booking.qualification_name}</td>
+                <td>${booking.user_name}</td>
                 <td><button onclick="deleteBooking(${booking.booking_id})">Delete</button></td>
-                <td>
-                    ${booking.assigned_user_id ? 'Assigned' : 'Unassigned'}                
-                    <button onclick="assignUser(${booking.booking_id})">Assign</button>
-                    <button onclick="unassignUser(${booking.booking_id})">Unassign</button>
-                </td>
+                <td>${assignAction}</td>
             `;
             tbody.appendChild(row);
         });
