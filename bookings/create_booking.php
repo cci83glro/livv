@@ -5,6 +5,7 @@ require_once '../users/init.php';
 // Retrieve form data
 $place = $_POST['place'];
 $date = $_POST['date'];
+$time = $_POST['time'];
 $hours = $_POST['hours'];
 $shift_id = $_POST['shift'];
 $qualification_id = $_POST['qualification'];
@@ -22,6 +23,7 @@ $db = DB::getInstance();
 $fields = [
     'place' => $place,
     'date' => $date,
+    'time_id' => $time,
     'hours' => $hours,
     'shift_id' => $shift_id,
     'qualification_id' => $qualification_id

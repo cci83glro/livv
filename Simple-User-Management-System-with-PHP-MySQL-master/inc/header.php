@@ -69,13 +69,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
 
               <?php
 
-                          $path = $_SERVER['SCRIPT_FILENAME'];
-                          $current = basename($path, '.php');
-                          if ($current == 'addUser') {
-                            echo " active ";
-                          }
+                $path = $_SERVER['SCRIPT_FILENAME'];
+                $current = basename($path, '.php');
+                if ($current == 'addUser') {
+                  echo " active ";
+                }
 
-                         ?>">
+                ?>">
 
                 <a class="nav-link" href="addUser.php"><i class="fas fa-user-plus mr-2"></i>Add user </span></a>
               </li>

@@ -2,10 +2,10 @@
 
 require_once '../users/init.php';
 
-$page = $_GET['page']; // Current page number
-$records_per_page = $_GET['records_per_page']; // Number of records per page
+// $page = $_GET['page']; // Current page number
+// $records_per_page = $_GET['records_per_page']; // Number of records per page
 
-$offset = ($page - 1) * $records_per_page;
+// $offset = ($page - 1) * $records_per_page;
 
 $db = DB::getInstance();
 $query = $db->query(

@@ -12,6 +12,11 @@
 
     $query = $db->query("SELECT qualification_id, qualification_name FROM Qualifications");
     $qualifications = $query->results();
+
+    $query = $db->query("SELECT u.id, CONCAT(u.fname, ' ', u.lname) as name
+        FROM livv.users u INNER JOIN user_permission_matches up ON u.id=up.user_id
+        WHERE up.permission_id = 3");
+    $employees = $query->results();
 ?>
 
 <!DOCTYPE html>
@@ -88,6 +93,15 @@ button {
             }            
         ?>
     </select><br><br>
+
+    <select id="employee" name="employee" style="display:none">
+        <option value="">Select employee</option>
+        <?php 
+            foreach($employees as $employee){
+                echo "<option value='$employee->id'>$employee->name</option>"; 
+            }            
+        ?>
+    </select>
     
     <button type="submit">Create Booking</button>
 </form>
@@ -197,33 +211,18 @@ function reloadBookings() {
     loadBookings(tbody.getAttribute("data-active-page"));
 }
 
-var employees=[];
-
-function getEmployees() {
-
-    if (employees.length == 0){        
-        var url = `retrieve_employees.php`;
-
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            employees = data;
-        });
-    }
-
-    return employees;
-}
-
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
     var recordsPerPage = 4; // Adjust as needed
-    var employees = getEmployees();
-
-    var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
+        
+    //var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
+    var url = `retrieve_bookings.php`;
     
     fetch(url)
     .then(response => response.json())
     .then(data => {
+        var employees = Array.from(document.getElementById('employee').options);
+
         var tbody = document.getElementById('bookingsBody');
         tbody.innerHTML = ''; // Clear existing data
         tbody.setAttribute("data-active-page", page);
@@ -240,7 +239,7 @@ function loadBookings(page) {
             if (!booking.assigned_user_id) {
                 assignAction = `<select id="user-dropdown-${booking.booking_id}">`;
                 employees.forEach(e => {
-                    assignAction += `<option value="${e.id}">${e.name}</option>`;
+                    assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
                 assignAction += `<button onclick="assignUser(${booking.booking_id})">Assign</button>`;
