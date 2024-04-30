@@ -2,6 +2,16 @@
 
     require_once '../master.php';
 
+    $db = DB::getInstance();
+    
+    $query = $db->query("SELECT time_id, time_value FROM Times");
+    $times = $query->results();
+
+    $query = $db->query("SELECT shift_id, shift_name FROM Shifts");
+    $shifts = $query->results();
+
+    $query = $db->query("SELECT qualification_id, qualification_name FROM Qualifications");
+    $qualifications = $query->results();
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booking System</title>
+<title>Booking</title>
 <style>
 /* Basic CSS for styling */
 table {
@@ -45,6 +55,16 @@ button {
     
     <label for="date">Date:</label>
     <input type="date" id="date" name="date" required><br><br>
+
+    <label for="time">Time:</label>
+    <select id="time" name="time" required>
+        <option value="">Select time</option>
+        <?php 
+            foreach($times as $time){
+                echo "<option value='$time->time_id'>$time->time_value</option>"; 
+            }            
+        ?>
+    </select>
     
     <label for="hours">Number of Hours:</label>
     <input type="number" id="hours" name="hours" required><br><br>
@@ -52,19 +72,21 @@ button {
     <label for="shift">Shift:</label>
     <select id="shift" name="shift" required>
         <option value="">Select Shift</option>
-        <option value="1">Dagvagt</option>
-        <option value="2">Aftenvagt</option>
-        <option value="3">Natvagt</option>
-        <option value="4">Fastvagt</option>
+        <?php 
+            foreach($shifts as $shift){
+                echo "<option value='$shift->shift_id'>$shift->shift_name</option>"; 
+            }            
+        ?>
     </select><br><br>
     
     <label for="qualification">Qualification:</label>
     <select id="qualification" name="qualification" required>
         <option value="">Select Qualification</option>
-        <option value="1">SSA</option>
-        <option value="2">SSH</option>
-        <option value="3">sygeplejerske</option>
-        <option value="4">pædagog</option>
+        <?php 
+            foreach($qualifications as $qualification){
+                echo "<option value='$qualification->qualification_id'>$qualification->qualification_name</option>"; 
+            }            
+        ?>
     </select><br><br>
     
     <button type="submit">Create Booking</button>
@@ -77,6 +99,7 @@ button {
         <tr>
             <th>Place</th>
             <th>Date</th>
+            <th>Time</th>
             <th>Hours</th>
             <th>Shift</th>
             <th>Qualification</th>
@@ -84,7 +107,7 @@ button {
             <th>Action</th>            
         </tr>
     </thead>
-    <tbody id="bookingsBody">
+    <tbody id="bookingsBody" data-active-page="1">
     </tbody>
 </table>
 
@@ -119,7 +142,7 @@ function assignUserToBooking(bookingId, userId) {
     .then(data => {
         console.log('Assignment successful:', data);
         // Add code to display success message or perform other actions
-        location.reload();
+        reloadBookings();
     })
     .catch(error => {
         console.error('Error assigning user:', error);
@@ -129,8 +152,11 @@ function assignUserToBooking(bookingId, userId) {
 
 // Function to assign user to a booking
 function assignUser(bookingId) {
-    assignUserToBooking(bookingId, 3);
-    
+    var userDropdown = document.getElementById('user-dropdown-' + bookingId);
+    var selectedUserId = userDropdown.value;
+    if (selectedUserId && selectedUserId > 0) {
+        assignUserToBooking(bookingId, selectedUserId);
+    }
 }
 
 // Function to unassign user from a booking
@@ -140,18 +166,6 @@ function unassignUser(bookingId) {
     var data = {
         booking_id: bookingId
     };
-
-    // Options for the fetch request
-    // var options = {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(data)
-    // };
-
-    // URL of the assign_user.php script
-    //var url = 'unassign_user.php';
 
     // Send the POST request
     var formData = new FormData();
@@ -170,7 +184,7 @@ function unassignUser(bookingId) {
     .then(data => {
         console.log('Unassignment successful:', data);
         // Add code to display success message or perform other actions
-        location.reload();
+        reloadBookings();
     })
     .catch(error => {
         console.error('Error unassigning user:', error);
@@ -178,9 +192,33 @@ function unassignUser(bookingId) {
     });
 }
 
+function reloadBookings() {
+    var tbody = document.getElementById('bookingsBody');
+    loadBookings(tbody.getAttribute("data-active-page"));
+}
+
+var employees=[];
+
+function getEmployees() {
+
+    if (employees.length == 0){        
+        var url = `retrieve_employees.php`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            employees = data;
+        });
+    }
+
+    return employees;
+}
+
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
     var recordsPerPage = 4; // Adjust as needed
+    var employees = getEmployees();
+
     var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
     
     fetch(url)
@@ -188,6 +226,7 @@ function loadBookings(page) {
     .then(data => {
         var tbody = document.getElementById('bookingsBody');
         tbody.innerHTML = ''; // Clear existing data
+        tbody.setAttribute("data-active-page", page);
         
         var totalCount = data.length;
         var lowerBound = (page-1) * recordsPerPage;
@@ -197,13 +236,19 @@ function loadBookings(page) {
         data.slice(lowerBound, upperBound)
             .forEach(booking => {
             var row = document.createElement('tr');
-            var assignAction = `<button onclick="assignUser(${booking.booking_id})">Assign</button>`;
-            if (booking.assigned_user_id) {
-                assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+            var assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+            if (!booking.assigned_user_id) {
+                assignAction = `<select id="user-dropdown-${booking.booking_id}">`;
+                employees.forEach(e => {
+                    assignAction += `<option value="${e.id}">${e.name}</option>`;
+                });
+                assignAction += `</select>`;
+                assignAction += `<button onclick="assignUser(${booking.booking_id})">Assign</button>`;
             }
             row.innerHTML = `
                 <td>${booking.place}</td>
                 <td>${booking.date}</td>
+                <td>${booking.time_value}</td>
                 <td>${booking.hours}</td>
                 <td>${booking.shift_name}</td>
                 <td>${booking.qualification_name}</td>
@@ -246,7 +291,7 @@ function deleteBooking(bookingId) {
         .then(data => {
             alert(data); // Show response message
             // Reload the page after deletion
-            location.reload();
+            reloadBookings();
         })
         .catch(error => console.error('Error:', error));
     }

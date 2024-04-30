@@ -156,7 +156,7 @@ if (Input::exists()) {
                     'vericode_expiry' => $vericode_expiry,
                     'oauth_tos_accepted' => true,
                     'language'=>$newLang,
-                    'active'=>1
+                    'active'=>0
                     ];
 
                 $theNewId = $user->create($fields);
