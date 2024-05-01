@@ -1,3 +1,4 @@
+<?php require_once 'master.php';?>
 <!DOCTYPE html>
 <html lang="en">
 

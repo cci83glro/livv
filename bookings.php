@@ -1,5 +1,23 @@
 
-<?php include_once "header.php"?>
+<?php
+	require_once "header.php";
+	
+    $db = DB::getInstance();
+    
+    $query = $db->query("SELECT time_id, time_value FROM Times");
+    $times = $query->results();
+
+    $query = $db->query("SELECT shift_id, shift_name FROM Shifts");
+    $shifts = $query->results();
+
+    $query = $db->query("SELECT qualification_id, qualification_name FROM Qualifications");
+    $qualifications = $query->results();
+
+    $query = $db->query("SELECT u.id, CONCAT(u.fname, ' ', u.lname) as name
+        FROM livv.users u INNER JOIN user_permission_matches up ON u.id=up.user_id
+        WHERE up.permission_id = 3");
+    $employees = $query->results();
+?>
 
 <main>
         <!-- Banner -->
@@ -95,8 +113,7 @@
             <div class="r-container">
 				<div class="bg-accent-color rounded-4">
 					<div class="h-100 d-flex flex-column p-5">
-						<h6 class="font-2 text-white">Fill The Form</h6>
-						<h3 class="font-1 lh-1 fw-bold fs-1 mb-3 text-white">Get In Touch</h3>
+						<h3 class="font-1 lh-1 fw-bold fs-1 mb-3 text-white">Tilføj booking</h3>
 						<div class="success_msg toast align-items-center w-100 shadow-none mb-3 border border-success rounded-0 my-4"
 							role="alert" aria-live="assertive" aria-atomic="true">
 							<div class="d-flex p-2">
@@ -128,14 +145,71 @@
 						<form action=""
 							class="d-flex flex-column h-100 justify-content-center w-100 needs-validation mb-3 form"
 							novalidate>
-							<div class="mb-3">
-								<input type="text" class="form-control py-2 px-4" name="name" id="name"
-									placeholder="Name" required>
+							<div class="row">	
+							<div class="mb-3 col-md-6">
+								<input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Sted" required>
 								<div class="invalid-feedback">
 									The field is required.
 								</div>
 							</div>
-							<div class="mb-3">
+							<div class="mb-3 col-md-6">
+								<input type="date" class="form-control py-2 px-4" id="date" name="date" placeholder="Dato" required>
+								<div class="invalid-feedback">
+									The field is required.
+								</div>
+							</div>
+							<div class="mb-3 col-md-6">
+								<select class="form-control py-2 px-4" id="time" name="time" placeholder="Tid" required>
+									<option value="">Vælg starttid</option>
+									<?php 
+										foreach($times as $time){
+											echo "<option value='$time->time_id'>$time->time_value</option>"; 
+										}            
+									?>
+								</select>
+							</div>
+							<div class="mb-3 col-md-6">
+								<input type="number" class="form-control py-2 px-4" id="hours" name="hours" placeholder="Antal timer" required>
+								<div class="invalid-feedback">
+									The field is required.
+								</div>
+							</div>
+							<div class="mb-3 col-md-6">
+								<label for="shift">Stilling</label>
+								<select class="form-control py-2 px-4" id="shift" name="shift" required>
+									<option value="">Vælg stilling</option>
+									<?php 
+										foreach($shifts as $shift){
+											echo "<option value='$shift->shift_id'>$shift->shift_name</option>"; 
+										}            
+									?>
+								</select>
+							</div>
+							<div class="mb-3 col-md-6">
+								<label for="qualification">Uddannelse</label>
+								<select class="form-control py-2 px-4" id="qualification" name="qualification" required>
+									<option value="">Vælg uddannelse</option>
+									<?php 
+										foreach($qualifications as $qualification){
+											echo "<option value='$qualification->qualification_id'>$qualification->qualification_name</option>"; 
+										}            
+									?>
+								</select>
+							</div>
+							<div class="mb-3 col-md-6">
+								<select id="employee" name="employee" style="display:none">
+									<option value="">Vælg vikar</option>
+									<?php 
+										foreach($employees as $employee){
+											echo "<option value='$employee->id'>$employee->name</option>"; 
+										}            
+									?>
+								</select>
+							</div>
+							
+
+
+							<!-- <div class="mb-3 col-md-6">
 								<input type="email" class="form-control py-2 px-4" name="email" id="email"
 									placeholder="Email" required>
 								<div class="invalid-feedback">
@@ -152,11 +226,12 @@
 							<div class="mb-3">
 								<textarea class="form-control py-2 px-4" id="message" name="message" rows="5"
 									placeholder="Message"></textarea>
-							</div>
+							</div> -->
 							<div class="mb-3">
 								<button type="submit" class="btn submit_form py-3">
 									Send Message
 								</button>
+							</div>
 							</div>
 						</form>
 					</div>
