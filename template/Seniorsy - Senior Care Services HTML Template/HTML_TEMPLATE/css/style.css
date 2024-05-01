@@ -45,7 +45,7 @@
     --dark-bg: #111111;
     --secondary-dark: #222222;
     --accent-color: #c93d80;
-    --accent-color-1: #0f5edb;
+    --accent-color-1: #872c58;
     --accent-color-2: #cd5a91;
     --gray-color: #aaaaaa;
     --font-1: 'Abhaya Libre', serif;
@@ -197,15 +197,15 @@ a {
 }
 
 .nav-link:hover {
-    color: var(--accent-color-1);
+    color: var(--accent-color);
 }
 
 .nav-link.active {
-    color: var(--accent-color-1) !important;
+    color: var(--accent-color) !important;
 }
 
 .nav-link:focus {
-    color: var(--accent-color-1) !important;
+    color: var(--accent-color) !important;
 }
 
 .navbar-toggler:focus {
@@ -266,7 +266,7 @@ a {
 }
 
 .bg-accent-color {
-    background-color: var(--accent-color-1);
+    background-color: var(--accent-color);
 }
 
 .bg-accent-color-1 {
@@ -278,7 +278,7 @@ a {
 }
 
 .accent-color {
-    color: var(--accent-color-1);
+    color: var(--accent-color);
 }
 
 .accent-color-1 {
@@ -306,7 +306,7 @@ a {
 }
 
 .bg-accent-color-hover:hover {
-    background-color: var(--accent-color-1);
+    background-color: var(--accent-color);
     color: white;
 }
 
@@ -356,7 +356,7 @@ a {
 }
 
 .overlay {
-    background-image: url(../images/bg.png);
+    background-image: url(../image/bg.png);
     background-size: contain;
     background-position: center;
     position: absolute;
@@ -604,7 +604,7 @@ a {
     height: 60px;
     width: 60px;
     border-radius: 50% !important;
-    background-color: var(--accent-color-1);
+    background-color: var(--accent-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -613,7 +613,7 @@ a {
 
 .request-loader:hover {
     color: #464646;
-    background-color: var(--accent-color-1);
+    background-color: var(--accent-color);
 }
 
 
@@ -654,7 +654,7 @@ a {
 
 .post-button {
     background-color: transparent;
-    color: var(--accent-color-1) !important;
+    color: var(--accent-color) !important;
     border: none !important;
 }
 
@@ -665,7 +665,7 @@ a {
 }
 
 .card.with-border-bottom {
-    border-bottom: 3px solid var(--accent-color-1) !important;
+    border-bottom: 3px solid var(--accent-color) !important;
 }
 
 .list-group .list-group-item {

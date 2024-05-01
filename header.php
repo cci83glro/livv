@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheet -->
+    <?php include_once "config/css.php"?>
+    <title>LivVikar - Home</title>
+</head>
+
+<body>
+    
+    <!-- Header -->
+    <section class="bg-accent-color-1 py-3">
+        <div class="r-container">
+            <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-center gap-3">
+                <ul class="d-flex m-0 flex-lg-row flex-column justify-content-center align-items-center gap-3 text-white font-2 text-center text-lg-start"
+                    style="list-style: none;">
+                    <li>Phone : +123-456-789</li>
+                    <li>Email : hello@awesomesite.com</li>
+                    <li>Opening Hours : 08:00am to 07:00Pm</li>
+                </ul>
+                <div class="social-container justify-content-center">
+                    <a href="https://www.facebook.com" class="social-item">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://www.twitter.com" class="social-item">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="https://www.youtube.com" class="social-item">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sticky-top bg-white">
+        <div class="r-container">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <div class="logo-container">
+                            <img src="assets/images/logo.png" alt="" class="img-fluid">
+                        </div>
+                    </a>
+                    <button class="navbar-toggler accent-color border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 font-2 fw-semibold gap-lg-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Ydelser</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Kurser</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about_us.html">Om os</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Kontakt</a>
+                            </li>
+                        </ul>
+                        <a href="" type="button" class="btn button bg-accent-color" type="submit">Book An
+                            Appointment</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <!-- End  of Header -->
