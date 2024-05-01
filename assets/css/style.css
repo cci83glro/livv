@@ -48,6 +48,7 @@
     --accent-color-1: #0f5edb;
     --accent-color-2: #cd5a91;
     --gray-color: #aaaaaa;
+    --white-color: #ffffff;
     --font-1: 'Abhaya Libre', serif;
     --font-2: 'Open Sans', sans-serif;
 }
@@ -189,6 +190,12 @@ a {
 
 #header {
     transition: all 0.5s ease;
+}
+
+.banner a {
+    color: var(--white-color);
+    border-bottom: 1px solid var(--white-color);
+    padding-bottom: 1px;
 }
 
 .nav-link {

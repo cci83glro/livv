@@ -14,12 +14,12 @@
     <!-- Header -->
     <section class="bg-accent-color-1 py-3">
         <div class="r-container">
-            <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-center gap-3">
+            <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-center gap-3 banner">
                 <ul class="d-flex m-0 flex-lg-row flex-column justify-content-center align-items-center gap-3 text-white font-2 text-center text-lg-start"
                     style="list-style: none;">
-                    <li>Phone : +123-456-789</li>
-                    <li>Email : hello@awesomesite.com</li>
-                    <li>Opening Hours : 08:00am to 07:00Pm</li>
+                    <li>RIng til os:&nbsp; <a href="tel:11223344">11 22 33 44</li>
+                    <!-- <li>Email : hello@awesomesite.com</li>
+                    <li>Opening Hours : 08:00am to 07:00Pm</li> -->
                 </ul>
                 <div class="social-container justify-content-center">
                     <a href="https://www.facebook.com" class="social-item">
@@ -55,10 +55,13 @@
                                 <a class="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Ydelser</a>
+                                <a class="nav-link" href="/">Ydelser</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Kurser</a>
+                                <a class="nav-link" href="/">Kurser</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="bookings.php">Bookings</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="about_us.html">Om os</a>
@@ -67,8 +70,7 @@
                                 <a class="nav-link" href="contact.html">Kontakt</a>
                             </li>
                         </ul>
-                        <a href="" type="button" class="btn button bg-accent-color" type="submit">Book An
-                            Appointment</a>
+                        <a href="" type="button" class="btn button bg-accent-color" type="submit">Opret vikar</a>
                     </div>
                 </div>
             </nav>
