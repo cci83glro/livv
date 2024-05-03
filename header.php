@@ -10,7 +10,7 @@
     <title>LivVikar - Home</title>
 </head>
 
-<body>
+<body class="br-secondary-color">
     
     <!-- Header -->
     <section class="bg-accent-color-1 py-3">
@@ -51,7 +51,7 @@
                         <i class="fa-solid fa-bars-staggered"></i>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 font-2 fw-semibold gap-lg-3">
+                        <ul class="navbar-nav mx-auto font-2 fw-semibold gap-lg-3">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/">Home</a>
                             </li>

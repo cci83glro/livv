@@ -4,62 +4,59 @@
 <main>
 	<!-- Banner -->
 	<section class="section image-infinite-bg position-relative"
-		style="background-size: cover; background-position: center ;padding: 15em 1em 15em 1em;"
-		data-images='["assets/images/dummy-img-1920x900.jpg" , "assets/images/dummy-img-1920x900.jpg"]'>
+		style="background-size: cover; background-position: center ;padding: 10em 1em 10em 1em;"
+		data-images='["assets/images/index-page-banner-1.webp" , "assets/images/index-page-banner-2.webp"]'>
 		<div class="r-container h-100">
 			<div class="image-overlay"></div>
 			<div class="d-flex flex-column justify-content-center gap-3 h-100 position-relative"
 				style="max-width: 768px; z-index: 2;">
-				<h1 class="text-title text-white fw-bold font-1 lh-1">Enriching <br> Happiness</h1>
-				<p class="text-white f-18 text-font">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+				<h1 class="text-title text-white fw-bold font-1 lh-1">Liv Vikar</h1>
+				<h6 class="text-white uppercase mb-15">Liv der redes skal leves</h6>
 				<div>
 					<a type="button" href="about_us.html"
-						class="btn bg-accent-color text-font rounded-0">LEARN MORE</a>
+						class="btn bg-secondary-color">Om os</a>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="position-relative" style="margin-top: -80px;">
+	<section class="position-relative" style="margin-top: -60px;">
 		<div class="r-container px-lg-0 px-4">
 			<div class="overflow-hidden rounded-4">
 				<div class="row row-cols-1 row-cols-lg-3">
-					<div class="col bg-accent-color-1 text-white">
+
+					<div class="col bg-secondary-color text-white">
 						<div class="d-flex flex-row gap-2 align-items-center  p-4">
-							<div class="rounded-circle bg-accent-color icon-box">
-								<i class="fa-solid fa-user-doctor"></i>
+							<div class="rounded-circle bg-primary-color icon-box">
+								<i class="fa-solid fa-user-doctor secondary-color"></i>
 							</div>
-							<div class="d-flex flex-column">
-								<span class="fw-bold font-1 fs-4">Our Services</span>
+							<div class="d-flex flex-column">								
 								<span class="fw-bold font-1 fs-3 lh-1">
-									Professional & Expert Nurses
+									Erfaren og uddannet personale
 								</span>
 							</div>
 						</div>
 					</div>
-					<div class="col bg-accent-color text-white ">
+					<div class="col bg-primary-color text-black border-1-secondary-color">
 						<div class="d-flex flex-row gap-2 align-items-center  p-4">
-							<div class="rounded-circle bg-accent-color-2 icon-box">
-								<i class="fa-solid fa-stethoscope"></i>
+							<div class="rounded-circle bg-secondary-color icon-box">
+								<i class="fa-solid fa-hand-holding-heart primary-color"></i>
 							</div>
-							<div class="d-flex flex-column">
-								<span class="fw-bold font-1 fs-4">Clinical Advice</span>
+							<div class="d-flex flex-column">								
 								<span class="fw-bold font-1 fs-3 lh-1">
-									Trusted Quality Care Solutions
+									Personlig hjælp
 								</span>
 							</div>
 						</div>
 					</div>
-					<div class="col bg-accent-color-2 text-white">
+					<div class="col bg-secondary-color text-white">
 						<div class="d-flex flex-row gap-2 align-items-center  p-4">
-							<div class="rounded-circle bg-accent-color-1 icon-box">
-								<i class="fa-solid fa-earth-asia"></i>
+							<div class="rounded-circle bg-primary-color icon-box">
+								<i class="fa-solid fa-star secondary-color"></i>
 							</div>
 							<div class="d-flex flex-column">
-								<span class="fw-bold font-1 fs-4">Our Expertises</span>
 								<span class="fw-bold font-1 fs-3 lh-1">
-									World Class Senior Services
+									Høj kvalitets ydelser
 								</span>
 							</div>
 						</div>
@@ -76,29 +73,7 @@
 				<div class="col mb-3 pe-lg-3 position-relative">
 					<div class="overlay right"></div>
 					<div class="position-relative pe-5">
-						<img src="assets/images/dummy-img-600x700.jpg" alt="" class="img-fluid" style="z-index: -2;">
-						<div class="position-absolute bottom-0 start-0 ms-4 mb-4">
-							<!-- Button trigger modal -->
-							<div class="d-flex flex-row gap-3 align-items-center">
-								<button type="button" class="btn request-loader" data-bs-toggle="modal"
-									data-bs-target="#exampleModal">
-									<i class="fa-solid fa-play"></i>
-								</button>
-								<span class="text-white fw-semibold font-1 fs-5">WATCH VIDEO</span>
-							</div>
-
-							<!-- Modal -->
-							<div class="modal fade bg-overlay" id="exampleModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered modal-lg">
-									<div class="modal-content bg-dark-color">
-										<iframe class="ifr-video"
-											src="https://www.youtube.com/embed/FK2RaJ1EfA8?autoplay=1"
-											frameborder="0"></iframe>
-									</div>
-								</div>
-							</div>
-						</div>
+						<img src="assets/images/hands-with-values.webp" alt="" class="img-fluid" style="z-index: -2;">
 					</div>
 				</div>
 				<div class="col mb-3">
@@ -569,7 +544,7 @@
 								role="alert" aria-live="assertive" aria-atomic="true">
 								<div class="d-flex p-2">
 									<div
-										class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-success">
+										class="toast-body  d-flex flex-row gap-3 align-items-center text-success">
 										<i class="fa-solid fa-check f-36 text-success"></i>
 										Your Message Successfully Send.
 									</div>
@@ -583,7 +558,7 @@
 								role="alert" aria-live="assertive" aria-atomic="true">
 								<div class="d-flex p-2">
 									<div
-										class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-danger">
+										class="toast-body  d-flex flex-row gap-3 align-items-center text-danger">
 										<i class="fa-solid fa-triangle-exclamation f-36 text-danger"></i>
 										Something Wrong ! Send Form Failed.
 									</div>

@@ -40,9 +40,9 @@ require_once  $abs_us_root . $us_url_root . 'usersc/templates/' . $settings->tem
   }
 }//end $ignoreTemplateFix for wordpress compatibility
 }
-if(!isset($hide_top_navigation) || $hide_top_navigation != true){
-  require_once $abs_us_root . $us_url_root . 'usersc/templates/' . $settings->template . '/navigation.php'; //custom template nav
-}
+// if(!isset($hide_top_navigation) || $hide_top_navigation != true){
+//   require_once $abs_us_root . $us_url_root . 'usersc/templates/' . $settings->template . '/navigation.php'; //custom template nav
+// }
 
 require_once $abs_us_root . $us_url_root . 'usersc/templates/' . $settings->template . '/container_open.php'; //custom template container
 

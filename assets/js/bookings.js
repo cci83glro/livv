@@ -89,9 +89,9 @@ function loadBookings(page) {
     .then(data => {
         var employees = Array.from(document.getElementById('employee').options);
 
-        var tbody = document.getElementById('bookingsBody');
-        tbody.innerHTML = ''; // Clear existing data
-        tbody.setAttribute("data-active-page", page);
+        var container = document.getElementById('bookings-container');
+        container.innerHTML = ''; // Clear existing data
+        container.setAttribute("data-active-page", page);
         
         var totalCount = data.length;
         var lowerBound = (page-1) * recordsPerPage;
@@ -100,7 +100,7 @@ function loadBookings(page) {
         // Populate table with retrieved bookings
         data.slice(lowerBound, upperBound)
             .forEach(booking => {
-            var row = document.createElement('tr');
+            //var row = document.createElement('tr');
             var assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
             if (!booking.assigned_user_id) {
                 assignAction = `<select id="user-dropdown-${booking.booking_id}">`;
@@ -110,18 +110,30 @@ function loadBookings(page) {
                 assignAction += `</select>`;
                 assignAction += `<button onclick="assignUser(${booking.booking_id})">Assign</button>`;
             }
-            row.innerHTML = `
-                <td>${booking.place}</td>
-                <td>${booking.date}</td>
-                <td>${booking.time_value}</td>
-                <td>${booking.hours}</td>
-                <td>${booking.shift_name}</td>
-                <td>${booking.qualification_name}</td>
-                <td>${booking.user_name}</td>
-                <td><button onclick="deleteBooking(${booking.booking_id})">Delete</button></td>
-                <td>${assignAction}</td>
-            `;
-            tbody.appendChild(row);
+            container.innerHTML += `
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse-${booking.booking_id}" aria-expanded="false"
+                        aria-controls="collapse-${booking.booking_id}">
+                        ${booking.place + booking.date}
+                    </button>
+                </h2>
+                <div id="collapse-${booking.booking_id}" class="accordion-collapse collapse show"
+                    data-bs-parent="#bookings-container">
+                    <div class="accordion-body">
+                        <p>${booking.place}</p>
+                        <p>${booking.date}</p>
+                        <p>${booking.time_value}</p>
+                        <p>${booking.hours}</p>
+                        <p>${booking.shift_name}</p>
+                        <p>${booking.qualification_name}</p>
+                        <p>${booking.user_name}</p>
+                        <p><button onclick="deleteBooking(${booking.booking_id})">Delete</button></p>
+                        <p>${assignAction}</p>    
+                    </div>
+                </div>
+            </div>`;
         });
         
         // Generate pagination links

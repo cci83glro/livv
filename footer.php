@@ -1,5 +1,5 @@
 <footer>
-    <section class="py-5 position-relative" style="background-image: url(assets/images/dummy-img-1920x900.jpg);">
+    <!-- <section class="py-5 position-relative" style="background-image: url(assets/images/dummy-img-1920x900.jpg);">
         <div class="r-container">
             <div class="image-overlay-2"></div>
             <div class="position-relative" style="z-index: 2;">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <section class="px-lg-0 px-4 py-lg-5 py-4 bg-accent-color-1">
         <div class="r-container text-white">
             <div class="row row-cols-1 row-cols-lg-4">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-100" style="border-bottom: 1px solid var(--accent-color-2);"></div>
+            <div class="w-100" style="border-bottom: 1px solid var(--primary-color);"></div>
             <div class="text-center p-2">© Copyright 2023. All Rights Reserved. Rometheme</div>
         </div>
     </section>

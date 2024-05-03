@@ -45,12 +45,47 @@
     --dark-bg: #111111;
     --secondary-dark: #222222;
     --accent-color: #c93d80;
-    --accent-color-1: #0f5edb;
+    
     --accent-color-2: #cd5a91;
     --gray-color: #aaaaaa;
-    --white-color: #ffffff;
+
+    --primary-color: #ffffff;
+    --secondary-color: #0f5edb;
     --font-1: 'Abhaya Libre', serif;
     --font-2: 'Open Sans', sans-serif;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-05 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-1 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-15 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 2rem !important;
+}
+
+.border-1-secondary-color {
+    border: 1px solid var(--secondary-color);
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
 
 h1 {
@@ -120,7 +155,7 @@ a:hover {
 
 button:hover,
 a[type="button"]:hover {
-    background-color: var(--accent-color);
+    background-color: var(--secondary-color);
     color: white;
     filter: brightness(0.8);
 }
@@ -161,9 +196,19 @@ a {
     padding-block: 0.7rem;
     text-decoration: none;
     transition: all 0.5s;
-    color: white;
-    background-color: var(--accent-color-1);
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
     border-radius: 5px;
+    font-weight: 600;
+}
+
+.form .form-field-label {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.form.add-booking ,.submit_form {
+    float: right;
 }
 
 .submit_form-subscribe {
@@ -172,7 +217,7 @@ a {
     text-decoration: none;
     transition: all 0.5s;
     color: white;
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
     border-radius: 5px;
 }
 
@@ -193,8 +238,8 @@ a {
 }
 
 .banner a {
-    color: var(--white-color);
-    border-bottom: 1px solid var(--white-color);
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
     padding-bottom: 1px;
 }
 
@@ -204,15 +249,15 @@ a {
 }
 
 .nav-link:hover {
-    color: var(--accent-color-1);
+    color: var(--secondary-color);
 }
 
 .nav-link.active {
-    color: var(--accent-color-1) !important;
+    color: var(--secondary-color) !important;
 }
 
 .nav-link:focus {
-    color: var(--accent-color-1) !important;
+    color: var(--secondary-color) !important;
 }
 
 .navbar-toggler:focus {
@@ -254,6 +299,10 @@ a {
     overflow: hidden;
 }
 
+.section.add-booking-section {
+    padding-top: 0;
+}
+
 .r-container {
     max-width: 1140px;
     margin-right: auto;
@@ -262,6 +311,14 @@ a {
 
 .bg-dark-color {
     background-color: var(--dark-bg);
+}
+
+.bg-primary-color {
+    background-color: var(--primary-color);
+}
+
+.bg-secondary-color {
+    background-color: var(--secondary-color);
 }
 
 .bg-dark-transparent {
@@ -273,23 +330,31 @@ a {
 }
 
 .bg-accent-color {
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
 }
 
 .bg-accent-color-1 {
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
 }
 
 .bg-accent-color-2 {
     background-color: var(--accent-color-2);
 }
 
+.primary-color {
+    color: var(--primary-color);
+}
+
+.secondary-color {
+    color: var(--secondary-color);
+}
+
 .accent-color {
-    color: var(--accent-color-1);
+    color: var(--secondary-color);
 }
 
 .accent-color-1 {
-    color: var(--accent-color-1);
+    color: var(--secondary-color);
 }
 
 .accent-color-2 {
@@ -301,7 +366,7 @@ a {
 }
 
 .border-accent-color-1 {
-    border-color: var(--accent-color-1) !important;
+    border-color: var(--secondary-color) !important;
 }
 
 .border-accent-color-2 {
@@ -313,7 +378,7 @@ a {
 }
 
 .bg-accent-color-hover:hover {
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
     color: white;
 }
 
@@ -324,7 +389,7 @@ a {
 }
 
 .btn-dark:hover {
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
     color: white;
     border: none;
 }
@@ -423,7 +488,7 @@ a {
 }
 
 .image-infinite-bg {
-    height: 90vh;
+    height: 65vh;
 }
 
 .animation-bg {
@@ -503,7 +568,7 @@ a {
 }
 
 .social-item.bg-accent-color-1 {
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
 }
 
 .social-item:hover {
@@ -547,7 +612,7 @@ a {
 }
 
 .breadcrumb .breadcrumb-item.active {
-    color: var(--accent-color);
+    color: var(--secondary-color);
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
@@ -611,7 +676,7 @@ a {
     height: 60px;
     width: 60px;
     border-radius: 50% !important;
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -620,7 +685,7 @@ a {
 
 .request-loader:hover {
     color: #464646;
-    background-color: var(--accent-color-1);
+    background-color: var(--secondary-color);
 }
 
 
@@ -661,7 +726,7 @@ a {
 
 .post-button {
     background-color: transparent;
-    color: var(--accent-color-1) !important;
+    color: var(--secondary-color) !important;
     border: none !important;
 }
 
@@ -672,7 +737,7 @@ a {
 }
 
 .card.with-border-bottom {
-    border-bottom: 3px solid var(--accent-color-1) !important;
+    border-bottom: 3px solid var(--secondary-color) !important;
 }
 
 .list-group .list-group-item {
@@ -686,12 +751,12 @@ a {
 
 .list-group .list-group-item.list-group-item-action:hover {
     background-color: var(--accent-color);
-    color: white;
+    color: var(--primary-color);
 }
 
 .accordion-button:not(.collapsed) {
-    background-color: var(--accent-color);
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .accordion-item:first-of-type .accordion-button {
@@ -769,5 +834,9 @@ a {
 
     .border-custom {
         border-width: 0px 0px 1px 0px;
+    }
+
+    .mb-0 {
+        margin-bottom: 0 !important;
     }
 }

@@ -21,17 +21,11 @@
 
 <main>
         <!-- Banner -->
-        <section class="section position-relative" style="background-image: url(assets/images/dummy-img-1920x900.jpg);">
+        <section class="section position-relative" style="background-image: url(assets/images/booking-page-banner.webp);">
             <div class="r-container">
                 <div class="image-overlay"></div>
                 <div class="position-relative" style="z-index: 2;">
                     <h1 class="font-1 fw-bold text-white">Bookings</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item fw-bold"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item fw-bold active" aria-current="page">Single Services</li>
-                        </ol>
-                    </nav>
                 </div>
             </div>
         </section>
@@ -44,7 +38,7 @@
 						
 						<div class="d-flex flex-column">
 							<!-- <h3 class="font-1 fw-bold">Frequently Asked Questions</h3> -->
-							<div class="accordion d-flex flex-column gap-2" id="accordionExample">
+							<div class="accordion d-flex flex-column gap-2" id="bookings-container" data-active-page="">
 								<div class="accordion-item">
 									<h2 class="accordion-header">
 										<button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
@@ -54,7 +48,7 @@
 										</button>
 									</h2>
 									<div id="collapseOne" class="accordion-collapse collapse show"
-										data-bs-parent="#accordionExample">
+										data-bs-parent="#bookings-container">
 										<div class="accordion-body">
 											Far far away, behind the word mountains, far from the countries Vokalia
 											and Consonantia, there live the blind texts. Separated they live in
@@ -71,7 +65,7 @@
 										</button>
 									</h2>
 									<div id="collapseTwo" class="accordion-collapse collapse"
-										data-bs-parent="#accordionExample">
+										data-bs-parent="#bookings-container">
 										<div class="accordion-body">
 											Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast
 										</div>
@@ -86,7 +80,7 @@
 										</button>
 									</h2>
 									<div id="collapseThree" class="accordion-collapse collapse"
-										data-bs-parent="#accordionExample">
+										data-bs-parent="#bookings-container">
 										<div class="accordion-body">
 											Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast
 										</div>
@@ -109,7 +103,7 @@
             </div>
         </section>
 
-		<section class="section">
+		<section class="section add-booking-section">
             <div class="r-container">
 				<div class="bg-accent-color rounded-4">
 					<div class="h-100 d-flex flex-column p-5">
@@ -143,22 +137,25 @@
 							</div>
 						</div>
 						<form action=""
-							class="d-flex flex-column h-100 justify-content-center w-100 needs-validation mb-3 form"
+							class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking"
 							novalidate>
 							<div class="row">	
 							<div class="mb-3 col-md-6">
-								<input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Sted" required>
+								<label for="place" class="form-field-label mb-1">Sted</label>
+								<input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
 								<div class="invalid-feedback">
 									The field is required.
 								</div>
 							</div>
 							<div class="mb-3 col-md-6">
+								<label for="date" class="form-field-label mb-1">Dato</label>
 								<input type="date" class="form-control py-2 px-4" id="date" name="date" placeholder="Dato" required>
 								<div class="invalid-feedback">
 									The field is required.
 								</div>
 							</div>
 							<div class="mb-3 col-md-6">
+							 	<label for="time" class="form-field-label mb-1">Starttid</label>
 								<select class="form-control py-2 px-4" id="time" name="time" placeholder="Tid" required>
 									<option value="">Vælg starttid</option>
 									<?php 
@@ -169,13 +166,14 @@
 								</select>
 							</div>
 							<div class="mb-3 col-md-6">
-								<input type="number" class="form-control py-2 px-4" id="hours" name="hours" placeholder="Antal timer" required>
+								<label for="hours" class="form-field-label mb-1">Antal timer</label>
+								<input type="number" class="form-control py-2 px-4" id="hours" name="hours" placeholder="Indtast antal timer" required>
 								<div class="invalid-feedback">
 									The field is required.
 								</div>
 							</div>
 							<div class="mb-3 col-md-6">
-								<label for="shift">Stilling</label>
+								<label for="shift" class="form-field-label mb-1">Stilling</label>
 								<select class="form-control py-2 px-4" id="shift" name="shift" required>
 									<option value="">Vælg stilling</option>
 									<?php 
@@ -186,7 +184,7 @@
 								</select>
 							</div>
 							<div class="mb-3 col-md-6">
-								<label for="qualification">Uddannelse</label>
+								<label for="qualification" class="form-field-label mb-1">Uddannelse</label>
 								<select class="form-control py-2 px-4" id="qualification" name="qualification" required>
 									<option value="">Vælg uddannelse</option>
 									<?php 
@@ -206,30 +204,9 @@
 									?>
 								</select>
 							</div>
-							
-
-
-							<!-- <div class="mb-3 col-md-6">
-								<input type="email" class="form-control py-2 px-4" name="email" id="email"
-									placeholder="Email" required>
-								<div class="invalid-feedback">
-									The field is required.
-								</div>
-							</div>
-							<div class="mb-3">
-								<input type="text" class="form-control py-2 px-4" name="subject" id="subject"
-									placeholder="Subject" required>
-								<div class="invalid-feedback">
-									The field is required.
-								</div>
-							</div>
-							<div class="mb-3">
-								<textarea class="form-control py-2 px-4" id="message" name="message" rows="5"
-									placeholder="Message"></textarea>
-							</div> -->
-							<div class="mb-3">
+							<div class="">
 								<button type="submit" class="btn submit_form py-3">
-									Send Message
+									Tilføj booking
 								</button>
 							</div>
 							</div>
