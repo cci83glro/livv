@@ -78,51 +78,48 @@
 				</div>
 				<div class="col mb-3">
 					<div class="d-flex flex-column gap-3 p-3">
-						<h6 class="accent-color font-2 ">Welcome To Seniorsy</h6>
-						<h3 class="text-black font-1 lh-1 fw-semibold">See & Experience A New Perspective Of Life
+						<h6 class="accent-color font-2 ">Erfaring og kvalifikationer</h6>
+						<h3 class="text-black font-1 lh-1 fw-semibold mb-15">Dette definerer os som firma
 						</h3>
-						<p class="text-gray">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel dolor felis. In
-							ligula purus, imperdiet ac est nec, tempus varius nisl. Integer et venenatis odio. Fusce
-							enim lectus, gravida ut justo sed, molestie fermentum libero.
+						<p class=" mb-05">
+							Alle vores ansatte har og får løbende udfyldt kompetenceskemaer.
+						</p>
+						<p class=" mb-05">
+							Vi prioriterer minimum 3 års erfaring ved ansættelser.
+						</p>
+						<p class=" mb-15">
+							Ansvarshavende sygeplejersker skal have minimum 2 års erfaring ude i den akute medicinske regi.
 						</p>
 						<div class="row row-cols-2">
-							<div class="col mb-2">
+							<div class="col mb-1">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
-									<span class="text-gray">Nulla mollis tristique blandit</span>
+									<span >Sygeplejersker</span>
 								</div>
 							</div>
-							<div class="col mb-2">
+							<div class="col mb-1">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
-									<span class="text-gray">Mauris eu ante euismod</span>
+									<span >Social og sundhedsassistenter</span>
 								</div>
 							</div>
-							<div class="col mb-2">
+							<div class="col mb-1">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
-									<span class="text-gray">Proin euismod mollis ex vel
+									<span >Social og sundheds hjælpere
 									</span>
 								</div>
 							</div>
-							<div class="col mb-2">
+							<div class="col mb-1">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
-									<span class="text-gray">Nulla mollis tristique blandit</span>
+									<span >Pædagoger</span>
 								</div>
 							</div>
-							<div class="col mb-2">
+							<div class="col mb-1">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
-									<span class="text-gray">Mauris eu ante euismod</span>
-								</div>
-							</div>
-							<div class="col mb-2">
-								<div class="d-flex flex-row gap-2 align-items-center">
-									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
-									<span class="text-gray">Proin euismod mollis ex vel
-									</span>
+									<span >Ergoterapeuter</span>
 								</div>
 							</div>
 						</div>

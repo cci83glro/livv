@@ -428,13 +428,15 @@ a {
 }
 
 .overlay {
-    background-image: url(../images/bg.png);
+    /* background-image: url(../images/bg.png);
     background-size: contain;
-    background-position: center;
+    background-position: center; */
+    border: 3px solid var(--secondary-color);
+    border-radius: 10px;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
+    width: 80%;
+    height: 80%;
+    right: 0;
     top: 0;
     background-repeat: no-repeat;
     background-size: 65% auto;
