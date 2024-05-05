@@ -14,7 +14,7 @@
 				<h6 class="text-white uppercase mb-15">Liv der redes skal leves</h6>
 				<div>
 					<a type="button" href="about_us.html"
-						class="btn bg-secondary-color">Om os</a>
+						class="btn bg-primary-color secondary-color">Om os</a>
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 							</div>
 							<div class="d-flex flex-column">								
 								<span class="fw-bold font-1 fs-3 lh-1">
-									Erfaren og uddannet personale
+									Erfaren / uddannet personale
 								</span>
 							</div>
 						</div>
@@ -43,7 +43,7 @@
 								<i class="fa-solid fa-hand-holding-heart primary-color"></i>
 							</div>
 							<div class="d-flex flex-column">								
-								<span class="fw-bold font-1 fs-3 lh-1">
+								<span class="fw-bold font-1 fs-3 lh-1 secondary-color">
 									Personlig hjælp
 								</span>
 							</div>
@@ -66,8 +66,101 @@
 		</div>
 	</section>
 
-	<!-- Welcome To Seniorsy -->
 	<section class="section">
+		<div class="r-container">
+			<h6 class="font-2 accent-color">Hvem er vi?</h6>
+			<h3 class="font-1 lh-1 fw-bold fs-1 mb-3">Læs lidt om os herunder</h3>
+			<div class="d-flex  gap-2 text-center">
+				
+				<!-- <p class="text-gray mx-auto" style="max-width: 768px;">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed pharetra erat. Integer
+					ullamcorper quis est in vehicula. Sed eu cursus dui. Aenean vel velit non neque dictum interdum
+					a nec ex.
+				</p> -->
+				<div class="accordion d-inline-flex flex-column gap-2 text-start col-lg-6" id="accordionAboutUs">
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+								Hvem er vores kollegaer?
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							data-bs-parent="#accordionAboutUs">
+							<div class="accordion-body">
+								Liv vikar er en arbejdsplads for sociale- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, forflytningsvejledere og vi er også åbne for elever.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button fw-bold collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+								aria-controls="collapseTwo">
+								Hvad fokuserer vi mest på?
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse"
+							data-bs-parent="#accordionAboutUs">
+							<div class="accordion-body">
+								Vi har stort fokus på borgere, som har brug for støtte og hjælp i dagligdagen.
+								Vi leverer hjemmepleje af høj kvalitet og arbejder udefra et værdisæt, der sætter rammerne for, hvad vi gør og siger.
+								Det er vigtigt for os at betragte alle som hele mennesker. Derfor hjælper vi dig med at bevare din personlighed og livskvalitet.
+								Ydermere er vi stolte af at sige, at vi ikke kører på tid, men på ydelser.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button fw-bold collapsed" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+								aria-controls="collapseThree">
+								Hvad tilbyder vi?
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse"
+							data-bs-parent="#accordionAboutUs">
+							<div class="accordion-body">
+								Hos Liv vikar  privat hjemmepleje leverer vi hjælp døgnet rundt.
+								Vi tilbyder både praktisk hjælp og hjælp til personlig pleje.
+								Liv Vikar er et stærkt team, som arbejder tæt sammen og har altid hjertet med på det rette sted.
+								Vores team er bygget på høj faglighed og vi stræber altid efter, at du og dine kære oplever tryghed, respekt for dig og dit liv og omsorg.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col text-white gap-3 col-lg-6 rounded-2 bg-primary-color p-3 text-center justify-content-center align-items-center">
+					<div class="rounded-circle p-1 bg-primary-color secondary-color center mb-15" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
+						<i class="fa-solid fa-phone"></i>
+					</div>
+					<h4 class="font-1 lh-1 fw-bold secondary-color mb-15">Vores ydelser</h4>
+					<!-- <div class="d-flex"> -->
+						<p class="font-1 lh-1 fw-bold service">Personlig hjælp: støtte i livskvalitet</p>
+						<p class="font-1 lh-1 fw-bold service">Hjælp til vask/bad, toiletbesøg, af- og påklædning</p>
+						<p class="font-1 lh-1 fw-bold service">Hjælp til at tage medicin</p>
+						<p class="font-1 lh-1 fw-bold service">Hjælp i forbindelse med anretning/servering af mad</p>
+						<p class="font-1 lh-1 fw-bold service">Hjælp til at komme i og op af sengen/ kørestol</p>
+						<p class="font-1 lh-1 fw-bold service">Praktisk hjælp</p>
+						<p class="font-1 lh-1 fw-bold service">Rengøring</p>
+						<p class="font-1 lh-1 fw-bold service">Støvsugning / gulvvask</p>
+						<p class="font-1 lh-1 fw-bold service">Tøjvask</p>
+					<!-- </div> -->
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade bg-overlay" id="videomodal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content bg-dark-color">
+					<iframe class="ifr-video" src="https://www.youtube.com/embed/FK2RaJ1EfA8?autoplay=1"
+						frameborder="0"></iframe>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section bg-light">
 		<div class="r-container">
 			<div class="row row-cols-1 row-cols-lg-2">
 				<div class="col mb-3 pe-lg-3 position-relative">
@@ -142,76 +235,11 @@
 										style="font-size: 20px; width: 3rem; height: 3rem;">
 										<i class="fa-solid fa-house-medical-circle-check"></i>
 									</div>
-									<span class="font-1 fs-3 lh-1 fw-semibold">Sikkerhed og tillid</span>
+									<span class="font-1 fs-3 lh-1 fw-semibold">Vi tilbyder sikkerhed og tillid</span>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Types Of Care -->
-	<section class="section bg-light">
-		<div class="r-container">
-			<div class="d-flex flex-column gap-3 justify-content-center text-center">
-				<h6 class="accent-color font-2 ">Types Of Care</h6>
-				<h3 class="text-black font-1 lh-1 fw-semibold">Providing Quality Senior Care</h3>
-				<p class="text-gray mx-auto" style="max-width: 768px;">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel dolor felis. In ligula
-					purus, imperdiet ac est nec, tempus varius nisl. Integer et venenatis odio. Fusce enim lectus,
-					gravida ut justo sed.
-				</p>
-				<div class="row row-cols-1 row-cols-lg-3">
-					<div class="col">
-						<div class="card p-3 with-border-bottom border-0 shadow rounded-3">
-							<img src="assets/images/dummy-img-600x400.jpg" class="card-img-top rounded-3" alt="...">
-							<div class="card-body ">
-								<h5 class="font-1 fw-bold">Assisted Living</h5>
-								<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-									elit tellus, luctus nec.</p>
-								<div class="d-flex justify-content-center">
-									<a type="button" href="single_service.html"
-										class="btn post-button font-2 d-flex flex-row align-items-center gap-2">Read
-										More <i class="fa-solid fa-circle-arrow-right mt-1"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card p-3 with-border-bottom border-0 shadow rounded-3">
-							<img src="assets/images/dummy-img-600x400.jpg" class="card-img-top rounded-3" alt="...">
-							<div class="card-body ">
-								<h5 class="font-1 fw-bold">Eldery Nutrition</h5>
-								<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-									elit tellus, luctus nec.</p>
-								<div class="d-flex justify-content-center">
-									<a type="button" href="single_service.html"
-										class="btn post-button font-2 d-flex flex-row align-items-center gap-2">Read
-										More <i class="fa-solid fa-circle-arrow-right mt-1"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card p-3 with-border-bottom border-0 shadow rounded-3">
-							<img src="assets/images/dummy-img-600x400.jpg" class="card-img-top rounded-3" alt="...">
-							<div class="card-body ">
-								<h5 class="font-1 fw-bold">Residential Care</h5>
-								<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-									elit tellus, luctus nec.</p>
-								<div class="d-flex justify-content-center">
-									<a type="button" href="single_service.html"
-										class="btn post-button font-2 d-flex flex-row align-items-center gap-2">Read
-										More <i class="fa-solid fa-circle-arrow-right mt-1"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="d-flex justify-content-center my-4">
-					<a href="service.html" type="button" class="btn bg-accent-color p-3 font-2">All Services</a>
 				</div>
 			</div>
 		</div>
@@ -230,12 +258,12 @@
 							<div class="col col-lg-12">
 								<div class="d-flex flex-column ps-3 mb-15">
 									<p>
-									Formålet med fritvalgsordning er at adskille “begrænsninger” fra problemstillinde løsninger.
-									Det gør det lettere får borgeren at få dækket aktuelle behov samt støtte end livskvalitet.
-									Med en privat hjemmepleje leverandør har du mulighed til at vælge Liv Vikar uden selv at skulle betale.
+										Formålet med fritvalgsordning er at adskille “begrænsninger” fra problemstillinde løsninger.
+										Det gør det lettere får borgeren at få dækket aktuelle behov samt støtte end livskvalitet.
+										Med en privat hjemmepleje leverandør har du mulighed til at vælge Liv Vikar uden selv at skulle betale.
 									</p>
 									<p>
-									 Du skal bare følge disse trin til at vælge Liv Vikar:
+										Du skal bare følge disse trin til at vælge Liv Vikar:
 									</p>
 									<div class="d-flex flex-column gap-2">
 										<div class="d-flex flex-row gap-2 align-items-center">
@@ -248,411 +276,18 @@
 										</div>
 									</div>
 								</div>
-								<div
-								class="col text-white gap-3 rounded-2 bg-accent-color p-3 text-center d-flex flex-column justify-content-center align-items-center">
-								<h5 class="font-1 lh-1 fw-bold">Har du brug for hjælp? <a class="bg-primary-color secondary-color p-1 rounded-1" href="kontakt.php">Kontakt os</a></h5>								
+								<div class="col text-white gap-3 rounded-2 bg-accent-color p-3 text-center d-flex flex-column justify-content-center align-items-center">
+								<h5 class="font-1 lh-1 fw-bold mb-0">Har du brug for hjælp? <a class="primary-color underlined" href="kontakt.php">Kontakt os</a></h5>								
 							</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col mb-5 pe-lg-3 position-relative">
-					<div class="overlay left"></div>
+				<div class="col mb-5 pe-lg-5 position-relative">
+					<div class="overlay left mt-2"></div>
 					<div class="position-relative ps-5">
-						<img src="assets/images/dummy-img-600x700.jpg" alt="" class="img-fluid rounded-3"
-							style="z-index: -2;">
-						<div class="position-absolute bottom-0 end-0 d-flex justify-content-end">
-							<div class=" bg-accent-color rounded-3 p-4 w-75" style="margin-bottom: -3rem;">
-								<h6 class="font-1 text-white fw-bold">The Patient Is First Priority In Our Passion
-								</h6>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="section pt-0">
-		<div class="r-container">
-			<div class="row row-cols-1 row-cols-lg-4">
-				<div class="col">
-					<div
-						class="card with-border-bottom border-0 shadow d-flex flex-column justify-content-center  align-items-center p-2">
-						<h3 class="accent-color font-1 fw-bold lh-1">250+</h3>
-						<h5 class="font-1 fw-bold">Completed Cases</h5>
-					</div>
-				</div>
-				<div class="col">
-					<div
-						class="card with-border-bottom border-0 shadow d-flex flex-column justify-content-center  align-items-center p-2">
-						<h3 class="accent-color font-1 fw-bold lh-1">50+</h3>
-						<h5 class="font-1 fw-bold">Nursing Staff</h5>
-					</div>
-				</div>
-				<div class="col">
-					<div
-						class="card with-border-bottom border-0 shadow d-flex flex-column justify-content-center  align-items-center p-2">
-						<h3 class="accent-color font-1 fw-bold lh-1">20+</h3>
-						<h5 class="font-1 fw-bold">Senior Doctors</h5>
-					</div>
-				</div>
-				<div class="col">
-					<div
-						class="card with-border-bottom border-0 shadow d-flex flex-column justify-content-center  align-items-center p-2">
-						<h3 class="accent-color font-1 fw-bold lh-1">200+</h3>
-						<h5 class="font-1 fw-bold">Happy Couples</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- We Care With Compassion -->
-	<section class="position-relative" style="background-image: url(assets/images/dummy-img-1920x900.jpg);">
-		<div class="r-container">
-			<div class="image-overlay"></div>
-			<div class="d-flex flex-column justify-content-center align-items-center text-center position-relative gap-3"
-				style="z-index: 2; min-height: 70vh;">
-				<div>
-					<!-- Button trigger modal -->
-					<div class="d-flex flex-row gap-3 align-items-center">
-						<button type="button" class="btn request-loader" data-bs-toggle="modal"
-							data-bs-target="#videomodal">
-							<i class="fa-solid fa-play"></i>
-						</button>
-					</div>
-				</div>
-				<h4 class="font-1 text-white fw-bold">We Care With Compassion</h4>
-				<p class="text-white" style="max-width: 768px;">
-					Morbi vehicula risus scelerisque justo fermentum volutpat. Praesent lobortis nunc nec ligula
-					elementum, sed accumsan ligula facilisis. Class aptent taciti sociosqu ad litora torquent per
-					conubia nostra.
-				</p>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal fade bg-overlay" id="videomodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
-				<div class="modal-content bg-dark-color">
-					<iframe class="ifr-video" src="https://www.youtube.com/embed/FK2RaJ1EfA8?autoplay=1"
-						frameborder="0"></iframe>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- What They Say ? -->
-	<section class="section pt-0 position-relative" style="margin-top: -100px;">
-		<div class="r-container">
-			<div class="overflow-hidden rounded-4">
-				<div class="row row-cols-1 row-cols-lg-2">
-					<div class="col bg-accent-color text-white ">
-						<div class="d-flex flex-column gap-3 p-5 h-100 justify-content-center">
-							<h6 class="font-2 ">What They Say ?</h6>
-							<h3 class="font-1 lh-1 fw-bold fs-1">Love To Serve You, With Compassionate Care</h3>
-							<p class="fs-6">
-								Sed congue mollis orci et tempus. Etiam semper elit id turpis ornare posuere a sit
-								amet elit. Nulla facilisi. Nullam augue lectus, lobortis et risus id, ornare
-								porttitor arcu.
-							</p>
-							<div>
-								<a href="contact.html" type="button" class="btn bg-accent-color-1 p-3">Contact Us</a>
-							</div>
-						</div>
-					</div>
-					<div class="col bg-light text-white">
-						<div class="overflow-hidden h-100 d-flex align-items-center">
-							<div class="swiper">
-								<!-- Additional required wrapper -->
-								<div class="swiper-wrapper">
-									<!-- Slides -->
-									<div class="swiper-slide">
-										<div class="d-flex flex-column gap-3 p-4 text-black">
-											<ul class="d-flex flex-row gap-2 p-0 m-0 text-warning"
-												style="list-style: none;">
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-											</ul>
-											<p>Nulla mollis tristique blandit. Nam at accumsan felis, vitae pharetra
-												nunc. Morbi imperdiet dui eu facilisis vestibulum. Sed dignissim non
-												nibh auctor finibus. Integer mollis varius maximus.
-											</p>
-											<div class="d-flex justify-content-between">
-												<div class="d-flex flex-row gap-3">
-													<img src="assets/images/dummy-img-400x400.jpg" alt=""
-														class="img-fluid rounded-circle" width="70" height="70">
-													<div class="d-flex flex-column h-100 justify-content-center">
-														<span class="text-black">Elsa Verina</span>
-														<span class="text-gray">Designation</span>
-													</div>
-												</div>
-												<div class="accent-color" style="font-size: 3rem;">
-													<i class="fa-solid fa-quote-right"></i>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="swiper-slide">
-										<div class="d-flex flex-column gap-3 p-4 text-black">
-											<ul class="d-flex flex-row gap-2 p-0 m-0 text-warning"
-												style="list-style: none;">
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-											</ul>
-											<p>Nulla mollis tristique blandit. Nam at accumsan felis, vitae pharetra
-												nunc. Morbi imperdiet dui eu facilisis vestibulum. Sed dignissim non
-												nibh auctor finibus. Integer mollis varius maximus.
-											</p>
-											<div class="d-flex justify-content-between">
-												<div class="d-flex flex-row gap-3">
-													<img src="assets/images/dummy-img-400x400.jpg" alt=""
-														class="img-fluid rounded-circle" width="70" height="70">
-													<div class="d-flex flex-column h-100 justify-content-center">
-														<span class="text-black">Dyas Kardinal</span>
-														<span class="text-gray">Designation</span>
-													</div>
-												</div>
-												<div class="accent-color" style="font-size: 3rem;">
-													<i class="fa-solid fa-quote-right"></i>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="swiper-slide">
-										<div class="d-flex flex-column gap-3 p-4 text-black">
-											<ul class="d-flex flex-row gap-2 p-0 m-0 text-warning"
-												style="list-style: none;">
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-												<li><i class="fa-solid fa-star"></i></li>
-											</ul>
-											<p>Nulla mollis tristique blandit. Nam at accumsan felis, vitae pharetra
-												nunc. Morbi imperdiet dui eu facilisis vestibulum. Sed dignissim non
-												nibh auctor finibus. Integer mollis varius maximus.
-											</p>
-											<div class="d-flex justify-content-between">
-												<div class="d-flex flex-row gap-3">
-													<img src="assets/images/dummy-img-400x400.jpg" alt=""
-														class="img-fluid rounded-circle" width="70" height="70">
-													<div class="d-flex flex-column h-100 justify-content-center">
-														<span class="text-black">Putri Maha</span>
-														<span class="text-gray">Designation</span>
-													</div>
-												</div>
-												<div class="accent-color" style="font-size: 3rem;">
-													<i class="fa-solid fa-quote-right"></i>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- If we need pagination -->
-								<div class="swiper-pagination"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- How It Work ? -->
-	<section class="section bg-light">
-		<div class="r-container">
-			<div class="row row-cols-1 row-cols-lg-2">
-				<div class="col mb-3">
-					<div class="d-flex flex-column gap-3 h-100 justify-content-center">
-						<h6 class="font-2 accent-color">How It Work ?</h6>
-						<h3 class="font-1 lh-1 fw-bold fs-1 mb-3">The Amazing Steps Of Our Treatment</h3>
-						<div class="d-flex flex-column gap-5">
-							<div class="d-flex flex-row gap-3 align-items-center">
-								<div class="bg-accent-color rounded-3 py-2 px-4 text-white">
-									<h4 class="lh-1 m-0 p-0 fw-bold font-1">1</h4>
-								</div>
-								<div class="d-flex flex-column">
-									<h5 class="font-1 fw-bold lh-1 m-0">
-										Book Your Appointment
-									</h5>
-									<p class="text-gray m-0">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
-										luctus nec ullamcorper mattis, pulvinar dapibus leo.
-									</p>
-								</div>
-							</div>
-							<div class="d-flex flex-row gap-3 align-items-center">
-								<div class="bg-accent-color rounded-3 py-2 px-4 text-white">
-									<h4 class="lh-1 m-0 p-0 fw-bold font-1">2</h4>
-								</div>
-								<div class="d-flex flex-column">
-									<h5 class="font-1 fw-bold lh-1 m-0">
-										In Person Counselling
-									</h5>
-									<p class="text-gray m-0">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
-										luctus nec ullamcorper mattis, pulvinar dapibus leo.
-									</p>
-								</div>
-							</div>
-							<div class="d-flex flex-row gap-3 align-items-center">
-								<div class="bg-accent-color rounded-3 py-2 px-4 text-white">
-									<h4 class="lh-1 m-0 p-0 fw-bold font-1">3</h4>
-								</div>
-								<div class="d-flex flex-column">
-									<h5 class="font-1 fw-bold lh-1 m-0">
-										Weekly Followup
-									</h5>
-									<p class="text-gray m-0">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
-										luctus nec ullamcorper mattis, pulvinar dapibus leo.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-3">
-					<div class="bg-accent-color rounded-4">
-						<div class="h-100 d-flex flex-column p-5">
-							<h6 class="font-2 text-white">Fill The Form</h6>
-							<h3 class="font-1 lh-1 fw-bold fs-1 mb-3 text-white">Get In Touch</h3>
-							<div class="success_msg toast align-items-center w-100 shadow-none mb-3 border border-success rounded-0 my-4"
-								role="alert" aria-live="assertive" aria-atomic="true">
-								<div class="d-flex p-2">
-									<div
-										class="toast-body  d-flex flex-row gap-3 align-items-center text-success">
-										<i class="fa-solid fa-check f-36 text-success"></i>
-										Your Message Successfully Send.
-									</div>
-									<button type="button"
-										class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-success"
-										data-bs-dismiss="toast" aria-label="Close"><i
-											class="fa-solid fa-xmark"></i></button>
-								</div>
-							</div>
-							<div class="error_msg toast align-items-center w-100 shadow-none border-danger mb-3 my-4 border rounded-0"
-								role="alert" aria-live="assertive" aria-atomic="true">
-								<div class="d-flex p-2">
-									<div
-										class="toast-body  d-flex flex-row gap-3 align-items-center text-danger">
-										<i class="fa-solid fa-triangle-exclamation f-36 text-danger"></i>
-										Something Wrong ! Send Form Failed.
-									</div>
-									<button type="button"
-										class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-danger"
-										data-bs-dismiss="toast" aria-label="Close"><i
-											class="fa-solid fa-xmark"></i></button>
-								</div>
-							</div>
-							<form action=""
-								class="d-flex flex-column h-100 justify-content-center w-100 needs-validation mb-3 form"
-								novalidate>
-								<div class="mb-3">
-									<input type="text" class="form-control py-2 px-4" name="name" id="name"
-										placeholder="Name" required>
-									<div class="invalid-feedback">
-										The field is required.
-									</div>
-								</div>
-								<div class="mb-3">
-									<input type="email" class="form-control py-2 px-4" name="email" id="email"
-										placeholder="Email" required>
-									<div class="invalid-feedback">
-										The field is required.
-									</div>
-								</div>
-								<div class="mb-3">
-									<input type="text" class="form-control py-2 px-4" name="subject" id="subject"
-										placeholder="Subject" required>
-									<div class="invalid-feedback">
-										The field is required.
-									</div>
-								</div>
-								<div class="mb-3">
-									<textarea class="form-control py-2 px-4" id="message" name="message" rows="5"
-										placeholder="Message"></textarea>
-								</div>
-								<div class="mb-3">
-									<button type="submit" class="btn submit_form py-3">
-										Send Message
-									</button>
-								</div>
-							</form>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- News & Article -->
-	<section class="section">
-		<div class="r-container">
-			<div class="d-flex flex-column gap-3">
-				<div class="d-flex flex-lg-row flex-column text-lg-start text-center gap-lg-4 gap-2">
-					<div class="col col-lg-3">
-						<h6 class="font-2 accent-color">News & Article</h6>
-						<h3 class="font-1 lh-1 fw-bold fs-1 mb-3">Our Latest News</h3>
-					</div>
-					<div class="col col-lg-7">
-						<p class="text-gray">Fusce non egestas felis, in rhoncus est. Morbi non congue orci. Sed
-							venenatis varius
-							convallis. Aenean vitae hendrerit est, eu molestie orci. Vivamus consectetur molestie
-							lacus, at mattis augue porta et.</p>
-					</div>
-					<div class="col col-lg-2">
-						<a href="news.html" type="button" class="btn bg-accent-color p-3">View More</a>
-					</div>
-				</div>
-				<div class="row row-cols-1 row-cols-lg-3">
-					<div class="col mb-3">
-						<div class="card border border-light-subtle">
-							<img src="assets/images/dummy-img-600x400.jpg" class="card-img-top" alt="...">
-							<div class="card-body px-3 py-4">
-								<h6 class="font-1 lh-1 fw-bold">Cherishing Life, Bringing Independence A Little
-									Closer To Home</h6>
-								<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Integer tincidunt maximus malesuada. Quisque ut ipsum…</p>
-								<a type="button" href="single_post.html" class="btn bg-accent-color py-3 px-4 text-white">Learn
-									More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col mb-3">
-						<div class="card border border-light-subtle">
-							<img src="assets/images/dummy-img-600x400.jpg" class="card-img-top" alt="...">
-							<div class="card-body px-3 py-4">
-								<h6 class="font-1 lh-1 fw-bold">Connected Living Strives To Curb Loneliness Amongst
-									Seniors</h6>
-								<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Integer tincidunt maximus malesuada. Quisque ut ipsum…</p>
-								<a type="button" href="single_post.html" class="btn bg-accent-color py-3 px-4 text-white">Learn
-									More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col mb-3">
-						<div class="card border border-light-subtle">
-							<img src="assets/images/dummy-img-600x400.jpg" class="card-img-top" alt="...">
-							<div class="card-body px-3 py-4">
-								<h6 class="font-1 lh-1 fw-bold">Metabolism Changes With Age, Just Not When You Might
-									Think</h6>
-								<p class="text-gray">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Integer tincidunt maximus malesuada. Quisque ut ipsum…</p>
-								<a type="button" href="single_post.html" class="btn bg-accent-color py-3 px-4 text-white">Learn
-									More</a>
-							</div>
-						</div>
+						<img src="assets/images/hvordan-vaelge-os.webp" alt="" class="img-fluid rounded-3"
+							style="z-index: -2;">						
 					</div>
 				</div>
 			</div>

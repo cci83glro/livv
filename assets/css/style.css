@@ -80,6 +80,26 @@
     margin-bottom: 2rem !important;
 }
 
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-05 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-1 {
+    margin-top: 1rem !important;
+}
+
+.mt-15 {
+    margin-top: 1.5rem !important;
+}
+
+.mt-2 {
+    margin-top: 2rem !important;
+}
+
 .border-1-secondary-color {
     border: 1px solid var(--secondary-color);
 }
@@ -131,7 +151,7 @@ a[type="button"] {
     padding-block: 0.5rem;
     text-decoration: none;
     transition: all 0.5s;
-    color: white;
+    font-weight: 700;
 }
 
 button.button {
@@ -156,12 +176,33 @@ a:hover {
 button:hover,
 a[type="button"]:hover {
     background-color: var(--secondary-color);
-    color: white;
+    color: var(--primary-color);
     filter: brightness(0.8);
 }
 
 a {
     text-decoration: none;
+}
+
+a.underlined {
+    text-decoration: underline;
+}
+
+a.underlined:hover {
+    color: var(--primary-color);
+}
+
+p.service {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: .5rem;
+    border-radius: 5px;
+    margin: .5rem, .5rem, 0, 0;
+    display: inline-block;
+}
+
+.center {
+    margin: 0 auto;
 }
 
 .font-1 {
@@ -295,7 +336,7 @@ a {
 }
 
 .section {
-    padding: 6em 2em 6em 2em;
+    padding: 6em 2em 2em 2em;
     overflow: hidden;
 }
 
@@ -671,6 +712,7 @@ a {
     aspect-ratio: 1/1;
     width: 4rem;
     height: 4rem;
+    margin-right: 1rem;
 }
 
 .request-loader {

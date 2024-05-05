@@ -71,7 +71,7 @@
                                 <a class="nav-link" href="contact.html">Kontakt</a>
                             </li>
                         </ul>
-                        <a href="" type="button" class="btn button bg-accent-color" type="submit">Opret vikar</a>
+                        <a href="" type="button" class="btn button bg-secondary-color primary-color" type="submit">Opret vikar</a>
                     </div>
                 </div>
             </nav>
