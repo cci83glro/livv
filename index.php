@@ -130,9 +130,9 @@
 									class="d-flex flex-lg-row flex-column justify-content-lg-start align-items-center gap-2 justify-content-center">
 									<div class="bg-accent-color text-white rounded-3 icon-box"
 										style="font-size: 20px; width: 3rem; height: 3rem;">
-										<i class="fa-solid fa-user-doctor"></i>
+										<i class="fa-solid fa-user-nurse"></i>
 									</div>
-									<span class="font-1 fs-3 lh-1 fw-semibold">Expert Nursing Staff</span>
+									<span class="font-1 fs-3 lh-1 fw-semibold">Vi er eksperter på vores område</span>
 								</div>
 							</div>
 							<div class="col mb-3">
@@ -142,7 +142,7 @@
 										style="font-size: 20px; width: 3rem; height: 3rem;">
 										<i class="fa-solid fa-house-medical-circle-check"></i>
 									</div>
-									<span class="font-1 fs-3 lh-1 fw-semibold">Safe Solution For Health</span>
+									<span class="font-1 fs-3 lh-1 fw-semibold">Sikkerhed og tillid</span>
 								</div>
 							</div>
 						</div>
@@ -223,47 +223,35 @@
 			<div class="d-flex flex-lg-row flex-column-reverse">
 				<div class="col mb-3">
 					<div class="d-flex flex-column gap-3 p-3 h-100 justify-content-center">
-						<h6 class="accent-color font-2 ">Why Choose Seniorsy</h6>
-						<h3 class="text-black font-1 lh-1 fw-bold">Our Heart Is Full Of Compassion For Your Care
+						<h6 class="accent-color font-2 ">Sådan vælger du os</h6>
+						<h3 class="text-black font-1 lh-1 fw-bold">Fritvalgsordning er til alle
 						</h3>
-						<div class="d-flex flex-lg-row flex-column">
-							<div
-								class="col text-white gap-3 col-lg-4 rounded-2 bg-accent-color p-3 text-center d-flex flex-column justify-content-center align-items-center">
-								<div class="rounded-circle p-1 bg-white accent-color"
-									style="width: 4rem; height: 4rem; font-size: 2.3rem;">
-									<i class="fa-solid fa-phone"></i>
-								</div>
-								<h5 class="font-1 lh-1 fw-bold">Clarify Your Queries Call Us Now</h5>
-								<h5 class="font-1 lh-1 fw-bold">+123-456-789</h5>
-							</div>
-							<div class="col col-lg-8">
-								<div class="d-flex flex-column ps-3">
+						<div class="d-flex flex-lg-row flex-column">							
+							<div class="col col-lg-12">
+								<div class="d-flex flex-column ps-3 mb-15">
 									<p>
-										Nullam porttitor metus justo, sit amet luctus arcu consequat a. Fusce
-										iaculis
-										leo a augue malesuada pharetra. Fusce porta porttitor odio vel placerat.
-										Etiam
-										vitae lacus finibus,
+									Formålet med fritvalgsordning er at adskille “begrænsninger” fra problemstillinde løsninger.
+									Det gør det lettere får borgeren at få dækket aktuelle behov samt støtte end livskvalitet.
+									Med en privat hjemmepleje leverandør har du mulighed til at vælge Liv Vikar uden selv at skulle betale.
+									</p>
+									<p>
+									 Du skal bare følge disse trin til at vælge Liv Vikar:
 									</p>
 									<div class="d-flex flex-column gap-2">
 										<div class="d-flex flex-row gap-2 align-items-center">
 											<i class="fa-solid fa-square-check accent-color"></i>
-											Suspendisse porta porttitor rhoncus
+											Kontakt din kommune, ansøg om hjemmehjælp til personlig pleje og vælg Liv Vikar som leverandør
 										</div>
 										<div class="d-flex flex-row gap-2 align-items-center">
 											<i class="fa-solid fa-square-check accent-color"></i>
-											Etiam dictum condimentum metus
-										</div>
-										<div class="d-flex flex-row gap-2 align-items-center">
-											<i class="fa-solid fa-square-check accent-color"></i>
-											Proin blandit sodales diam facilisis
-										</div>
-										<div class="d-flex flex-row gap-2 align-items-center">
-											<i class="fa-solid fa-square-check accent-color"></i>
-											Class aptent taciti sociosqu ad
+											Når ansøgningen er godkendt og visitationen har foretaget deres vurdering, vil Liv Vikar besøge dig. Sammen tilrettelægger vi den løsning, der bedst passer til dine ønsker og behov
 										</div>
 									</div>
 								</div>
+								<div
+								class="col text-white gap-3 rounded-2 bg-accent-color p-3 text-center d-flex flex-column justify-content-center align-items-center">
+								<h5 class="font-1 lh-1 fw-bold">Har du brug for hjælp? <a class="bg-primary-color secondary-color p-1 rounded-1" href="kontakt.php">Kontakt os</a></h5>								
+							</div>
 							</div>
 						</div>
 					</div>
