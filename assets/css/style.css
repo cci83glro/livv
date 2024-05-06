@@ -51,7 +51,7 @@
 
     --primary-color: #ffffff;
     --secondary-color: #0f5edb;
-    --font-1: 'Abhaya Libre', serif;
+    --font-1: 'Roboto', sans-serif;
     --font-2: 'Open Sans', sans-serif;
 }
 
@@ -109,19 +109,19 @@
 }
 
 h1 {
-    font-size: 100px;
+    font-size: 80px;
 }
 
 h2 {
-    font-size: 72px;
+    font-size: 60px;
 }
 
 h3 {
-    font-size: 50px
+    font-size: 40px
 }
 
 h4 {
-    font-size: 32px;
+    font-size: 30px;
 }
 
 h5 {
@@ -196,9 +196,17 @@ p.service {
     background-color: var(--secondary-color);
     color: var(--primary-color);
     padding: .5rem;
-    border-radius: 5px;
-    margin: .5rem, .5rem, 0, 0;
+    border-radius: 10px;
+    margin-right: 8px;
+    margin-bottom: 10px;
     display: inline-block;
+}
+
+.services-container {
+    border: 3px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 1rem .5rem .5rem .5rem;
+    margin-left: 1rem;
 }
 
 .center {
@@ -804,7 +812,7 @@ p.service {
 }
 
 .accordion-item:first-of-type .accordion-button {
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .accordion-button {

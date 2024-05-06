@@ -31,7 +31,7 @@
 								<i class="fa-solid fa-user-doctor secondary-color"></i>
 							</div>
 							<div class="d-flex flex-column">								
-								<span class="fw-bold font-1 fs-3 lh-1">
+								<span class="fw-bold font-1 fs-5 lh-1">
 									Erfaren / uddannet personale
 								</span>
 							</div>
@@ -43,7 +43,7 @@
 								<i class="fa-solid fa-hand-holding-heart primary-color"></i>
 							</div>
 							<div class="d-flex flex-column">								
-								<span class="fw-bold font-1 fs-3 lh-1 secondary-color">
+								<span class="fw-bold font-1 fs-5 lh-1 secondary-color">
 									Personlig hjælp
 								</span>
 							</div>
@@ -55,7 +55,7 @@
 								<i class="fa-solid fa-star secondary-color"></i>
 							</div>
 							<div class="d-flex flex-column">
-								<span class="fw-bold font-1 fs-3 lh-1">
+								<span class="fw-bold font-1 fs-5 lh-1">
 									Høj kvalitets ydelser
 								</span>
 							</div>
@@ -129,32 +129,20 @@
 						</div>
 					</div>
 				</div>
-				<div class="col text-white gap-3 col-lg-6 rounded-2 bg-primary-color p-3 text-center justify-content-center align-items-center">
-					<div class="rounded-circle p-1 bg-primary-color secondary-color center mb-15" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
-						<i class="fa-solid fa-phone"></i>
+				<div class="col text-white gap-3 col-lg-6 bg-primary-color text-center justify-content-center align-items-center services-container">
+					<div class="rounded-circle p-1 bg-secondary-color primary-color center mb-15" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
+						<i class="fa-solid fa-clipboard"></i>
 					</div>
 					<h4 class="font-1 lh-1 fw-bold secondary-color mb-15">Vores ydelser</h4>
-					<!-- <div class="d-flex"> -->
-						<p class="font-1 lh-1 fw-bold service">Personlig hjælp: støtte i livskvalitet</p>
-						<p class="font-1 lh-1 fw-bold service">Hjælp til vask/bad, toiletbesøg, af- og påklædning</p>
-						<p class="font-1 lh-1 fw-bold service">Hjælp til at tage medicin</p>
-						<p class="font-1 lh-1 fw-bold service">Hjælp i forbindelse med anretning/servering af mad</p>
-						<p class="font-1 lh-1 fw-bold service">Hjælp til at komme i og op af sengen/ kørestol</p>
-						<p class="font-1 lh-1 fw-bold service">Praktisk hjælp</p>
-						<p class="font-1 lh-1 fw-bold service">Rengøring</p>
-						<p class="font-1 lh-1 fw-bold service">Støvsugning / gulvvask</p>
-						<p class="font-1 lh-1 fw-bold service">Tøjvask</p>
-					<!-- </div> -->
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal fade bg-overlay" id="videomodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
-				<div class="modal-content bg-dark-color">
-					<iframe class="ifr-video" src="https://www.youtube.com/embed/FK2RaJ1EfA8?autoplay=1"
-						frameborder="0"></iframe>
+					<p class="font-1 lh-1 fw-bold service">Personlig hjælp: støtte i livskvalitet</p>
+					<p class="font-1 lh-1 fw-bold service">Hjælp til vask/bad, toiletbesøg, af- og påklædning</p>
+					<p class="font-1 lh-1 fw-bold service">Hjælp til at tage medicin</p>
+					<p class="font-1 lh-1 fw-bold service">Hjælp i forbindelse med anretning/servering af mad</p>
+					<p class="font-1 lh-1 fw-bold service">Hjælp til at komme i og op af sengen/ kørestol</p>
+					<p class="font-1 lh-1 fw-bold service">Praktisk hjælp</p>
+					<p class="font-1 lh-1 fw-bold service">Rengøring</p>
+					<p class="font-1 lh-1 fw-bold service">Støvsugning / gulvvask</p>
+					<p class="font-1 lh-1 fw-bold service">Tøjvask</p>
 				</div>
 			</div>
 		</div>
@@ -174,14 +162,14 @@
 						<h6 class="accent-color font-2 ">Erfaring og kvalifikationer</h6>
 						<h3 class="text-black font-1 lh-1 fw-semibold mb-15">Dette definerer os som firma
 						</h3>
-						<p class=" mb-05">
+						<p class=" mb-0">
 							Alle vores ansatte har og får løbende udfyldt kompetenceskemaer.
 						</p>
-						<p class=" mb-05">
+						<p class=" mb-0">
 							Vi prioriterer minimum 3 års erfaring ved ansættelser.
 						</p>
 						<p class=" mb-15">
-							Ansvarshavende sygeplejersker skal have minimum 2 års erfaring ude i den akute medicinske regi.
+							Ansvarshavende sygeplejersker skal have minimum 2 års erfaring ude i den akute medicinske regi.
 						</p>
 						<div class="row row-cols-2">
 							<div class="col mb-1">
@@ -225,7 +213,7 @@
 										style="font-size: 20px; width: 3rem; height: 3rem;">
 										<i class="fa-solid fa-user-nurse"></i>
 									</div>
-									<span class="font-1 fs-3 lh-1 fw-semibold">Vi er eksperter på vores område</span>
+									<span class="font-1 fs-5 lh-1 fw-semibold">Vi er eksperter på vores område</span>
 								</div>
 							</div>
 							<div class="col mb-3">
@@ -235,7 +223,7 @@
 										style="font-size: 20px; width: 3rem; height: 3rem;">
 										<i class="fa-solid fa-house-medical-circle-check"></i>
 									</div>
-									<span class="font-1 fs-3 lh-1 fw-semibold">Vi tilbyder sikkerhed og tillid</span>
+									<span class="font-1 fs-5 lh-1 fw-semibold">Vi tilbyder sikkerhed og tillid</span>
 								</div>
 							</div>
 						</div>
