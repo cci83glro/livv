@@ -79,49 +79,44 @@ function reloadBookings() {
 
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
-    var recordsPerPage = 4; // Adjust as needed
+    var recordsPerPage = 9; // Adjust as needed
         
     //var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
-    var url = `retrieve_bookings.php`;
-    
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-        var employees = Array.from(document.getElementById('employee').options);
+    var url = `booking/retrieve_bookings.php`;
 
-        var container = document.getElementById('bookings-container');
+    $.get(url, function(data) {
+        var employees = Array.from($('#employee option'));
+
+        var container = $('#bookings-container');
         container.innerHTML = ''; // Clear existing data
-        container.setAttribute("data-active-page", page);
+        container.attr("data-active-page", page);
         
         var totalCount = data.length;
         var lowerBound = (page-1) * recordsPerPage;
         var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);
+        var innerHtml = ``;
 
-        // Populate table with retrieved bookings
         data.slice(lowerBound, upperBound)
             .forEach(booking => {
             //var row = document.createElement('tr');
             var assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+            var assignText = 'Unassigned';
             if (!booking.assigned_user_id) {
                 assignAction = `<select id="user-dropdown-${booking.booking_id}">`;
                 employees.forEach(e => {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<button onclick="assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<button onclick="booking/assignUser(${booking.booking_id})">Assign</button>`;
+            } else {
+                assignText = 'Assigned til ' + booking.user_name;
             }
-            container.innerHTML += `
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse-${booking.booking_id}" aria-expanded="false"
-                        aria-controls="collapse-${booking.booking_id}">
-                        ${booking.place + booking.date}
-                    </button>
-                </h2>
-                <div id="collapse-${booking.booking_id}" class="accordion-collapse collapse show"
-                    data-bs-parent="#bookings-container">
-                    <div class="accordion-body">
+            innerHTML += `
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        ${booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer) | " +  assignText}
+                    </div>
+                    <div class="accordion-content">
                         <p>${booking.place}</p>
                         <p>${booking.date}</p>
                         <p>${booking.time_value}</p>
@@ -130,27 +125,42 @@ function loadBookings(page) {
                         <p>${booking.qualification_name}</p>
                         <p>${booking.user_name}</p>
                         <p><button onclick="deleteBooking(${booking.booking_id})">Delete</button></p>
-                        <p>${assignAction}</p>    
+                        <p>${assignAction}</p>
                     </div>
-                </div>
-            </div>`;
+                </div>`;
         });
+
+        container.html(innerHtml);
         
         // Generate pagination links
-        var paginationDiv = document.getElementById('pagination');
-        paginationDiv.innerHTML = ''; // Clear existing pagination links
+        var paginationDiv = $('#pagination');
+        paginationDiv.html(''); // Clear existing pagination links
         var totalPages = Math.ceil(totalCount / recordsPerPage);
-        for (var i = 1; i <= totalPages; i++) {
-            var link = document.createElement('a');
-            link.href = '#';
-            link.textContent = i;
-            link.onclick = function() {
-                loadBookings(this.textContent); // Load bookings for clicked page
-            };
-            paginationDiv.appendChild(link);
+        if (totalPages > 1) {
+            for (var i = 1; i <= totalPages; i++) {
+                var link = document.createElement('a');
+                link.href = '#';
+                link.textContent = i;
+                link.onclick = function(e) {
+                    e.preventDefault();
+                    loadBookings(this.textContent); // Load bookings for clicked page
+                };
+                paginationDiv.appendChild(link);
+            }
         }
     })
-    .catch(error => console.error('Error:', error));
+    .fail(function(xhr, status, error) {
+        // Handle errors
+        console.error('Error:', error);
+      });
+
+   //$('.accordion-content').hide();
+
+    // Add click event listener to accordion headers
+    $('.accordion-header').click(function(){
+      // Toggle the accordion content
+      $(this).next('.accordion-content').slideToggle();
+    });
 }
 // JavaScript code for interacting with backend scripts and updating frontend dynamically
 // Function to delete a booking
@@ -174,7 +184,11 @@ function deleteBooking(bookingId) {
     }
 }
 
+
+
 // Load bookings when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     loadBookings(1);
+
+    
 });

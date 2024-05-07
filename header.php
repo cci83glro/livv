@@ -1,12 +1,30 @@
-<?php require_once 'master.php';?>
 <!DOCTYPE html>
 <html lang="en">
 
+<?php require_once 'master.php';?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Stylesheet -->
     <?php include_once "config/css.php"?>
+
+    <style>
+  /* Style for accordion */
+  .accordion-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  .accordion-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .accordion-content {
+    display: none;
+    padding: 10px;
+  }
+</style>
+
     <title>LivVikar - Home</title>
 </head>
 

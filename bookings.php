@@ -38,67 +38,11 @@
 						
 						<div class="d-flex flex-column">
 							<!-- <h3 class="font-1 fw-bold">Frequently Asked Questions</h3> -->
-							<div class="accordion d-flex flex-column gap-2" id="bookings-container" data-active-page="">
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-											data-bs-target="#collapseOne" aria-expanded="false"
-											aria-controls="collapseOne">
-											How To Change My Photo From Admin Dashboard ?
-										</button>
-									</h2>
-									<div id="collapseOne" class="accordion-collapse collapse show"
-										data-bs-parent="#bookings-container">
-										<div class="accordion-body">
-											Far far away, behind the word mountains, far from the countries Vokalia
-											and Consonantia, there live the blind texts. Separated they live in
-											Bookmarksgrove right at the coast
-										</div>
-									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button fw-bold collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-											aria-expanded="false" aria-controls="collapseTwo">
-											How To Change My Password Easily ?
-										</button>
-									</h2>
-									<div id="collapseTwo" class="accordion-collapse collapse"
-										data-bs-parent="#bookings-container">
-										<div class="accordion-body">
-											Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast
-										</div>
-									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button fw-bold collapsed" type="button"
-											data-bs-toggle="collapse" data-bs-target="#collapseThree"
-											aria-expanded="false" aria-controls="collapseThree">
-											How To Change My Subscription Plan Using PayPal
-										</button>
-									</h2>
-									<div id="collapseThree" class="accordion-collapse collapse"
-										data-bs-parent="#bookings-container">
-										<div class="accordion-body">
-											Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast
-										</div>
-									</div>
-								</div>
+							<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								
 							</div>
+							<div id="pagination"></div>
 						</div>
 					</div>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade bg-overlay" id="videomodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content bg-dark-color">
-                        <iframe class="ifr-video" src="https://www.youtube.com/embed/FK2RaJ1EfA8?autoplay=1"
-                            frameborder="0"></iframe>
-                    </div>
                 </div>
             </div>
         </section>
@@ -219,3 +163,7 @@
     </main>
 
 <?php include_once "footer.php"?>
+<script src="assets/js/bookings.js"></script>
+
+</body>
+</html>

@@ -108,6 +108,3 @@
 </footer>
 
 <?php include_once "config/js.php"?>
-</body>
-
-</html>
