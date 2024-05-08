@@ -81,7 +81,7 @@
 										class="fa-solid fa-xmark"></i></button>
 							</div>
 						</div>
-						<form action="create_booking.php"
+						<form id="bookingForm" method="post" action="booking/create_booking.php" data-user-id="<?php echo $user_id; ?>"
 							class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking"
 							novalidate>
 							<div class="row">	
