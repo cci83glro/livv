@@ -79,26 +79,23 @@ function reloadBookings() {
 
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
-    var recordsPerPage = 9; // Adjust as needed
+    var recordsPerPage = 5; // Adjust as needed
         
     //var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
     var url = `booking/retrieve_bookings.php`;
 
-    $.get(url, function(data) {
+    $.getJSON(url, function(data) {
         var employees = Array.from($('#employee option'));
 
         var container = $('#bookings-container');
-        container.innerHTML = ''; // Clear existing data
+        container.html(''); // Clear existing data
         container.attr("data-active-page", page);
         
         var totalCount = data.length;
         var lowerBound = (page-1) * recordsPerPage;
-        var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);
-        var innerHtml = ``;
+        var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);        
 
-        data.slice(lowerBound, upperBound)
-            .forEach(booking => {
-            //var row = document.createElement('tr');
+        data.slice(lowerBound, upperBound).forEach(function(booking) {
             var assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
             var assignText = 'Unassigned';
             if (!booking.assigned_user_id) {
@@ -111,12 +108,12 @@ function loadBookings(page) {
             } else {
                 assignText = 'Assigned til ' + booking.user_name;
             }
-            innerHTML += `
+            var element = `
                 <div class="accordion-item">
-                    <div class="accordion-header">
+                    <div class="accordion-item-header bg-secondary-color primary-color">
                         ${booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer) | " +  assignText}
                     </div>
-                    <div class="accordion-content">
+                    <div class="accordion-item-content">
                         <p>${booking.place}</p>
                         <p>${booking.date}</p>
                         <p>${booking.time_value}</p>
@@ -128,39 +125,42 @@ function loadBookings(page) {
                         <p>${assignAction}</p>
                     </div>
                 </div>`;
+            container.append(element);
         });
 
-        container.html(innerHtml);
+        $('.accordion-item-header').click(function(){
+            // Toggle the accordion content
+            $(this).next('.accordion-item-content').slideToggle();
+        });
         
         // Generate pagination links
         var paginationDiv = $('#pagination');
         paginationDiv.html(''); // Clear existing pagination links
         var totalPages = Math.ceil(totalCount / recordsPerPage);
         if (totalPages > 1) {
+            var paginationHtml = '';
             for (var i = 1; i <= totalPages; i++) {
-                var link = document.createElement('a');
-                link.href = '#';
-                link.textContent = i;
-                link.onclick = function(e) {
-                    e.preventDefault();
-                    loadBookings(this.textContent); // Load bookings for clicked page
-                };
-                paginationDiv.appendChild(link);
+                var active = '';
+                if (page === i) {
+                    active = 'active';
+                }
+
+                paginationHtml += '<span class="page-link ' + active + '" data-page="' + i + '"> ' + i + '</span>';
             }
+          
+            paginationDiv.append(paginationHtml);
+
+            $('.page-link').click(function(){
+                var page = parseInt($(this).data('page'));
+                currentPage = page;
+                loadBookings(currentPage);
+            });
         }
     })
     .fail(function(xhr, status, error) {
         // Handle errors
         console.error('Error:', error);
       });
-
-   //$('.accordion-content').hide();
-
-    // Add click event listener to accordion headers
-    $('.accordion-header').click(function(){
-      // Toggle the accordion content
-      $(this).next('.accordion-content').slideToggle();
-    });
 }
 // JavaScript code for interacting with backend scripts and updating frontend dynamically
 // Function to delete a booking
@@ -184,11 +184,12 @@ function deleteBooking(bookingId) {
     }
 }
 
-
+function showAddBookingForm() {
+    $('.add-booking-section').show();
+}
 
 // Load bookings when the page loads
 document.addEventListener('DOMContentLoaded', function() {
     loadBookings(1);
-
-    
+    $('.add-booking-section').hide();
 });

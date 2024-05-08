@@ -38,6 +38,7 @@
 						
 						<div class="d-flex flex-column">
 							<!-- <h3 class="font-1 fw-bold">Frequently Asked Questions</h3> -->
+							<button onclick="showAddBookingForm()">Tilføj booking</button>
 							<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								
 							</div>
 							<div id="pagination"></div>
@@ -80,7 +81,7 @@
 										class="fa-solid fa-xmark"></i></button>
 							</div>
 						</div>
-						<form action=""
+						<form action="create_booking.php"
 							class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking"
 							novalidate>
 							<div class="row">	
