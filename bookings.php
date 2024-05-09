@@ -1,6 +1,10 @@
 
 <?php
 	include_once "header.php";
+
+	if ($user_id == 0) {
+		die("Invalid token");
+	}
 	
     $db = DB::getInstance();
     

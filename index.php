@@ -148,7 +148,7 @@
 		</div>
 	</section>
 
-	<section class="section bg-light">
+	<section class="section">
 		<div class="r-container">
 			<div class="row row-cols-1 row-cols-lg-2">
 				<div class="col mb-3 pe-lg-3 position-relative">

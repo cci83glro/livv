@@ -19,10 +19,10 @@ $(function () {
     }
 
     // Panggil fungsi untuk pertama kali
-    changeBackgroundImage();
+    //changeBackgroundImage();
 
     // Set interval untuk memanggil fungsi perubahan gambar dengan waktu yang ditentukan
-    setInterval(changeBackgroundImage, 5000); // 10 detik (sesuaikan dengan waktu animasi CSS di atas)
+    //setInterval(changeBackgroundImage, 5000); // 10 detik (sesuaikan dengan waktu animasi CSS di atas)
 });
 
 $.fn.isValid = function(){

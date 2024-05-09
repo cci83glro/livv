@@ -29,9 +29,6 @@
                     <a href="https://www.twitter.com" class="social-item">
                         <i class="fa-brands fa-twitter"></i>
                     </a>
-                    <a href="https://www.youtube.com" class="social-item">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -42,7 +39,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <div class="logo-container">
-                            <img src="assets/images/logo.png" alt="" class="img-fluid">
+                            <img src="assets/images/logo_400_200.webp" alt="" class="img-fluid">
                         </div>
                     </a>
                     <button class="navbar-toggler accent-color border-0" type="button" data-bs-toggle="collapse"
