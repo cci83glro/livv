@@ -9,7 +9,7 @@ function assignUserToBooking(bookingId, userId) {
     formData.append('booking_id', bookingId);
     formData.append('user_id', userId);
     
-    fetch('assign_user.php', {
+    fetch('booking/assign_user.php', {
         method: 'POST',
         body: formData
     })
@@ -51,7 +51,7 @@ function unassignUser(bookingId) {
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     
-    fetch('unassign_user.php', {
+    fetch('booking/unassign_user.php', {
         method: 'POST',
         body: formData
     })
@@ -100,31 +100,32 @@ function loadBookings(page) {
         var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);        
 
         data.slice(lowerBound, upperBound).forEach(function(booking) {
-            var assignAction = `<button onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+            var assignAction = `<br/><button class="action-button-reverted unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
             var assignText = 'Unassigned';
             if (!booking.assigned_user_id) {
-                assignAction = `<select id="user-dropdown-${booking.booking_id}">`;
+                assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
                 employees.forEach(e => {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<button class="action-button-reverted" onclick="booking/assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<button class="action-button-reverted assign-booking" onclick="assignUser(${booking.booking_id})">Assign</button>`;
             } else {
-                assignText = 'Assigned til ' + booking.user_name;
+                assignText = '<span>Assigned til:</span> ' + booking.user_name;
             }
             var element = `
                 <div class="accordion-item">
                     <div class="accordion-item-header bg-secondary-color primary-color">
                         ${booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer) | " +  assignText}
+                        <span class="indicator">+</span>
                     </div>
-                    <div class="accordion-item-content">
-                        <p>Sted: ${booking.place}</p>
-                        <p>Dato: ${booking.date}</p>
-                        <p>Tidspunkt: ${booking.time_value}</p>
-                        <p>Antal timer: ${booking.hours}</p>
-                        <p>Stilling: ${booking.shift_name}</p>
-                        <p>Uddannelse: ${booking.qualification_name}</p>
-                        <p>${booking.user_name}${assignAction}</p>
+                    <div class="accordion-item-content" data-id="${booking.booking_id}">
+                        <p class="place" data-value="${booking.place}"><span>Sted:</span> ${booking.place}</p>
+                        <p class="date" data-value="${booking.date}"><span>Dato:</span> ${booking.date}</p>
+                        <p class="time" data-value="${booking.time_value}"><span>Tidspunkt:</span> kl. ${booking.time_value}</p>
+                        <p class="hours" data-value="${booking.hours}"><span>Antal timer:</span> ${booking.hours}</p>
+                        <p class="shift" data-value="${booking.shift_name}"><span>Stilling:</span> ${booking.shift_name}</p>
+                        <p class="qualification" data-value="${booking.qualification_name}"><span>Uddannelse:</span> ${booking.qualification_name}</p>
+                        <p>${assignText}${assignAction}</p>
                         <div class="accordion-item-content-actions">
                             <button class="delete-booking-button cancel-button" onclick="deleteBooking(${booking.booking_id})">Slet</button>
                             <button class="edit-booking-button action-button" onclick="editBooking(${booking.booking_id})">Rediger</button>
@@ -135,8 +136,10 @@ function loadBookings(page) {
         });
 
         $('.accordion-item-header').click(function(){
-            // Toggle the accordion content
             $(this).next('.accordion-item-content').slideToggle();
+            var element = $(this).find('.indicator')[0];
+            var newContent = element.textContent === "+" ? "-" : "+";
+            $(element).text(newContent);
         });
         
         // Generate pagination links

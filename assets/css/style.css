@@ -850,7 +850,16 @@ p.service {
     padding: 10px;
     cursor: pointer;
     border-radius: 10px;
+    position: relative;
 }
+
+.accordion-item-header .indicator {
+    position: absolute;
+    right: 1rem;
+    font-size: 2rem;
+    line-height: 1rem;
+}
+
 .accordion-item-content {
     display: none;
     padding: 10px;
@@ -860,6 +869,10 @@ p.service {
 .accordion-item-content > p {
     display: inline-block;
     width: 33%;
+}
+
+.accordion-item-content > p > span{
+    font-weight: 700;
 }
 
 .accordion-item-content-actions {
@@ -904,7 +917,8 @@ div#pagination .page-link.active{
 }
 
 #add-booking-section input,
-#add-booking-section select {
+#add-booking-section select,
+.accordion-item-content select {
     border: 1px solid var(--gray-color);
 }
 
@@ -926,11 +940,25 @@ div#pagination .page-link.active{
 }
 
 #add-booking-button {
-    width: 25%;
+    width: 20%;
     border-radius: 10px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     border: 3px solid var(--secondary-color);
+}
+
+.assign-users-select {
+    /* margin-left: 1rem; */
+    width: 50%;
+    display: inline-block;
+}
+
+.assign-booking {
+    margin-left: 1rem;
+}
+
+.unassign-booking {
+    margin-top: .5rem;
 }
 
 .action-button {
