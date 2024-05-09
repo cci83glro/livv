@@ -73,13 +73,13 @@ function unassignUser(bookingId) {
 }
 
 function reloadBookings() {
-    var tbody = document.getElementById('bookingsBody');
-    loadBookings(tbody.getAttribute("data-active-page"));
+    var bookingsContainer = $('#bookings-container');
+    loadBookings(bookingsContainer.attr("data-active-page"));
 }
 
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
-    var recordsPerPage = 5; // Adjust as needed
+    var recordsPerPage = 3; // Adjust as needed
         
     //var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
     var url = `booking/retrieve_bookings.php`;
@@ -93,6 +93,10 @@ function loadBookings(page) {
         
         var totalCount = data.length;
         var lowerBound = (page-1) * recordsPerPage;
+        if (totalCount === lowerBound) {
+            page -= 1;
+            lowerBound = (page-1) * recordsPerPage;
+        }
         var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);        
 
         data.slice(lowerBound, upperBound).forEach(function(booking) {
@@ -104,7 +108,7 @@ function loadBookings(page) {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<button onclick="booking/assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<button class="action-button-reverted" onclick="booking/assignUser(${booking.booking_id})">Assign</button>`;
             } else {
                 assignText = 'Assigned til ' + booking.user_name;
             }
@@ -114,15 +118,17 @@ function loadBookings(page) {
                         ${booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer) | " +  assignText}
                     </div>
                     <div class="accordion-item-content">
-                        <p>${booking.place}</p>
-                        <p>${booking.date}</p>
-                        <p>${booking.time_value}</p>
-                        <p>${booking.hours}</p>
-                        <p>${booking.shift_name}</p>
-                        <p>${booking.qualification_name}</p>
-                        <p>${booking.user_name}</p>
-                        <p><button onclick="deleteBooking(${booking.booking_id})">Delete</button></p>
-                        <p>${assignAction}</p>
+                        <p>Sted: ${booking.place}</p>
+                        <p>Dato: ${booking.date}</p>
+                        <p>Tidspunkt: ${booking.time_value}</p>
+                        <p>Antal timer: ${booking.hours}</p>
+                        <p>Stilling: ${booking.shift_name}</p>
+                        <p>Uddannelse: ${booking.qualification_name}</p>
+                        <p>${booking.user_name}${assignAction}</p>
+                        <div class="accordion-item-content-actions">
+                            <button class="delete-booking-button cancel-button" onclick="deleteBooking(${booking.booking_id})">Slet</button>
+                            <button class="edit-booking-button action-button" onclick="editBooking(${booking.booking_id})">Rediger</button>
+                        </div>
                     </div>
                 </div>`;
             container.append(element);
@@ -165,18 +171,18 @@ function loadBookings(page) {
 // JavaScript code for interacting with backend scripts and updating frontend dynamically
 // Function to delete a booking
 function deleteBooking(bookingId) {
-    var confirmation = confirm("Are you sure you want to delete this booking?");
+    var confirmation = confirm("Slet bookingen?");
     if (confirmation) {
         var formData = new FormData();
         formData.append('booking_id', bookingId);
         
-        fetch('delete_booking.php', {
+        fetch('booking/delete_booking.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.text())
         .then(data => {
-            alert(data); // Show response message
+            //alert(data); // Show response message
             // Reload the page after deletion
             reloadBookings();
         })
@@ -185,11 +191,53 @@ function deleteBooking(bookingId) {
 }
 
 function showAddBookingForm() {
-    $('.add-booking-section').show();
+    $('#add-booking-section').fadeIn("slow");
+}
+
+function hideAddBookingForm() {
+    $('#add-booking-section').fadeOut("slow");
+}
+
+function resetAddBookingForm(form) {
+    form[0].reset();
+    form.removeClass('was-validated');
+}
+
+function addBooking() {
+
+    var form = $('#bookingForm');
+
+    if (form.isValid())
+    {
+        var formData = form.serialize();
+        
+        $.post('booking/create_booking.php', formData, function(response){
+            if (response == 'success') {                
+                hideAddBookingForm();
+                resetAddBookingForm(form);
+                reloadBookings();
+            } else {
+                const errtoast = new bootstrap.Toast($('.error_msg')[0]);
+                errtoast.show();
+            }
+        });
+    }
+    form.addClass('was-validated');
+}
+
+function cancelBooking() {
+
+//    if (confirm("Er du sikker på, du vil fortryde?")) {
+        hideAddBookingForm();
+        resetAddBookingForm($('#bookingForm'));
+  //  }
 }
 
 // Load bookings when the page loads
 document.addEventListener('DOMContentLoaded', function() {
+    //hideAddBookingForm();
     loadBookings(1);
-    $('.add-booking-section').hide();
+    
+    $('#add-booking-submit-button').click(addBooking);
+    $('#add-booking-cancel-button').click(cancelBooking);
 });

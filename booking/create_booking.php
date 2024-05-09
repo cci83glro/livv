@@ -33,7 +33,7 @@ $fields = [
 
 if($db->insert('bookings', $fields)) {
     // Booking successful
-    echo "Booking created successfully!";
+    echo "success";
 } else {
     // Handle errors
     echo "Error creating booking: " . $db->error;

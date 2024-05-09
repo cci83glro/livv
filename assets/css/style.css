@@ -48,9 +48,13 @@
     
     --accent-color-2: #cd5a91;
     --gray-color: #aaaaaa;
-
+    
+    --white-color: #fff;
+    --red-color: red;
+    --black-color: #000;
     --primary-color: #ffffff;
     --secondary-color: #0f5edb;
+
     --font-1: 'Roboto', sans-serif;
     --font-2: 'Open Sans', sans-serif;
 }
@@ -249,14 +253,15 @@ p.service {
     padding-block: 0.7rem;
     text-decoration: none;
     transition: all 0.5s;
-    color: var(--secondary-color);
-    background-color: var(--primary-color);
-    border-radius: 5px;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    border-radius: 10px;
     font-weight: 600;
 }
 
 .form .form-field-label {
-    color: var(--primary-color);
+    color: var(--black-color);
+    margin-bottom: .5rem;
     font-weight: 600;
 }
 
@@ -849,6 +854,27 @@ p.service {
 .accordion-item-content {
     display: none;
     padding: 10px;
+    position: relative;
+}
+
+.accordion-item-content > p {
+    display: inline-block;
+    width: 33%;
+}
+
+.accordion-item-content-actions {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.accordion-item-content-actions > button {
+    width: 8rem;
+    margin-right: 1rem;
+}
+
+.accordion-item-content-actions > button:last-child {
+    margin-right: 0;
 }
 
 div#pagination {
@@ -870,6 +896,62 @@ div#pagination .page-link:last-child{
 div#pagination .page-link.active{
     color: var(--secondary-color);
     font-weight: 700;    
+}
+
+#add-booking-section {
+    padding: 2rem 0;
+    display: flex;
+}
+
+#add-booking-section input,
+#add-booking-section select {
+    border: 1px solid var(--gray-color);
+}
+
+#add-booking-button-wrapper {
+    text-align: right;
+}
+
+.add-booking-buttons-wrapper {
+    text-align: right;
+}
+
+.add-booking-buttons > button{
+    margin-right: 1rem;
+    width: 10%;
+}
+
+.add-booking-buttons > button:last-child{
+    margin-right: 0;
+}
+
+#add-booking-button {
+    width: 25%;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 3px solid var(--secondary-color);
+}
+
+.action-button {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+}
+
+.action-button-reverted {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 10px;
+}
+
+.cancel-button {
+    background-color: var(--red-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 10px;
 }
 
 

@@ -25,6 +25,10 @@ $(function () {
     setInterval(changeBackgroundImage, 5000); // 10 detik (sesuaikan dengan waktu animasi CSS di atas)
 });
 
+$.fn.isValid = function(){
+    return this[0].checkValidity();
+}
+
 $(window).ready(function() {
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
