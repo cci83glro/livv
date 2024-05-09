@@ -9,7 +9,7 @@ require_once '../users/init.php';
 
 $db = DB::getInstance();
 $query = $db->query(
-    "SELECT b.*, t.time_value, s.shift_name, q.qualification_name, CONCAT(u.fname, ' ', u.lname) as user_name 
+    "SELECT b.*, t.time_id, t.time_value, s.shift_id, s.shift_name, q.qualification_id, q.qualification_name, CONCAT(u.fname, ' ', u.lname) as user_name 
     FROM Bookings b
     INNER JOIN Shifts s ON b.shift_id = s.shift_id 
     INNER JOIN Qualifications q ON b.qualification_id = q.qualification_id 

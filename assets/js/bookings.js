@@ -79,7 +79,7 @@ function reloadBookings() {
 
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
-    var recordsPerPage = 3; // Adjust as needed
+    var recordsPerPage = 10; // Adjust as needed
         
     //var url = `retrieve_bookings.php?page=${page}&records_per_page=${recordsPerPage}`;
     var url = `booking/retrieve_bookings.php`;
@@ -121,10 +121,10 @@ function loadBookings(page) {
                     <div class="accordion-item-content" data-id="${booking.booking_id}">
                         <p class="place" data-value="${booking.place}"><span>Sted:</span> ${booking.place}</p>
                         <p class="date" data-value="${booking.date}"><span>Dato:</span> ${booking.date}</p>
-                        <p class="time" data-value="${booking.time_value}"><span>Tidspunkt:</span> kl. ${booking.time_value}</p>
+                        <p class="time" data-value="${booking.time_id}"><span>Tidspunkt:</span> kl. ${booking.time_value}</p>
                         <p class="hours" data-value="${booking.hours}"><span>Antal timer:</span> ${booking.hours}</p>
-                        <p class="shift" data-value="${booking.shift_name}"><span>Stilling:</span> ${booking.shift_name}</p>
-                        <p class="qualification" data-value="${booking.qualification_name}"><span>Uddannelse:</span> ${booking.qualification_name}</p>
+                        <p class="shift" data-value="${booking.shift_id}"><span>Stilling:</span> ${booking.shift_name}</p>
+                        <p class="qualification" data-value="${booking.qualification_id}"><span>Uddannelse:</span> ${booking.qualification_name}</p>
                         <p>${assignText}${assignAction}</p>
                         <div class="accordion-item-content-actions">
                             <button class="delete-booking-button cancel-button" onclick="deleteBooking(${booking.booking_id})">Slet</button>
@@ -207,9 +207,7 @@ function resetAddBookingForm(form) {
 }
 
 function addBooking() {
-
     var form = $('#bookingForm');
-
     if (form.isValid())
     {
         var formData = form.serialize();
@@ -235,6 +233,31 @@ function cancelBooking() {
         resetAddBookingForm($('#bookingForm'));
   //  }
 }
+
+function editBooking(id) {
+    var item = $('.accordion-item-content[data-id='+id+']');
+    if (!item) return;
+
+    var place = $($(item).children('.place')[0]).attr('data-value');
+    var date = $($(item).children('.date')[0]).attr('data-value');
+    var time = $($(item).children('.time')[0]).attr('data-value');
+    var hours = $($(item).children('.hours')[0]).attr('data-value');
+    var shift = $($(item).children('.shift')[0]).attr('data-value');
+    var qualification = $($(item).children('.qualification')[0]).attr('data-value');
+    
+    var form = $('#bookingForm');
+    resetAddBookingForm(form);
+    showAddBookingForm();
+
+    $($(form).find('#place')[0]).val(place);
+    $($(form).find('#date')[0]).val(date);
+    $($(form).find('#time')[0]).val(time);
+    $($(form).find('#hours')[0]).val(hours);
+    $($(form).find('#shift')[0]).val(shift);
+    $($(form).find('#qualification')[0]).val(qualification);
+    $($(form).find('#id')[0]).val(id);
+}
+
 
 // Load bookings when the page loads
 document.addEventListener('DOMContentLoaded', function() {

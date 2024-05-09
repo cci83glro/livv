@@ -18,7 +18,7 @@ if ($db->query("UPDATE Bookings SET assigned_user_id = $user_id WHERE booking_id
     // Send email and SMS notifications to admin and user
     // Add code to send notifications here
 
-    echo "User assigned successfully!";
+    echo "success";
 } else {
     echo "Error assigning user: " . $db->error;
 }

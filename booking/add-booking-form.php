@@ -36,8 +36,10 @@
     <form id="bookingForm" method="post" action="booking/create_booking.php" data-user-id="<?php echo $user_id; ?>"
         class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking"
         novalidate>
-        <div class="row">	
+        <div class="row">
         <div class="mb-3 col-md-6">
+            <input type="text" class="hidden" name="id" id="id">
+
             <label for="place" class="form-field-label">Sted</label>
             <input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
             <div class="invalid-feedback">
