@@ -204,6 +204,7 @@ function hideAddBookingForm() {
 function resetAddBookingForm(form) {
     form[0].reset();
     form.removeClass('was-validated');
+    $($('#add-booking-submit-button')[0]).html('Tilføj');
 }
 
 function addBooking() {
@@ -256,6 +257,7 @@ function editBooking(id) {
     $($(form).find('#shift')[0]).val(shift);
     $($(form).find('#qualification')[0]).val(qualification);
     $($(form).find('#id')[0]).val(id);
+    $($('#add-booking-submit-button')[0]).html('Opdater');
 }
 
 

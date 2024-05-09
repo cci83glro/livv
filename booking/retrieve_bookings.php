@@ -14,7 +14,8 @@ $query = $db->query(
     INNER JOIN Shifts s ON b.shift_id = s.shift_id 
     INNER JOIN Qualifications q ON b.qualification_id = q.qualification_id 
     INNER JOIN Times t ON b.time_id = t.time_id
-    LEFT JOIN Users u ON b.assigned_user_id = u.id");
+    LEFT JOIN Users u ON b.assigned_user_id = u.id
+    ORDER BY booking_id desc");
 //$query = $db->query("SELECT * FROM Bookings LIMIT $offset, $records_per_page");
 //$query = $db->query("SELECT * FROM Bookings LIMIT " . $offset . ", " . $records_per_page);
 $results = $query->results();
