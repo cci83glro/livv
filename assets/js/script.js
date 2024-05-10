@@ -8,6 +8,9 @@ $(function () {
     var images = $backgroundImage.data('images');
 
     function changeBackgroundImage() {
+        if (!images || images.length == 0) {
+            return;
+        }
         // Mengubah gambar latar belakang dengan indeks berikutnya dalam array
         $backgroundImage.removeClass('animation-bg');
         currentIndex = (currentIndex + 1) % images.length;
@@ -18,11 +21,8 @@ $(function () {
 
     }
 
-    // Panggil fungsi untuk pertama kali
-    //changeBackgroundImage();
-
-    // Set interval untuk memanggil fungsi perubahan gambar dengan waktu yang ditentukan
-    //setInterval(changeBackgroundImage, 5000); // 10 detik (sesuaikan dengan waktu animasi CSS di atas)
+    changeBackgroundImage();
+    setInterval(changeBackgroundImage, 5000);
 });
 
 $.fn.isValid = function(){

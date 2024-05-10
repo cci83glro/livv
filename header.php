@@ -18,7 +18,9 @@
             <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-center gap-3 banner">
                 <ul class="d-flex m-0 flex-lg-row flex-column justify-content-center align-items-center gap-3 text-white font-2 text-center text-lg-start"
                     style="list-style: none;">
-                    <li>RIng til os:&nbsp; <a href="tel:11223344">11 22 33 44</li>
+                    <li><i class="fa-solid fa-location-dot"></i>&nbsp; <a class="location" target=_blank href="https://maps.app.goo.gl/aJnuGj3JGwNK5J5m9">Lidsøvej, 2730 Herlev</li>
+                    <li><i class="fa-solid fa-phone"></i>&nbsp; <a class="phone" href="tel:11223344">11 22 33 44</li>
+                    <li><i class="fa-solid fa-envelope"></i>&nbsp; <a class="email" href="mailto:kontakt@livvikar.dk">kontakt@livvikar.dk</li>
                     <!-- <li>Email : hello@awesomesite.com</li>
                     <li>Opening Hours : 08:00am to 07:00Pm</li> -->
                 </ul>

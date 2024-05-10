@@ -40,6 +40,10 @@
     }
 }
 
+ul {
+    padding: 0;
+}
+
 
 :root {
     --dark-bg: #111111;
@@ -189,7 +193,7 @@ a[type="button"]:hover {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 a.underlined {
@@ -298,7 +302,13 @@ p.service {
 .banner a {
     color: var(--secondary-color);
     border-bottom: 1px solid var(--primary-color);
-    padding-bottom: 1px;
+    padding-bottom: 0;
+}
+
+.banner a.phone,
+.banner a.email,
+.banner a.location {
+    color: var(--primary-color);    
 }
 
 .nav-link {
@@ -510,7 +520,7 @@ p.service {
 }
 
 .logo-container {
-    max-width: 150px;
+    max-width: 200px;
 }
 
 .divider {
@@ -624,7 +634,7 @@ p.service {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--primary-color);
 }
 
 .social-item.bg-accent-color-1 {
@@ -632,8 +642,8 @@ p.service {
 }
 
 .social-item:hover {
-    background-color: var(--dark-bg);
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .nav-tabs {
@@ -980,6 +990,24 @@ div#pagination .page-link.active{
     color: var(--white-color);
     border: none;
     border-radius: 10px;
+}
+
+.fa-brands {
+    font-size: 21px;
+    margin-top: 4px;
+}
+
+.page-banner {
+    width: 100%;
+    height: 300px;
+}
+
+.page-title {
+    margin-top: 40px;
+}
+
+footer .logo-container img {
+    margin-top: -40px;
 }
 
 

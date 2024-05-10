@@ -25,10 +25,10 @@
 
 <main>
         <!-- Banner -->
-        <section class="section position-relative" style="background-image: url(assets/images/booking-page-banner.webp);">
+        <section class="section page-banner position-relative" style="background-image: url(assets/images/booking-page-banner.webp);">
             <div class="r-container">
                 <div class="image-overlay"></div>
-                <div class="position-relative" style="z-index: 2;">
+                <div class="page-title position-relative" style="z-index: 2;">
                     <h1 class="font-1 fw-bold text-white">Bookings</h1>
                 </div>
             </div>

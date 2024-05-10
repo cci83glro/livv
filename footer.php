@@ -20,53 +20,32 @@
     <section class="px-lg-0 px-4 py-lg-5 py-4 bg-accent-color-1">
         <div class="r-container text-white">
             <div class="row row-cols-1 row-cols-lg-4">
-                <div class="col col-lg-4 mb-3">
+                <div class="col col-lg-3 mb-3">
                     <div class="d-flex flex-column h-100 justify-content-center">
                         <div class="logo-container">
-                            <img src="assets/images/logo-2.png" alt="Logo" class="img-fluid">
+                            <img src="assets/images/logo_blue_300_300.webp" alt="Logo with blue background" class="img-fluid">
                         </div>
-                        <p>
+                        <!-- <p>
                             Suspendisse congue tincidunt nisi, in eleifend metus placerat eu. Nunc eget tristique
                             nisi. Nunc a eros vitae magna bibendum tempus. Mauris ipsum enim, sollicitudin sit amet
                             consequat at.
-                        </p>
+                        </p> -->
                     </div>
                 </div>
-                <div class="col col-lg-2 mb-3">
+                <div class="col col-lg-3 mb-3">
                     <div class="d-flex flex-column">
-                        <h5 class="font-1 fw-bold mb-3">Quick Link</h5>
+                        <h5 class="font-1 fw-bold mb-3">Links</h5>
                         <div class="d-flex flex-column gap-2">
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> About Us</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> Services</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> Delivery</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> FAQ</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> Contact</a>
+                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light">Home</a>
+                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light">Ydelser</a>
+                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light">Kurser</a>
+                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light">Bookings</a>
+                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light">Om Os</a>
+                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light">Kontakt</a>
                         </div>
                     </div>
-                </div>
-                <div class="col col-lg-2 mb-3">
-                    <div class="d-flex flex-column">
-                        <h5 class="font-1 fw-bold mb-3">Information</h5>
-                        <div class="d-flex flex-column gap-2">
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> About Us</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> Services</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> Delivery</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> FAQ</a>
-                            <a href="" class="d-flex flex-row gap-2 align-items-center link-light"><i
-                                    class="fa-solid fa-chevron-right accent-color"></i> Contact</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-lg-4 mb-3">
+                </div>               
+                <div class="col col-lg-6 mb-3">
                     <div class="d-flex flex-column mb-3">
                         <h5 class="font-1 fw-bold mb-2">Get In Touch</h5>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
