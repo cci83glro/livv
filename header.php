@@ -21,16 +21,31 @@
                     <li><i class="fa-solid fa-location-dot"></i>&nbsp; <a class="location" target=_blank href="https://maps.app.goo.gl/aJnuGj3JGwNK5J5m9">Lidsøvej, 2730 Herlev</li>
                     <li><i class="fa-solid fa-phone"></i>&nbsp; <a class="phone" href="tel:11223344">11 22 33 44</li>
                     <li><i class="fa-solid fa-envelope"></i>&nbsp; <a class="email" href="mailto:kontakt@livvikar.dk">kontakt@livvikar.dk</li>
+                    <li>
+                        <a href="https://www.facebook.com" class="social-item">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.twitter.com" class="social-item">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    </li>
                     <!-- <li>Email : hello@awesomesite.com</li>
                     <li>Opening Hours : 08:00am to 07:00Pm</li> -->
                 </ul>
                 <div class="social-container justify-content-center">
-                    <a href="https://www.facebook.com" class="social-item">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    <a href="https://www.twitter.com" class="social-item">
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
+                    <?php 
+                        if ($user_id > 0)
+                        {
+                            //echo($user_username.' ('.$user_id.')');
+                            echo($user_username);
+                            echo('<a class="logout" href="'.$us_url_root.'um/logout.php">Logout</a>');
+                        } else {
+                            echo('<a class="login" href="'.$us_url_root.'um/login.php">Login</a>');
+                        }                        
+                    ?>
+                    
                 </div>
             </div>
         </div>
@@ -41,7 +56,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <div class="logo-container">
-                            <img src="assets/images/logo_400_200.webp" alt="" class="img-fluid">
+                            <img src="<?=$us_url_root?>assets/images/logo-white-background.svg" alt="Logo with white background" class="img-fluid">
                         </div>
                     </a>
                     <button class="navbar-toggler accent-color border-0" type="button" data-bs-toggle="collapse"

@@ -23,13 +23,8 @@
                 <div class="col col-lg-3 mb-3">
                     <div class="d-flex flex-column h-100 justify-content-center">
                         <div class="logo-container">
-                            <img src="assets/images/logo_blue_300_300.webp" alt="Logo with blue background" class="img-fluid">
+                            <img src="assets/images/logo-blue-background.svg" alt="Logo with blue background" class="img-fluid">
                         </div>
-                        <!-- <p>
-                            Suspendisse congue tincidunt nisi, in eleifend metus placerat eu. Nunc eget tristique
-                            nisi. Nunc a eros vitae magna bibendum tempus. Mauris ipsum enim, sollicitudin sit amet
-                            consequat at.
-                        </p> -->
                     </div>
                 </div>
                 <div class="col col-lg-3 mb-3">

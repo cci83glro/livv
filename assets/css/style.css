@@ -300,15 +300,13 @@ p.service {
 }
 
 .banner a {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     border-bottom: 1px solid var(--primary-color);
     padding-bottom: 0;
 }
 
-.banner a.phone,
-.banner a.email,
-.banner a.location {
-    color: var(--primary-color);    
+.banner a.social-item {
+    color: var(--secondary-color);    
 }
 
 .nav-link {
@@ -521,6 +519,10 @@ p.service {
 
 .logo-container {
     max-width: 200px;
+}
+
+.logo-container > img{
+    width: 150px;
 }
 
 .divider {
