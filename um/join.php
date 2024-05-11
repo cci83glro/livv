@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ini_set('display_errors', 1);
 ini_set('allow_url_fopen', 1);
 header('X-Frame-Options: DENY');
+$public = true;
 require_once '../header.php';
 
 $hooks = getMyHooks();
@@ -114,7 +115,7 @@ if (Input::exists()) {
         ]);
 
     if ($eventhooks = getMyHooks(['page' => 'joinAttempt'])) {
-        //includeHook($eventhooks, 'body');
+        includeHook($eventhooks, 'body');
     }
 
     if ($validation->passed()) {
@@ -198,12 +199,12 @@ if (Input::exists()) {
                 }
             }
 
-    }else{
-      foreach($validation->_errors as $e){
-        usError($e);
+    } else {
+        foreach($validation->_errors as $e){
+            usError($e);
 
-      }
-  Redirect::to(currentPage());
+        }
+        Redirect::to(currentPage());
     } //Validation
 } //Input exists
 

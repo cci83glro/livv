@@ -1,5 +1,6 @@
 <?php
 
+$public = true;
 require_once '../master.php';
 $user = new User();
 $eventhooks =  getMyHooks(['page'=>'logout']);

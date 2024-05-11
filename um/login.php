@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 ini_set("allow_url_fopen", 1);
+$public = true;
 require_once '../header.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/template/prep.php';
 $hooks =  getMyHooks();

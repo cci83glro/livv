@@ -38,8 +38,8 @@
                     <?php 
                         if ($user_id > 0)
                         {
-                            //echo($user_username.' ('.$user_id.')');
-                            echo($user_username);
+                            echo($user_username.' ('.$user_permission.')');
+                            //echo($user_username);
                             echo('<a class="logout" href="'.$us_url_root.'um/logout.php">Logout</a>');
                         } else {
                             echo('<a class="login" href="'.$us_url_root.'um/login.php">Login</a>');

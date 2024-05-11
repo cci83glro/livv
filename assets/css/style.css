@@ -1009,6 +1009,7 @@ div#pagination .page-link.active{
 }
 
 footer .logo-container img {
+    width: 200px;
     margin-top: -40px;
 }
 

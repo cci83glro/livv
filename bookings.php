@@ -1,5 +1,7 @@
 
 <?php
+	$public = false;
+	$permissions = array(1, 2);
 	include_once "header.php";
 
 	if ($user_id == 0) {

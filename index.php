@@ -1,5 +1,7 @@
-
-<?php include_once "header.php"?>
+<?php
+	$public = true;
+	include_once "header.php";
+?>
 
 <main>
 	<!-- Banner -->
