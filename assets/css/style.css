@@ -238,7 +238,6 @@ p.service {
 .form textarea {
     background-color: white;
     border-radius: 5px;
-    border: none;
     width: 100%;
 }
 
@@ -1035,8 +1034,13 @@ a>i {
     border-radius: 10px;
 }
 
-section#users-list {
-    padding: 0 2rem;
+.modal-content > .form-signup {
+    border: none; 
+}
+
+section#users-list,
+section#user-details {
+    padding: 0 2rem 2rem 2rem;
 }
 
 section#users-list .btn{

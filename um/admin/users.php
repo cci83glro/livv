@@ -6,6 +6,7 @@
 
 $public = false;
 $permissions = array(2);
+$pageTitle = 'Brugere';
 require_once '../../header.php';
 
 $maxUsers = 2000;
@@ -226,16 +227,18 @@ foreach ($validation->errors() as $error) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($userData as $v1) { ?>
+                    <?php foreach ($userData as $v1) { 
+                        $user_url = $us_url_root . "um/admin/user.php?id=" . $v1->id;
+                    ?>
                     <tr>
                         <td>
-                        <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->fname; ?> <?php echo $v1->lname; ?></a>
+                        <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1->fname; ?> <?php echo $v1->lname; ?></a>
                         </td>
                         <td>
-                        <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->phoneNumber; ?></a>
+                        <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1->phoneNumber; ?></a>
                         </td>
                         <td>
-                        <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->email; ?>
+                        <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1->email; ?>
                         </a>
                         </td>
                         <?php includeHook($hooks, 'bottom'); ?>
