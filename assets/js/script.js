@@ -29,6 +29,11 @@ $.fn.isValid = function(){
     return this[0].checkValidity();
 }
 
+function toggleMenuItem(item) {
+    $(item).toggleClass('show');
+    var dropdownMenu = $($(item).siblings('.dropdown-menu')).toggleClass('show');
+}
+
 $(window).ready(function() {
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();

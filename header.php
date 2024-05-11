@@ -38,14 +38,13 @@
                     <?php 
                         if ($user_id > 0)
                         {
-                            echo($user_username.' ('.$user_permission.')');
+                            echo($user_username.' (id '.$user_id.' | p '.$user_permission.')');
                             //echo($user_username);
-                            echo('<a class="logout" href="'.$us_url_root.'um/logout.php">Logout</a>');
+                            echo('<a class="logout" href="'.$us_url_root.'um/logout.php">Log ud</a>');
                         } else {
-                            echo('<a class="login" href="'.$us_url_root.'um/login.php">Login</a>');
+                            echo('<a class="login" href="'.$us_url_root.'um/login.php">Log ind</a>');
                         }                        
                     ?>
-                    
                 </div>
             </div>
         </div>
@@ -84,6 +83,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="contact.html">Kontakt</a>
                             </li>
+                            <?php if($user_permission == 2) { ?>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="<?=$us_url_root?>/um/admin/users.php">Brugere</a></li>
+                                    </ul>
+                                </li>
+                            <?php } ?>
                         </ul>
                         <a href="" type="button" class="btn button bg-secondary-color primary-color" type="submit">Opret vikar</a>
                     </div>

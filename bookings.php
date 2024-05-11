@@ -26,32 +26,32 @@
 ?>
 
 <main>
-        <!-- Banner -->
-        <section class="section page-banner position-relative" style="background-image: url(assets/images/booking-page-banner.webp);">
-            <div class="r-container">
-                <div class="image-overlay"></div>
-                <div class="page-title position-relative" style="z-index: 2;">
-                    <h1 class="font-1 fw-bold text-white">Bookings</h1>
-                </div>
-            </div>
-        </section>
+	<!-- Banner -->
+	<section class="section page-banner position-relative" style="background-image: url(assets/images/booking-page-banner.webp);">
+		<div class="r-container">
+			<div class="image-overlay"></div>
+			<div class="page-title position-relative" style="z-index: 2;">
+				<h1 class="font-1 fw-bold text-white">Bookings</h1>
+			</div>
+		</div>
+	</section>
 
-        <section class="section">
-            <div class="r-container">
-                <div class="d-flex flex-column gap-3">
-                    
-					<!-- <h3 class="font-1 fw-bold">Frequently Asked Questions</h3> -->
-					<div id="add-booking-button-wrapper">
-						<button id="add-booking-button" onclick="showAddBookingForm()">+ Tilføj booking</button>
-					</div>
-					<?php include_once "booking/add-booking-form.php"; ?>
-					<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								
-					</div>
-					<div id="pagination"></div>
-                </div>
-            </div>
-        </section>
-    </main>
+	<section class="section">
+		<div class="r-container">
+			<div class="d-flex flex-column gap-3">
+				
+				<!-- <h3 class="font-1 fw-bold">Frequently Asked Questions</h3> -->
+				<div id="add-booking-button-wrapper">
+					<button id="add-booking-button" onclick="showAddBookingForm()">+ Tilføj booking</button>
+				</div>
+				<?php include_once "booking/add-booking-form.php"; ?>
+				<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								
+				</div>
+				<div id="pagination"></div>
+			</div>
+		</div>
+	</section>
+</main>
 
 <?php include_once "footer.php"?>
 <script src="assets/js/bookings.js"></script>

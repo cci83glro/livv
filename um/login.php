@@ -1,27 +1,10 @@
 <?php
-// This is a user-facing page
-/*
-UserSpice 5
-An Open Source PHP User Management System
-by the UserSpice Team at http://UserSpice.com
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 ini_set("allow_url_fopen", 1);
 $public = true;
+
 require_once '../header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/template/prep.php';
+
 $hooks =  getMyHooks();
 includeHook($hooks, 'pre');
 $emailSet = $db->query("SELECT * FROM email")->first();
@@ -50,13 +33,13 @@ if (!empty($_POST)) {
   $validation = $validate->check(
     $_POST,
     array(
-      'username' => array('display' => lang('GEN_UNAME'), 'required' => true),
-      'password' => array('display' => lang('GEN_PASS'), 'required' => true)
+      'email' => array('display' => 'Email', 'required' => true),
+      'password' => array('display' => 'Adgangskode', 'required' => true)
     )
   );
   $validated = $validation->passed();
   // Set $validated to False to kill validation, or run additional checks, in your post hook
-  $username = Input::get('username');
+  $email = Input::get('email');
   $password = trim(Input::get('password'));
   $remember = false;
   includeHook($hooks, 'post');
@@ -64,7 +47,7 @@ if (!empty($_POST)) {
   if ($validated) {
     //Log user in
     $user = new User();
-    $login = $user->loginEmail($username, $password, $remember);
+    $login = $user->loginEmail($email, $password, $remember);
     if ($login) {
       $hooks =  getMyHooks(['page' => 'loginSuccess']);
       includeHook($hooks, 'body');
@@ -92,8 +75,8 @@ if (!empty($_POST)) {
       $eventhooks =  getMyHooks(['page' => 'loginFail']);
       includeHook($eventhooks, 'body');
       logger("0", "Login Fail", "A failed login on login.php");
-      $msg = lang("SIGNIN_FAIL");
-      $msg2 = lang("SIGNIN_PLEASE_CHK");
+      $msg = 'Log ind fejlede';
+      $msg2 = 'Tjek venligst email og adgangskode og prøv igen!';
       $errors[] = '<strong>' . $msg . '</strong>' . $msg2;
     }
   } else {
@@ -116,7 +99,7 @@ if (empty($dest = sanitizedDest('dest'))) {
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <b><?= lang("SIGNIN_TITLE", ""); ?></b>
+          <b>Log ind</b>
           <a href="<?= $us_url_root ?>" aria-label="Close" class="close btn-close" style="top: 1rem!important;"></a>
 
         </div>
@@ -125,13 +108,13 @@ if (empty($dest = sanitizedDest('dest'))) {
           <form name="login" id="login-form" class="form-signin" action="" method="post">
             <?= tokenHere(); ?>
             <div class="form-outline mb-4">
-              <label class="form-label" for="username"><?= lang("SIGNIN_UORE") ?></label>
-              <input type="username" id="username" name="username" class="form-control form-control-lg" required autocomplete="username" />
+              <label class="form-label" for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-control form-control-lg" required autocomplete="email" />
 
             </div>
 
             <div class="form-outline mb-4">
-              <label class="form-label" for="password"><?= lang("SIGNIN_PASS") ?></label>
+              <label class="form-label" for="password">Adgangskode</label>
               <div class="input-group">
                 <input type="password" id="password" name="password" class="form-control form-control-lg" />
                 <span class="input-group-addon input-group-text see-pw" id="togglePassword">
@@ -142,18 +125,18 @@ if (empty($dest = sanitizedDest('dest'))) {
 
             <?php includeHook($hooks, 'form'); ?>
             <input type="hidden" name="redirect" value="<?= Input::get('redirect') ?>" />
-            <button class="submit form-control btn btn-primary rounded submit px-3" id="next_button" type="submit"><i class="fa fa-sign-in"></i> <?= lang("SIGNIN_BUTTONTEXT", ""); ?></button>
+            <button class="submit form-control btn btn-primary rounded submit px-3 bg-secondary-color primary-color" id="next_button" type="submit"><i class="fa fa-sign-in"></i> Log ind</button>
           </form>
           <div class="row">
             <?php if ($showForgot) { ?>
               <div class="col-12 text-center"><br>
-                <a class="" href='<?= $us_url_root ?>users/forgot_password.php'><i class="fa fa-wrench"></i> <?= lang("SIGNIN_FORGOTPASS", ""); ?></a>
+                <a class="" href='<?= $us_url_root ?>users/forgot_password.php'><i class="fa fa-wrench"></i> Glemt adgangskode</a>
                 <br>
               </div>
             <?php } ?>
             <?php if ($settings->registration == 1) { ?>
               <div class="col-12 text-center"><br>
-                <a class="" href='<?= $us_url_root ?>um/join.php'><i class="fa fa-plus-square"></i> <?= lang("SIGNUP_TEXT", ""); ?></a><br><br>
+                <a class="secondary-color" href='<?= $us_url_root ?>um/join.php'><i class="fa fa-plus-square"></i> Registrer</a><br><br>
               </div><?php } ?>
             <?php includeHook($hooks, 'bottom'); ?>
           </div>
@@ -163,36 +146,7 @@ if (empty($dest = sanitizedDest('dest'))) {
   </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-    $("#loginModal").modal({
-      backdrop: 'static',
-      keyboard: false
-    })
-    $("#loginModal").modal('show');
-    setTimeout(function() {
-      $('#username').focus();
-    }, 500);
+<script src="<?=$us_url_root?>assets/js/um/login.js"></script>
 
-    const togglePassword = document.querySelector('#togglePassword');
-    const togglePasswordIcon = document.querySelector('#togglePasswordIcon');
-    const password = document.querySelector('#password');
-
-    togglePassword.addEventListener('click', function(e) {
-      // toggle the type attribute
-      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-      password.setAttribute('type', type);
-      // toggle the eye slash icon
-
-      if (type == "password") {
-        togglePasswordIcon.classList.add('fa-eye');
-        togglePasswordIcon.classList.remove('fa-eye-slash');
-      } else {
-        togglePasswordIcon.classList.add('fa-eye-slash');
-        togglePasswordIcon.classList.remove('fa-eye');
-      }
-
-    });
-  });
-</script>
-<?php require_once $abs_us_root . $us_url_root . 'users/includes/html_footer.php'; ?>
+</body>
+</html>

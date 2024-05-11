@@ -23,7 +23,7 @@
                 <div class="col col-lg-3 mb-3">
                     <div class="d-flex flex-column h-100 justify-content-center">
                         <div class="logo-container">
-                            <img src="assets/images/logo-blue-background.svg" alt="Logo with blue background" class="img-fluid">
+                            <img src="<?=$us_url_root?>assets/images/logo-blue-background.svg" alt="Logo with blue background" class="img-fluid">
                         </div>
                     </div>
                 </div>

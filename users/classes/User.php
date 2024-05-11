@@ -67,9 +67,9 @@ class User
         }
 
         if ($user) {
-            if ($loginHandler !== null) {
+            // $field = 'email';
+            if ($loginHandler !== null) {                
                 if($loginHandler == "forceEmail"){
-
                    $field = 'email';
                 }  elseif (!filter_var($user, FILTER_VALIDATE_EMAIL) === false) {
                     $field = 'email';
@@ -85,12 +85,13 @@ class User
                     $field = 'username';
                 }
             }
+
+            //$data = $this->_db->get('users', [$field, '=', $user], ['active', '=', '1']);
             $data = $this->_db->get('users', [$field, '=', $user]);
 
             if ($data->count()) {
                 $this->_data = $data->first();
-
-                return true;
+                return $this->_data->active > 0;
             }
         }
 

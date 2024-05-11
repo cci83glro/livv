@@ -1,4 +1,13 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+//ini_set('allow_url_fopen', 1);
+//header('X-Frame-Options: DENY');
+
+$public = false;
+$permissions = array(2);
+require_once '../../header.php';
+
 $maxUsers = 2000;
 $errors = $successes = [];
 $act = $db->query('SELECT * FROM email')->first();
@@ -22,6 +31,7 @@ if (!empty($_POST)) {
     $join_date = date('Y-m-d H:i:s');
     $fname = Input::get('fname');
     $lname = Input::get('lname');
+    $phone = Input::get('phone');
     $email = Input::get('email');
     $username = Input::get('username');
     $password = Input::get('password');
@@ -30,43 +40,12 @@ if (!empty($_POST)) {
     $form_valid = false; // assume the worst
 
     $validation->check($_POST, [
-      'fname' => [
-        'display' => 'Fornavn',
-        'required' => true,
-        'min' => 1,
-        'max' => 200,
-      ],
-      'lname' => [
-        'display' => 'Efternavn',
-        'required' => true,
-        'min' => 1,
-        'max' => 200,
-      ],
-      'phone' => [
-        'display' => 'Telefon',
-        'required' => false,
-        'min' => 8,
-        'max' => 12,
-      ],
-      'email' => [
-        'display' => 'Email',
-        'required' => true,
-        'valid_email' => true,
-        'unique' => 'users',
-        'min' => 4,
-        'max' => 200,
-      ],
-      'password' => [
-        'display' => 'Adgangskode',
-        'required' => true,
-        'min' => $settings->min_pw,
-        'max' => $settings->max_pw,
-      ],
-      'confirm' => [
-        'display' => 'Bekræft adgangskode',
-        'required' => true,
-        'matches' => 'password',
-      ],
+      'fname' => ['display' => 'Fornavn', 'required' => true, 'min' => 1, 'max' => 200],
+      'lname' => ['display' => 'Efternavn', 'required' => true, 'min' => 1, 'max' => 200],
+      'phone' => ['display' => 'Telefon', 'required' => false, 'min' => 8, 'max' => 12],
+      'email' => ['display' => 'Email', 'required' => true, 'valid_email' => true, 'unique' => 'users', 'min' => 4, 'max' => 200],
+      'password' => ['display' => 'Adgangskode', 'required' => true, 'min' => 5, 'max' => 30],
+      'confirm' => ['display' => 'Bekræft adgangskode', 'required' => true, 'matches' => 'password']
     ]);
 
     if ($eventhooks = getMyHooks(['page' => 'createAttempt'])) {
@@ -82,11 +61,10 @@ if (!empty($_POST)) {
       }
 
       try {
-        // echo "Trying to create user";
         $fields = [
-          'username' => $username,
           'fname' => $fname,
           'lname' => $lname,
+          'phoneNumber' => $phone,
           'email' => $email,
           'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]),
           'permissions' => 1,
@@ -106,7 +84,6 @@ if (!empty($_POST)) {
         $perm = Input::get('perm');
         $addNewPermission = ['user_id' => $theNewId, 'permission_id' => 1];
         $db->insert('user_permission_matches', $addNewPermission);
-
 
         include $abs_us_root . $us_url_root . 'usersc/scripts/during_user_creation.php';
         if (isset($_POST['sendEmail'])) {
@@ -136,7 +113,6 @@ if (!empty($_POST)) {
     }
   }
 }
-
 
 $uCount = $db->query("SELECT id FROM users")->count();
 if($settings->uman_search == 0){
@@ -194,126 +170,104 @@ foreach ($validation->errors() as $error) {
 }
 
 ?>
-<div class="row">
-  <div class="col-12 mb-2">
-    <h2>Manage Users</h2>
-    <?php //echo resultBlock($errors, $successes);
-    ?>
-    <?php includeHook($hooks, 'pre'); ?>
 
-    <div class="row" style="margin-top:1vw;">
-      <div class="col-6">
-        <?php if ($showAllUsers != 1) { ?>
-          <a href="?view=users&showAllUsers=1" class="btn btn-outline-primary btn-sm nounderline"><i class="fa fa-eye"></i> Show All Users</a>
-        <?php } else { ?>
-          <a href="?view=users" class="btn btn-outline-primary btn-sm nounderline"><i class="fa fa-eye-slash"></i> Hide Inactive Users</a>
-        <?php } ?>
-      </div>
-      <div class="col-6 text-end">
-        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Add User</button>
-      </div>
-    </div>
-  <?php
-  if($settings->uman_search == 1){ ?>
+<section id="users-list">
     <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <form class="" action="" method="post">
-          <?=tokenHere();?>
-          <div class="input-group">
-            <input type="text" name="searchTerm" value="" class="form-control" placeholder="Search for users to manage">
-            <input type="submit" name="search" value="Search" class="btn btn-outline-primary">
-          </div>
-
-          <small>Search by first name, last name, username, or email</small>
-        </form>
-      </div>
-    </div>
-  <?php } ?>
-  </div>
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <table id="userstable" class='table table-hover table-list-search'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th></th>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Email</th>
-              <?php includeHook($hooks, 'body'); ?>
-              <th>Last Sign In</th>
-              <?php
-              if ($uCount < $maxUsers) { ?>
-                <th>Permissions</th>
-              <?php } ?>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div class="col-12 mb-2">
+            <h2>Brugere</h2>
             <?php
-            //Cycle through users
-            foreach ($userData as $v1) {
             ?>
-              <tr>
-                <td><span class="hideMe"><?= sprintf('%08d', $v1->id) ?></span>
-                  <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->id; ?></a>
-                </td>
-                <td>
-                  <a class="nounderline text-danger" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php if ($v1->force_pr == 1) { ?><i class="fa fa-lock"></i><?php } ?></a>
-                </td>
+            <?php includeHook($hooks, 'pre'); ?>
 
-                <td>
-                  <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->username; ?></a>
-                </td>
-
-                <td>
-                  <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->fname; ?> <?php echo $v1->lname; ?></a>
-                </td>
-
-                <td>
-                  <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->email; ?>
-                  </a>
-                </td>
-
-                <?php includeHook($hooks, 'bottom'); ?>
-
-                <td>
-                  <?php if ($v1->last_login != "0000-00-00 00:00:00") {
-                    echo $v1->last_login;
-                  } else { ?>
-                    <i>Never</i>
-                  <?php } ?>
-                </td>
-
-                <?php
-                if ($uCount < $maxUsers) { ?>
-                  <td><?= $v1->perms ?></td>
+            <div class="row" style="margin-top:1vw;">
+            <div class="col-6">
+                <?php if ($showAllUsers != 1) { ?>
+                <a href="?view=users&showAllUsers=1" class="btn btn-outline-primary btn-sm nounderline"><i class="fa fa-eye"></i> Vis alle brugere</a>
+                <?php } else { ?>
+                <a href="?view=users" class="btn btn-outline-primary btn-sm nounderline"><i class="fa fa-eye-slash"></i> Hide Inactive Users</a>
                 <?php } ?>
-                <td>
-                  <?php if($v1->permissions == 0){ ?>
-                      <i class="fa fa-fw fa-lock text-danger" data-bs-toggle="tooltip" title="The users's account locked (banned)"></i>
-                  <?php }else{ ?>
-                      <i class="fa fa-fw fa-unlock" data-bs-toggle="tooltip" title="The users's account unlocked (active)"></i>
-                  <?php } ?>
+            </div>
+            <div class="col-6 text-end">
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Tilføj bruger</button>
+            </div>
+            </div>
+        <?php
+        if($settings->uman_search == 1){ ?>
+            <div class="row">
+            <div class="col-12 col-sm-6 offset-sm-3">
+                <form class="" action="" method="post">
+                <?=tokenHere();?>
+                <div class="input-group">
+                    <input type="text" name="searchTerm" value="" class="form-control" placeholder="Søg ...">
+                    <input type="submit" name="search" value="Search" class="btn btn-outline-primary">
+                </div>
+                <small>Søg efter fornavn, efternavn eller email</small>
+                </form>
+            </div>
+            </div>
+        <?php } ?>
+        </div>
+        <div class="col-12">
+            <div class="card">
+            <div class="card-body">
+                <table id="userstable" class='table table-hover table-list-search'>
+                <thead>
+                    <tr>
+                    <th>Navn</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <?php includeHook($hooks, 'body'); ?>
+                    <th>Last Sign In</th>
+                    <?php
+                    if ($uCount < $maxUsers) { ?>
+                        <th>Permissions</th>
+                    <?php } ?>
+                    <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($userData as $v1) { ?>
+                    <tr>
+                        <td>
+                        <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->fname; ?> <?php echo $v1->lname; ?></a>
+                        </td>
+                        <td>
+                        <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->phoneNumber; ?></a>
+                        </td>
+                        <td>
+                        <a class="nounderline text-dark" href='admin.php?view=user&id=<?php echo $v1->id; ?>'><?php echo $v1->email; ?>
+                        </a>
+                        </td>
+                        <?php includeHook($hooks, 'bottom'); ?>
+                        <td>
+                        <?php if ($v1->last_login != "0000-00-00 00:00:00") {
+                            echo $v1->last_login;
+                        } else { ?>
+                            <i>Aldrig</i>
+                        <?php } ?>
+                        </td>
 
-                  <?php
-                  if ($act == 1 && $v1->email_verified == 1) { ?>
-                    <i class='fa fa-envelope' data-bs-toggle="tooltip" title="User email is verified"></i>
-                  <?php } ?>
+                        <?php
+                        if ($uCount < $maxUsers) { ?>
+                        <td><?= $v1->perms ?></td>
+                        <?php } ?>
+                        <td>
+                        <?php if($v1->active == 0){ ?> Inaktiv <?php }else{ ?> Aktiv <?php } ?>
 
-                </td>
-              </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
+                        <?php
+                        if ($act == 1 && $v1->email_verified == 1) { ?>
+                            <i class='fa fa-envelope' data-bs-toggle="tooltip" title="User email is verified"></i>
+                        <?php } ?>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
+</section>
 <div id="adduser" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -329,40 +283,30 @@ foreach ($validation->errors() as $error) {
             <label>
               Username (<?php echo $settings->min_un; ?>-<?php echo $settings->max_un; ?> chars)<span id="usernameCheck" class="small ml-2"></span>
             </label>
-
-            <input type="search" class="form-control" id="username" name="username" autocomplete="off" value="<?php if (!$form_valid && !empty($_POST)) {
-                                                                                                                echo $username;
-                                                                                                              } ?>" required>
+            <input type="search" class="form-control" id="username" name="username" autocomplete="off" 
+                value="<?php if (!$form_valid && !empty($_POST)) { echo $username; } ?>" required>
           </div>
 
           <div class="form-group" id="fname-group">
             <label>First Name</label>
-
-            <input type="search" class="form-control" id="fname" name="fname" value="<?php if (!$form_valid && !empty($_POST)) {
-                                                                                        echo $fname;
-                                                                                      } ?>" required autocomplete="off">
+            <input type="search" class="form-control" id="fname" name="fname" 
+                value="<?php if (!$form_valid && !empty($_POST)) { echo $fname; } ?>" required autocomplete="off">
           </div>
 
           <div class="form-group" id="lname-group">
             <label>Last Name</label>
-
-            <input type="search" class="form-control" id="lname" name="lname" value="<?php if (!$form_valid && !empty($_POST)) {
-                                                                                        echo $lname;
-                                                                                      } ?>" required autocomplete="off">
+            <input type="search" class="form-control" id="lname" name="lname" 
+                value="<?php if (!$form_valid && !empty($_POST)) { echo $lname; } ?>" required autocomplete="off">
           </div>
 
           <div class="form-group" id="email-group">
             <label>Email</label>
-
-            <input class="form-control" type="search" name="email" id="email" value="<?php if (!$form_valid && !empty($_POST)) {
-                                                                                        echo $email;
-                                                                                      } ?>" required autocomplete="off">
+            <input class="form-control" type="search" name="email" id="email" 
+                value="<?php if (!$form_valid && !empty($_POST)) { echo $email; } ?>" required autocomplete="off">
           </div>
 
           <div class="form-group">
-            <label>
-              Password (<?php echo $settings->min_pw; ?>-<?php echo $settings->max_pw; ?> chars)
-            </label>
+            <label> Adgangskode (5 - 30 chars) </label>
 
             <div class="input-group" data-container="body">
               <div class="input-group-append">
@@ -382,11 +326,10 @@ foreach ($validation->errors() as $error) {
                   </span>
                 </div>
               <?php } ?>
-
             </div>
           </div>
           <div class="form-group">
-            <label>Confirm Password</label>
+            <label>Bekræft adgangskode</label>
             <div class="input-group" data-container="body">
               <div class="input-group-prepend">
                 <span class="input-group-text password_view_control" id="addon1">
@@ -409,22 +352,18 @@ foreach ($validation->errors() as $error) {
           </div>
 
           <?php
-          include $abs_us_root . $us_url_root . 'usersc/scripts/additional_join_form_fields.php';
-          includeHook($hooks, 'form');
-
+            include $abs_us_root . $us_url_root . 'usersc/scripts/additional_join_form_fields.php';
+            includeHook($hooks, 'form');
           ?>
           <label>
             <input type="checkbox" name="sendEmail" id="sendEmail" /> Send Email?
           </label>
-
         </div>
-
         <div class="modal-footer">
           <input type="hidden" name="csrf" value="<?php echo Token::generate(); ?>" />
           <input class='btn btn-primary submit' type='submit' id="addUser" name="addUser" value='Add User' />
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         </div>
-
       </form>
     </div>
   </div>
@@ -432,34 +371,11 @@ foreach ($validation->errors() as $error) {
 <?php if ($uCount > $maxUsers && $settings->uman_search == 0) { ?>
   Since you have over 2000 users, you may want to consider setting this page to User Manager Search Engine Mode in <a href="<?=$us_url_root?>users/admin?view=general">General Settings</a>.
 <?php }?>
+
+<?php include_once $abs_us_root.$us_url_root."footer.php"?>
+
 <script type="text/javascript" src="<?= $us_url_root ?>users/js/pagination/datatables.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#userstable').DataTable({
-      "pageLength": 25,
-      "stateSave": true,
-      "aLengthMenu": [
-        [25, 50, 100, -1],
-        [25, 50, 100, "All"]
-      ],
-      "aaSorting": []
-    });
+<script src="<?=$us_url_root?>assets/js/um/admin/users.js"></script>
 
-    $('.password_view_control').hover(function() {
-      $('#password').attr('type', 'text');
-      $('#confirm').attr('type', 'text');
-    }, function() {
-      $('#password').attr('type', 'password');
-      $('#confirm').attr('type', 'password');
-    });
-
-
-    $('[data-toggle="popover"], .pwpopover').popover();
-    $('.pwpopover').on('click', function(e) {
-      $('.pwpopover').not(this).popover('hide');
-    });
-    $('.modal').on('hidden.bs.modal', function() {
-      $('.pwpopover').popover('hide');
-    });
-  });
-</script>
+</body>
+</html>

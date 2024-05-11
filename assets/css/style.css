@@ -121,15 +121,15 @@ ul {
 }
 
 h1 {
-    font-size: 80px;
-}
-
-h2 {
     font-size: 60px;
 }
 
+h2 {
+    font-size: 50px;
+}
+
 h3 {
-    font-size: 40px
+    font-size: 40px;
 }
 
 h4 {
@@ -137,11 +137,11 @@ h4 {
 }
 
 h5 {
-    font-size: 24px;
+    font-size: 25px;
 }
 
 h6 {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 ul {
@@ -1013,26 +1013,59 @@ footer .logo-container img {
     margin-top: -40px;
 }
 
+div.register-button-wrapper {
+    text-align: right;
+}
 
-@media only screen and (max-width:993px) {
+button>i{
+    margin-right: .5rem;
+}
+
+a>i {
+    margin-right: .2rem;
+}
+
+.form-control {
+    border: 2px solid var(--secondary-color);
+}
+
+.form-signup {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 10px;
+}
+
+section#users-list {
+    padding: 0 2rem;
+}
+
+section#users-list .btn{
+    color: var(--secondary-color);
+}
+
+@media only screen and (max-width:991px) {
     h1 {
-        font-size: 68px;
+        font-size: 50px;
     }
-
+    
     h2 {
-        font-size: 56px;
+        font-size: 40px;
     }
-
+    
     h3 {
-        font-size: 36px;
+        font-size: 30px;
     }
-
+    
+    h4 {
+        font-size: 25px;
+    }
+    
     h5 {
-        font-size: 24px;
+        font-size: 20px;
     }
-
+    
     h6 {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .section {
