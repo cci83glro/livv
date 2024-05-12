@@ -117,11 +117,11 @@ if (!empty($_POST)) {
         ],
       ]);
       if ($validation->passed()) {
-        $db->update('users', $userId, $fields);
-        $successes[] = 'Telefonnummer opdateret';
-        logger($user->data()->id, 'User Manager', "Updated telefonnummer for $userdetails->fname from $userdetails->phoneNumber to $phone.");
-      } else {
-      ?><?php if (!$validation->errors() == '') {
+          $db->update('users', $userId, $fields);
+          $successes[] = 'Telefonnummer opdateret';
+          logger($user->data()->id, 'User Manager', "Updated telefonnummer for $userdetails->fname from $userdetails->phoneNumber to $phone.");
+        } else {
+        ?><?php if (!$validation->errors() == '') {
           display_errors($validation->errors());
         } ?>
       <?php } }
@@ -246,11 +246,18 @@ if (!empty($_POST)) {
     }
   }
 
-  if ($errors == [] && Input::get('return') != '') {
+  // if ($errors == [] && Input::get('return') != '') {
+  //   usSuccess("Gemt");
+  //   Redirect::to($users_page_url);
+  // } elseif ($errors == []) {
+  //   usSuccess("Gemt");
+  //   Redirect::to($user_page_url . $userId);
+  // }
+
+  if ($errors == []) {
     usSuccess("Gemt");
     Redirect::to($users_page_url);
-  } elseif ($errors == []) {
-    usSuccess("Gemt");
+  } else {
     Redirect::to($user_page_url . $userId);
   }
 }
@@ -363,7 +370,6 @@ $active_district_id = $userdetails->district_id;
   </form>
 </section>
 <?php include_once $abs_us_root.$us_url_root."footer.php"?>
-
 
 </body>
 </html>

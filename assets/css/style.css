@@ -295,13 +295,25 @@ form .user-form-actions {
 form .user-form-actions a,
 form .user-form-actions input {
     width: 30%;
-    border-width: 3px;
+    border-width: 2px;
     font-weight: 700;
 }
 
 form .user-form-actions input {
     border-color: var(--secondary-color);
     margin-left: 5px;
+}
+
+form.form-signup > .modal-footer > .btn {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    width: 30%;
+}
+
+form.form-signup > .modal-footer > .btn.cancel {
+    color: var(--red-color);
+    border-color: var(--red-color);
 }
 
 .submit_form-subscribe {
@@ -1082,6 +1094,10 @@ section#user-details p{
 
 section#users-list .btn{
     color: var(--secondary-color);
+}
+
+section#users-list .btn:hover{
+    color: var(--primary-color);
 }
 
 .toggle-switch {
