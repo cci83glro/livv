@@ -21,7 +21,7 @@ $validation = new Validate();
 
 if (!empty($_POST)) {
   if (!Token::check(Input::get('csrf'))) {
-    include $abs_us_root . $us_url_root . 'usersc/scripts/token_error.php';
+    include $abs_us_root . $us_url_root . 'um/admin/token_error.php';
   }
 
   includeHook($hooks, 'post');

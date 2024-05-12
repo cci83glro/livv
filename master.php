@@ -1,7 +1,12 @@
 <?php
 
- require_once 'users/init.php';
- require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
+require_once 'users/init.php';
+require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
+
+$users_page_url = $us_url_root."um/admin/users.php";
+$user_page_url = $us_url_root."um/admin/user.php?id=";
+
+$db = DB::getInstance();
 
 $user_id = 0;
 $user_username = '';

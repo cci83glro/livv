@@ -9,8 +9,6 @@ $permissions = array(2);
 $pageTitle = 'Rediger bruger';
 require_once '../../header.php';
 
-$hooks = getMyHooks(['page' => 'admin.php?view=user']);
-includeHook($hooks, 'pre');
 $validation = new Validate();
 
 $email = $db->query('SELECT email_act FROM email')->first();
@@ -19,11 +17,16 @@ $errors = [];
 $successes = [];
 $userId = (int) Input::get('id');
 
-$userdetailsQ = $db->query("SELECT * FROM users WHERE id =  ?", [$userId]);
+$userdetailsQ = $db->query(
+  "SELECT u.*, p.name as permission_name, d.district_name
+  FROM users u 
+  LEFT JOIN permissions p on u.permissions = p.id 
+  LEFT JOIN districts d on u.district_id = d.district_id 
+  WHERE u.id =  ?", [$userId]);
 $userdetailsC = $userdetailsQ->count();
 if ($userdetailsC < 1) {
-  usError("That user does not exist");
-  Redirect::to($us_url_root . 'users/admin.php?view=users');
+  usError("Brugersiden findes ikke");
+  Redirect::to($users_page_url);
 }
 $userdetails = $userdetailsQ->first();
 
@@ -32,68 +35,38 @@ if (!empty($_POST)) {
 
   $token = $_POST['csrf'];
   if (!Token::check($token)) {
-    include $abs_us_root . $us_url_root . 'usersc/scripts/token_error.php';
+    include $abs_us_root . $us_url_root . 'um/admin/token_error.php';
   } else {
     includeHook($hooks, 'post');
     $db->update('users', $userdetails->id, ['modified' => date("Y-m-d")]);
 
     if (!empty($_POST['delete'])) {
       if ($userdetails->id == $user->data()->id || in_array($userdetails->id, $master_account)) {
-        usError("You cannot delete this user");
-        Redirect::to("admin.php?view=user&id=" . $userdetails->id);
+        usError("Du må ikke slette denne bruger!");
+        Redirect::to($user_page_url . $userdetails->id);
       }
       if ($deletion_count = deleteUsers([$userdetails->id])) {
         logger($user->data()->id, 'User Manager', "Deleted user named $userdetails->fname.");
-        $msg = lang('ACCOUNT_DELETIONS_SUCCESSFUL', [$deletion_count]);
+        $msg = 'Brugerkontoen er slettet';
         usSuccess($msg);
-        Redirect::to($us_url_root . 'users/admin.php?view=users');
+        Redirect::to($users_page_url);
       } else {
-        usError(lang('SQL_ERROR'));
-        Redirect::to("admin.php?view=user&id=" . $userdetails->id);
+        usError('Der skete en database fejl');
+        Redirect::to($user_page_url . $userdetails->id);
       }
     }
 
     if (!empty($_POST['blocking'])) {
       if ($userdetails->id == $user->data()->id || in_array($userdetails->id, $master_account)) {
-        usError("You cannot adjust the active state of this user");
-        Redirect::to("admin.php?view=user&id=" . $userdetails->id);
+        usError("Du må ikke opdatere status til denne bruger!");
+        Redirect::to($user_page_url . $userdetails->id);
       }
       $active = Input::get('active');
       if ($active == 1 || $active == 0) {
         $db->update("users", $userdetails->id, ['active' => $active, 'permissions' => $active]);
-        usSuccess("Active status changed");
+        usSuccess("Aktiv status opdateret!");
       }
-      Redirect::to("admin.php?view=user&id=" . $userdetails->id);
-    }
-
-    //Force PW User
-    $force_pr = Input::get('force_pr');
-    if ($force_pr == 1) {
-      $fields = ['force_pr' => $force_pr];
-      $db->update('users', $userId, $fields);
-      $successes[] = "Forcing password reset on next login.";
-      logger($user->data()->id, 'User Manager', "Updated force_pr for $userdetails->fname from $userdetails->force_pr to $force_pr.");
-      Redirect::to("admin.php?view=user&id=" . $userdetails->id);
-    }
-
-    //Update display name
-    $displayname = Input::get('username');
-    if ($userdetails->username != $displayname) {
-      $fields = ['username' => $displayname];
-      $validation->check($_POST, [
-        'username' => [
-          'display' => 'Username',
-          'required' => true,
-          'unique_update' => 'users,' . $userId,
-          'min' => $settings->min_un,
-          'max' => $settings->max_un,
-        ],
-      ]);
-      if ($validation->passed()) {
-        $db->update('users', $userId, $fields);
-        $successes[] = 'Username Updated';
-        logger($user->data()->id, 'User Manager', "Updated username for $userdetails->fname from $userdetails->username to $displayname.");
-      }
+      Redirect::to($user_page_url . $userdetails->id);
     }
 
     //Update first name
@@ -102,7 +75,7 @@ if (!empty($_POST)) {
       $fields = ['fname' => $fname];
       $validation->check($_POST, [
         'fnx' => [
-          'display' => 'First Name',
+          'display' => 'Fornavn',
           'required' => true,
           'min' => 1,
           'max' => 25,
@@ -110,7 +83,7 @@ if (!empty($_POST)) {
       ]);
       if ($validation->passed()) {
         $db->update('users', $userId, $fields);
-        $successes[] = 'First Name Updated';
+        $successes[] = 'Fornavn opdateret';
         logger($user->data()->id, 'User Manager', "Updated first name for $userdetails->fname from $userdetails->fname to $fname.");
       } else {
       ?><?php if (!$validation->errors() == '') {
@@ -124,7 +97,7 @@ if (!empty($_POST)) {
       $fields = ['lname' => $lname];
       $validation->check($_POST, [
         'lnx' => [
-          'display' => 'Last Name',
+          'display' => 'Efternavn',
           'required' => true,
           'min' => 1,
           'max' => 25,
@@ -132,7 +105,7 @@ if (!empty($_POST)) {
       ]);
       if ($validation->passed()) {
         $db->update('users', $userId, $fields);
-        $successes[] = 'Last Name Updated';
+        $successes[] = 'Efternavn opdateret';
         logger($user->data()->id, 'User Manager', "Updated last name for $userdetails->fname from $userdetails->lname to $lname.");
       } else {
         if (!$validation->errors() == '') {
@@ -144,23 +117,22 @@ if (!empty($_POST)) {
     if (!empty($_POST['pwx'])) {
       $validation->check($_POST, [
         'pwx' => [
-          'display' => 'New Password',
+          'display' => 'Ny adgangskode',
           'required' => true,
-          'min' => $settings->min_pw,
-          'max' => $settings->max_pw,
+          'min' => 5,
+          'max' => 30,
         ],
         'confirm' => [
-          'display' => 'Confirm New Password',
+          'display' => 'Bekræft ny adgangskode',
           'required' => true,
           'matches' => 'confirm',
         ],
       ]);
 
       if (!$validation->errors()) {
-        //process
         $new_password_hash = password_hash(Input::get('pwx', true), PASSWORD_BCRYPT, ['cost' => 12]);
         $user->update(['password' => $new_password_hash], $userId);
-        $successes[] = 'Password updated.';
+        $successes[] = 'Adgangskoden er opdateret.';
         logger($user->data()->id, 'User Manager', "Updated password for $userdetails->fname.");
         if ($settings->session_manager == 1) {
           if ($userId == $user->data()->id) {
@@ -180,8 +152,8 @@ if (!empty($_POST)) {
           }
         }
       } else {
-        usError("Password validation failed");
-        Redirect::to("admin.php?view=user&id=" . $userId);
+        usError("Validering af adgangskode fejlede");
+        Redirect::to($user_page_url . $userId);
       }
     }
     $vericode_expiry = date('Y-m-d H:i:s', strtotime("+$settings->reset_vericode_expiry minutes", strtotime(date('Y-m-d H:i:s'))));
@@ -189,7 +161,6 @@ if (!empty($_POST)) {
     $db->update('users', $userdetails->id, ['vericode' => $vericode, 'vericode_expiry' => $vericode_expiry]);
     if (isset($_POST['sendPwReset'])) {
       $params = [
-        'username' => $userdetails->username,
         'sitename' => $settings->site_name,
         'fname' => $userdetails->fname,
         'email' => rawurlencode($userdetails->email),
@@ -197,14 +168,13 @@ if (!empty($_POST)) {
         'reset_vericode_expiry' => $settings->reset_vericode_expiry,
       ];
       $to = rawurlencode($userdetails->email);
-      $subject = lang('PW_RESET');
+      $subject = "Nulstil adgangskoden";
       $body = email_body('_email_adminPwReset.php', $params);
       email($to, $subject, $body);
-      $successes[] = 'Password reset sent.';
+      $successes[] = 'Sendt email om nulstilling af adgangskode.';
       logger($user->data()->id, 'User Manager', "Sent password reset email to $userdetails->fname, Vericode expires at $vericode_expiry.");
     }
 
-    //Update email
     $email = Input::get('email');
     if ($userdetails->email != $email) {
       $fields = ['email' => $email];
@@ -221,7 +191,7 @@ if (!empty($_POST)) {
 
       if ($validation->passed()) {
         $db->update('users', $userId, $fields);
-        $successes[] = 'Email Updated';
+        $successes[] = 'Email opdateret';
         logger($user->data()->id, 'User Manager', "Updated email for $userdetails->fname from $userdetails->email to $email.");
       } else {
        
@@ -232,91 +202,9 @@ if (!empty($_POST)) {
 <?php
       }
     }
-
-    //Toggle protected setting
-    if (in_array($user->data()->id, $master_account)) {
-      $protected = Input::get('protected');
-      if (isset($protected) and $protected == '1') {
-        if ($userdetails->protected == 0) {
-          if (updateUser('protected', $userId, 1)) {
-            $successes[] = lang('USER_PROTECTION', ['now']);
-            logger($user->data()->id, 'User Manager', "Updated protection for $userdetails->fname from 0 to 1.");
-          } else {
-            $errors[] = lang('SQL_ERROR');
-          }
-        }
-      } elseif ($userdetails->protected == 1) {
-        if (updateUser('protected', $userId, 0)) {
-          $successes[] = lang('USER_PROTECTION', ['no longer']);
-          logger($user->data()->id, 'User Manager', "Updated protection for $userdetails->fname from 1 to 0.");
-        } else {
-          $errors[] = lang('SQL_ERROR');
-        }
-      }
-    }
-
-    //Toggle dev_user setting
-    $dev_user = Input::get('dev_user');
-    if (isset($dev_user) and $dev_user == '1') {
-      if ($userdetails->dev_user == 0) {
-        if (updateUser('dev_user', $userId, 1)) {
-          $successes[] = lang('USER_DEV_OPTION', ['now']);
-          logger($user->data()->id, 'User Manager', "Updated dev_user for $userdetails->fname from 0 to 1.");
-        } else {
-          $errors[] = lang('SQL_ERROR');
-        }
-      }
-    } elseif ($userdetails->dev_user == 1) {
-      if (updateUser('dev_user', $userId, 0)) {
-        $successes[] = lang('USER_DEV_OPTION', ['no longer']);
-        logger($user->data()->id, 'User Manager', "Updated dev_user for $userdetails->fname from 1 to 0.");
-      } else {
-        $errors[] = lang('SQL_ERROR');
-      }
-    }
-
-    //Remove permission level
-    if (!empty($_POST['removePermission'])) {
-      $remove = Input::get('removePermission');
-      if ($deletion_count = removePermission($remove, $userId)) {
-        $successes[] = lang('ACCOUNT_PERMISSION_REMOVED', [$deletion_count]);
-        logger($user->data()->id, 'User Manager', "Deleted $deletion_count permission(s) from $userdetails->fname $userdetails->lname.");
-      } else {
-        $errors[] = lang('SQL_ERROR');
-      }
-    }
-
-    if (!empty($_POST['addPermission'])) {
-      $add = Input::get('addPermission');
-      if ($addition_count = addPermission($add, $userId, 'user')) {
-        $successes[] = lang('ACCOUNT_PERMISSION_ADDED', [$addition_count]);
-        logger($user->data()->id, 'User Manager', "Added $addition_count permission(s) to $userdetails->fname $userdetails->lname.");
-      } else {
-        $errors[] = lang('SQL_ERROR');
-      }
-    }
-
-    if (!empty($_POST['resetPin']) && Input::get('resetPin') == 1) {
-      $user->update(['pin' => null], $userId);
-      logger($user->data()->id, 'User Manager', "Reset PIN for $userdetails->fname $userdetails->lname");
-      $successes[] = 'Reset PIN';
-      $successes[] = 'User can set a new PIN the next time they require verification';
-    }
-
-    if (file_exists($abs_us_root . $us_url_root . 'usersc/includes/admin_user_system_settings_post.php')) {
-      require_once $abs_us_root . $us_url_root . 'usersc/includes/admin_user_system_settings_post.php';
-    }
-
-    $userdetailsQ = $db->query("SELECT * FROM users WHERE id =  ?", [$userId]);
-    $userdetailsC = $userdetailsQ->count();
-    if ($userdetailsC < 1) {
-      usError("That user does not exist");
-      Redirect::to($us_url_root . 'users/admin.php?view=users');
-    }
-    $userdetails = $userdetailsQ->first();
   }
-  if(!$validation->errors() == ''){
 
+  if(!$validation->errors() == ''){
     foreach($validation->errors()  as $key=>$e){
         $found = false;
         foreach($errors as $k=>$v){
@@ -327,189 +215,118 @@ if (!empty($_POST)) {
         if(!$found){
           $errors[] = $e;
         }
-
-
     }
   }
 
   if ($errors == [] && Input::get('return') != '') {
-    usSuccess("Saved");
-    Redirect::to('admin.php?view=users');
+    usSuccess("Gemt");
+    Redirect::to($users_page_url);
   } elseif ($errors == []) {
-    usSuccess("Saved");
-    Redirect::to('admin.php?view=user&id=' . $userId);
+    usSuccess("Gemt");
+    Redirect::to($user_page_url . $userId);
   }
 }
 
 $userPermission = fetchUserPermissions($userId);
-// $currentuserPermission = fetchUserPermissions($user->data()->id);
 $permissionData = fetchAllPermissions();
-
-$grav = fetchProfilePicture($userId);
-$useravatar = '<img src="' . $grav . '" class="img-responsive img-thumbnail" alt="">';
-if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) {
-  $protectedprof = 1;
-} else {
-  $protectedprof = 0;
-}
 
 $rsn = '';
 
 if (!$validation->errors() == '') {
   display_errors($validation->errors());
 }
-includeHook($hooks, 'body'); ?>
+
+$districts = $db->query("SELECT * FROM districts ORDER BY district_name ASC")->results();
+$active_district_id = $userdetails->district_id;
+
+?>
 
 <section id="user-details">
-  <div class="row">
-    <div class="col-2 col-sm-1">
-      <?php echo $useravatar; ?>
-    </div>
-    <div class="col-4 col-sm-5">
+  <div class="row mb-1">
+    <h3>
+      <span id="fname"><?= $userdetails->fname; ?></span>
+      <span id="lname"><?= $userdetails->lname; ?></span>
+      <span id="permission">(<?= $userdetails->permission_name; ?>)</span>
+    </h3>
 
-      <h3>
-        <span id="fname"><?= $userdetails->fname; ?></span>
-        <span id="lname"><?= $userdetails->lname; ?></span>
-        <span id="slash"> - </span>
-        <span id="username"><?= $userdetails->username; ?></span>
-      </h3>
+    <p><label>ID: <?= $userdetails->id; ?>
+        <?php if ($act == 1) { ?>
+          <?php if ($userdetails->email_verified == 1) { ?>
+            (Email Verified)</label> <input type="hidden" name="email_verified" value="1" />
 
-      <p><label>User ID: <?= $userdetails->id; ?>
-          <?php if ($act == 1) { ?>
-            <?php if ($userdetails->email_verified == 1) { ?>
-              (Email Verified)</label> <input type="hidden" name="email_verified" value="1" />
+    <?php } elseif ($userdetails->email_verified == 0) { ?>
+      (Email Unverified)</label>
+    <?php } } ?>
+    </p>
+    <p><label>Oprettet: </label> <?= $userdetails->join_date; ?></p>
 
-      <?php } elseif ($userdetails->email_verified == 0) { ?>
-        (Email Unverified)</label>
-      <?php } } ?>
-      </p>
-      <p><label>Joined: </label> <?= $userdetails->join_date; ?></p>
-
-      <p><label>Last Login: </label>
-        <?php if ($userdetails->last_login != 0) {
-          echo $userdetails->last_login;
-        } else {
-          echo "<i>Never</i>";
-        }
-        ?>
-    </div>
-    <div class="col-6">
-      <div class="row">
-        <div class="col-12 col-sm-6 col-md-3 mt-2">
-          <form class="" action="" method="post" onsubmit="return confirm('Do you really want to do this? It cannot be undone.');">
-            <?= tokenHere(); ?>
-            <input type="submit" name="delete" id="delete" class="btn btn-danger col-12" value="Delete User">
-          </form>
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-3 mt-2">
-          <?php if ($userdetails->permissions == 1) { ?>
-            <form class="" action="" method="post" onsubmit="return confirm('Do you really want to do this? The user will immediately be blocked from the site.');">
-              <?= tokenHere(); ?>
-              <input type="hidden" name="active" value="0">
-              <input type="submit" name="blocking" id="blocking" class="btn btn-warning col-12" value="Block User">
-            </form>
-          <?php } else { ?>
-            <form class="" action="" method="post" onsubmit="return confirm('Do you really want to do this? The user will immediately have their access to the site restored.');">
-              <?= tokenHere(); ?>
-              <input type="hidden" name="active" value="1">
-              <input type="submit" name="blocking" id="blocking" class="btn btn-warning col-12" value="Unblock User">
-            </form>
-          <?php } ?>
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-3 mt-2">
-          <form class="" action="" method="post" onsubmit="return confirm('If you continue, the user will be forced to change their password on the next login.');">
-            <?= tokenHere(); ?>
-            <input type="hidden" name="force_pr" value="1">
-            <input type="submit" name="force_the_pr" id="force_the_pr" class="btn btn-secondary col-12" value="Force PW Reset">
-          </form>
-        </div>
-        <div class="col-12">
-          <?php if ($rsn != "") {
-            echo "<p class='text-center mt-2'><em>" . $rsn . "</em></p>";
-          } ?>
-        </div>
-      </div>
-    </div>
+    <p><label>Sidste login: </label>
+      <?php if ($userdetails->last_login != 0) {
+        echo $userdetails->last_login;
+      } else {
+        echo "<i>Aldrig</i>";
+      }?>
   </div>
 
   <form class="form" id='adminUser' name='adminUser' action='' method='post'>
     <div class="row">
       <div class="col-12 col-sm-6">
-        <div class="form-group" id="username-group">
-          <label>Username:</label>
-          <input class='form-control' type='search' name='username' value='<?= $userdetails->username; ?>' autocomplete="off" />
-        </div>
-
-        <div class="form-group" id="email-group">
-          <label>Email:</label>
-          <input class='form-control' type='search' name='email' value='<?= $userdetails->email; ?>' autocomplete="off" />
+        
+        
+        <div class="form-group" id="fname-group">
+          <label>Kommune</label>
+          <select class="district-list form-control" id="district" name="district">
+                <option value="0">Vælg kommune</option>
+                <?php foreach($districts as $district) { ?>
+                  <option value="<?=$district -> district_id ?>" <?php echo($district -> district_id == $active_district_id ? 'selected="selected"' : '') ?>><?=$district -> district_name ?></option>
+                <?php } ?>
+                
+          </select>
         </div>
 
         <div class="form-group" id="fname-group">
-          <label>First Name:</label>
+          <label>Fornavn</label>
           <input class='form-control' type='search' name='fnx' value='<?= $userdetails->fname; ?>' autocomplete="off" />
         </div>
 
         <div class="form-group" id="lname-group">
-          <label>Last Name:</label>
+          <label>Efternavn</label>
           <input class='form-control' type='search' name='lnx' value='<?= $userdetails->lname; ?>' autocomplete="off" />
         </div>
 
-        <div class="form-group">
-          <label><input type="checkbox" name="sendPwReset" id="sendPwReset" /> Send Reset Email? Will expire in <?= $settings->reset_vericode_expiry; ?> minutes.</label><br>
-        </div>      
+        <div class="form-group" id="telefon-group">
+          <label>Telefon</label>
+          <input class='form-control' type='search' name='telefon' value='<?= $userdetails->phoneNumber; ?>' autocomplete="off" />
+        </div>
       </div>
       <div class="col-12 col-sm-6">
+        <div class="form-group" id="email-group">
+          <label>Email</label>
+          <input class='form-control' type='search' name='email' value='<?= $userdetails->email; ?>' autocomplete="off" />
+        </div>
+
         <div class="form-group">
-          <label>New Password (<?= $settings->min_pw; ?> char min, <?= $settings->max_pw; ?> max.)</label>
+          <label>Ny adgangskode (Min 5 char, max 30)</label>
           <input class='form-control' type='password' autocomplete="off" name='pwx' <?php if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) { ?>disabled<?php } ?> />
         </div>
 
         <div class="form-group">
-          <label>Confirm Password</label>
+          <label>Bekræft adgangskode</label>
           <input class='form-control' type='password' autocomplete="off" name='confirm' <?php if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) { ?>disabled<?php } ?> />
         </div>
 
-        <div class="form-group">
-          <?php if (!is_null($userdetails->pin)) { ?>
-            <label><input type="checkbox" id="resetPin" name="resetPin" value="1" /> Reset PIN</label>
-          <?php } ?>
-        </div>
-
-        <div class="form-group">
-          <label>Dev User<a class="nounderline" data-toggle="tooltip" title="This is just a flag that you can set for your own purposes.  It will be accessable from $user->data()->dev_user"><i class="fa fa-question-circle offset-circle font-info"></i></a></label>
-          <select name="dev_user" class="form-control">
-            <option <?php if ($userdetails->dev_user == 0) {
-                      echo "selected='selected'";
-                    } ?> value="0">No</option>
-            <option <?php if ($userdetails->dev_user == 1) {
-                      echo "selected='selected'";
-                    } ?>value="1">Yes</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <?php if ($protectedprof == 1) { ?><br>PROTECTED PROFILE - EDIT DISABLED<?php } ?>
-            <?php if (in_array($user->data()->id, $master_account)) { ?>
-              <label class="normal">Protected Account</label>
-              <select name="protected" class="form-control">
-                <option <?php if ($userdetails->protected == 0) {
-                          echo "selected='selected'";
-                        } ?> value="0">No</option>
-                <option <?php if ($userdetails->protected == 1) {
-                          echo "selected='selected'";
-                        } ?>value="1">Yes</option>
-              </select>
-            <?php } ?>
+        <div class="form-group active">
+          <label>Aktiv: </label>
+          <label class="toggle-switch">
+            <input id="active" name="active" type="checkbox" <?php echo ($userdetails->active > 0) ? 'checked' : ''; ?>>
+            <span class="slider round"></span>
+          </label>
         </div>
 
         <input type="hidden" name="csrf" value="<?= Token::generate(); ?>" />
-        <div class="pull-right mt-3">
-          <a class='btn btn-outline-danger' href="<?= $us_url_root; ?>users/admin.php?view=users">Cancel</a>
-          <input class='btn btn-outline-secondary' name="return" type='submit' value='Update & Close' class='submit' />
-          <input class='btn btn-outline-primary' type='submit' value='Update' class='submit' />
+        <div class="user-form-actions">
+          <a class='btn btn-outline-danger' href="<?= $users_page_url; ?>">Fortryd</a>
+          <input class='btn btn-outline-primary' type='submit' value='Gem' class='submit' />
         </div>
       </div>
     </div>

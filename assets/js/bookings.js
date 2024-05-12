@@ -259,11 +259,9 @@ function editBooking(id) {
     $($(form).find('#id')[0]).val(id);
     $($('#add-booking-submit-button')[0]).html('Opdater');
 
-
     $([document.documentElement, document.body]).animate({
         scrollTop: $("#add-booking-section").offset().top - 50
     }, 500);
-
 }
 
 
