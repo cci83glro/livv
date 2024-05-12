@@ -37,39 +37,30 @@ if (!empty($_POST)) {
   if (!Token::check($token)) {
     include $abs_us_root . $us_url_root . 'um/admin/token_error.php';
   } else {
-    includeHook($hooks, 'post');
     $db->update('users', $userdetails->id, ['modified' => date("Y-m-d")]);
 
-    if (!empty($_POST['delete'])) {
-      if ($userdetails->id == $user->data()->id || in_array($userdetails->id, $master_account)) {
-        usError("Du må ikke slette denne bruger!");
-        Redirect::to($user_page_url . $userdetails->id);
-      }
-      if ($deletion_count = deleteUsers([$userdetails->id])) {
-        logger($user->data()->id, 'User Manager', "Deleted user named $userdetails->fname.");
-        $msg = 'Brugerkontoen er slettet';
-        usSuccess($msg);
-        Redirect::to($users_page_url);
+    $district_id = ucfirst(Input::get('district_id'));
+    if ($userdetails->district_id != $district_id) {
+      $fields = ['district_id' => $district_id];
+      $validation->check($_POST, [
+        'district_id' => [
+          'display' => 'Kommune id',
+          'required' => false,
+          'is_numeric' => true,
+          '>=' => 1,
+          '<=' => 98,
+        ],
+      ]);
+      if ($validation->passed()) {
+        $db->update('users', $userId, $fields);
+        $successes[] = 'Kommune opdateret';
+        logger($user->data()->id, 'User Manager', "Updated kommune for $userdetails->fname from $userdetails->district_id to $district_id.");
       } else {
-        usError('Der skete en database fejl');
-        Redirect::to($user_page_url . $userdetails->id);
-      }
-    }
+      ?><?php if (!$validation->errors() == '') {
+          display_errors($validation->errors());
+        } ?>
+      <?php } }
 
-    if (!empty($_POST['blocking'])) {
-      if ($userdetails->id == $user->data()->id || in_array($userdetails->id, $master_account)) {
-        usError("Du må ikke opdatere status til denne bruger!");
-        Redirect::to($user_page_url . $userdetails->id);
-      }
-      $active = Input::get('active');
-      if ($active == 1 || $active == 0) {
-        $db->update("users", $userdetails->id, ['active' => $active, 'permissions' => $active]);
-        usSuccess("Aktiv status opdateret!");
-      }
-      Redirect::to($user_page_url . $userdetails->id);
-    }
-
-    //Update first name
     $fname = ucfirst(Input::get('fnx'));
     if ($userdetails->fname != $fname) {
       $fields = ['fname' => $fname];
@@ -91,7 +82,6 @@ if (!empty($_POST)) {
         } ?>
       <?php } }
 
-    //Update last name
     $lname = ucfirst(Input::get('lnx'));
     if ($userdetails->lname != $lname) {
       $fields = ['lname' => $lname];
@@ -111,6 +101,44 @@ if (!empty($_POST)) {
         if (!$validation->errors() == '') {
            display_errors($validation->errors());
         } 
+      }
+    }
+
+    $phone = ucfirst(Input::get('phone'));
+    if ($userdetails->phoneNumber != $phone) {
+      $fields = ['phoneNumber' => $phone];
+      $validation->check($_POST, [
+        'phone' => [
+          'display' => 'Phone',
+          'required' => false,
+          'is_numeric' => true,
+          'min' => 8,
+          'max' => 12,
+        ],
+      ]);
+      if ($validation->passed()) {
+        $db->update('users', $userId, $fields);
+        $successes[] = 'Telefonnummer opdateret';
+        logger($user->data()->id, 'User Manager', "Updated telefonnummer for $userdetails->fname from $userdetails->phoneNumber to $phone.");
+      } else {
+      ?><?php if (!$validation->errors() == '') {
+          display_errors($validation->errors());
+        } ?>
+      <?php } }
+
+    if (isset($_POST['active']) && $_POST['active'] == 'on') {
+      if ($userdetails->active === 0)
+      {
+        $user->update(['active' => 1], $userId);
+        $successes[] = 'Brugerkontoen er opdateret til aktiv.';
+        logger($user->data()->id, 'User Manager', "Updated active status for user id $userdetails->id from Inactive to Active.");
+      }
+    } else {
+      if ($userdetails->active === 1)
+      {
+        $user->update(['active' => 0], $userId);
+        $successes[] = 'Brugerkontoen er opdateret til inaktiv.';
+        logger($user->data()->id, 'User Manager', "Updated active status for user id $userdetails->id from Active to Inactive.");
       }
     }
 
@@ -272,53 +300,55 @@ $active_district_id = $userdetails->district_id;
     <div class="row">
       <div class="col-12 col-sm-6">
         
-        
-        <div class="form-group" id="fname-group">
-          <label>Kommune</label>
-          <select class="district-list form-control" id="district" name="district">
-                <option value="0">Vælg kommune</option>
-                <?php foreach($districts as $district) { ?>
-                  <option value="<?=$district -> district_id ?>" <?php echo($district -> district_id == $active_district_id ? 'selected="selected"' : '') ?>><?=$district -> district_name ?></option>
-                <?php } ?>
-                
-          </select>
-        </div>
+        <?php if($userdetails->permissions == 1) { ?>
+          <div class="form-group" id="fname-group">
+            <label for="district_id">Kommune</label>
+            <select class="district-list form-control" id="district_id" name="district_id">
+                  <option value="0">Vælg kommune</option>
+                  <?php foreach($districts as $district) { ?>
+                    <option value="<?=$district -> district_id ?>" 
+                    <?php echo($district -> district_id == $active_district_id ? 'selected="selected"' : ''); ?>><?=$district -> district_name ?></option>
+                  <?php } ?>
+                  
+            </select>
+          </div>
+        <?php } ?>
 
         <div class="form-group" id="fname-group">
-          <label>Fornavn</label>
-          <input class='form-control' type='search' name='fnx' value='<?= $userdetails->fname; ?>' autocomplete="off" />
+          <label for='fnx'>Fornavn</label>
+          <input class='form-control' type='search' name='fnx' id='fnx' value='<?= $userdetails->fname; ?>' autocomplete="off" />
         </div>
 
         <div class="form-group" id="lname-group">
-          <label>Efternavn</label>
-          <input class='form-control' type='search' name='lnx' value='<?= $userdetails->lname; ?>' autocomplete="off" />
+          <label for='lnx'>Efternavn</label>
+          <input class='form-control' type='search' name='lnx' id='lnx' value='<?= $userdetails->lname; ?>' autocomplete="off" />
         </div>
 
-        <div class="form-group" id="telefon-group">
-          <label>Telefon</label>
-          <input class='form-control' type='search' name='telefon' value='<?= $userdetails->phoneNumber; ?>' autocomplete="off" />
+        <div class="form-group" id="phone-group">
+          <label for='phone'>Telefon</label>
+          <input class='form-control' type='search' name='phone' id='phone' value='<?= $userdetails->phoneNumber; ?>' autocomplete="off" />
         </div>
       </div>
       <div class="col-12 col-sm-6">
         <div class="form-group" id="email-group">
-          <label>Email</label>
-          <input class='form-control' type='search' name='email' value='<?= $userdetails->email; ?>' autocomplete="off" />
+          <label for='email'>Email</label>
+          <input class='form-control' type='search' name='email' id='email' value='<?= $userdetails->email; ?>' autocomplete="off" />
         </div>
 
         <div class="form-group">
-          <label>Ny adgangskode (Min 5 char, max 30)</label>
-          <input class='form-control' type='password' autocomplete="off" name='pwx' <?php if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) { ?>disabled<?php } ?> />
+          <label for='pwx'>Ny adgangskode (Min 5 char, max 30)</label>
+          <input class='form-control' type='password' autocomplete="off" name='pwx' id='pwx' <?php if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) { ?>disabled<?php } ?> />
         </div>
 
         <div class="form-group">
-          <label>Bekræft adgangskode</label>
-          <input class='form-control' type='password' autocomplete="off" name='confirm' <?php if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) { ?>disabled<?php } ?> />
+          <label for='confirm'>Bekræft adgangskode</label>
+          <input class='form-control' type='password' autocomplete="off" name='confirm' id='confirm' <?php if ((!in_array($user->data()->id, $master_account) && in_array($userId, $master_account) || !in_array($user->data()->id, $master_account) && $userdetails->protected == 1) && $userId != $user->data()->id) { ?>disabled<?php } ?> />
         </div>
 
         <div class="form-group active">
-          <label>Aktiv: </label>
+          <label for='active'>Aktiv: </label>
           <label class="toggle-switch">
-            <input id="active" name="active" type="checkbox" <?php echo ($userdetails->active > 0) ? 'checked' : ''; ?>>
+            <input class='form-control' id="active" name="active" type="checkbox" <?php echo ($userdetails->active > 0) ? 'checked' : ''; ?>>
             <span class="slider round"></span>
           </label>
         </div>

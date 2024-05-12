@@ -284,6 +284,10 @@ form .form-group label {
     margin-bottom: 3px;
 }
 
+form .form-group.active label {
+    vertical-align: top;
+}
+
 form .user-form-actions {
     text-align: right;
 }
@@ -291,6 +295,13 @@ form .user-form-actions {
 form .user-form-actions a,
 form .user-form-actions input {
     width: 30%;
+    border-width: 3px;
+    font-weight: 700;
+}
+
+form .user-form-actions input {
+    border-color: var(--secondary-color);
+    margin-left: 5px;
 }
 
 .submit_form-subscribe {
@@ -1017,6 +1028,7 @@ div#pagination .page-link.active{
 .fa-brands {
     font-size: 21px;
     margin-top: 4px;
+    margin-left: 3px;
 }
 
 .page-banner {
@@ -1075,6 +1087,7 @@ section#users-list .btn{
 .toggle-switch {
     position: relative;
     display: inline-block;
+    margin-left: 5px;
     width: 50px;
     height: 25px;
   }
