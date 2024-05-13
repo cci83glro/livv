@@ -100,7 +100,7 @@ function loadBookings(page) {
         var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);        
 
         data.slice(lowerBound, upperBound).forEach(function(booking) {
-            var assignAction = `<br/><button class="action-button-reverted unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+            var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
             var assignText = 'Unassigned';
             if (!booking.assigned_user_id) {
                 assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
@@ -108,7 +108,7 @@ function loadBookings(page) {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<button class="action-button-reverted assign-booking" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<button class="save" onclick="assignUser(${booking.booking_id})">Assign</button>`;
             } else {
                 assignText = '<span>Assigned til:</span> ' + booking.user_name;
             }
@@ -125,10 +125,12 @@ function loadBookings(page) {
                         <p class="hours" data-value="${booking.hours}"><span>Antal timer:</span> ${booking.hours}</p>
                         <p class="shift" data-value="${booking.shift_id}"><span>Stilling:</span> ${booking.shift_name}</p>
                         <p class="qualification" data-value="${booking.qualification_id}"><span>Uddannelse:</span> ${booking.qualification_name}</p>
-                        <p>${assignText}${assignAction}</p>
-                        <div class="accordion-item-content-actions">
-                            <button class="delete-booking-button cancel-button" onclick="deleteBooking(${booking.booking_id})">Slet</button>
-                            <button class="edit-booking-button action-button" onclick="editBooking(${booking.booking_id})">Rediger</button>
+                        <p class="form-actions">${assignText}${assignAction}</p>
+                        <div class="form-actions">
+                            <div class="buttons-wrapper">
+                                <button class="cancel" onclick="deleteBooking(${booking.booking_id})">Slet</button>
+                                <button class="save" onclick="editBooking(${booking.booking_id})">Rediger</button>
+                            </div>
                         </div>
                     </div>
                 </div>`;
@@ -185,8 +187,6 @@ function deleteBooking(bookingId) {
         })
         .then(response => response.text())
         .then(data => {
-            //alert(data); // Show response message
-            // Reload the page after deletion
             reloadBookings();
         })
         .catch(error => console.error('Error:', error));

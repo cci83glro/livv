@@ -34,92 +34,92 @@
         </div>
     </div>
     <form id="bookingForm" method="post" action="booking/create_booking.php" data-user-id="<?php echo $user_id; ?>"
-        class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking"
-        novalidate>
+        class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking" novalidate>
         <div class="row">
-        <div class="mb-3 col-md-6">
-            <input type="text" class="hidden" name="id" id="id">
+            <div class="mb-3 col-md-6">
+                <input type="text" class="hidden" name="id" id="id">
 
-            <label for="place" class="form-field-label">Sted</label>
-            <input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
-            <div class="invalid-feedback">
-                <?php echo $textFieldRequiredText; ?>
+                <label for="place" class="form-field-label">Sted</label>
+                <input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
+                <div class="invalid-feedback">
+                    <?php echo $textFieldRequiredText; ?>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label for="date" class="form-field-label">Dato</label>
-            <input type="date" class="form-control py-2 px-4" id="date" name="date" placeholder="Dato" required>
-            <div class="invalid-feedback">
-                <?php echo $textFieldRequiredText; ?>
+            <div class="mb-3 col-md-6">
+                <label for="date" class="form-field-label">Dato</label>
+                <input type="date" class="form-control py-2 px-4" id="date" name="date" placeholder="Dato" required>
+                <div class="invalid-feedback">
+                    <?php echo $textFieldRequiredText; ?>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label for="time" class="form-field-label">Starttid</label>
-            <select class="form-control py-2 px-4" id="time" name="time" placeholder="Tid" required>
-                <option value="">Vælg starttid</option>
-                <?php 
-                    foreach($times as $time){
-                        echo "<option value='$time->time_id'>$time->time_value</option>"; 
-                    }            
-                ?>
-            </select>
-            <div class="invalid-feedback">
-                <?php echo $selectFieldRequiredText; ?>
+            <div class="mb-3 col-md-6">
+                <label for="time" class="form-field-label">Starttid</label>
+                <select class="form-control py-2 px-4" id="time" name="time" placeholder="Tid" required>
+                    <option value="">Vælg starttid</option>
+                    <?php 
+                        foreach($times as $time){
+                            echo "<option value='$time->time_id'>$time->time_value</option>"; 
+                        }            
+                    ?>
+                </select>
+                <div class="invalid-feedback">
+                    <?php echo $selectFieldRequiredText; ?>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label for="hours" class="form-field-label">Antal timer</label>
-            <input type="number" class="form-control py-2 px-4" id="hours" name="hours" placeholder="Indtast antal timer" required>
-            <div class="invalid-feedback">
-                <?php echo $textFieldRequiredText; ?>
+            <div class="mb-3 col-md-6">
+                <label for="hours" class="form-field-label">Antal timer</label>
+                <input type="number" class="form-control py-2 px-4" id="hours" name="hours" placeholder="Indtast antal timer" required>
+                <div class="invalid-feedback">
+                    <?php echo $textFieldRequiredText; ?>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label for="shift" class="form-field-label">Stilling</label>
-            <select class="form-control py-2 px-4" id="shift" name="shift" required>
-                <option value="">Vælg stilling</option>
-                <?php 
-                    foreach($shifts as $shift){
-                        echo "<option value='$shift->shift_id'>$shift->shift_name</option>"; 
-                    }            
-                ?>
-            </select>
-            <div class="invalid-feedback">
-                <?php echo $selectFieldRequiredText; ?>
+            <div class="mb-3 col-md-6">
+                <label for="shift" class="form-field-label">Stilling</label>
+                <select class="form-control py-2 px-4" id="shift" name="shift" required>
+                    <option value="">Vælg stilling</option>
+                    <?php 
+                        foreach($shifts as $shift){
+                            echo "<option value='$shift->shift_id'>$shift->shift_name</option>"; 
+                        }            
+                    ?>
+                </select>
+                <div class="invalid-feedback">
+                    <?php echo $selectFieldRequiredText; ?>
+                </div>
             </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label for="qualification" class="form-field-label">Uddannelse</label>
-            <select class="form-control py-2 px-4" id="qualification" name="qualification" required>
-                <option value="">Vælg uddannelse</option>
-                <?php 
-                    foreach($qualifications as $qualification){
-                        echo "<option value='$qualification->qualification_id'>$qualification->qualification_name</option>"; 
-                    }            
-                ?>
-            </select>
-            <div class="invalid-feedback">
-                <?php echo $selectFieldRequiredText; ?>
+            <div class="mb-3 col-md-6">
+                <label for="qualification" class="form-field-label">Uddannelse</label>
+                <select class="form-control py-2 px-4" id="qualification" name="qualification" required>
+                    <option value="">Vælg uddannelse</option>
+                    <?php 
+                        foreach($qualifications as $qualification){
+                            echo "<option value='$qualification->qualification_id'>$qualification->qualification_name</option>"; 
+                        }            
+                    ?>
+                </select>
+                <div class="invalid-feedback">
+                    <?php echo $selectFieldRequiredText; ?>
+                </div>
             </div>
-        </div>
-        <div class="mb-0 col-md-6">
-            <select id="employee" name="employee" style="display:none">
-                <option value="">Vælg vikar</option>
-                <?php 
-                    foreach($employees as $employee){
-                        echo "<option value='$employee->id'>$employee->name</option>"; 
-                    }            
-                ?>
-            </select>
-        </div>        
-        <div class="form-actions">
-            <div class="buttons-wrapper mb-2">
-                <button type="button" id="add-booking-cancel-button" class="cancel">
-                    Fortryd
-                </button>
-                <button type="button" id="add-booking-submit-button" class="save">
-                    Tilføj
-                </button>
+            <div class="mb-0 col-md-6">
+                <select id="employee" name="employee" style="display:none">
+                    <option value="">Vælg vikar</option>
+                    <?php 
+                        foreach($employees as $employee){
+                            echo "<option value='$employee->id'>$employee->name</option>"; 
+                        }            
+                    ?>
+                </select>
+            </div>        
+            <div class="form-actions">
+                <div class="buttons-wrapper mb-2">
+                    <button type="button" id="add-booking-cancel-button" class="cancel">
+                        Fortryd
+                    </button>
+                    <button type="button" id="add-booking-submit-button" class="save">
+                        Tilføj
+                    </button>
+                </div>
             </div>
         </div>
     </form>

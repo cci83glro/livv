@@ -40,7 +40,7 @@
 		<div class="r-container">
 			<div class="d-flex flex-column gap-3">
 				<div id="add-booking-button-wrapper" class="form-actions">
-					<button id="add-booking-button" class="save" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
+					<button id="add-booking-button" class="save no-margin" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
 				</div>
 				<?php include_once "booking/add-booking-form.php"; ?>
 				<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								

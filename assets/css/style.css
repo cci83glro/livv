@@ -270,6 +270,10 @@ form .form-group.active label {
     text-align: right;
 }
 
+p.form-actions {
+    text-align: left;
+}
+
 .form-actions .buttons-wrapper {
     display: inline-block;
     width: 50%;
@@ -281,6 +285,7 @@ form .form-group.active label {
     width: 30%;
     border-width: 2px;
     border-style: solid;
+    font-size: 1.2rem;
     font-weight: 700;
     background-color: var(--primary-color);
     border-radius: 10px;
@@ -293,6 +298,9 @@ form .form-group.active label {
 .form-actions .save {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
+}
+
+.form-actions .save:not(.no-margin) {
     margin-left: 5px;
 }
 
@@ -382,21 +390,28 @@ form .form-group.active label {
 }
 
 .dropdown-item {
-    padding-block: 0.5rem;
+    padding: 0;
+    margin: 10px 20px;
+    width: auto;
+}
+
+.dropdown-item.logout {
+    border-top: 1px solid var(--gray-color);
+    padding-top: 10px;
 }
 
 .dropdown-item.active {
-    color: var(--accent-color);
+    color: var(--secondary-color);
     background-color: transparent;
 }
 
 .dropdown-item:hover {
-    color: var(--accent-color);
+    color: var(--secondary-color);
     background-color: transparent;
 }
 
 .dropdown-item:focus {
-    color: var(--accent-color);
+    color: var(--secondary-color);
 }
 
 .section {
@@ -907,7 +922,7 @@ form .form-group.active label {
 .accordion-item-header .indicator {
     position: absolute;
     right: 1rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
     line-height: 1rem;
 }
 
@@ -1002,13 +1017,6 @@ div#pagination .page-link.active{
 
 .unassign-booking {
     margin-top: .5rem;
-}
-
-.action-button-reverted {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border: 3px solid var(--secondary-color);
-    border-radius: 10px;
 }
 
 .fa-brands {

@@ -27,6 +27,7 @@ if (!empty($_POST)) {
 
     $vericode_expiry = date('Y-m-d H:i:s', strtotime("+$settings->join_vericode_expiry hours", strtotime(date('Y-m-d H:i:s'))));
     $join_date = date('Y-m-d H:i:s');
+    $permission_id = Input::get('permission_id');
     $fname = Input::get('fname');
     $lname = Input::get('lname');
     $phone = Input::get('phone');
@@ -61,7 +62,7 @@ if (!empty($_POST)) {
           'phoneNumber' => $phone,
           'email' => $email,
           'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]),
-          'permissions' => 1,
+          'permissions' => $permission_id,
           'join_date' => $join_date,
           'email_verified' => 1,
           'vericode' => $vericode,
@@ -75,9 +76,9 @@ if (!empty($_POST)) {
         $db->insert('users', $fields);
         $theNewId = $db->lastId();
 
-        $perm = Input::get('perm');
-        $addNewPermission = ['user_id' => $theNewId, 'permission_id' => 1];
-        $db->insert('user_permission_matches', $addNewPermission);
+        // $perm = Input::get('perm');
+        // $addNewPermission = ['user_id' => $theNewId, 'permission_id' => $permission_id];
+        // $db->insert('user_permission_matches', $addNewPermission);
 
         include $abs_us_root . $us_url_root . 'usersc/scripts/during_user_creation.php';
         if (isset($_POST['sendEmail'])) {
@@ -108,7 +109,6 @@ if (!empty($_POST)) {
   }
 }
 
-$uCount = $db->query("SELECT count(id) AS user_count FROM users") -> results();
 if($settings->uman_search == 0){
   $usernameReq = $user_id > 1 ? " AND username <> 'admin' " : "";
   $query = "SELECT
@@ -238,7 +238,7 @@ foreach ($validation->errors() as $error) {
           <div class="form-group" id="email-group">
             <label>Telefon</label>
             <input class="form-control" type="search" name="phone" id="phone" 
-                value="<?php if (!$form_valid && !empty($_POST)) { echo $phone; } ?>" required autocomplete="off">
+                value="<?php if (!$form_valid && !empty($_POST)) { echo $phone; } ?>" autocomplete="off">
           </div>
 
           <div class="form-group" id="email-group">

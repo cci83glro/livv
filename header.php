@@ -21,30 +21,18 @@
                     <li><i class="fa-solid fa-location-dot"></i>&nbsp; <a class="location" target=_blank href="https://maps.app.goo.gl/aJnuGj3JGwNK5J5m9">Lidsøvej, 2730 Herlev</li>
                     <li><i class="fa-solid fa-phone"></i>&nbsp; <a class="phone" href="tel:11223344">11 22 33 44</li>
                     <li><i class="fa-solid fa-envelope"></i>&nbsp; <a class="email" href="mailto:kontakt@livvikar.dk">kontakt@livvikar.dk</li>
-                    <li>
-                        <a href="https://www.facebook.com" class="social-item">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.twitter.com" class="social-item">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                    </li>
                     <!-- <li>Email : hello@awesomesite.com</li>
                     <li>Opening Hours : 08:00am to 07:00Pm</li> -->
                 </ul>
                 <div class="social-container justify-content-center">
-                    <?php 
-                        if ($user_id > 0)
-                        {
-                            echo($user_username.' (id '.$user_id.' | p '.$user_permission.')');
-                            //echo($user_username);
-                            echo('<a class="logout" href="'.$us_url_root.'um/logout.php">Log ud</a>');
-                        } else {
-                            echo('<a class="login" href="'.$us_url_root.'um/login.php">Log ind</a>');
-                        }                        
-                    ?>
+                    <a href="https://www.facebook.com" class="social-item">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                <!-- </li>
+                <li> -->
+                    <a href="https://www.twitter.com" class="social-item">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -75,26 +63,35 @@
                                 <a class="nav-link" href="/">Kurser</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="bookings.php">Bookings</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="about_us.html">Om os</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="contact.html">Kontakt</a>
                             </li>
-                            <?php if($user_permission == 2) { ?>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Admin
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="<?=$us_url_root?>/um/admin/users.php">Brugere</a></li>
-                                    </ul>
-                                </li>
-                            <?php } ?>
                         </ul>
-                        <a href="" type="button" class="btn button bg-secondary-color primary-color" type="submit">Opret vikar</a>
+                        <div class="nav-item dropdown">
+                            <?php if($user_id == 0){ ?>
+                                <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Log ind / Registrer
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="<?=$us_url_root?>/um/login.php">Log ind</a></li>
+                                    <li><a class="dropdown-item" href="<?=$us_url_root?>/um/join.php">Registrer som vikar</a></li>
+                                </ul>                            
+                            <?php } else { ?>
+                                <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user"></i>
+                                    <?=$user_name?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="<?=$us_url_root?>/bookings.php">Bookings</a></li>
+                                    <?php if($user_permission == 2) { ?>
+                                        <li><a class="dropdown-item" href="<?=$us_url_root?>/um/admin/users.php">Brugere</a></li>
+                                    <?php } ?>
+                                    <li><a class="dropdown-item logout" href="<?=$us_url_root?>/um/logout.php">Log ud</a></li>
+                                </ul>                                
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             </nav>
