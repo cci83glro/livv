@@ -135,9 +135,11 @@ foreach ($validation->errors() as $error) {
         <div class="col-12 mb-2">
             <h2>Brugere</h2>
             <div class="row" style="margin-top:1vw;">            
-            <div class="col-12 text-end">
-                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Tilføj bruger</button>
-            </div>
+              <div class="form-actions">
+                <div class="buttons-wrapper">
+                  <button class="save" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Tilføj bruger</button>
+                </div>
+              </div>
             </div>
         <?php
         if($settings->uman_search == 1){ ?>
@@ -291,10 +293,10 @@ foreach ($validation->errors() as $error) {
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer form-actions">
           <input type="hidden" name="csrf" value="<?php echo Token::generate(); ?>" />
-          <button type="button" class="btn btn-primary cancel" data-bs-dismiss="modal">Fortryd</button>
-          <input class='btn btn-primary submit' type='submit' id="addUser" name="addUser" value='Tilføj' />
+          <button type="button" class="cancel" data-bs-dismiss="modal">Fortryd</button>
+          <input class='save' type='submit' id="addUser" name="addUser" value='Tilføj' />
         </div>
       </form>
     </div>

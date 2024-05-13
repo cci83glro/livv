@@ -157,40 +157,14 @@ section {
     background-position: center;
 }
 
-button,
+/* button,
 a[type="button"] {
     padding-inline: 1rem;
     padding-block: 0.5rem;
     text-decoration: none;
     transition: all 0.5s;
     font-weight: 700;
-}
-
-button.button {
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
-    border: 2px solid var(--accent-color);
-    text-decoration: none;
-    transition: all 0.5s;
-    color: white;
-}
-
-button.button:hover {
-    background-color: var(--accent-color);
-    color: white;
-    filter: brightness(0.8);
-}
-
-a:hover {
-    color: var(--accent-color);
-}
-
-button:hover,
-a[type="button"]:hover {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    filter: brightness(0.8);
-}
+} */
 
 a {
     text-decoration: none !important;
@@ -288,32 +262,50 @@ form .form-group.active label {
     vertical-align: top;
 }
 
-form .user-form-actions {
+.form-actions {
     text-align: right;
 }
 
-form .user-form-actions a,
-form .user-form-actions input {
-    width: 30%;
-    border-width: 2px;
-    font-weight: 700;
+.form-actions .buttons-wrapper {
+    display: inline-block;
+    width: 50%;
 }
 
-form .user-form-actions input {
+.form-actions .save,
+.form-actions .cancel {
+    display: inline-block;
+    width: 30%;
+    border-width: 2px;
+    border-style: solid;
+    font-weight: 700;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.5s;
+    padding: .5rem 1rem;
+    text-align: center;
+}
+
+.form-actions .save {
+    color: var(--secondary-color);
     border-color: var(--secondary-color);
     margin-left: 5px;
 }
 
-form.form-signup > .modal-footer > .btn {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border: 2px solid var(--secondary-color);
-    width: 30%;
+.form-actions .save:hover {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
 }
 
-form.form-signup > .modal-footer > .btn.cancel {
+.form-actions .cancel {
     color: var(--red-color);
     border-color: var(--red-color);
+    background-color: var(--primary-color);    
+}
+
+.form-actions .cancel:hover {
+    color: var(--primary-color);
+    background-color: var(--red-color);
 }
 
 .submit_form-subscribe {
@@ -321,7 +313,7 @@ form.form-signup > .modal-footer > .btn.cancel {
     padding-block: 0.7rem;
     text-decoration: none;
     transition: all 0.5s;
-    color: white;
+    color: var(--primary-color);
     background-color: var(--secondary-color);
     border-radius: 5px;
 }
@@ -981,10 +973,6 @@ div#pagination .page-link.active{
     text-align: right;
 }
 
-.add-booking-buttons-wrapper {
-    text-align: right;
-}
-
 .add-booking-buttons > button{
     margin-right: 1rem;
     width: 10%;
@@ -996,10 +984,6 @@ div#pagination .page-link.active{
 
 #add-booking-button {
     width: 20%;
-    border-radius: 10px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    border: 3px solid var(--secondary-color);
 }
 
 .assign-users-select {
@@ -1016,24 +1000,10 @@ div#pagination .page-link.active{
     margin-top: .5rem;
 }
 
-.action-button {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    border: none;
-    border-radius: 10px;
-}
-
 .action-button-reverted {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     border: 3px solid var(--secondary-color);
-    border-radius: 10px;
-}
-
-.cancel-button {
-    background-color: var(--red-color);
-    color: var(--white-color);
-    border: none;
     border-radius: 10px;
 }
 
@@ -1092,12 +1062,8 @@ section#user-details p{
     margin-bottom: 5px;
 }
 
-section#users-list .btn{
-    color: var(--secondary-color);
-}
-
 section#users-list .btn:hover{
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
 }
 
 .toggle-switch {

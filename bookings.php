@@ -39,10 +39,8 @@
 	<section class="section">
 		<div class="r-container">
 			<div class="d-flex flex-column gap-3">
-				
-				<!-- <h3 class="font-1 fw-bold">Frequently Asked Questions</h3> -->
-				<div id="add-booking-button-wrapper">
-					<button id="add-booking-button" onclick="showAddBookingForm()">+ Tilføj booking</button>
+				<div id="add-booking-button-wrapper" class="form-actions">
+					<button id="add-booking-button" class="save" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
 				</div>
 				<?php include_once "booking/add-booking-form.php"; ?>
 				<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								

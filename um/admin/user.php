@@ -361,9 +361,9 @@ $active_district_id = $userdetails->district_id;
         </div>
 
         <input type="hidden" name="csrf" value="<?= Token::generate(); ?>" />
-        <div class="user-form-actions">
-          <a class='btn btn-outline-danger' href="<?= $users_page_url; ?>">Fortryd</a>
-          <input class='btn btn-outline-primary' type='submit' value='Gem' class='submit' />
+        <div class="form-actions">
+          <a class='cancel' href="<?= $users_page_url; ?>">Fortryd</a>
+          <input class='save' type='submit' value='Gem' class='submit' />
         </div>
       </div>
     </div>

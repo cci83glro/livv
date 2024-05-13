@@ -112,16 +112,15 @@
                 ?>
             </select>
         </div>        
-        <div class="add-booking-buttons-wrapper">
-            <div class="add-booking-buttons">
-                <button type="button" id="add-booking-cancel-button" class="cancel-button">
+        <div class="form-actions">
+            <div class="buttons-wrapper mb-2">
+                <button type="button" id="add-booking-cancel-button" class="cancel">
                     Fortryd
                 </button>
-                <button type="button" id="add-booking-submit-button" class="action-button">
+                <button type="button" id="add-booking-submit-button" class="save">
                     Tilføj
                 </button>
             </div>
-        </div>
         </div>
     </form>
 </div>
