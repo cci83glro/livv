@@ -115,7 +115,7 @@ if($settings->uman_search == 0){
     u.*, p.name AS permission_name
     FROM users AS u
     LEFT OUTER JOIN permissions AS p ON u.permissions = p.id
-    WHERE true" . $usernameReq;
+    WHERE u.permissions <> 2" . $usernameReq;
   
   if(!empty($_POST['search'])){
     $search = Input::get('searchTerm');

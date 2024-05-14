@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require_once 'master.php';?>
+<?php
+    require_once 'master.php';
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Stylesheet -->
     <?php include_once "config/css.php"?>
     <title>LivVikar - Home</title>
+    <?php if (isset($extra_head_html)) echo $extra_head_html;?>
 </head>
 
 <body class="br-secondary-color">
@@ -41,7 +44,7 @@
         <div class="r-container">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="<?=$us_url_root?>">
                         <div class="logo-container">
                             <img src="<?=$us_url_root?>assets/images/logo-white-background.svg" alt="Logo with white background" class="img-fluid">
                         </div>

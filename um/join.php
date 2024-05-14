@@ -4,15 +4,12 @@
 ini_set('allow_url_fopen', 1);
 header('X-Frame-Options: DENY');
 $public = true;
+$extra_head_html = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 require_once '../header.php';
-
-$hooks = getMyHooks();
 
 if ($user->isLoggedIn()) {
     Redirect::to($us_url_root.'index.php');
 }
-
-includeHook($hooks, 'pre');
 
 $form_method = 'POST';
 $form_action = 'join.php';
@@ -125,7 +122,7 @@ if (Input::exists()) {
                 'phoneNumber' => Input::get('phone'),
                 'email' => Input::get('email'),
                 'password' => password_hash(Input::get('password', true), PASSWORD_BCRYPT, ['cost' => 12]),
-                'permissions' => 1,
+                'permissions' => 3,
                 'join_date' => $join_date,
                 'email_verified' => $pre,
                 'vericode' => $vericode,
@@ -137,7 +134,6 @@ if (Input::exists()) {
 
             $theNewId = $user->create($fields);
 
-            includeHook($hooks, 'post');
             if ($act == 1) {
                 //Verify email address settings
                 $to = rawurlencode($email);
@@ -158,21 +154,17 @@ if (Input::exists()) {
 
             if ($act == 1) {
                 logger($theNewId, 'User', 'Registration completed and verification email sent.');
-
-                Redirect::to($us_url_root . "users/complete.php?action=thank_you_verify");
+                Redirect::to($us_url_root . "um/complete.php?action=thank_you_verify");
 
             } else {
                 logger($theNewId, 'User', 'Registration completed.');
-                if (file_exists($abs_us_root.$us_url_root.'usersc/views/_joinThankYou.php')) {
-
-                    Redirect::to($us_url_root . "users/complete.php?action=thank_you_join");
-
+                if (file_exists($abs_us_root.$us_url_root.'um/views/_joinThankYou.php')) {
+                    Redirect::to($us_url_root . "um/complete.php?action=thank_you_join");
                 } else {
-                    Redirect::to($us_url_root . "users/complete.php?action=thank_you");
+                    Redirect::to($us_url_root . "um/complete.php?action=thank_you");
                 }
             }
         }
-
     } else {
         foreach($validation->_errors as $e){
             usError($e);
@@ -184,10 +176,6 @@ if (Input::exists()) {
 
 
 require $abs_us_root.$us_url_root.'um/views/_join.php';
-// } else {
-//     require $abs_us_root.$us_url_root.'um/views/_joinDisabled.php';
-// }
-includeHook($hooks, 'bottom');
 ?>
 
 <?php include_once $abs_us_root.$us_url_root."footer.php"?>

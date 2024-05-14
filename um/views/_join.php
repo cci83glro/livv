@@ -1,10 +1,7 @@
 <div class="container">
   <div class="row justify-content-md-center alternate-background">
     <main class="col-12 col-md-10 col-lg-8">
-      <?php
-      includeHook($hooks, 'body');
-      ?>
-
+ 
       <h1 class="form-signin-heading mt-4 mb-3 alternate-background">Registrer ny bruger</h1>
       <form class="form-signup p-4 mb-5" action="" method="POST" id="payment-form">
 
@@ -93,16 +90,13 @@
           </div>
         </div>
 
-        <?php
-        //includeHook($hooks, 'form');
-        //include($abs_us_root . $us_url_root . 'usersc/scripts/additional_join_form_fields.php');
-        ?>
-
         <input type="hidden" value="<?= Token::generate(); ?>" name="csrf">
 
+        <div class="g-recaptcha" data-sitekey="6LeMldwpAAAAAHsHbEJecHb2jxkLkZ9X67IwpCCl"></div>
+
         <div class="row">
-          <div class="col-12 col-md-8 offset-md-4 register-button-wrapper">
-            <button class="submit btn btn-primary bg-secondary-color primary-color" type="submit" id="next_button">
+          <div class="form-actions">
+            <button class="submit save" type="submit" id="next_button">
               <span class="fa fa-user-plus mr-2 me-2"></span> Registrer
             </button>
           </div>
