@@ -395,7 +395,7 @@ p.form-actions {
     width: auto;
 }
 
-.dropdown-item.logout {
+.dropdown-item.with-top-separator {
     border-top: 1px solid var(--gray-color);
     padding-top: 10px;
 }

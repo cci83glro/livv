@@ -88,7 +88,9 @@
                                     <?php if($user_permission == 2) { ?>
                                         <li><a class="dropdown-item" href="<?=$us_url_root?>/um/admin/users.php">Brugere</a></li>
                                     <?php } ?>
-                                    <li><a class="dropdown-item logout" href="<?=$us_url_root?>/um/logout.php">Log ud</a></li>
+                                    <li><a class="dropdown-item with-top-separator" href="<?php echo $user_page_url.$user_id;?>">Min profil</a></li>
+                                    <li><a class="dropdown-item" href="<?=$us_url_root?>/um/logout.php">Log ud</a></li>
+                                    
                                 </ul>                                
                             <?php } ?>
                         </div>
