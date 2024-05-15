@@ -36,6 +36,11 @@ if (Input::exists()) {
         include $abs_us_root.$us_url_root.'usersc/scripts/token_error.php';
     }
 
+    $sex = Input::get('sex');
+    if($sex != '') {
+        die('Registrering OK');
+    }
+
     $fname = Input::get('fname');
     $lname = Input::get('lname');
     $email = Input::get('email');
@@ -88,10 +93,6 @@ if (Input::exists()) {
           ],
         ]);
 
-    if ($eventhooks = getMyHooks(['page' => 'joinAttempt'])) {
-        includeHook($eventhooks, 'body');
-    }
-
     if ($validation->passed()) {
         $form_valid = true;
         //add user to the database
@@ -142,10 +143,7 @@ if (Input::exists()) {
                 email($to, $subject, $body);
                 
             }
-        } catch (Exception $e) {
-            if ($eventhooks = getMyHooks(['page' => 'joinFail'])) {
-                includeHook($eventhooks, 'body');
-            }
+        } catch (Exception $e) {            
             die($e->getMessage());
         }
         if ($form_valid == true) {

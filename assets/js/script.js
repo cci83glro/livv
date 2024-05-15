@@ -34,6 +34,16 @@ function toggleMenuItem(item) {
     var dropdownMenu = $($(item).siblings('.dropdown-menu')).toggleClass('show');
 }
 
+function validateRecaptcha() {
+    var response = grecaptcha.getResponse();
+    if (response.length == 0) {
+        alert("Udfør venligst reCAPTCHA valideringen!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
 $(window).ready(function() {
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();

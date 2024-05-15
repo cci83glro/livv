@@ -2,10 +2,10 @@
   <div class="row justify-content-md-center alternate-background">
     <main class="col-12 col-md-10 col-lg-8">
  
-      <h1 class="form-signin-heading mt-4 mb-3 alternate-background">Registrer ny bruger</h1>
-      <form class="form-signup p-4 mb-5" action="" method="POST" id="payment-form">
+      <h1 class="form-signin-heading mt-4 mb-3 alternate-background">Registrer som vikar</h1>
+      <form class="form-signup p-4 mb-5" action="" method="POST" id="user-registration-form" onsubmit="return validateRecaptcha();">
 
-        <div class="row mb-3">
+        <div class="row mb-3 fname">
           <label for="fname" id="fname-label" class="col-form-label col-12 col-md-4 text-md-right text-md-end">Fornavn *</label>
           <div class="col-12 col-md-8">
             <input type="text" class="form-control" id="fname" name="fname" placeholder="Fornavn" 
@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3 lname">
           <label for="lname" id="lname-label" class="col-form-label col-12 col-md-4 text-md-right text-md-end">Efternavn *</label>
           <div class="col-12 col-md-8">
             <input type="text" class="form-control" id="lname" name="lname" placeholder="Efternavn" 
@@ -25,8 +25,15 @@
           </div>
         </div>
 
+        <div class="row mb-3 sex">
+          <label for="sex" id="sex-label" class="col-form-label col-12 col-md-4 text-md-right text-md-end">Sex *</label>
+          <div class="col-12 col-md-8">
+            <input type="text" class="form-control" id="sex" name="sex" placeholder="Indtast kønnet (mand, kvinde, nonbinær ...)" 
+                value="">
+          </div>
+        </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3 phone">
           <label for="phone" id="phone-label" class="col-form-label col-12 col-md-4 text-md-right text-md-end">Telefon</label>
           <div class="col-12 col-md-8">
             <input class="form-control" type="text" name="phone" id="phone" placeholder="Telefon" 
@@ -36,7 +43,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3 email">
           <label for="email" id="email-label" class="col-form-label col-12 col-md-4 text-md-right text-md-end">Email *</label>
           <div class="col-12 col-md-8">
             <input class="form-control" type="text" name="email" id="email" placeholder="Email" 
@@ -46,7 +53,7 @@
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3 pwd">
           <?php
           $character_range = "Min 5 max 50 chars";
           $character_statement = '<span id="character_range" class="text-muted">' . $character_range . ' </span>';
@@ -90,9 +97,11 @@
           </div>
         </div>
 
-        <input type="hidden" value="<?= Token::generate(); ?>" name="csrf">
+        <div class="row mb-3">
+          <div class="g-recaptcha" data-sitekey="6LeMldwpAAAAAHsHbEJecHb2jxkLkZ9X67IwpCCl"></div>
+        </div>
 
-        <div class="g-recaptcha" data-sitekey="6LeMldwpAAAAAHsHbEJecHb2jxkLkZ9X67IwpCCl"></div>
+        <input type="hidden" value="<?= Token::generate(); ?>" name="csrf">
 
         <div class="row">
           <div class="form-actions">

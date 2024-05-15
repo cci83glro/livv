@@ -266,6 +266,10 @@ form .form-group.active label {
     vertical-align: top;
 }
 
+.row.mb-3.sex {
+    display: none;
+}
+
 .form-actions {
     text-align: right;
 }
