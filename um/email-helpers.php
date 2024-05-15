@@ -20,7 +20,7 @@
 // require_once $abs_us_root . $us_url_root . 'users/helpers/permissions.php';
 // require_once $abs_us_root . $us_url_root . 'users/helpers/users.php';
 // require_once $abs_us_root . $us_url_root . 'users/helpers/dbmenu.php';
-require_once $abs_us_root . $us_url_root . "config/smtp.php";
+//require_once  "../config/smtp.php";
 
 // if (file_exists($abs_us_root . $us_url_root . 'usersc/vendor/autoload.php')) {
 //   require_once $abs_us_root . $us_url_root . 'usersc/vendor/autoload.php';
@@ -32,12 +32,16 @@ require_once $abs_us_root . $us_url_root . "config/smtp.php";
 
 //require $abs_us_root . $us_url_root . 'users/classes/phpmailer/PHPMailerAutoload.php';
 
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 if (!function_exists('send_email')) {
   function send_email($to, $subject, $body, $opts = [], $attachment = null)
   {
     global $abs_us_root, $us_url_root;
+
+    include_once $abs_us_root . $us_url_root . "config/smtp.php";
 
     /*
     As of v5.6, $to can now be an array of email addresses
@@ -70,7 +74,7 @@ if (!function_exists('send_email')) {
     if (isset($opts['email']) && isset($opts['name'])) {
       $mail->setFrom($opts['email'], $opts['name']);
     } else {
-      $mail->setFrom($results->from_email, $results->from_name);
+      $mail->setFrom($smtp_fromEmail, $smtp_fromName);
     }
 
     if (isset($opts['cc'])) {
@@ -88,10 +92,8 @@ if (!function_exists('send_email')) {
     } else {
       $mail->addAddress(rawurldecode($to));
     }
-    if ($results->isHTML == 'true') {
-      $mail->isHTML(true);
-    }
-
+    $mail->isHTML(true);
+    
     $mail->Subject = $subject;
     $mail->Body    = $body;
     if (!empty($attachment)) $mail->addAttachment($attachment);
@@ -102,10 +104,10 @@ if (!function_exists('send_email')) {
 }
 
 if (!function_exists('get_email_body')) {
-  function get_email_body($template, $options = [])
+  function get_email_body($template)
   {
+    global $abs_us_root, $us_url_root;
     $template_path = $abs_us_root . $us_url_root . 'mails/um/' . $template;
-    extract($options);
     ob_start();
     if (file_exists($template_path)) {
       require $template_path;

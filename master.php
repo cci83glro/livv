@@ -1,7 +1,7 @@
 <?php
 
 require_once 'users/init.php';
-//require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
+require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
 $users_page_url = $us_url_root."um/admin/users.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
@@ -27,7 +27,8 @@ if(isset($user) && $user->isLoggedIn()){
 	$user_permission = $user->data()->permissions;
 }
 
-require_once 'um/email_helpers.php';
+//include_once 'config/smtp.php';
+include_once 'um/email-helpers.php';
 
 if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root . 'index.php');
