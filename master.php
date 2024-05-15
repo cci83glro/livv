@@ -1,10 +1,19 @@
 <?php
 
 require_once 'users/init.php';
-require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
+//require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
 $users_page_url = $us_url_root."um/admin/users.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
+
+$admin_email_list = [
+	// 'kt@livvikar.dk',
+	// 'eg@livvikar.dk',
+	// 'ik@livvikar.dk',
+	// 'dd@livvikar.dk'
+	'ciprian_condurachi@yahoo.com',
+	'cci83glro@gmail.com'
+];
 
 $db = DB::getInstance();
 
@@ -17,6 +26,8 @@ if(isset($user) && $user->isLoggedIn()){
 	$user_name = $user->data()->fname . ' ' . $user->data()->lname;
 	$user_permission = $user->data()->permissions;
 }
+
+require_once 'um/email_helpers.php';
 
 if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root . 'index.php');

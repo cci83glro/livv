@@ -15,9 +15,7 @@ $form_method = 'POST';
 $form_action = 'join.php';
 $vericode = randomstring(15);
 
-//Decide whether or not to use email activation
-$act = $db->query('SELECT * FROM email')->first()->email_act;
-
+$act = 0;
 
 $form_valid = false;
 
@@ -95,7 +93,6 @@ if (Input::exists()) {
 
     if ($validation->passed()) {
         $form_valid = true;
-        //add user to the database
         $user = new User();
         $join_date = date('Y-m-d H:i:s');
         $params = [
@@ -139,10 +136,15 @@ if (Input::exists()) {
                 //Verify email address settings
                 $to = rawurlencode($email);
                 $subject = html_entity_decode($settings->site_name, ENT_QUOTES);
-                $body = email_body('_email_template_verify.php', $params);
-                email($to, $subject, $body);
-                
+                $body = get_email_body('mails/um/_email_adminPwReset.php', $params);
+                send_email($to, $subject, $body);                
             }
+
+            $params = [
+                '$user_url' => $user_page_url.$theNewId,
+                ];
+            $body = get_email_body('mails/um/_email_adminPwReset.php', $params);
+            send_email($admin_email_list, 'Ny vikar konto til aktivering', $body);
         } catch (Exception $e) {            
             die($e->getMessage());
         }

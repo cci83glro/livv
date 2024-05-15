@@ -1,13 +1,12 @@
 <?php
   
-  $smtp_host = "smtp.gmail.com";
-  $smtp_port = 465;
   $smtp_auth = true;
+  $smtp_secure = 'tls';
+  $smtp_host = "smtp.gmail.com";
+  $smtp_port = 587;
   $smtp_usr = "cci83glro@gmail.com";
-  $smtp_pwd = "ipxuupzmpkjioxtb";
-  $smtp_secure = 'ssl';//PHPMailer::ENCRYPTION_SMTPS;
-  $smtp_fromEmail = 'no-reply@livvikar.dk';
+  $smtp_pwd = "dgxhniipwpzriplg";
+  $smtp_fromEmail = 'cci83glro@gmail.com';
   $smtp_fromName = 'Mail robot';
-  $smtp_toEmail = 'ciprian_condurachi@yahoo.com';  
-
+  
 ?>
