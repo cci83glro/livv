@@ -3,6 +3,7 @@
 require_once 'users/init.php';
 require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
+$http_host = 'https://'.$_SERVER['HTTP_HOST'];
 $users_page_url = $us_url_root."um/admin/users.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 
@@ -27,7 +28,7 @@ if(isset($user) && $user->isLoggedIn()){
 	$user_permission = $user->data()->permissions;
 }
 
-//include_once 'config/smtp.php';
+include_once 'generic-helpers.php';
 include_once 'um/email-helpers.php';
 
 if (!$public && !in_array($user_permission, $permissions)) {

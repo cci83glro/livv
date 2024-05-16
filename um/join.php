@@ -16,7 +16,6 @@ $form_action = 'join.php';
 $vericode = randomstring(15);
 
 $act = 0;
-
 $form_valid = false;
 
 //If you say in email settings that you do NOT want email activation,
@@ -132,19 +131,24 @@ if (Input::exists()) {
 
             $theNewId = $user->create($fields);
 
-            if ($act == 1) {
-                //Verify email address settings
-                $to = rawurlencode($email);
-                $subject = html_entity_decode($settings->site_name, ENT_QUOTES);
-                $body = get_email_body('mails/um/_email_adminPwReset.php', $params);
-                send_email($to, $subject, $body);                
-            }
+            // if ($act == 1) {
+            //     //Verify email address settings
+            //     $to = rawurlencode($email);
+            //     $subject = html_entity_decode($settings->site_name, ENT_QUOTES);
+            //     $body = get_email_body('mails/um/_email_adminPwReset.php', $params);                
+            //     send_email($to, $subject, $body);                
+            // }
 
-            $params = [
-                '$user_url' => $user_page_url.$theNewId,
-                ];
-            $body = get_email_body('mails/um/_email_adminPwReset.php', $params);
-            send_email($admin_email_list, 'Ny vikar konto til aktivering', $body);
+            $body = get_email_body('_email_new_account_notify_admins.php');
+            $body = str_replace("{{fname}}", $fname, $body);
+            $body = str_replace("{{lname}}", $lname, $body);
+            $body = str_replace("{{user_url}}", $http_host.$user_page_url.$theNewId, $body);
+            send_email($admin_email_list, 'Ny vikar konto oprettet', $body);
+
+            $body = get_email_body('_email_new_account_notify_user.php');
+            $body = str_replace("{{fname}}", $fname, $body);
+            $body = str_replace("{{lname}}", $lname, $body);
+            send_email($email, 'Din LivVikar konto er oprettet', $body);
         } catch (Exception $e) {            
             die($e->getMessage());
         }

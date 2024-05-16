@@ -5,6 +5,7 @@
   <title></title>
 </head>
 <body>
-  <p>Aktiver den nye konto <a href="{{user_url}}" class="nounderline">her</a></p>
+  <p>{{fname}} {{lname}} har lige oprettet en ny vikar konto.</p>
+  <p>Du kan reviewe og aktivere den <a href="{{user_url}}" class="nounderline">her</a></p>
 </body>
 </html>
