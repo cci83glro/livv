@@ -155,7 +155,7 @@
 		<div class="r-container">
 			<div class="row row-cols-1 row-cols-lg-2">
 				<div class="col mb-3 pe-lg-3 position-relative">
-					<div class="overlay right"></div>
+					<div class="overlay right mt-2"></div>
 					<div class="position-relative pe-5">
 						<img src="assets/images/hands-with-values.webp" alt="" class="img-fluid" style="z-index: -2;">
 					</div>

@@ -56,12 +56,12 @@ ul {
     --white-color: #fff;
     --red-color: red;
     --black-color: #000;
-/* 
-    --primary-color: #ffffff;
-    --secondary-color: #1c75bc; */
 
-    --primary-color: #1c75bc;
-    --secondary-color: #ffffff;
+    --primary-color: #ffffff;
+    --secondary-color: #1c75bc;
+
+    /* --primary-color: #1c75bc;
+    --secondary-color: #ffffff; */
 
     --font-1: 'adobe-garamond-pro', sans-serif;
     --font-2: 'Roboto', sans-serif;
