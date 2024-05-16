@@ -142,7 +142,7 @@ if (Input::exists()) {
             $body = get_email_body('_email_new_account_notify_admins.php');
             $body = str_replace("{{fname}}", $fname, $body);
             $body = str_replace("{{lname}}", $lname, $body);
-            $body = str_replace("{{user_url}}", $http_host.$user_page_url.$theNewId, $body);
+            $body = str_replace("{{user_url}}", $url_host.$user_page_url.$theNewId, $body);
             send_email($admin_email_list, 'Ny vikar konto oprettet', $body);
 
             $body = get_email_body('_email_new_account_notify_user.php');

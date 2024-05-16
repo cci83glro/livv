@@ -5,14 +5,7 @@ $public = true;
 
 require_once '../header.php';
 
-$hooks =  getMyHooks();
-includeHook($hooks, 'pre');
-$emailSet = $db->query("SELECT * FROM email")->first();
-if ($emailSet->email_login == "yourEmail@gmail.com" || $emailSet->email_login == "" || $emailSet->email_pass == "1234") {
-  $showForgot = false;
-} else {
-  $showForgot = true;
-}
+$showForgot = true;
 
 $errors = $successes = [];
 if (Input::get('err') != '') {
@@ -42,38 +35,32 @@ if (!empty($_POST)) {
   $email = Input::get('email');
   $password = trim(Input::get('password'));
   $remember = false;
-  includeHook($hooks, 'post');
 
   if ($validated) {
     //Log user in
     $user = new User();
     $login = $user->loginEmail($email, $password, $remember);
     if ($login) {
-      $hooks =  getMyHooks(['page' => 'loginSuccess']);
-      includeHook($hooks, 'body');
       $dest = sanitizedDest('dest');
       # if user was attempting to get to a page before login, go there
       $_SESSION['last_confirm'] = date("Y-m-d H:i:s");
 
       if (!empty($dest)) {
-        $redirect = Input::get('redirect');
-        if (!empty($redirect) || $redirect !== '') Redirect::to(html_entity_decode($redirect));
-        else Redirect::to($dest);
-      } elseif (file_exists($abs_us_root . $us_url_root . 'usersc/scripts/custom_login_script.php')) {
+        Redirect::to($dest);
+      // } elseif (file_exists($abs_us_root . $us_url_root . 'usersc/scripts/custom_login_script.php')) {
 
-        # if site has custom login script, use it
-        # Note that the custom_login_script.php normally contains a Redirect::to() call
-        require_once $abs_us_root . $us_url_root . 'usersc/scripts/custom_login_script.php';
+      //   # if site has custom login script, use it
+      //   # Note that the custom_login_script.php normally contains a Redirect::to() call
+      //   require_once $abs_us_root . $us_url_root . 'usersc/scripts/custom_login_script.php';
       } else {
-        if (($dest = Config::get('homepage')) ||
-          ($dest = 'account.php')
-        ) {
-          Redirect::to($dest);
+        $redirect = Input::get('redirect');
+        if (!empty($redirect) || $redirect !== '') {
+          Redirect::to(html_entity_decode($redirect));
+        } else {
+          Redirect::to($us_url_root);
         }
       }
     } else {
-      $eventhooks =  getMyHooks(['page' => 'loginFail']);
-      includeHook($eventhooks, 'body');
       logger("0", "Login Fail", "A failed login on login.php");
       $msg = 'Log ind fejlede';
       $msg2 = 'Tjek venligst email og adgangskode og prøv igen!';
@@ -104,7 +91,6 @@ if (empty($dest = sanitizedDest('dest'))) {
 
         </div>
         <div class="modal-body p-4 py-5 p-md-5">
-          <?php includeHook($hooks, 'body'); ?>
           <form name="login" id="login-form" class="form-signin" action="" method="post">
             <?= tokenHere(); ?>
             <div class="form-outline mb-4">
@@ -123,7 +109,6 @@ if (empty($dest = sanitizedDest('dest'))) {
               </div>
             </div>
 
-            <?php includeHook($hooks, 'form'); ?>
             <input type="hidden" name="redirect" value="<?= Input::get('redirect') ?>" />
             <button class="submit form-control btn btn-primary rounded submit px-3 bg-secondary-color primary-color" id="next_button" type="submit"><i class="fa fa-sign-in"></i> Log ind</button>
           </form>
@@ -138,7 +123,6 @@ if (empty($dest = sanitizedDest('dest'))) {
               <div class="col-12 text-center"><br>
                 <a class="secondary-color" href='<?= $us_url_root ?>um/join.php'><i class="fa fa-plus-square"></i> Registrer</a><br><br>
               </div><?php } ?>
-            <?php includeHook($hooks, 'bottom'); ?>
           </div>
         </div>
       </div>

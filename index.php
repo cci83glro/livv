@@ -14,9 +14,10 @@
 				style="max-width: 768px; z-index: 2;">
 				<h1 class="text-title text-white fw-bold font-1 lh-1">Liv Vikar</h1>
 				<h6 class="text-white uppercase mb-15">Liv der redes skal leves</h6>
-				<div>
-					<a type="button" href="about_us.html"
-						class="btn bg-primary-color secondary-color">Om os</a>
+				<div class="form-actions align-left">
+					<div class="buttons-wrapper">
+						<a type="button" href="about_us.html" class="save">Om os</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -27,7 +28,7 @@
 			<div class="overflow-hidden rounded-4">
 				<div class="row row-cols-1 row-cols-lg-3">
 
-					<div class="col bg-secondary-color text-white">
+					<div class="col bg-secondary-color company-highlight">
 						<div class="d-flex flex-row gap-2 align-items-center  p-4">
 							<div class="rounded-circle bg-primary-color icon-box">
 								<i class="fa-solid fa-user-doctor secondary-color"></i>
@@ -39,7 +40,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col bg-primary-color text-black border-1-secondary-color">
+					<div class="col bg-primary-color border-1-secondary-color company-highlight">
 						<div class="d-flex flex-row gap-2 align-items-center  p-4">
 							<div class="rounded-circle bg-secondary-color icon-box">
 								<i class="fa-solid fa-hand-holding-heart primary-color"></i>
@@ -51,7 +52,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col bg-secondary-color text-white">
+					<div class="col bg-secondary-color company-highlight">
 						<div class="d-flex flex-row gap-2 align-items-center  p-4">
 							<div class="rounded-circle bg-primary-color icon-box">
 								<i class="fa-solid fa-star secondary-color"></i>

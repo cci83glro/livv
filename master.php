@@ -3,9 +3,18 @@
 require_once 'users/init.php';
 require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
-$http_host = 'https://'.$_SERVER['HTTP_HOST'];
+$company_address = "Lidsøvej, 2730 Herlev";
+$company_address_google_url = "https://maps.app.goo.gl/aJnuGj3JGwNK5J5m9";
+$company_phone = "11223344";
+$company_phone_display = "1122 3344";
+$company_contact_email = "kontakt@livvikar.dk";
+$facebook_url = "facebook.com";
+$instagram_url = "instagram.com";
+
+
 $users_page_url = $us_url_root."um/admin/users.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
+$bookings_page_url = $us_url_root."bookings.php";
 
 $admin_email_list = [
 	// 'kt@livvikar.dk',
@@ -31,8 +40,11 @@ if(isset($user) && $user->isLoggedIn()){
 include_once 'generic-helpers.php';
 include_once 'um/email-helpers.php';
 
+$url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
+$url_uri = $_SERVER['REQUEST_URI'];
+$url = $url_host . $url_uri;
 if (!$public && !in_array($user_permission, $permissions)) {
-    Redirect::to($us_url_root . 'index.php');
+    Redirect::to($us_url_root . 'um/login.php?redirect=' . $url);
 }
 
 ?>
