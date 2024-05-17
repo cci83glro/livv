@@ -1,7 +1,7 @@
 
 <?php
 	$public = false;
-	$permissions = array(1, 2);
+	$permissions = [1, 2, 3];
 	include_once "header.php";
 
 	if ($user_id == 0) {
@@ -19,9 +19,8 @@
     $query = $db->query("SELECT qualification_id, qualification_name FROM Qualifications");
     $qualifications = $query->results();
 
-    $query = $db->query("SELECT u.id, CONCAT(u.fname, ' ', u.lname) as name
-        FROM livv.users u INNER JOIN user_permission_matches up ON u.id=up.user_id
-        WHERE up.permission_id = 3");
+    $query = $db->query("SELECT id, CONCAT(fname, ' ', lname) as name
+        FROM livv.users WHERE permissions = 3");
     $employees = $query->results();
 ?>
 

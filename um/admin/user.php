@@ -246,14 +246,6 @@ if (!empty($_POST)) {
     }
   }
 
-  // if ($errors == [] && Input::get('return') != '') {
-  //   usSuccess("Gemt");
-  //   Redirect::to($users_page_url);
-  // } elseif ($errors == []) {
-  //   usSuccess("Gemt");
-  //   Redirect::to($user_page_url . $userId);
-  // }
-
   if ($errors == []) {
     usSuccess("Gemt");
     Redirect::to($users_page_url);

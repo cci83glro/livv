@@ -1,11 +1,20 @@
 <?php
 
-require_once '../users/init.php';
+$public = false;
+$permissions = [1,2,3];
+require_once '../user-info.php';
 
 // $page = $_GET['page']; // Current page number
 // $records_per_page = $_GET['records_per_page']; // Number of records per page
 
 // $offset = ($page - 1) * $records_per_page;
+
+$where = " ";
+if ($user_permission == 1) {
+    $where = " WHERE b.created_by_user_id = " . $user_id;
+} elseif ($user_permission == 3) {
+    $where = " WHERE b.assigned_user_id IS NULL OR b.assigned_user_id = " . $user_id;
+}
 
 $db = DB::getInstance();
 $query = $db->query(
@@ -14,7 +23,7 @@ $query = $db->query(
     INNER JOIN Shifts s ON b.shift_id = s.shift_id 
     INNER JOIN Qualifications q ON b.qualification_id = q.qualification_id 
     INNER JOIN Times t ON b.time_id = t.time_id
-    LEFT JOIN Users u ON b.assigned_user_id = u.id
+    LEFT JOIN Users u ON b.assigned_user_id = u.id" . $where . "
     ORDER BY booking_id desc");
 //$query = $db->query("SELECT * FROM Bookings LIMIT $offset, $records_per_page");
 //$query = $db->query("SELECT * FROM Bookings LIMIT " . $offset . ", " . $records_per_page);

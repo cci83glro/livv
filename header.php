@@ -72,7 +72,9 @@
                                 <a class="nav-link" href="#">Kontakt</a>
                             </li>
                         </ul>
-                        <div class="nav-item dropdown">
+                        <p id="bi"><?=$user_id?></p>
+                        <p id="bp"><?=$user_permission?></p>
+                        <div class="nav-item dropdown">                            
                             <?php if($user_id == 0){ ?>
                                 <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Log ind / Registrer
@@ -93,7 +95,6 @@
                                     <?php } ?>
                                     <li><a class="dropdown-item with-top-separator" href="<?php echo $user_page_url.$user_id;?>">Min profil</a></li>
                                     <li><a class="dropdown-item" href="<?=$us_url_root?>um/logout.php">Log ud</a></li>
-                                    
                                 </ul>                                
                             <?php } ?>
                         </div>

@@ -178,6 +178,10 @@ a.underlined:hover {
     color: var(--primary-color);
 }
 
+p#bi, p#bp {
+    display: none;
+}
+
 p.service {
     background-color: var(--secondary-color);
     color: var(--primary-color);
@@ -302,6 +306,12 @@ p.form-actions,
     transition: all 0.5s;
     padding: .5rem 1rem;
     text-align: center;
+}
+
+
+.form-actions .save.w-50,
+.form-actions .cancel.w-50 {
+    width: 50%;
 }
 
 .form-actions .save {

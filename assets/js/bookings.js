@@ -1,3 +1,6 @@
+var bi = $($("p#bi")[0]).text();
+var bp = $($("p#bp")[0]).text();
+
 function assignUserToBooking(bookingId, userId) {
     // Data to be sent in the request body
     var data = {
@@ -28,6 +31,10 @@ function assignUserToBooking(bookingId, userId) {
         console.error('Error assigning user:', error);
         // Add code to display error message or handle the error
     });
+}
+
+function assignToMe(bookingId) {
+    assignUserToBooking(bookingId, bi);
 }
 
 // Function to assign user to a booking
@@ -100,22 +107,45 @@ function loadBookings(page) {
         var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);        
 
         data.slice(lowerBound, upperBound).forEach(function(booking) {
-            var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
-            var assignText = 'Unassigned';
-            if (!booking.assigned_user_id) {
-                assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
-                employees.forEach(e => {
-                    assignAction += `<option value="${e.value}">${e.text}</option>`;
-                });
-                assignAction += `</select>`;
-                assignAction += `<button class="save" onclick="assignUser(${booking.booking_id})">Assign</button>`;
-            } else {
-                assignText = '<span>Assigned til:</span> ' + booking.user_name;
+            var assignHtml = ``;
+            var assignText = '';
+            if (bp == 2) {
+                var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+                var assignText = 'Unassigned';
+                if (!booking.assigned_user_id) {
+                    assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
+                    employees.forEach(e => {
+                        assignAction += `<option value="${e.value}">${e.text}</option>`;
+                    });
+                    assignAction += `</select>`;
+                    assignAction += `<button class="save" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+                } else {
+                    assignText = '<span>Assigned til:</span> ' + booking.user_name;
+                }
             }
+            else if (bp == 3) {
+                var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+                var assignText = 'Unassigned';
+                if (!booking.assigned_user_id) {
+                    assignAction = `<button class="save w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
+                } else {
+                    assignText = '<span>Assigned til:</span> ' + booking.user_name;
+                }
+                
+            }
+            if (bp == 2 || bp == 3) {
+                assignHtml = `<p class="form-actions">${assignText}${assignAction}</p>`;
+            }
+
+            var bookingHeader = booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
+            if (assignText.length > 0) {
+                bookingHeader +=  " | " +  assignText;
+            }
+
             var element = `
                 <div class="accordion-item">
                     <div class="accordion-item-header bg-secondary-color primary-color">
-                        ${booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer) | " +  assignText}
+                        ${bookingHeader}
                         <span class="indicator">+</span>
                     </div>
                     <div class="accordion-item-content" data-id="${booking.booking_id}">
@@ -125,7 +155,7 @@ function loadBookings(page) {
                         <p class="hours" data-value="${booking.hours}"><span>Antal timer:</span> ${booking.hours}</p>
                         <p class="shift" data-value="${booking.shift_id}"><span>Stilling:</span> ${booking.shift_name}</p>
                         <p class="qualification" data-value="${booking.qualification_id}"><span>Uddannelse:</span> ${booking.qualification_name}</p>
-                        <p class="form-actions">${assignText}${assignAction}</p>
+                        ${assignHtml}
                         <div class="form-actions">
                             <div class="buttons-wrapper">
                                 <button class="cancel" onclick="deleteBooking(${booking.booking_id})">Slet</button>
