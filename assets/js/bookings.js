@@ -84,6 +84,64 @@ function reloadBookings() {
     loadBookings(bookingsContainer.attr("data-active-page"));
 }
 
+function getAssignData(booking, employees) {
+    var assignHtml = ``;
+    var assignText = '';
+    if (bp == 2) {
+        var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+        var assignText = 'Unassigned';
+        if (!booking.assigned_user_id) {
+            assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
+            employees.forEach(e => {
+                assignAction += `<option value="${e.value}">${e.text}</option>`;
+            });
+            assignAction += `</select>`;
+            assignAction += `<button class="save" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+        } else {
+            assignText = '<span>Assigned til:</span> ' + booking.user_name;
+        }
+    }
+    else if (bp == 3) {
+        var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+        var assignText = 'Unassigned';
+        if (!booking.assigned_user_id) {
+            assignAction = `<button class="save w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
+        } else {
+            assignText = '<span>Assigned til:</span> ' + booking.user_name;
+        }
+        
+    }
+    if (bp == 2 || bp == 3) {
+        assignHtml = `<p class="form-actions">${assignText}${assignAction}</p>`;
+    }
+
+    return {
+        assignText: assignText,
+        assignHtml: assignHtml,
+    }
+}
+
+function getStatusData(booking) {
+    var statusHtml = ``;
+    var statusText = '';
+    if (bp == 2) {
+        var statusAction = ``;
+        var statusText = '';
+        if (booking.status_id == 10) {
+            statusText = 'Oprettet';
+            statusAction = `<br/><button class="save no-margin change-booking-status" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
+        } else if (booking.status_id == 20) {
+            statusText = 'Afsluttet';
+        }
+    }
+    assignHtml = `<p class="form-actions">${assignText}${assignAction}</p>`;
+
+    return {
+        assignText: assignText,
+        assignHtml: assignHtml,
+    }
+}
+
 // Function to load bookings from backend with pagination
 function loadBookings(page) {
     var recordsPerPage = 10; // Adjust as needed
@@ -107,35 +165,8 @@ function loadBookings(page) {
         var upperBound = Math.min(lowerBound + recordsPerPage, totalCount);        
 
         data.slice(lowerBound, upperBound).forEach(function(booking) {
-            var assignHtml = ``;
-            var assignText = '';
-            if (bp == 2) {
-                var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
-                var assignText = 'Unassigned';
-                if (!booking.assigned_user_id) {
-                    assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
-                    employees.forEach(e => {
-                        assignAction += `<option value="${e.value}">${e.text}</option>`;
-                    });
-                    assignAction += `</select>`;
-                    assignAction += `<button class="save" onclick="assignUser(${booking.booking_id})">Assign</button>`;
-                } else {
-                    assignText = '<span>Assigned til:</span> ' + booking.user_name;
-                }
-            }
-            else if (bp == 3) {
-                var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
-                var assignText = 'Unassigned';
-                if (!booking.assigned_user_id) {
-                    assignAction = `<button class="save w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
-                } else {
-                    assignText = '<span>Assigned til:</span> ' + booking.user_name;
-                }
-                
-            }
-            if (bp == 2 || bp == 3) {
-                assignHtml = `<p class="form-actions">${assignText}${assignAction}</p>`;
-            }
+            
+            var {assignText, assignHtml} = getAssignData(booking, employees);
 
             var bookingHeader = booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
             if (assignText.length > 0) {

@@ -40,7 +40,8 @@ if (!isNullOrEmptyString($id)) {
         'hours' => $hours,
         'shift_id' => $shift_id,
         'qualification_id' => $qualification_id,
-        'created_by_user_id' => $bi
+        'created_by_user_id' => $bi,
+        'status' => 10
     ];
 
     if($db->insert('bookings', $fields)) {
