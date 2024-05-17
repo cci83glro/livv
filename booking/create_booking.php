@@ -1,5 +1,6 @@
 <?php
 
+require_once '../generic-helpers.php';
 require_once '../users/init.php';
 
 // Retrieve form data
@@ -10,6 +11,7 @@ $time_id = $_POST['time'];
 $hours = $_POST['hours'];
 $shift_id = $_POST['shift'];
 $qualification_id = $_POST['qualification'];
+$bi = $_POST['bi'];
 
 // Validate input (you can add more validation as needed)
 if(empty($place) || empty($date) || empty($time_id) || empty($hours) || empty($shift_id) || empty($qualification_id)) {
@@ -21,7 +23,7 @@ if(empty($place) || empty($date) || empty($time_id) || empty($hours) || empty($s
 $db = DB::getInstance();
 //$query = $db->query("INSERT INTO Bookings (place, date, hours, shift_id, qualification_id) VALUES (?, ?, ?, ?, ?)", [$place, $date, $hours, $shift_id, $qualification_id]);
 
-if (!is_null($id)) {
+if (!isNullOrEmptyString($id)) {
 
     $query = "UPDATE Bookings SET place = '$place', date = '$date', time_id = $time_id, hours = $hours, shift_id = $shift_id, qualification_id = $qualification_id WHERE booking_id = $id";
     if ($db->query($query)) {
@@ -34,10 +36,11 @@ if (!is_null($id)) {
     $fields = [
         'place' => $place,
         'date' => $date,
-        'time_id' => $time,
+        'time_id' => $time_id,
         'hours' => $hours,
         'shift_id' => $shift_id,
-        'qualification_id' => $qualification_id
+        'qualification_id' => $qualification_id,
+        'created_by_user_id' => $bi
     ];
 
     if($db->insert('bookings', $fields)) {
@@ -48,9 +51,4 @@ if (!is_null($id)) {
         echo "Error creating booking: " . $db->error;
     }
 }
-
-// Close statement and database connection
-// $stmt->close();
-// $mysqli->close();
-
 ?>

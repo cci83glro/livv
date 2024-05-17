@@ -15,4 +15,10 @@ if (!function_exists('log_error')) {
     return $lastId;
   }
 }
+
+if (!function_exists('isNullOrEmptyString')) {
+  function isNullOrEmptyString($str){
+    return ($str === null || trim($str) === '');
+  }
+}
 ?>

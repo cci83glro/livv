@@ -242,6 +242,7 @@ function addBooking() {
     if (form.isValid())
     {
         var formData = form.serialize();
+        formData += '&bi=' + bi;
         
         $.post('booking/create_booking.php', formData, function(response){
             if (response == 'success') {                
