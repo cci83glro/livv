@@ -314,6 +314,16 @@ p.form-actions,
     width: 50%;
 }
 
+.form-actions .save.w-75,
+.form-actions .cancel.w-75 {
+    width: 75%;
+}
+
+.form-actions .save.w-100,
+.form-actions .cancel.w-100 {
+    width: 100%;
+}
+
 .form-actions .save {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
@@ -1028,10 +1038,6 @@ div#pagination .page-link.active{
 
 .assign-booking {
     margin-left: 1rem;
-}
-
-.unassign-booking {
-    margin-top: .5rem;
 }
 
 .fa-brands {
