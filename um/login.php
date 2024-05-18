@@ -47,11 +47,6 @@ if (!empty($_POST)) {
 
       if (!empty($dest)) {
         Redirect::to($dest);
-      // } elseif (file_exists($abs_us_root . $us_url_root . 'usersc/scripts/custom_login_script.php')) {
-
-      //   # if site has custom login script, use it
-      //   # Note that the custom_login_script.php normally contains a Redirect::to() call
-      //   require_once $abs_us_root . $us_url_root . 'usersc/scripts/custom_login_script.php';
       } else {
         $redirect = Input::get('redirect');
         if (!empty($redirect) || $redirect !== '') {

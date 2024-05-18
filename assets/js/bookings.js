@@ -48,17 +48,40 @@ function assignUser(bookingId) {
 
 // Function to unassign user from a booking
 function unassignUser(bookingId) {
-    
-    // Data to be sent in the request body
-    var data = {
-        booking_id: bookingId
-    };
 
     // Send the POST request
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     
     fetch('booking/unassign_user.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text(); // Assuming the script returns a text response
+    })
+    .then(data => {
+        console.log('Unassignment successful:', data);
+        // Add code to display success message or perform other actions
+        reloadBookings();
+    })
+    .catch(error => {
+        console.error('Error unassigning user:', error);
+        // Add code to display error message or handle the error
+    });
+}
+
+function changeBookingStatus(bookingId, newStatus) {
+
+    // Send the POST request
+    var formData = new FormData();
+    formData.append('booking_id', bookingId);
+    formData.append('new_status_id', newStatus);
+    
+    fetch('booking/change-booking-status.php', {
         method: 'POST',
         body: formData
     })
@@ -88,7 +111,7 @@ function getAssignData(booking, employees) {
     var assignHtml = ``;
     var assignText = '';
     if (bp == 2) {
-        var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+        var assignAction = `<br/><button class="save no-margin mt-05" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
         var assignText = 'Unassigned';
         if (!booking.assigned_user_id) {
             assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
@@ -96,23 +119,26 @@ function getAssignData(booking, employees) {
                 assignAction += `<option value="${e.value}">${e.text}</option>`;
             });
             assignAction += `</select>`;
-            assignAction += `<button class="save" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+            assignAction += `<br/><button class="save no-margin mt-05" onclick="assignUser(${booking.booking_id})">Assign</button>`;
         } else {
-            assignText = '<span>Assigned til:</span> ' + booking.user_name;
+            assignText = booking.user_name;
         }
     }
     else if (bp == 3) {
-        var assignAction = `<br/><button class="save no-margin unassign-booking" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+        var assignAction = `<br/><button class="save no-margin mt-05" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
         var assignText = 'Unassigned';
         if (!booking.assigned_user_id) {
-            assignAction = `<button class="save w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
+            assignAction = `<br/><button class="save w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
         } else {
-            assignText = '<span>Assigned til:</span> ' + booking.user_name;
+            assignText = booking.user_name;
         }
         
     }
     if (bp == 2 || bp == 3) {
-        assignHtml = `<p class="form-actions">${assignText}${assignAction}</p>`;
+        if (booking.status_id == 20) {
+            assignAction = ``;
+        }
+        assignHtml = `<p class="form-actions"><span>Vikar:</span> ${assignText}${assignAction}</p>`;
     }
 
     return {
@@ -124,22 +150,38 @@ function getAssignData(booking, employees) {
 function getStatusData(booking) {
     var statusHtml = ``;
     var statusText = '';
-    if (bp == 2) {
+    if (bp == 1 || bp == 2 || bp == 3) {
         var statusAction = ``;
-        var statusText = '';
         if (booking.status_id == 10) {
             statusText = 'Oprettet';
-            statusAction = `<br/><button class="save no-margin change-booking-status" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
+            if (bp == 2 && booking.assigned_user_id) {
+                statusAction = `<br/><button class="save w-75 no-margin change-booking-status" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
+            }
         } else if (booking.status_id == 20) {
             statusText = 'Afsluttet';
         }
+
+        statusHtml = `<p class="form-actions"><span>Tilstand:</span> ${statusText}${statusAction}</p>`;
     }
-    assignHtml = `<p class="form-actions">${assignText}${assignAction}</p>`;
 
     return {
-        assignText: assignText,
-        assignHtml: assignHtml,
+        statusText: statusText,
+        statusHtml: statusHtml,
     }
+}
+
+function getFormActions(booking) {
+    formActionHtml = ``;
+    if (booking.status_id != 20) {
+        formActionHtml = `<div class="form-actions">
+            <div class="buttons-wrapper">
+                <button class="cancel" onclick="deleteBooking(${booking.booking_id})">Slet</button>
+                <button class="save" onclick="editBooking(${booking.booking_id})">Rediger</button>
+            </div>
+        </div>`;
+    }
+
+    return formActionHtml;
 }
 
 // Function to load bookings from backend with pagination
@@ -166,11 +208,16 @@ function loadBookings(page) {
 
         data.slice(lowerBound, upperBound).forEach(function(booking) {
             
-            var {assignText, assignHtml} = getAssignData(booking, employees);
-
+            var {statusText, statusHtml} = getStatusData(booking);
+            var {assignText, assignHtml} = getAssignData(booking, employees, statusText);
+            var formActionsHtml = getFormActions(booking);
+            
             var bookingHeader = booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
+            if (statusText.length > 0) {
+                bookingHeader +=  " | Tilstand: " +  statusText;
+            }
             if (assignText.length > 0) {
-                bookingHeader +=  " | " +  assignText;
+                bookingHeader +=  " | Vikar: " +  assignText;
             }
 
             var element = `
@@ -186,13 +233,7 @@ function loadBookings(page) {
                         <p class="hours" data-value="${booking.hours}"><span>Antal timer:</span> ${booking.hours}</p>
                         <p class="shift" data-value="${booking.shift_id}"><span>Stilling:</span> ${booking.shift_name}</p>
                         <p class="qualification" data-value="${booking.qualification_id}"><span>Uddannelse:</span> ${booking.qualification_name}</p>
-                        ${assignHtml}
-                        <div class="form-actions">
-                            <div class="buttons-wrapper">
-                                <button class="cancel" onclick="deleteBooking(${booking.booking_id})">Slet</button>
-                                <button class="save" onclick="editBooking(${booking.booking_id})">Rediger</button>
-                            </div>
-                        </div>
+                        ${assignHtml}${statusHtml}${formActionsHtml}
                     </div>
                 </div>`;
             container.append(element);
