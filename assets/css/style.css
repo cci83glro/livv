@@ -980,23 +980,23 @@ a.social-item {
     margin-right: 0;
 }
 
-div#pagination {
+div.pagination {
     /* display: flex; */
     text-align: center;
 }
 
-div#pagination .page-link{
+div.pagination .page-link{
     display: inline-block;
     cursor: pointer;
     margin-right: .5rem;
     font-size: 1.1rem;
 }
 
-div#pagination .page-link:last-child{
+div.pagination .page-link:last-child{
     margin-right: 0;
 }
 
-div#pagination .page-link.active{
+div.pagination .page-link.active{
     color: var(--secondary-color);
     font-weight: 700;    
 }

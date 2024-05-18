@@ -38,13 +38,23 @@
 	<section class="section">
 		<div class="r-container">
 			<div class="d-flex flex-column gap-3">
-				<div id="add-booking-button-wrapper" class="form-actions">
-					<button id="add-booking-button" class="save no-margin" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
-				</div>
-				<?php include_once "booking/add-booking-form.php"; ?>
-				<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page="">								
-				</div>
-				<div id="pagination"></div>
+				<?php if ($user_permission == 1 || $user_permission == 2) { ?>
+					<div id="add-booking-button-wrapper" class="form-actions">
+						<button id="add-booking-button" class="save no-margin" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
+					</div>
+				<?php  include_once "booking/add-booking-form.php"; ?>
+				<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page=""></div>
+				<div class="pagination" id="pagination"></div>
+				<?php } ?>
+
+				<?php if ($user_permission == 3) { ?>
+					<h2>Mine bookings</h2>
+					<div class="accordion-custom d-flex flex-column gap-2" id="my-bookings-container" data-active-page=""></div>
+					<div class="pagination" id="my-bookings-pagination"></div>
+					<h2>Ledige bookings</h2>
+					<div class="accordion-custom d-flex flex-column gap-2" id="available-bookings-container" data-active-page=""></div>
+					<div class="pagination" id="available-bookings-pagination"></div>
+				<?php } ?>
 			</div>
 		</div>
 	</section>

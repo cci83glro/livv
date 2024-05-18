@@ -13,7 +13,12 @@ $where = " ";
 if ($user_permission == 1) {
     $where = " WHERE b.created_by_user_id = " . $user_id;
 } elseif ($user_permission == 3) {
-    $where = " WHERE b.assigned_user_id IS NULL OR b.assigned_user_id = " . $user_id;
+    if (isset($_GET['bi'])) {
+        $where = " WHERE b.assigned_user_id = " . $_GET['bi'];
+    }
+    if (isset($_GET['unassigned'])) {
+        $where = " WHERE b.assigned_user_id IS NULL";
+    }
 }
 
 $db = DB::getInstance();
