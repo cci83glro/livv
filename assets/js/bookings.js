@@ -102,11 +102,6 @@ function changeBookingStatus(bookingId, newStatus) {
     });
 }
 
-function reloadBookings() {
-    var bookingsContainer = $('#bookings-container');
-    loadBookings(bookingsContainer.attr("data-active-page"));
-}
-
 function getAssignData(booking, employees) {
     var assignHtml = ``;
     var assignText = '';
@@ -201,20 +196,20 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
                             {{assignHtml}}{{statusHtml}}{{formActionsHtml}}
                         </div>
                     </div>`;
-    element = element.replace('{{bookingHeader}}', bookingHeader);
-    element = element.replace('{{assignHtml}}', assignHtml);
-    element = element.replace('{{statusHtml}}', statusHtml);
-    element = element.replace('{{formActionsHtml}}', formActionsHtml);
-    element = element.replace('{{booking_id}}', booking.booking_id);
-    element = element.replace('{{booking_place}}', booking.place);
-    element = element.replace('{{booking_date}}', booking.date);
-    element = element.replace('{{booking_time_id}}', booking.time_id);
-    element = element.replace('{{booking_time_value}}', booking.time_value);
-    element = element.replace('{{booking_hours}}', booking.hours);
-    element = element.replace('{{booking_shift_id}}', booking.shift_id);
-    element = element.replace('{{booking_shift_name}}', booking.shift_name);
-    element = element.replace('{{booking_qualification_id}}', booking.qualification_id);
-    element = element.replace('{{booking_qualification_name}}', booking.qualification_name);
+    element = element.replaceAll('{{bookingHeader}}', bookingHeader);
+    element = element.replaceAll('{{assignHtml}}', assignHtml);
+    element = element.replaceAll('{{statusHtml}}', statusHtml);
+    element = element.replaceAll('{{formActionsHtml}}', formActionsHtml);
+    element = element.replaceAll('{{booking_id}}', booking.booking_id);
+    element = element.replaceAll('{{booking_place}}', booking.place);
+    element = element.replaceAll('{{booking_date}}', booking.date);
+    element = element.replaceAll('{{booking_time_id}}', booking.time_id);
+    element = element.replaceAll('{{booking_time_value}}', booking.time_value);
+    element = element.replaceAll('{{booking_hours}}', booking.hours);
+    element = element.replaceAll('{{booking_shift_id}}', booking.shift_id);
+    element = element.replaceAll('{{booking_shift_name}}', booking.shift_name);
+    element = element.replaceAll('{{booking_qualification_id}}', booking.qualification_id);
+    element = element.replaceAll('{{booking_qualification_name}}', booking.qualification_name);
 
     return element;
 }
@@ -232,7 +227,7 @@ function getSliceBoundaries(length, page, recordsPerPage) {
     return {newPage, lowerBound, upperBound};
 }
 
-function setBookingListHtml(bookingsContainer, paginationContainer, data, page, recordsPerPage) {
+function setBookingListHtml(bookingsContainer, paginationContainer, data, page, recordsPerPage, loadBookingsFunction, pageLinkExtraClass = '') {
     var employees = Array.from($('#employee option'));
     bookingsContainer.html(''); // Clear existing data
     bookingsContainer.attr("data-active-page", page);
@@ -247,6 +242,7 @@ function setBookingListHtml(bookingsContainer, paginationContainer, data, page, 
         bookingsContainer.append(getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml, formActionsHtml));
     });
 
+    $('.accordion-item-header').unbind();
     $('.accordion-item-header').click(function(){
         $(this).next('.accordion-item-content').slideToggle();
         var element = $(this).find('.indicator')[0];
@@ -254,31 +250,39 @@ function setBookingListHtml(bookingsContainer, paginationContainer, data, page, 
         $(element).text(newContent);
     });
 
-    setPaginationHtml(paginationContainer, totalCount, recordsPerPage, newPage);
+    setPaginationHtml(paginationContainer, lowerBound, upperBound, totalCount, recordsPerPage, newPage, loadBookingsFunction, pageLinkExtraClass);
 }
 
-function setPaginationHtml(paginationDiv, totalCount, recordsPerPage, page) {
-    paginationDiv.html(''); // Clear existing pagination links
+function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, recordsPerPage, page, loadBookingsFunction, pageLinkExtraClass) {
+    paginationDiv.html('');
+    var paginationHtml = '';
+
     var totalPages = Math.ceil(totalCount / recordsPerPage);
     if (totalPages > 1) {
-        var paginationHtml = '';
+        
         for (var i = 1; i <= totalPages; i++) {
             var active = '';
-            if (page === i) {
+            if (page == i) {
                 active = 'active';
             }
 
-            paginationHtml += '<span class="page-link ' + active + '" data-page="' + i + '"> ' + i + '</span>';
-        }
-        
-        paginationDiv.append(paginationHtml);
-
-        $('.page-link').click(function(){
-            var page = parseInt($(this).data('page'));
-            currentPage = page;
-            loadBookings(currentPage);
-        });
+            paginationHtml += `<span class="page-link ${pageLinkExtraClass} ${active}" data-page="${i}">${i}</span>`;
+        }        
     }
+
+    paginationHtml += `<span class="count-info">Viser ${lowerBound + 1} - ${upperBound} ud af ${totalCount}</span>`;
+    paginationDiv.append(paginationHtml);
+
+    var pageLinkEventClass = 'page-link';
+    if (pageLinkExtraClass !== null && pageLinkExtraClass !== '') {
+        pageLinkEventClass = pageLinkExtraClass;
+    }
+    $('.' + pageLinkEventClass).unbind();
+    $('.' + pageLinkEventClass).click(function(){
+        var page = parseInt($(this).data('page'));
+        currentPage = page;
+        loadBookingsFunction(currentPage);
+    });
 }
 
 function loadBookings(page) {
@@ -287,7 +291,7 @@ function loadBookings(page) {
     var url = `booking/retrieve_bookings.php`;
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, recordsPerPage);
+        setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, recordsPerPage, loadBookings);
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
@@ -300,7 +304,7 @@ function loadBookingsForWorker(page) {
     var url = `booking/retrieve_bookings.php?bi=` + bi;
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#my-bookings-container'), $('#my-bookings-pagination'), data, page, recordsPerPage);
+        setBookingListHtml($('#my-bookings-container'), $('#my-bookings-pagination'), data, page, recordsPerPage, loadBookingsForWorker, 'page-link-my-bookings');
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
@@ -313,7 +317,7 @@ function loadAvailableBookings(page) {
     var url = `booking/retrieve_bookings.php?unassigned=1`;
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#available-bookings-container'), $('#available-bookings-pagination'), data, page, recordsPerPage);
+        setBookingListHtml($('#available-bookings-container'), $('#available-bookings-pagination'), data, page, recordsPerPage, loadAvailableBookings, 'page-link-available-bookings');
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
@@ -410,6 +414,14 @@ function editBooking(id) {
     }, 500);
 }
 
+function reloadBookings() {
+    if (bp == 1 || bp == 2) {
+        loadBookings($('#bookings-container').attr("data-active-page"));
+    } else if (bp == 3) {
+        loadBookingsForWorker($('#my-bookings-container').attr("data-active-page"));
+        loadAvailableBookings($('#available-bookings-container').attr("data-active-page"));
+    }
+}
 
 // Load bookings when the page loads
 document.addEventListener('DOMContentLoaded', function() {
