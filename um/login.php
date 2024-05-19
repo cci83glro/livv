@@ -5,8 +5,6 @@ $public = true;
 
 require_once '../header.php';
 
-$showForgot = true;
-
 $errors = $successes = [];
 if (Input::get('err') != '') {
   $errors[] = Input::get('err');
@@ -108,16 +106,13 @@ if (empty($dest = sanitizedDest('dest'))) {
             <button class="submit form-control btn btn-primary rounded submit px-3 bg-secondary-color primary-color" id="next_button" type="submit"><i class="fa fa-sign-in"></i> Log ind</button>
           </form>
           <div class="row">
-            <?php if ($showForgot) { ?>
               <div class="col-12 text-center"><br>
-                <a class="" href='<?= $us_url_root ?>users/forgot_password.php'><i class="fa fa-wrench"></i> Glemt adgangskode</a>
+                <a class="secondary-color" href='<?= $us_url_root ?>users/forgot_password.php'><i class="fa fa-wrench"></i> Glemt adgangskode</a>
                 <br>
               </div>
-            <?php } ?>
-            <?php if ($settings->registration == 1) { ?>
               <div class="col-12 text-center"><br>
-                <a class="secondary-color" href='<?= $us_url_root ?>um/join.php'><i class="fa fa-plus-square"></i> Registrer</a><br><br>
-              </div><?php } ?>
+                <a class="secondary-color" href='<?= $us_url_root ?>um/join.php'><i class="fa fa-plus-square"></i> Registrer som vikar</a><br><br>
+              </div>
           </div>
         </div>
       </div>

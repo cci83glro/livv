@@ -216,7 +216,7 @@ foreach ($validation->errors() as $error) {
 
           <div class="form-group" id="username-group">
             <label for="permission_id">Brugertype</label>
-            <select class="district-list form-control" id="permission_id" name="permission_id">
+            <select class="district-list dropdown form-control" id="permission_id" name="permission_id">
                   <?php foreach($permissions as $permission) { ?>
                     <option value="<?=$permission -> id ?>"><?=$permission -> name ?></option>
                   <?php } ?>                  

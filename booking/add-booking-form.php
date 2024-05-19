@@ -54,7 +54,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="time" class="form-field-label">Starttid</label>
-                <select class="form-control py-2 px-4" id="time" name="time" placeholder="Tid" required>
+                <select class="form-control dropdown py-2 px-4" id="time" name="time" placeholder="Tid" required>
                     <option value="">Vælg starttid</option>
                     <?php 
                         foreach($times as $time){
@@ -75,7 +75,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="shift" class="form-field-label">Stilling</label>
-                <select class="form-control py-2 px-4" id="shift" name="shift" required>
+                <select class="form-control dropdown py-2 px-4" id="shift" name="shift" required>
                     <option value="">Vælg stilling</option>
                     <?php 
                         foreach($shifts as $shift){
@@ -89,7 +89,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="qualification" class="form-field-label">Uddannelse</label>
-                <select class="form-control py-2 px-4" id="qualification" name="qualification" required>
+                <select class="form-control dropdown py-2 px-4" id="qualification" name="qualification" required>
                     <option value="">Vælg uddannelse</option>
                     <?php 
                         foreach($qualifications as $qualification){

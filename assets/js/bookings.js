@@ -110,7 +110,7 @@ function getAssignData(booking, employees) {
         var assignText = 'Unassigned';
         if (!booking.assigned_user_id) {
             if (bp == 2) {
-                assignAction = `<br/><select class="assign-users-select form-control" id="user-dropdown-${booking.booking_id}">`;
+                assignAction = `<br/><select class="assign-users-select form-control dropdown" id="user-dropdown-${booking.booking_id}">`;
                 employees.forEach(e => {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
@@ -192,7 +192,7 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
                             <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt:</span> kl. {{booking_time_value}}</p>
                             <p class="hours" data-value="{{booking_hours}}"><span>Antal timer:</span> {{booking_hours}}</p>
                             <p class="shift" data-value="{{booking_shift_id}}"><span>Stilling:</span> {{booking_shift_name}}</p>
-                            <p class="qualification" data-value="{{booking.qualification_id}}"><span>Uddannelse:</span> {{booking_qualification_name}}</p>
+                            <p class="qualification" data-value="{{booking_qualification_id}}"><span>Uddannelse:</span> {{booking_qualification_name}}</p>
                             {{assignHtml}}{{statusHtml}}{{formActionsHtml}}
                         </div>
                     </div>`;
@@ -270,7 +270,7 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, re
         }        
     }
 
-    paginationHtml += `<span class="count-info">Viser ${lowerBound + 1} - ${upperBound} ud af ${totalCount}</span>`;
+    paginationHtml += `<span class="count-info">Viser ${lowerBound + 1} - ${upperBound} ud af ${totalCount} bookings</span>`;
     paginationDiv.append(paginationHtml);
 
     var pageLinkEventClass = 'page-link';
@@ -286,7 +286,7 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, re
 }
 
 function loadBookings(page) {
-    var recordsPerPage = 2;
+    var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php`;
 
@@ -299,7 +299,7 @@ function loadBookings(page) {
 }
 
 function loadBookingsForWorker(page) {
-    var recordsPerPage = 2;
+    var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php?bi=` + bi;
 
@@ -312,7 +312,7 @@ function loadBookingsForWorker(page) {
 }
 
 function loadAvailableBookings(page) {
-    var recordsPerPage = 2;
+    var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php?unassigned=1`;
 
@@ -410,6 +410,12 @@ function editBooking(id) {
     $($('#add-booking-submit-button')[0]).html('Opdater');
 
     $([document.documentElement, document.body]).animate({
+        scrollTop: $("#add-booking-section").offset().top - 50
+    }, 500);
+
+    //$('.accordion-item-content[style.display=block]').slideToggle();
+
+    $('.accordion-item-content').animate({
         scrollTop: $("#add-booking-section").offset().top - 50
     }, 500);
 }

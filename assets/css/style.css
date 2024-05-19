@@ -1101,6 +1101,26 @@ a>i {
     border: 2px solid var(--secondary-color);
 }
 
+select.dropdown {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%204%205%22%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%220.15%22%20d%3D%22M2%204%20L0.5%201%20L3.5%201%20Z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 5% center;
+    background-size: 15px;
+}
+
+select.dropdown::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    border: solid #000;
+    border-width: 0 1.5px 1.5px 0;
+    padding: 3px;
+    transform: rotate(45deg);
+}
+
 .form-signup {
     background-color: var(--primary-color);
     border: 3px solid var(--secondary-color);
