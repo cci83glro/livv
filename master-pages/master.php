@@ -1,6 +1,6 @@
 <?php
 
-require_once 'users/init.php';
+require_once __DIR__.'/../users/init.php';
 require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
 $company_address = "Lidsøvej, 2730 Herlev";
@@ -27,24 +27,16 @@ $admin_email_list = [
 
 $db = DB::getInstance();
 
-$user_id = 0;
-$user_username = '';
-$user_permission = 0;
-if(isset($user) && $user->isLoggedIn()){
- 	$user_id = $user->data()->id;
-	$user_username = $user->data()->username;
-	$user_name = $user->data()->fname . ' ' . $user->data()->lname;
-	$user_permission = $user->data()->permissions;
-}
-
-include_once 'generic-helpers.php';
-include_once 'um/email-helpers.php';
+include_once __DIR__.'/../um/current-user-data.php';
+include_once __DIR__.'/../helpers/generic-helpers.php';
+include_once __DIR__.'/../helpers/db-helpers.php';
+include_once __DIR__.'/../helpers/email-helpers.php';
 
 $url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
 $url_uri = $_SERVER['REQUEST_URI'];
 $url = $url_host . $url_uri;
 if (!$public && !in_array($user_permission, $permissions)) {
-    Redirect::to($us_url_root . 'um/login.php?redirect=' . $url);
+    Redirect::to(__DIR__.'/../um/login.php?redirect=' . $url);
 }
 
 ?>

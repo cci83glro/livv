@@ -3,7 +3,7 @@
 ini_set("allow_url_fopen", 1);
 $public = true;
 
-require_once '../header.php';
+require_once __DIR__.'/../master-pages/header.php';
 
 $errors = $successes = [];
 if (Input::get('err') != '') {

@@ -83,4 +83,4 @@
     </section>
 </footer>
 
-<?php include_once "config/js.php"?>
+<?php include_once __DIR__."/../config/js.php"?>

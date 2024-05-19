@@ -2,13 +2,13 @@
 <html lang="en">
 
 <?php
-    require_once 'master.php';
+    require_once __DIR__.'/master.php';
 ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Stylesheet -->
-    <?php include_once "config/css.php"?>
+    <?php include_once __DIR__."/../config/css.php"?>
     <title>LivVikar - Home</title>
     <?php if (isset($extra_head_html)) echo $extra_head_html;?>
 </head>

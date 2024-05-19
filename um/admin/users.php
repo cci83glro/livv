@@ -7,7 +7,7 @@
 $public = false;
 $permissions = array(2);
 $pageTitle = 'Brugere';
-require_once '../../header.php';
+require_once __DIR__.'/../../master-pages/header.php';
 
 $errors = $successes = [];
 $act = $db->query('SELECT * FROM email')->first();
@@ -303,7 +303,7 @@ foreach ($validation->errors() as $error) {
   </div>
 </div>
 
-<?php include_once $abs_us_root.$us_url_root."footer.php"?>
+<?php include_once __DIR__."/../../master-pages/footer.php"?>
 
 <script type="text/javascript" src="<?= $us_url_root ?>users/js/pagination/datatables.min.js"></script>
 <script src="<?=$us_url_root?>assets/js/um/admin/users.js"></script>

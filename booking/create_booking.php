@@ -1,10 +1,13 @@
 <?php
 
-require_once '../generic-helpers.php';
-require_once '../users/init.php';
+$public = false;
+$permissions = [1,2];
+require_once __DIR__.'/../helpers/generic-helpers.php';
+require_once __DIR__.'/../um/current-user-data.php';
 
 // Retrieve form data
 $id = $_POST['id'];
+$district_id = $_POST['district'];
 $place = $_POST['place'];
 $date = $_POST['date'];
 $time_id = $_POST['time'];
@@ -14,18 +17,21 @@ $qualification_id = $_POST['qualification'];
 $bi = $_POST['bi'];
 
 // Validate input (you can add more validation as needed)
-if(empty($place) || empty($date) || empty($time_id) || empty($hours) || empty($shift_id) || empty($qualification_id)) {
+if(($user_permission == 2 && empty($district_id)) || empty($place) || empty($date) || empty($time_id) || empty($hours) || empty($shift_id) || empty($qualification_id)) {
     // Handle validation errors
     die("Please fill in all required fields.");
 }
 
-// Insert into database
 $db = DB::getInstance();
 //$query = $db->query("INSERT INTO Bookings (place, date, hours, shift_id, qualification_id) VALUES (?, ?, ?, ?, ?)", [$place, $date, $hours, $shift_id, $qualification_id]);
 
 if (!isNullOrEmptyString($id)) {
 
-    $query = "UPDATE Bookings SET place = '$place', date = '$date', time_id = $time_id, hours = $hours, shift_id = $shift_id, qualification_id = $qualification_id WHERE booking_id = $id";
+    $query = "UPDATE Bookings SET ";
+    if ($user_permission == 2) {
+        $query .= "district_id = '$district_id', ";
+    }
+    $query .= "place = '$place', date = '$date', time_id = $time_id, hours = $hours, shift_id = $shift_id, qualification_id = $qualification_id WHERE booking_id = $id";
     if ($db->query($query)) {
         echo "success";
     } else {
@@ -34,6 +40,7 @@ if (!isNullOrEmptyString($id)) {
 } else {
 
     $fields = [
+        'district_id' => $district_id,
         'place' => $place,
         'date' => $date,
         'time_id' => $time_id,

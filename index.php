@@ -1,6 +1,6 @@
 <?php
 	$public = true;
-	include_once "header.php";
+	include_once __DIR__."/master-pages/header.php";
 ?>
 
 <main>
@@ -287,7 +287,7 @@
 
 </main>
 
-<?php include_once "footer.php"?>
+<?php include_once __DIR__."/master-pages/footer.php"?>
 
 </body>
 </html>

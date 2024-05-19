@@ -5,7 +5,7 @@ ini_set('allow_url_fopen', 1);
 header('X-Frame-Options: DENY');
 $public = true;
 $extra_head_html = '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
-require_once '../header.php';
+require_once __DIR__.'/../master-pages/header.php';
 
 if ($user->isLoggedIn()) {
     Redirect::to($us_url_root.'index.php');
@@ -182,7 +182,7 @@ if (Input::exists()) {
 require $abs_us_root.$us_url_root.'um/views/_join.php';
 ?>
 
-<?php include_once $abs_us_root.$us_url_root."footer.php"?>
+<?php include_once $abs_us_root.$us_url_root."master-pages/footer.php"?>
 <script src="<?=$us_url_root?>assets/js/um/join.js"></script>
 
 </body>

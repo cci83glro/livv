@@ -934,6 +934,15 @@ a.social-item {
     margin-bottom: 10px;
 }
 
+.accordion-item p,
+.accordion-item-header {
+    font-size: 1.2rem;
+}
+
+.accordion-item .form-actions {
+    margin-top: 2rem;
+}
+
 .accordion-item-header {
     background-color: var(--secondary-color);
     color: var(--primary-color);
@@ -982,7 +991,7 @@ a.social-item {
 
 div.pagination {
     display: block;
-    text-align: center;
+    /* text-align: center; */
 }
 
 div.pagination .page-link{

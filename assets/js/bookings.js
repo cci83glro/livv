@@ -126,7 +126,7 @@ function getAssignData(booking, employees) {
         if (booking.status_id == 20) {
             assignAction = ``;
         }
-        assignHtml = `<p class="form-actions"><span>Vikar:</span> ${assignText}${assignAction}</p>`;
+        assignHtml = `<p class="form-actions mt-0"><span>Vikar:</span> ${assignText}${assignAction}</p>`;
     }
 
     return {
@@ -143,13 +143,13 @@ function getStatusData(booking) {
         if (booking.status_id == 10) {
             statusText = 'Oprettet';
             if (bp == 2 && booking.assigned_user_id) {
-                statusAction = `<br/><button class="save w-75 no-margin change-booking-status" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
+                statusAction = `<br/><button class="save w-75 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
             }
         } else if (booking.status_id == 20) {
             statusText = 'Afsluttet';
         }
 
-        statusHtml = `<p class="form-actions"><span>Tilstand:</span> ${statusText}${statusAction}</p>`;
+        statusHtml = `<p class="form-actions mt-0"><span>Tilstand:</span> ${statusText}${statusAction}</p>`;
     }
 
     return {
@@ -173,7 +173,7 @@ function getFormActions(booking) {
 }
 
 function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml, formActionsHtml) {
-    var bookingHeader = booking.place + " | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
+    var bookingHeader = booking.district_name + " (" +  booking.place + ") | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
     if (statusText.length > 0) {
         bookingHeader +=  " | Tilstand: " +  statusText;
     }
@@ -187,6 +187,7 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
                             <span class="indicator">+</span>
                         </div>
                         <div class="accordion-item-content" data-id="{{booking_id}}">
+                            <p class="district" data-value="{{booking_district_id}}"><span>Kommune:</span> {{booking_district_name}}</p>
                             <p class="place" data-value="{{booking_place}}"><span>Sted:</span> {{booking_place}}</p>
                             <p class="date" data-value="{{booking_date}}"><span>Dato:</span> {{booking_date}}</p>
                             <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt:</span> kl. {{booking_time_value}}</p>
@@ -201,6 +202,8 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
     element = element.replaceAll('{{statusHtml}}', statusHtml);
     element = element.replaceAll('{{formActionsHtml}}', formActionsHtml);
     element = element.replaceAll('{{booking_id}}', booking.booking_id);
+    element = element.replaceAll('{{booking_district_id}}', booking.district_id);
+    element = element.replaceAll('{{booking_district_name}}', booking.district_name);
     element = element.replaceAll('{{booking_place}}', booking.place);
     element = element.replaceAll('{{booking_date}}', booking.date);
     element = element.replaceAll('{{booking_time_id}}', booking.time_id);
@@ -270,7 +273,11 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, re
         }        
     }
 
-    paginationHtml += `<span class="count-info">Viser ${lowerBound + 1} - ${upperBound} ud af ${totalCount} bookings</span>`;
+    if (totalCount > 0) {
+        paginationHtml += `<span class="count-info">Viser ${lowerBound + 1} - ${upperBound} ud af ${totalCount} bookings</span>`;
+    } else {
+        paginationHtml += `<span class="count-info">Ingen bookings</span>`;
+    }
     paginationDiv.append(paginationHtml);
 
     var pageLinkEventClass = 'page-link';
@@ -389,6 +396,10 @@ function editBooking(id) {
     var item = $('.accordion-item-content[data-id='+id+']');
     if (!item) return;
 
+    var district = '';
+    if (bp == 2) {
+        district = $($(item).children('.district')[0]).attr('data-value');
+    }
     var place = $($(item).children('.place')[0]).attr('data-value');
     var date = $($(item).children('.date')[0]).attr('data-value');
     var time = $($(item).children('.time')[0]).attr('data-value');
@@ -400,6 +411,9 @@ function editBooking(id) {
     resetAddBookingForm(form);
     showAddBookingForm();
 
+    if (bp == 2) {
+        $($(form).find('#district')[0]).val(district);
+    }
     $($(form).find('#place')[0]).val(place);
     $($(form).find('#date')[0]).val(date);
     $($(form).find('#time')[0]).val(time);

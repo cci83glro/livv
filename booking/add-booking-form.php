@@ -36,9 +36,26 @@
     <form id="bookingForm" method="post" action="booking/create_booking.php" data-user-id="<?php echo $user_id; ?>"
         class="d-flex flex-column h-100 justify-content-center w-100 needs-validation form add-booking" novalidate>
         <div class="row">
-            <div class="mb-3 col-md-6">
-                <input type="text" class="hidden" name="id" id="id">
-
+            <input type="text" class="hidden" id="id" name="id">
+            <?php if($user_permission == 2) { ?>
+                <div class="mb-3 col-md-6">
+                    <label for="district" class="form-field-label">Kommune</label>
+                    <select class="form-control dropdown py-2 px-4" id="district" name="district" placeholder="Vælg kommune" required>
+                        <option value="">Vælg kommune</option>
+                        <?php 
+                            foreach($districts as $district){
+                                echo "<option value='$district->district_id'>$district->district_name</option>"; 
+                            }            
+                        ?>
+                    </select>
+                    <div class="invalid-feedback">
+                        <?php echo $selectFieldRequiredText; ?>
+                    </div>
+                </div>
+            <?php } else {?>
+                <input type="text" class="hidden" id="district" name="district" value="<?php echo $user_district_id; ?>" />
+            <?php } ?>
+            <div class="mb-3 col-md-6">                
                 <label for="place" class="form-field-label">Sted</label>
                 <input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
                 <div class="invalid-feedback">

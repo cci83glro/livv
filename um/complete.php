@@ -1,7 +1,7 @@
 <?php
 
 $public = true;
-require_once '../header.php';
+require_once __DIR__.'/../master-pages/header.php';
 
 $action = Input::get('action');
 if($action == "thank_you_verify"){
@@ -12,4 +12,4 @@ if($action == "thank_you_verify"){
     require $abs_us_root.$us_url_root.'um/views/_joinThankYou.php';
 }
 
-require_once '../footer.php';
+require_once __DIR__.'/../master-pages/footer.php';

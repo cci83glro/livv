@@ -7,7 +7,7 @@
 $public = false;
 $permissions = array(2);
 $pageTitle = 'Rediger bruger';
-require_once '../../header.php';
+require_once __DIR__.'/../../master-pages/header.php';
 
 $validation = new Validate();
 
@@ -361,7 +361,7 @@ $active_district_id = $userdetails->district_id;
     </div>
   </form>
 </section>
-<?php include_once $abs_us_root.$us_url_root."footer.php"?>
+<?php include_once __DIR__."/../../master-pages/footer.php"?>
 
 </body>
 </html>
