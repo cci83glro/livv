@@ -970,8 +970,17 @@ a.social-item {
     width: 33%;
 }
 
-.accordion-item-content > p > span{
+.accordion-item-content p > span {
     font-weight: 700;
+}
+
+.accordion-item-content .extra-actions {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.accordion-item-content .extra-actions>div {
+    display: inline-block;
 }
 
 .accordion-item-content-actions {

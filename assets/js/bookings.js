@@ -106,8 +106,8 @@ function getAssignData(booking, employees) {
     var assignHtml = ``;
     var assignText = '';
     if (bp == 2 || bp == 3) {
-        var assignAction = `<br/><button class="cancel no-margin mt-05" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
-        var assignText = 'Unassigned';
+        var assignAction = `<br/><button class="cancel no-margin w-50 mt-05" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+        var assignText = '...';
         if (!booking.assigned_user_id) {
             if (bp == 2) {
                 assignAction = `<br/><select class="assign-users-select form-control dropdown" id="user-dropdown-${booking.booking_id}">`;
@@ -115,7 +115,7 @@ function getAssignData(booking, employees) {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<br/><button class="save no-margin mt-05" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<button class="save w-50 mt-05" onclick="assignUser(${booking.booking_id})">Assign</button>`;
             } else if (bp == 3) {
                 assignAction = `<br/><button class="save no-margin mt-05 w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
             }            
@@ -126,7 +126,7 @@ function getAssignData(booking, employees) {
         if (booking.status_id == 20) {
             assignAction = ``;
         }
-        assignHtml = `<p class="form-actions mt-0"><span>Vikar:</span> ${assignText}${assignAction}</p>`;
+        assignHtml = `<p class="form-actions mt-0"><span>Vikar - </span> ${assignText}${assignAction}</p>`;
     }
 
     return {
@@ -143,13 +143,13 @@ function getStatusData(booking) {
         if (booking.status_id == 10) {
             statusText = 'Oprettet';
             if (bp == 2 && booking.assigned_user_id) {
-                statusAction = `<br/><button class="save w-75 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
+                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
             }
         } else if (booking.status_id == 20) {
             statusText = 'Afsluttet';
         }
 
-        statusHtml = `<p class="form-actions mt-0"><span>Tilstand:</span> ${statusText}${statusAction}</p>`;
+        statusHtml = `<p class="form-actions mt-0"><span>Tilstand - </span> ${statusText}${statusAction}</p>`;
     }
 
     return {
@@ -175,10 +175,10 @@ function getFormActions(booking) {
 function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml, formActionsHtml) {
     var bookingHeader = booking.district_name + " (" +  booking.place + ") | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
     if (statusText.length > 0) {
-        bookingHeader +=  " | Tilstand: " +  statusText;
+        bookingHeader +=  " | Tilstand - " +  statusText;
     }
     if (assignText.length > 0) {
-        bookingHeader +=  " | Vikar: " +  assignText;
+        bookingHeader +=  " | Vikar - " +  assignText;
     }
 
     var element =  `<div class="accordion-item">
@@ -187,14 +187,18 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
                             <span class="indicator">+</span>
                         </div>
                         <div class="accordion-item-content" data-id="{{booking_id}}">
-                            <p class="district" data-value="{{booking_district_id}}"><span>Kommune:</span> {{booking_district_name}}</p>
-                            <p class="place" data-value="{{booking_place}}"><span>Sted:</span> {{booking_place}}</p>
-                            <p class="date" data-value="{{booking_date}}"><span>Dato:</span> {{booking_date}}</p>
-                            <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt:</span> kl. {{booking_time_value}}</p>
-                            <p class="hours" data-value="{{booking_hours}}"><span>Antal timer:</span> {{booking_hours}}</p>
-                            <p class="shift" data-value="{{booking_shift_id}}"><span>Stilling:</span> {{booking_shift_name}}</p>
-                            <p class="qualification" data-value="{{booking_qualification_id}}"><span>Uddannelse:</span> {{booking_qualification_name}}</p>
-                            {{assignHtml}}{{statusHtml}}{{formActionsHtml}}
+                            <p class="district" data-value="{{booking_district_id}}"><span>Kommune - </span> {{booking_district_name}}</p>
+                            <p class="place" data-value="{{booking_place}}"><span>Sted - </span> {{booking_place}}</p>
+                            <p class="date" data-value="{{booking_date}}"><span>Dato - </span> {{booking_date}}</p>
+                            <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt - </span> kl. {{booking_time_value}}</p>
+                            <p class="hours" data-value="{{booking_hours}}"><span>Antal timer - </span> {{booking_hours}}</p>
+                            <p class="shift" data-value="{{booking_shift_id}}"><span>Stilling - </span> {{booking_shift_name}}</p>
+                            <p class="qualification" data-value="{{booking_qualification_id}}"><span>Uddannelse - </span> {{booking_qualification_name}}</p>
+                            <div class="extra-actions">
+                                <div class="col-md-6">{{assignHtml}}</div>
+                                <div class="col-md-6">{{statusHtml}}</div>
+                            </div>
+                            {{formActionsHtml}}
                         </div>
                     </div>`;
     element = element.replaceAll('{{bookingHeader}}', bookingHeader);
