@@ -56,10 +56,27 @@ if (!empty($_POST)) {
         $successes[] = 'Kommune opdateret';
         logger($user->data()->id, 'User Manager', "Updated kommune for $userdetails->fname from $userdetails->district_id to $district_id.");
       } else {
-      ?><?php if (!$validation->errors() == '') {
+        if (!$validation->errors() == '') {
           display_errors($validation->errors());
-        } ?>
-      <?php } }
+        }
+      }
+    }
+
+
+    $email = Input::get('email');
+    if ($userdetails->email != $email) {
+      $fields = ['email' => $email];
+      $validation->check($_POST, [
+        'email' => [
+          'display' => 'Email',
+          'required' => true,
+          'valid_email' => true,
+          'unique_update' => 'users,' . $userId,
+          'min' => 3,
+          'max' => 75,
+        ],
+      ]);
+    }
 
     $fname = ucfirst(Input::get('fnx'));
     if ($userdetails->fname != $fname) {
@@ -77,10 +94,11 @@ if (!empty($_POST)) {
         $successes[] = 'Fornavn opdateret';
         logger($user->data()->id, 'User Manager', "Updated first name for $userdetails->fname from $userdetails->fname to $fname.");
       } else {
-      ?><?php if (!$validation->errors() == '') {
+        if (!$validation->errors() == '') {
           display_errors($validation->errors());
-        } ?>
-      <?php } }
+        }
+      }
+    }
 
     $lname = ucfirst(Input::get('lnx'));
     if ($userdetails->lname != $lname) {
@@ -117,19 +135,24 @@ if (!empty($_POST)) {
         ],
       ]);
       if ($validation->passed()) {
-          $db->update('users', $userId, $fields);
-          $successes[] = 'Telefonnummer opdateret';
-          logger($user->data()->id, 'User Manager', "Updated telefonnummer for $userdetails->fname from $userdetails->phoneNumber to $phone.");
-        } else {
-        ?><?php if (!$validation->errors() == '') {
+        $db->update('users', $userId, $fields);
+        $successes[] = 'Telefonnummer opdateret';
+        logger($user->data()->id, 'User Manager', "Updated telefonnummer for $userdetails->fname from $userdetails->phoneNumber to $phone.");
+      } else {
+        if (!$validation->errors() == '') {
           display_errors($validation->errors());
-        } ?>
-      <?php } }
+        }
+      } 
+    }
 
+    $active_state = '';
+    $login_text = '';
     if (isset($_POST['active']) && $_POST['active'] == 'on') {
       if ($userdetails->active === 0)
       {
         $user->update(['active' => 1], $userId);
+        $active_state = 'aktiv';
+        $login_text = ' Du kan logge på <a href="'.$url_host.$login_page_url.'">her</a>';
         $successes[] = 'Brugerkontoen er opdateret til aktiv.';
         logger($user->data()->id, 'User Manager', "Updated active status for user id $userdetails->id from Inactive to Active.");
       }
@@ -137,9 +160,19 @@ if (!empty($_POST)) {
       if ($userdetails->active === 1)
       {
         $user->update(['active' => 0], $userId);
+        $active_state = 'inaktiv';
         $successes[] = 'Brugerkontoen er opdateret til inaktiv.';
         logger($user->data()->id, 'User Manager', "Updated active status for user id $userdetails->id from Active to Inactive.");
       }
+    }
+
+    if (!isNullOrEmptyString($active_state)) {
+      $body = get_email_body('_email_account_active_status_change_notify_user.php');
+      $body = str_replace("{{fname}}", $fname, $body);
+      $body = str_replace("{{lname}}", $lname, $body);
+      $body = str_replace("{{active_state}}", $active_state, $body);
+      $body = str_replace("{{login_text}}", $login_text, $body);
+      send_email($email, 'Din LivVikar konto har skiftet status', $body);
     }
 
     if (!empty($_POST['pwx'])) {
@@ -184,6 +217,7 @@ if (!empty($_POST)) {
         Redirect::to($user_page_url . $userId);
       }
     }
+
     $vericode_expiry = date('Y-m-d H:i:s', strtotime("+$settings->reset_vericode_expiry minutes", strtotime(date('Y-m-d H:i:s'))));
     $vericode = randomstring(15);
     $db->update('users', $userdetails->id, ['vericode' => $vericode, 'vericode_expiry' => $vericode_expiry]);
@@ -203,34 +237,18 @@ if (!empty($_POST)) {
       logger($user->data()->id, 'User Manager', "Sent password reset email to $userdetails->fname, Vericode expires at $vericode_expiry.");
     }
 
-    $email = Input::get('email');
-    if ($userdetails->email != $email) {
-      $fields = ['email' => $email];
-      $validation->check($_POST, [
-        'email' => [
-          'display' => 'Email',
-          'required' => true,
-          'valid_email' => true,
-          'unique_update' => 'users,' . $userId,
-          'min' => 3,
-          'max' => 75,
-        ],
-      ]);
 
-      if ($validation->passed()) {
-        $db->update('users', $userId, $fields);
-        $successes[] = 'Email opdateret';
-        logger($user->data()->id, 'User Manager', "Updated email for $userdetails->fname from $userdetails->email to $email.");
-      } else {
-       
-?>
-  <?php if (!$validation->errors() == '') {
-          display_errors($validation->errors());
-        } ?>
-<?php
+    if ($validation->passed()) {
+     // $db->update('users', $userId, $fields);
+      $successes[] = 'Email opdateret';
+      logger($user->data()->id, 'User Manager', "Updated email for $userdetails->fname from $userdetails->email to $email.");
+    } else {
+      if (!$validation->errors() == '') {
+        display_errors($validation->errors());
       }
     }
   }
+  
 
   if(!$validation->errors() == ''){
     foreach($validation->errors()  as $key=>$e){
@@ -252,20 +270,21 @@ if (!empty($_POST)) {
   } else {
     Redirect::to($user_page_url . $userId);
   }
+
+
+  $userPermission = fetchUserPermissions($userId);
+  $permissionData = fetchAllPermissions();
+
+  $rsn = '';
+
+  if (!$validation->errors() == '') {
+    display_errors($validation->errors());
+  }
+
+  $districts = $db->query("SELECT * FROM districts ORDER BY district_name ASC")->results();
+  $active_district_id = $userdetails->district_id;
+
 }
-
-$userPermission = fetchUserPermissions($userId);
-$permissionData = fetchAllPermissions();
-
-$rsn = '';
-
-if (!$validation->errors() == '') {
-  display_errors($validation->errors());
-}
-
-$districts = $db->query("SELECT * FROM districts ORDER BY district_name ASC")->results();
-$active_district_id = $userdetails->district_id;
-
 ?>
 
 <section id="user-details">

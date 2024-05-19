@@ -7,7 +7,7 @@
 <body>
   <p>Kære {{fname}} {{lname}},</p>  
   <br/>
-  <p>Nu er du tilmeldt som vikar hos LivVikar, men bemærk at din konto ikke er aktiv endnu. Når den bliver aktiveret får du en bekræftelse på email.</p>
+  <p>Din LivVikar konto er nu {{active_state}}.{{login_text}}</p>
   <br/>
   <p>Venlig hilsen,</p>
   <p>LivVikar holdet</p>

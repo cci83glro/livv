@@ -12,6 +12,7 @@ $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";
 
 
+$login_page_url = $us_url_root."um/login.php";
 $users_page_url = $us_url_root."um/admin/users.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
