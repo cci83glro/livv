@@ -37,7 +37,7 @@
 					</div>
 					<?php include_once "booking/add-booking-form.php"; ?>
 					<div id="filter-wrapper" class="form-actions align-left">
-						<span>Søg efter booking ID </span><input id="booking-id-filter" class="form-control w-10p">
+						<span>Søg efter booking ID </span><input id="booking-id-filter" class="form-control w-10p" placeholder="Indtast ID">
 						<button id="search" class="save w-10p" onclick="filterBookingsById()">Søg</button>
 						<button id="search" class="cancel w-10p" onclick="resetBookingsFilter()">Nulstil</button>
 					</div>
@@ -47,7 +47,7 @@
 
 				<?php if ($user_permission == 3) { ?>
 					<div id="filter-wrapper" class="form-actions align-left">
-						<span>Søg efter booking ID </span><input id="booking-id-filter" class="form-control w-10p">
+						<span>Søg efter booking ID </span><input id="booking-id-filter" class="form-control w-10p" placeholder="Indtast ID">
 						<button id="search" class="save w-10p" onclick="filterEmployeeBookingsById()">Søg</button>
 						<button id="search" class="cancel w-10p" onclick="resetEmployeeBookingsFilter()">Nulstil</button>
 					</div>

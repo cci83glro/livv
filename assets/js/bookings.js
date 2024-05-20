@@ -2,7 +2,6 @@ var bi = $($("p#bi")[0]).text();
 var bp = $($("p#bp")[0]).text();
 
 function assignUserToBooking(bookingId, userId) {
-    // Data to be sent in the request body
     var data = {
         booking_id: bookingId,
         user_id: userId
@@ -20,16 +19,14 @@ function assignUserToBooking(bookingId, userId) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.text(); // Assuming the script returns a text response
+        return response.text();
     })
     .then(data => {
         console.log('Assignment successful:', data);
-        // Add code to display success message or perform other actions
         reloadBookings();
     })
     .catch(error => {
         console.error('Error assigning user:', error);
-        // Add code to display error message or handle the error
     });
 }
 
@@ -37,7 +34,6 @@ function assignToMe(bookingId) {
     assignUserToBooking(bookingId, bi);
 }
 
-// Function to assign user to a booking
 function assignUser(bookingId) {
     var userDropdown = document.getElementById('user-dropdown-' + bookingId);
     var selectedUserId = userDropdown.value;
@@ -46,10 +42,8 @@ function assignUser(bookingId) {
     }
 }
 
-// Function to unassign user from a booking
 function unassignUser(bookingId) {
 
-    // Send the POST request
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     
@@ -61,22 +55,19 @@ function unassignUser(bookingId) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.text(); // Assuming the script returns a text response
+        return response.text();
     })
     .then(data => {
         console.log('Unassignment successful:', data);
-        // Add code to display success message or perform other actions
         reloadBookings();
     })
     .catch(error => {
         console.error('Error unassigning user:', error);
-        // Add code to display error message or handle the error
     });
 }
 
 function changeBookingStatus(bookingId, newStatus) {
 
-    // Send the POST request
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     formData.append('new_status_id', newStatus);
@@ -89,16 +80,14 @@ function changeBookingStatus(bookingId, newStatus) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.text(); // Assuming the script returns a text response
+        return response.text();
     })
     .then(data => {
         console.log('Unassignment successful:', data);
-        // Add code to display success message or perform other actions
         reloadBookings();
     })
     .catch(error => {
         console.error('Error unassigning user:', error);
-        // Add code to display error message or handle the error
     });
 }
 
@@ -123,7 +112,7 @@ function getAssignData(booking, employees) {
             assignText = booking.user_name;
         }    
 
-        if (booking.status_id == 20) {
+        if (booking.status_id == 5 || booking.status_id == 20) {
             assignAction = ``;
         }
         assignHtml = `<p class="form-actions mt-0""><span>Vikar - </span> ${assignText}${assignAction}</p>`;
@@ -140,7 +129,12 @@ function getStatusData(booking) {
     var statusText = '';
     if (bp == 1 || bp == 2 || bp == 3) {
         var statusAction = ``;
-        if (booking.status_id == 10) {
+        if (booking.status_id == 5) {
+            statusText = 'Inaktiv';
+            if (bp == 2) {
+                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 10)">Aktiver</button>`;
+            }
+        }if (booking.status_id == 10) {
             statusText = 'Oprettet';
             if (bp == 2 && booking.assigned_user_id) {
                 statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
@@ -487,9 +481,7 @@ function reloadBookings() {
     }
 }
 
-// Load bookings when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-    //hideAddBookingForm();
     if (bp == 1 || bp == 2) {
         loadBookings(1);
     } else if (bp == 3) {
