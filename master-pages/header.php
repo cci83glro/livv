@@ -86,7 +86,7 @@
                             <?php } else { ?>
                                 <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user"></i>
-                                    <?=$user_name?>
+                                    <?=$user_fullname?>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="<?=$bookings_page_url?>">Bookings</a></li>

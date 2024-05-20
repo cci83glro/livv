@@ -126,7 +126,7 @@ function getAssignData(booking, employees) {
         if (booking.status_id == 20) {
             assignAction = ``;
         }
-        assignHtml = `<p class="form-actions mt-0"><span>Vikar - </span> ${assignText}${assignAction}</p>`;
+        assignHtml = `<p class="form-actions mt-0""><span>Vikar - </span> ${assignText}${assignAction}</p>`;
     }
 
     return {

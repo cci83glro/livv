@@ -24,7 +24,7 @@ if (!function_exists('send_email')) {
     $mail->isSMTP();
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = "base64";
-    $mail->SMTPDebug = true;
+    $mail->SMTPDebug = false;
     $mail->Host = $smtp_host;
     $mail->Port = $smtp_port; 
     $mail->SMTPAuth = $smtp_auth;

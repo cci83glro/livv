@@ -308,6 +308,10 @@ p.form-actions,
     text-align: center;
 }
 
+.form-actions .save.w-40,
+.form-actions .cancel.w-40 {
+    width: 40%;
+}
 
 .form-actions .save.w-50,
 .form-actions .cancel.w-50 {
@@ -1117,6 +1121,7 @@ a>i {
 
 .form-control {
     border: 2px solid var(--secondary-color);
+    border-radius: 10px;
 }
 
 select.dropdown {

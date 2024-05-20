@@ -37,7 +37,7 @@ $url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HO
 $url_uri = $_SERVER['REQUEST_URI'];
 $url = $url_host . $url_uri;
 if (!$public && !in_array($user_permission, $permissions)) {
-    Redirect::to(__DIR__.'/../um/login.php?redirect=' . $url);
+    Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
 }
 
 ?>

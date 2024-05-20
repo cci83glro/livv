@@ -17,18 +17,12 @@ $errors = [];
 $successes = [];
 $userId = (int) Input::get('id');
 
-$userdetailsQ = $db->query(
-  "SELECT u.*, p.name as permission_name, d.district_name
-  FROM users u 
-  LEFT JOIN permissions p on u.permissions = p.id 
-  LEFT JOIN districts d on u.district_id = d.district_id 
-  WHERE u.id =  ?", [$userId]);
-$userdetailsC = $userdetailsQ->count();
-if ($userdetailsC < 1) {
+$userdetailsQ = getUsers($userId);
+if (count($userdetailsQ) < 1) {
   usError("Brugersiden findes ikke");
   Redirect::to($users_page_url);
 }
-$userdetails = $userdetailsQ->first();
+$userdetails = $userdetailsQ[0];
 
 //Forms posted
 if (!empty($_POST)) {

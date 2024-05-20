@@ -5,7 +5,7 @@
 //header('X-Frame-Options: DENY');
 
 $public = false;
-$permissions = array(2);
+$permissions = [2];
 $pageTitle = 'Brugere';
 require_once __DIR__.'/../../master-pages/header.php';
 
@@ -137,7 +137,7 @@ foreach ($validation->errors() as $error) {
             <div class="row" style="margin-top:1vw;">            
               <div class="form-actions">
                 <div class="buttons-wrapper">
-                  <button class="save" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Tilføj bruger</button>
+                  <button class="save w-40 no-margin" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Tilføj bruger</button>
                 </div>
               </div>
             </div>
