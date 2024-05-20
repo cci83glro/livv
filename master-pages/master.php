@@ -22,12 +22,12 @@ $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 
 $admin_email_list = [
-	// 'kt@livvikar.dk',
-	// 'eg@livvikar.dk',
-	// 'ik@livvikar.dk',
-	// 'dd@livvikar.dk'
-	'ciprian_condurachi@yahoo.com',
-	'cci83glro@gmail.com'
+	'kt@livvikar.dk',
+	'eg@livvikar.dk',
+	'ik@livvikar.dk',
+	'dd@livvikar.dk',
+	//'ciprian_condurachi@yahoo.com',
+	//'cci83glro@gmail.com'
 ];
 
 $db = DB::getInstance();

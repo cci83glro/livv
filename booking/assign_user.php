@@ -43,7 +43,7 @@ if ($db->query("UPDATE Bookings SET assigned_user_id = $assigned_user_id WHERE b
     $body = str_replace("{{fname}}", $fname, $body);
     $body = str_replace("{{lname}}", $lname, $body);
     $body = str_replace("{{booking_id}}", $booking_id, $body);
-    //$body = str_replace("{{bookings_page_link}}", $bookings_page_url, $body);
+    $body = str_replace("{{bookings_page_link}}", $url_host.$bookings_page_url, $body);
     send_email($email, 'Ny LivVikar booking assignet til dig', $body);
 
     if ($user_id == $assigned_user_id) {
@@ -51,7 +51,7 @@ if ($db->query("UPDATE Bookings SET assigned_user_id = $assigned_user_id WHERE b
         $body = str_replace("{{fname}}", $fname, $body);
         $body = str_replace("{{lname}}", $lname, $body);
         $body = str_replace("{{booking_id}}", $booking_id, $body);
-        //$body = str_replace("{{bookings_page_link}}", $bookings_page_url, $body);
+        $body = str_replace("{{bookings_page_link}}", $url_host.$bookings_page_url, $body);
         send_email($admin_email_list, 'Booking assignet til vikar', $body);
     }
     echo "success";
