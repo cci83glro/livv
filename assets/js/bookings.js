@@ -173,7 +173,7 @@ function getFormActions(booking) {
 }
 
 function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml, formActionsHtml) {
-    var bookingHeader = booking.district_name + " (" +  booking.place + ") | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
+    var bookingHeader = "ID: " + booking.booking_id + " | " + booking.district_name + " (" +  booking.place + ") | " +  booking.date + " (kl. " + booking.time_value + " - " + booking.hours + " timer)";
     if (statusText.length > 0) {
         bookingHeader +=  " | Tilstand - " +  statusText;
     }
@@ -296,10 +296,44 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, re
     });
 }
 
-function loadBookings(page) {
+function resetBookingsFilter() {
+    $('#booking-id-filter').val('');
+    var activePage = $('#bookings-container').data('active-page');
+    loadBookings(activePage);
+}
+
+function filterBookingsById() {
+    var id = $('#booking-id-filter').val();
+    var activePage = $('#bookings-container').data('active-page');
+
+    loadBookings(activePage, id);
+}
+
+function resetEmployeeBookingsFilter() {
+    $('#booking-id-filter').val('');
+    var activePage = $('#my-bookings-container').data('active-page');
+    loadBookingsForWorker(activePage);
+
+    activePage = $('#available-bookings-container').data('active-page');
+    loadAvailableBookings(activePage);
+}
+
+function filterEmployeeBookingsById() {
+    var id = $('#booking-id-filter').val();
+    var activePage = $('#my-bookings-container').data('active-page');
+    loadBookingsForWorker(activePage, id);
+
+    activePage = $('#available-bookings-container').data('active-page');
+    loadAvailableBookings(activePage, id);
+}
+
+function loadBookings(page, bookingId = '') {
     var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php`;
+    if (bookingId != '') {
+        url += '?bookingId=' + bookingId;
+    }
 
     $.getJSON(url, function(data) {
         setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, recordsPerPage, loadBookings);
@@ -309,10 +343,13 @@ function loadBookings(page) {
     });
 }
 
-function loadBookingsForWorker(page) {
+function loadBookingsForWorker(page, bookingId = '') {
     var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php?bi=` + bi;
+    if (bookingId != '') {
+        url += '&bookingId=' + bookingId;
+    }
 
     $.getJSON(url, function(data) {
         setBookingListHtml($('#my-bookings-container'), $('#my-bookings-pagination'), data, page, recordsPerPage, loadBookingsForWorker, 'page-link-my-bookings');
@@ -322,10 +359,13 @@ function loadBookingsForWorker(page) {
     });
 }
 
-function loadAvailableBookings(page) {
+function loadAvailableBookings(page, bookingId = '') {
     var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php?unassigned=1`;
+    if (bookingId != '') {
+        url += '&bookingId=' + bookingId;
+    }
 
     $.getJSON(url, function(data) {
         setBookingListHtml($('#available-bookings-container'), $('#available-bookings-pagination'), data, page, recordsPerPage, loadAvailableBookings, 'page-link-available-bookings');

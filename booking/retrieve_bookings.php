@@ -6,18 +6,25 @@ require_once __DIR__.'/../um/current-user-data.php';
 
 // $page = $_GET['page']; // Current page number
 // $records_per_page = $_GET['records_per_page']; // Number of records per page
-
 // $offset = ($page - 1) * $records_per_page;
 
-$where = " ";
+$where = " WHERE 1=1";
 if ($user_permission == 1) {
-    $where = " WHERE b.created_by_user_id = " . $user_id;
+    $where .= " AND b.created_by_user_id = " . $user_id;
 } elseif ($user_permission == 3) {
     if (isset($_GET['bi'])) {
-        $where = " WHERE b.assigned_user_id = " . $_GET['bi'];
+        $where .= " AND b.assigned_user_id = " . $_GET['bi'];
     }
     if (isset($_GET['unassigned'])) {
-        $where = " WHERE b.assigned_user_id IS NULL";
+        $where .= " AND b.assigned_user_id IS NULL";
+    }
+}
+
+$bookingId = '';
+if (isset($_GET['bookingId'])) {
+    $bookingId = $_GET['bookingId'];
+    if ($bookingId != '') {
+        $where .= " AND b.booking_id = " . $bookingId;
     }
 }
 

@@ -5,7 +5,7 @@
 //header('X-Frame-Options: DENY');
 
 $public = false;
-$permissions = array(2);
+$permissions = [1,2,3];
 $pageTitle = 'Rediger bruger';
 require_once __DIR__.'/../../master-pages/header.php';
 

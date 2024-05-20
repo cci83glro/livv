@@ -308,26 +308,6 @@ p.form-actions,
     text-align: center;
 }
 
-.form-actions .save.w-40,
-.form-actions .cancel.w-40 {
-    width: 40%;
-}
-
-.form-actions .save.w-50,
-.form-actions .cancel.w-50 {
-    width: 50%;
-}
-
-.form-actions .save.w-75,
-.form-actions .cancel.w-75 {
-    width: 75%;
-}
-
-.form-actions .save.w-100,
-.form-actions .cancel.w-100 {
-    width: 100%;
-}
-
 .form-actions .save {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
@@ -1035,6 +1015,12 @@ div.pagination .count-info{
     color: var(--secondary-color);
 }
 
+#booking-id-filter {
+    display: inline-block;
+    padding: .5rem 1rem;
+    font-size: 1.2rem;
+}
+
 #add-booking-section {
     padding: 2rem 0;
     display: flex;
@@ -1062,6 +1048,14 @@ div.pagination .count-info{
 
 #add-booking-button {
     width: 20%;
+}
+
+#filter-wrapper {
+    margin-bottom: 1rem;
+}
+
+#filter-wrapper span {
+    font-size: 1.3rem;
 }
 
 .assign-users-select {
@@ -1229,6 +1223,27 @@ section#users-list .btn:hover{
   .slider.round:before {
     border-radius: 50%;
   }
+
+.w-10p
+{
+    width: 10% !important;
+}
+
+.w-40p {
+    width: 40% !important;
+}
+
+.w-50p {
+    width: 50% !important;
+}
+
+.w-75p {
+    width: 75% !important;
+}
+
+.w-100p {
+    width: 100% !important;
+}
 
 @media only screen and (max-width:991px) {
     h1 {
