@@ -40,6 +40,11 @@ if (!isNullOrEmptyString($id)) {
     }
 } else {
 
+    $status_id = 5;
+    if ($user_permission == 2) {
+        $status_id = 10;
+    }
+
     $fields = [
         'district_id' => $district_id,
         'createdBy' => $createdBy,
@@ -50,7 +55,7 @@ if (!isNullOrEmptyString($id)) {
         'shift_id' => $shift_id,
         'qualification_id' => $qualification_id,
         'created_by_user_id' => $bi,
-        'status_id' => 5
+        'status_id' => $status_id
     ];
 
     if($db->insert('bookings', $fields)) {

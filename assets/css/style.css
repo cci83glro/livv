@@ -1229,6 +1229,10 @@ section#users-list .btn:hover{
     width: 10% !important;
 }
 
+.w-30p {
+    width: 30% !important;
+}
+
 .w-40p {
     width: 40% !important;
 }

@@ -104,7 +104,7 @@ function getAssignData(booking, employees) {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<button class="save w-50 mt-05" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<button class="save w-30p mt-05" onclick="assignUser(${booking.booking_id})">Assign</button>`;
             } else if (bp == 3) {
                 assignAction = `<br/><button class="save no-margin mt-05 w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
             }            
