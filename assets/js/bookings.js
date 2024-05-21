@@ -115,7 +115,7 @@ function getAssignData(booking, employees) {
         if (booking.status_id == 5 || booking.status_id == 20) {
             assignAction = ``;
         }
-        assignHtml = `<p class="form-actions mt-0""><span>Vikar - </span> ${assignText}${assignAction}</p>`;
+        assignHtml = `<div class="col-md-6"><p class="form-actions mt-0""><span>Vikar - </span> ${assignText}${assignAction}</p></div>`;
     }
 
     return {
@@ -143,7 +143,7 @@ function getStatusData(booking) {
             statusText = 'Afsluttet';
         }
 
-        statusHtml = `<p class="form-actions mt-0"><span>Tilstand - </span> ${statusText}${statusAction}</p>`;
+        statusHtml = `<div class="col-md-6"><p class="form-actions mt-0"><span>Tilstand - </span> ${statusText}${statusAction}</p></div>`;
     }
 
     return {
@@ -182,6 +182,8 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
                         </div>
                         <div class="accordion-item-content" data-id="{{booking_id}}">
                             <p class="district" data-value="{{booking_district_id}}"><span>Kommune - </span> {{booking_district_name}}</p>
+                            <p class="createdBy" data-value="{{booking_createdBy}}"><span>Oprettet af - </span> {{booking_createdBy}}</p>
+                            <p class="user-data" data-value="{{booking_user_data}}"><span>Bruger - </span> {{booking_user_data}}</p>
                             <p class="place" data-value="{{booking_place}}"><span>Sted - </span> {{booking_place}}</p>
                             <p class="date" data-value="{{booking_date}}"><span>Dato - </span> {{booking_date}}</p>
                             <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt - </span> kl. {{booking_time_value}}</p>
@@ -189,8 +191,8 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
                             <p class="shift" data-value="{{booking_shift_id}}"><span>Stilling - </span> {{booking_shift_name}}</p>
                             <p class="qualification" data-value="{{booking_qualification_id}}"><span>Uddannelse - </span> {{booking_qualification_name}}</p>
                             <div class="extra-actions">
-                                <div class="col-md-6">{{assignHtml}}</div>
-                                <div class="col-md-6">{{statusHtml}}</div>
+                               {{assignHtml}}
+                               {{statusHtml}}
                             </div>
                             {{formActionsHtml}}
                         </div>
@@ -202,6 +204,8 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
     element = element.replaceAll('{{booking_id}}', booking.booking_id);
     element = element.replaceAll('{{booking_district_id}}', booking.district_id);
     element = element.replaceAll('{{booking_district_name}}', booking.district_name);
+    element = element.replaceAll('{{booking_createdBy}}', booking.createdBy);
+    element = element.replaceAll('{{booking_user_data}}', booking.created_by_name + ' (' + booking.created_by_email + ')');    
     element = element.replaceAll('{{booking_place}}', booking.place);
     element = element.replaceAll('{{booking_date}}', booking.date);
     element = element.replaceAll('{{booking_time_id}}', booking.time_id);
@@ -438,6 +442,7 @@ function editBooking(id) {
     if (bp == 2) {
         district = $($(item).children('.district')[0]).attr('data-value');
     }
+    var createdBy = $($(item).children('.createdBy')[0]).attr('data-value');
     var place = $($(item).children('.place')[0]).attr('data-value');
     var date = $($(item).children('.date')[0]).attr('data-value');
     var time = $($(item).children('.time')[0]).attr('data-value');
@@ -452,6 +457,7 @@ function editBooking(id) {
     if (bp == 2) {
         $($(form).find('#district')[0]).val(district);
     }
+    $($(form).find('#createdBy')[0]).val(createdBy);
     $($(form).find('#place')[0]).val(place);
     $($(form).find('#date')[0]).val(date);
     $($(form).find('#time')[0]).val(time);

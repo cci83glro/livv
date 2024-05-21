@@ -8,6 +8,7 @@ require_once __DIR__.'/../um/current-user-data.php';
 // Retrieve form data
 $id = $_POST['id'];
 $district_id = $_POST['district'];
+$createdBy = $_POST['createdBy'];
 $place = $_POST['place'];
 $date = $_POST['date'];
 $time_id = $_POST['time'];
@@ -31,7 +32,7 @@ if (!isNullOrEmptyString($id)) {
     if ($user_permission == 2) {
         $query .= "district_id = '$district_id', ";
     }
-    $query .= "place = '$place', date = '$date', time_id = $time_id, hours = $hours, shift_id = $shift_id, qualification_id = $qualification_id WHERE booking_id = $id";
+    $query .= "createdBy = '$createdBy', place = '$place', date = '$date', time_id = $time_id, hours = $hours, shift_id = $shift_id, qualification_id = $qualification_id WHERE booking_id = $id";
     if ($db->query($query)) {
         echo "success";
     } else {
@@ -41,6 +42,7 @@ if (!isNullOrEmptyString($id)) {
 
     $fields = [
         'district_id' => $district_id,
+        'createdBy' => $createdBy,
         'place' => $place,
         'date' => $date,
         'time_id' => $time_id,

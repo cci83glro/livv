@@ -918,7 +918,7 @@ a.social-item {
     margin-bottom: 10px;
 }
 
-.accordion-item p,
+/* .accordion-item p, */
 .accordion-item-header {
     font-size: 1.2rem;
 }

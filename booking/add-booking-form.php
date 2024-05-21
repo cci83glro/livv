@@ -1,5 +1,5 @@
 <?php 
-    $textFieldRequiredText = "Skal udfyldes";
+    $textFieldRequiredText = "Feltet skal udfyldes";
     $selectFieldRequiredText = "Der skal vælges en mulighed";
 ?>
 
@@ -55,6 +55,15 @@
             <?php } else {?>
                 <input type="text" class="hidden" id="district" name="district" value="<?php echo $user_district_id; ?>" />
             <?php } ?>
+            
+            <div class="mb-3 col-md-6">                
+                <label for="place" class="form-field-label">Oprettet af</label>
+                <input type="text" class="form-control py-2 px-4" name="createdBy" id="createdBy" placeholder="Indtast navn" required>
+                <div class="invalid-feedback">
+                    <?php echo $textFieldRequiredText; ?>
+                </div>
+            </div>
+
             <div class="mb-3 col-md-6">                
                 <label for="place" class="form-field-label">Sted</label>
                 <input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
