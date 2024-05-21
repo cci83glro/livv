@@ -10,7 +10,7 @@ require_once __DIR__.'/../um/current-user-data.php';
 
 $where = " WHERE 1=1";
 if ($user_permission == 1) {
-    $where .= " AND b.created_by_user_id = " . $user_id;
+    $where .= " AND b.district_id = " . $user_district_id;
 } elseif ($user_permission == 3) {
     $where .= " AND b.status_id <> 5";
     if (isset($_GET['bi'])) {

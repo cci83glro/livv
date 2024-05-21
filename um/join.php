@@ -108,11 +108,6 @@ if (Input::exists()) {
         }
 
         try {
-            if(isset($_SESSION['us_lang'])){
-                $newLang = $_SESSION['us_lang'];
-            }else{
-                $newLang = $settings->default_language;
-            }
             $fields = [
                 'fname' => ucfirst(Input::get('fname')),
                 'lname' => ucfirst(Input::get('lname')),
@@ -125,19 +120,11 @@ if (Input::exists()) {
                 'vericode' => $vericode,
                 'vericode_expiry' => $vericode_expiry,
                 'oauth_tos_accepted' => true,
-                'language'=>$newLang,
+                'language'=>'da-DK',
                 'active'=>0
                 ];
 
             $theNewId = $user->create($fields);
-
-            // if ($act == 1) {
-            //     //Verify email address settings
-            //     $to = rawurlencode($email);
-            //     $subject = html_entity_decode($settings->site_name, ENT_QUOTES);
-            //     $body = get_email_body('mails/um/_email_adminPwReset.php', $params);                
-            //     send_email($to, $subject, $body);                
-            // }
 
             $body = get_email_body('_email_new_account_notify_admins.php');
             $body = str_replace("{{fname}}", $fname, $body);
@@ -152,8 +139,7 @@ if (Input::exists()) {
         } catch (Exception $e) {            
             die($e->getMessage());
         }
-        if ($form_valid == true) {
-            //this allows the plugin hook to kill the post but it must delete the created user
+        if ($form_valid == true) {            
             include $abs_us_root.$us_url_root.'usersc/scripts/during_user_creation.php';
 
             if ($act == 1) {
