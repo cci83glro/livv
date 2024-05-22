@@ -26,7 +26,9 @@ if (!empty($_POST)) {
     $lname = $_POST['lname'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
+    $qualification_id = $_POST['qualification'];
     $experience = $_POST['experience'];
+    $namePhoneReference = $_POST['namePhoneReference'];
 
     $validation = new Validate();
 
@@ -34,8 +36,9 @@ if (!empty($_POST)) {
         'fname' => [ 'display' => 'Fornavn', 'required' => true, 'min' => 1, 'max' => 30 ],
         'lname' => [ 'display' => 'Efternavn', 'required' => true, 'min' => 1, 'max' => 30 ],
         'phone' => [ 'display' => 'Telefon', 'required' => false, 'min' => 8, 'max' => 12 ],
-        'email' => [ 'display' => 'Email', 'required' => true, 'valid_email' => true, 'unique' => 'users', 'min' => 5, 'max' => 50 ],
-        'experience' => [ 'display' => 'Erfaring', 'required' => true, 'min' => 1, 'max' => 200 ],
+        'email' => [ 'display' => 'Email', 'required' => true, 'valid_email' => true, 'unique' => 'applications', 'min' => 5, 'max' => 50 ],
+        'experience' => [ 'display' => 'Erfaring', 'required' => true, 'min' => 1, 'max' => 20 ],
+        'namePhoneReference' => [ 'display' => 'Reference data', 'required' => true, 'min' => 1, 'max' => 200 ],
     ]);
 
     if ($validation->passed()) {        
@@ -46,19 +49,22 @@ if (!empty($_POST)) {
                 'lname' => $lname,
                 'phone' => $phone,
                 'email' => $email,
+                'qualification_id' => $qualification_id,
                 'experience' => $experience,
+                'namePhoneReference' => $namePhoneReference
             ];
         
             if($db->insert('applications', $fields)) {
+                $theNewId = $db->lastId();
                 $body = get_email_body('_email_new_application_notify_admins.php');
                 $body = str_replace("{{fname}}", $fname, $body);
                 $body = str_replace("{{lname}}", $lname, $body);
-                $body = str_replace("{{user_url}}", $url_host.$user_page_url.$theNewId, $body);
-                send_email($admin_email_list, 'Ny vikar konto oprettet', $body);
+                $body = str_replace("{{application_url}}", $url_host.$application_page_url.$theNewId, $body);
+                send_email($admin_email_list, 'Ny vikar ansøgning', $body);
                 echo "success";
             } else {
                 // Handle errors
-                echo "Error creating booking: " . $db->error;
+                echo "Fejl ved at sende ansøgningen: " . $db->error;
             }
 
         } catch (Exception $e) {            
@@ -80,12 +86,14 @@ if (!empty($_POST)) {
         Redirect::to(currentPage());
     } //Validation
 } //Input exists
+else {
+    $qualifications = $db->query("SELECT qualification_id, qualification_name FROM Qualifications")->results();
+}
 
-require $abs_us_root.$us_url_root.'um/views/_join.php';
+require $abs_us_root.$us_url_root.'applications/views/_join_form.php';
 ?>
 
 <?php include_once $abs_us_root.$us_url_root."master-pages/footer.php"?>
-<script src="<?=$us_url_root?>assets/js/um/join.js"></script>
 
 </body>
 </html>

@@ -71,7 +71,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Kontakt</a>
                             </li>
-                        </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?=$us_url_root.'applications/create-application.php'?>">Ansøg som vikar</a>
+                            </li>
+                        </ul>                        
                         <p id="bi"><?=$user_id?></p>
                         <p id="bp"><?=$user_permission?></p>
                         <div class="nav-item dropdown">                            

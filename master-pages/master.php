@@ -18,6 +18,7 @@ $instagram_url = "instagram.com";
 
 $login_page_url = $us_url_root."um/login.php";
 $users_page_url = $us_url_root."um/admin/users.php";
+$application_page_url = $us_url_root."applications/application.php?id=";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 
