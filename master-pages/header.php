@@ -57,7 +57,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto font-2 fw-semibold gap-lg-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?=$us_url_root?>">Home</a>
+                                <a class="nav-link active" aria-current="page" href="<?=$us_url_root?>">Hjem</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Ydelser</a>
@@ -94,6 +94,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="<?=$bookings_page_url?>">Bookings</a></li>
                                     <?php if($user_permission == 2) { ?>
+                                        <li><a class="dropdown-item" href="<?=$us_url_root?>applications/list.php">Ansøgninger</a></li>
                                         <li><a class="dropdown-item" href="<?=$us_url_root?>um/admin/users.php">Brugere</a></li>
                                     <?php } ?>
                                     <li><a class="dropdown-item with-top-separator" href="<?php echo $user_page_url.$user_id;?>">Min profil</a></li>

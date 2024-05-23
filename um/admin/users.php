@@ -137,7 +137,7 @@ foreach ($validation->errors() as $error) {
             <div class="row" style="margin-top:1vw;">            
               <div class="form-actions">
                 <div class="buttons-wrapper">
-                  <button class="save w-40 no-margin" data-bs-toggle="modal" data-bs-target="#adduser"><i class="fa fa-plus"></i> Tilføj bruger</button>
+                  <button class="save w-40 no-margin" data-bs-toggle="modal" data-bs-target="#adduser" id="add-user-button"><i class="fa fa-plus"></i> Tilføj bruger</button>
                 </div>
               </div>
             </div>

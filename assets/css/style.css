@@ -1224,9 +1224,40 @@ section#users-list .btn:hover{
     border-radius: 50%;
   }
 
+  .applications-list {
+    margin-bottom: 3rem;
+  }
+
+  .applications-list > .record {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 3px solid var(--secondary-color);
+    border-radius: 10px;
+  }
+
+  .applications-list > .record > p {
+    display: inline-block;
+    width: 33%;
+  }
+
+  .applications-list > .record > a {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .applications-list > .record > p > span {
+    font-weight: 700;
+  }
+
 .w-10p
 {
     width: 10% !important;
+}
+
+.w-20p
+{
+    width: 20% !important;
 }
 
 .w-30p {
