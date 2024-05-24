@@ -13,14 +13,14 @@
 				style="z-index: 2;">
 				<div class="row row-cols-1 row-cols-2">
 					<div class="col font-1 fw-bold px-4 lh-1 text-end"
-						style="font-size: 15rem; border-right: 1px solid var(--accent-color);">
+						style="font-size: 15rem; border-right: 1px solid var(--secondary-color);">
 						404
 					</div>
 					<div class="col px-5 d-flex flex-column justify-content-center">
 						<h3 class="font-1 fw-bold">Siden findes ikke</h3>
 						<p style="max-width: 768px;">Den side, du leder efter, findes ikke i vores system.</p>
-						<div>
-							<a href="<?=$us_url_root;?>" type="button" class="btn button bg-accent-color" type="submit">Hjem</a>
+						<div class="form-actions">
+							<a href="<?=$us_url_root;?>" type="button" class="save " type="submit">Hjem</a>
 						</div>
 					</div>
 				</div>
