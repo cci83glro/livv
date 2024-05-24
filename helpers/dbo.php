@@ -1,6 +1,6 @@
 <?php
 
-class db {
+class dbo {
 
     protected $connection;
 	protected $query;
@@ -130,10 +130,10 @@ class db {
 }
 
 function getDbInstance($h, $u, $p, $n) {
-	return new db($h, $u, $p, $n);
+	return new dbo($h, $u, $p, $n);
 }
 
 include_once __DIR__.'/../config/mysql.php';
 
-$db = getDbInstance($db_host, $db_username, $db_password, $db_name);
+$dbo = getDbInstance($db_host, $db_username, $db_password, $db_name);
 ?>

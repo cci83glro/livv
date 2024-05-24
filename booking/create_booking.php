@@ -29,10 +29,10 @@ if (!isNullOrEmptyString($id)) {
         $query .= "district_id = '$district_id', ";
     }
     $query .= "createdBy = '$createdBy', place = '$place', date = '$date', time_id = $time_id, hours = $hours, shift_id = $shift_id, qualification_id = $qualification_id WHERE booking_id = $id";
-    if ($db->query($query)) {
+    if ($dbo->query($query)) {
         echo "success";
     } else {
-        echo "Error assigning user: " . $db->error;
+        echo "Error assigning user: " . $dbo->error;
     }
 } else {
 
@@ -54,12 +54,12 @@ if (!isNullOrEmptyString($id)) {
         'status_id' => $status_id
     ];
 
-    if($db->insert('bookings', $fields)) {
+    if($dbo->insert('bookings', $fields)) {
         // Booking successful
         echo "success";
     } else {
         // Handle errors
-        echo "Error creating booking: " . $db->error;
+        echo "Error creating booking: " . $dbo->error;
     }
 }
 ?>

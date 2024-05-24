@@ -12,15 +12,12 @@ if (!isset($_POST['booking_id'])) {
 // Retrieve booking ID from frontend
 $booking_id = $_POST['booking_id'];
 
-// Delete booking from database
-$db = DB::getInstance();
-
-if ($db->query("DELETE FROM Bookings WHERE booking_id = $booking_id")) {
+if ($dbo->query("DELETE FROM Bookings WHERE booking_id = $booking_id")) {
     // Deletion successful
     echo "Booking deleted successfully!";
 } else {
     // Handle errors
-    echo "Error deleting booking: " . $db->error;
+    echo "Error deleting booking: " . $dbo->error;
 }
 
 // Close statement and database connection

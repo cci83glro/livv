@@ -34,7 +34,7 @@ if ($user_permission == 2) {
     $email = $user_data->email;
 }
 
-if ($db->query("UPDATE Bookings SET assigned_user_id = $assigned_user_id WHERE booking_id = $booking_id")) {
+if ($dbo->query("UPDATE Bookings SET assigned_user_id = $assigned_user_id WHERE booking_id = $booking_id")) {
 
     $body = get_email_body('_email_booking_assign_notify_user.php');
     $body = str_replace("{{fname}}", $fname, $body);
@@ -53,7 +53,7 @@ if ($db->query("UPDATE Bookings SET assigned_user_id = $assigned_user_id WHERE b
     }
     echo "success";
 } else {
-    echo "Error assigning user: " . $db->error;
+    echo "Error assigning user: " . $dbo->error;
 }
 
 ?>

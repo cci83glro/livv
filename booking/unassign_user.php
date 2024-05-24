@@ -30,7 +30,7 @@ if ($user_permission == 2) {
     $assigned_user_id = $booking_data->assigned_user_id;
 }
 
-if ($db->query("UPDATE Bookings SET assigned_user_id = NULL WHERE booking_id = $booking_id")) {
+if ($dbo->query("UPDATE Bookings SET assigned_user_id = NULL WHERE booking_id = $booking_id")) {
     
     $body = get_email_body('_email_booking_unassign_notify_user.php');
     $body = str_replace("{{fname}}", $fname, $body);
@@ -50,7 +50,7 @@ if ($db->query("UPDATE Bookings SET assigned_user_id = NULL WHERE booking_id = $
 
     echo "User unassigned successfully!";
 } else {
-    echo "Error unassigning user: " . $db->error;
+    echo "Error unassigning user: " . $dbo->error;
 }
 
 ?>

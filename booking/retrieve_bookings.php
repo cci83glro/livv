@@ -29,7 +29,7 @@ if (isset($_GET['bookingId'])) {
     }
 }
 
-$query = $db->query(
+$query = $dbo->query(
     "SELECT b.*, d.district_name, t.time_id, t.time_value, s.shift_id, s.shift_name, q.qualification_id, q.qualification_name, CONCAT(uassigned.fname, ' ', uassigned.lname) as user_name, CONCAT(ucreated.fname, ' ', ucreated.lname) as created_by_name, ucreated.email as created_by_email
     FROM Bookings b
     INNER JOIN DIstricts d ON b.district_id = d.district_id
@@ -41,7 +41,7 @@ $query = $db->query(
     ORDER BY date desc");
 //$query = $db->query("SELECT * FROM Bookings LIMIT $offset, $records_per_page");
 //$query = $db->query("SELECT * FROM Bookings LIMIT " . $offset . ", " . $records_per_page);
-$results = $query->results();
+$results = $query->fetchAll();
 
 echo json_encode($results);
 ?>

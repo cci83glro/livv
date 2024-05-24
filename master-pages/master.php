@@ -19,6 +19,8 @@ $company_contact_email = "kontakt@livvikar.dk";
 $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";
 
+require_once __DIR__.'/../helpers/Redirect.php';
+require_once __DIR__.'/../helpers/Input.php';
 require_once __DIR__.'/../um/current-user-data.php';
 //require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
@@ -33,7 +35,7 @@ $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 
 
-//include_once __DIR__.'/../helpers/db.php';
+include_once __DIR__.'/../helpers/dbo.php';
 include_once __DIR__.'/../helpers/db-helpers.php';
 include_once __DIR__.'/../helpers/generic-helpers.php';
 include_once __DIR__.'/../helpers/email-helpers.php';

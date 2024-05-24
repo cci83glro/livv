@@ -12,7 +12,7 @@ $booking_id = $_POST['booking_id'];
 $new_status_id = $_POST['new_status_id'];
 $email = $_POST['email'];
 
-if ($db->query("UPDATE Bookings SET status_id = $new_status_id WHERE booking_id = $booking_id")) {
+if ($dbo->query("UPDATE Bookings SET status_id = $new_status_id WHERE booking_id = $booking_id")) {
     if ($new_status_id == 20) {
         try {
             $body = get_email_body('_email_complete_booking_notify_district.php');
@@ -27,7 +27,7 @@ if ($db->query("UPDATE Bookings SET status_id = $new_status_id WHERE booking_id 
 
     echo "ok";
 } else {
-    echo "Error updating booking: " . $db->error;
+    echo "Error updating booking: " . $dbo->error;
 }
 
 ?>
