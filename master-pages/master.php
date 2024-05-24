@@ -7,6 +7,8 @@ if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
 }
 
+$company_name = "Liv-Vikar ApS";
+$company_cvr = "44803003";
 $company_address = "Lidsøvej, 2730 Herlev";
 $company_address_google_url = "https://maps.app.goo.gl/aJnuGj3JGwNK5J5m9";
 $company_phone = "11223344";

@@ -1,46 +1,4 @@
 $(document).ready(function(offsetHandled, offsetUnhandled) {
-    const limit = 10;
-
-    function loadMore(handled) {
-        let offset = handled ? offsetHandled : offsetUnhandled;
-        $.get('applications.php', { ajax: true, handled: handled, offset: offset + limit }, function(data) {
-            const records = JSON.parse(data);
-            const container = handled ? '#handled-container' : '#unhandled-container';
-            records.forEach(record => {
-                const recordHTML = `
-                    <div class="record">
-                        <p>ID: ${record.id}</p>
-                        <p>Name: ${record.fname} ${record.lname}</p>
-                        <p>Date Created: ${record.dateCreated}</p>
-                        ${handled ? `<a href="new_account.php?id=${record.id}&fname=${record.fname}&lname=${record.lname}&email=${record.email}&phone=${record.phone}&qualification_id=${record.qualification_id}&experience=${record.experience}&namePhoneReference=${record.namePhoneReference}">Transform to Account</a>` : `
-                        <form method="post" class="mark-handled-form" data-id="${record.id}">
-                            <button type="submit" name="mark_handled">Mark as Handled</button>
-                        </form>`}
-                    </div>
-                `;
-                $(container).append(recordHTML);
-            });
-            if (handled) {
-                offsetHandled += limit;
-                if (!response.has_more) {
-                    $('#show-more-handled').hide();
-                }
-            } else {
-                offsetUnhandled += limit;
-                if (!response.has_more) {
-                    $('#show-more-unhandled').hide();
-                }
-            }
-        });
-    }
-
-    $('#show-more-handled').click(function() {
-        loadMore(true);
-    });
-
-    $('#show-more-unhandled').click(function() {
-        loadMore(false);
-    });
 
     function getCommonElementHtml(record) {
         return `
@@ -70,35 +28,90 @@ $(document).ready(function(offsetHandled, offsetUnhandled) {
     function getHandledHtmlElement(record) {
         return getCommonElementHtml(record).replace (`{{actions}}`, ``);
     }
+    
+    function refreshUnhandledApplications(data) {
+        $('#unhandled-container').empty();
+        if (data.length == 0) {
+            $('#unhandled-container').append(`<p>Ingen ansøgninger</p>`);
+        }
+        data.forEach(record => {
+            $('#unhandled-container').append(getUnhandledHtmlElement(record));
+        });
+
+        // if (!response.unhandled_list.length || !response.has_more_unhandled) {
+        //     $('#show-more-unhandled').hide();
+        // } else {
+        //     $('#show-more-unhandled').show();
+        // }
+    }
+
+    function refreshHandledApplications(data) {
+        $('#handled-container').empty();
+        if (data.length == 0) {
+            $('#handled-container').append(`<p>Ingen ansøgninger</p>`);
+        }
+        data.forEach(record => {
+            $('#handled-container').append(getHandledHtmlElement(record));
+        });
+
+        // if (!response.unhandled_list.length || !response.has_more_unhandled) {
+        //     $('#show-more-unhandled').hide();
+        // } else {
+        //     $('#show-more-unhandled').show();
+        // }
+    }
+
+    function refreshData(data) {
+
+        refreshUnhandledApplications(data.unhandled_list);
+        refreshHandledApplications(data.handled_list);
+    }
+
+    
+    const limit = 10;
+
+    function loadMore(handled) {
+        let offset = handled ? offsetHandled : offsetUnhandled;
+        $.get('actions.php', { ajax: true, handled: handled, offset: offset + limit }, function(data) {
+            const records = JSON.parse(data);
+            const container = handled ? '#handled-container' : '#unhandled-container';
+            
+            records.forEach(record => {
+                const recordHtml = handled ? getHandledHtmlElement(record) : getUnhandledHtmlElement(record);
+                $(container).append(recordHtml);
+            });
+            // if (handled) {
+            //     offsetHandled += limit;
+            //     if (!response.has_more) {
+            //         $('#show-more-handled').hide();
+            //     }
+            // } else {
+            //     offsetUnhandled += limit;
+            //     if (!response.has_more) {
+            //         $('#show-more-unhandled').hide();
+            //     }
+            // }
+        });
+    }
+
+    $('#show-more-handled').click(function() {
+        loadMore(true);
+    });
+
+    $('#show-more-unhandled').click(function() {
+        loadMore(false);
+    });
 
     $(document).on('submit', '.mark-handled-form', function(e) {
         e.preventDefault();
         const form = $(this);
         const id = form.data('id');
-        $.post('list.php', { mark_handled: true, id: id }, function(data) {
-            const response = JSON.parse(data);
-
-            $('#unhandled-container').empty();
-            response.unhandled_list.forEach(record => {
-                $('#unhandled-container').append(getUnhandledHtmlElement(record));
-            });
-
-            $('#handled-container').empty();
-            response.handled_list.forEach(record => {
-                $('#handled-container').append(getHandledHtmlElement(record));
-            });
-
-            // if (!response.unhandled_list.length || !response.has_more_unhandled) {
-            //     $('#show-more-unhandled').hide();
-            // } else {
-            //     $('#show-more-unhandled').show();
-            // }
-
-            // if (!response.handled_list.length || !response.has_more_handled) {
-            //     $('#show-more-handled').hide();
-            // } else {
-            //     $('#show-more-handled').show();
-            // }
+        $.post('actions.php', { mark_handled: true, id: id }, function(data) {
+            refreshData(JSON.parse(data));
         });
+    });
+
+    $.get('actions.php', { ajax: true, initial: 1 }, function(data) {
+        refreshData(JSON.parse(data));
     });
 });
