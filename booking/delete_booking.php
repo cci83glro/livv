@@ -1,6 +1,8 @@
 <?php
 
-require_once '../users/init.php';
+$public = false;
+$permissions = [2];
+require_once __DIR__.'/../master-pages/master.php';
 
 // Check if booking ID is provided
 if (!isset($_POST['booking_id'])) {

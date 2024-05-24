@@ -18,7 +18,6 @@
 ?>
 
 <main>
-	<!-- Banner -->
 	<section class="section page-banner position-relative" style="background-image: url(<?=$us_url_root.'/assets/images/booking-page-banner.webp'?>);">
 		<div class="r-container">
 			<div class="image-overlay"></div>

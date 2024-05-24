@@ -5,9 +5,7 @@ $permissions = [1,2,3];
 
 if (!function_exists('getDistricts')) {
   function getDistricts($id = "")
-  {
-    $db = DB::getInstance();
-    
+  {    
     $query = "SELECT * FROM districts";
     if (!isNullOrEmptyString($id)) {
       $query .= " WHERE district_id = " . $id;
@@ -19,9 +17,7 @@ if (!function_exists('getDistricts')) {
 
 if (!function_exists('getUsers')) {
   function getUsers($id = "")
-  {
-    $db = DB::getInstance();
-    
+  {    
     $query = "SELECT u.*, p.name as permission_name, d.district_name
     FROM users u 
     LEFT JOIN permissions p on u.permissions = p.id 
@@ -38,7 +34,6 @@ if (!function_exists('getUsers')) {
 if (!function_exists('getAssignedUserDetailsForBooking')) {
   function getAssignedUserDetailsForBooking($id)
   {
-    $db = DB::getInstance();
     $query = "SELECT b.assigned_user_id, u.fname, u.lname, u.email from Bookings b INNER JOIN Users u ON b.assigned_user_id = u.id where booking_id = " . $id;
     return $db->query($query)->results();
   }

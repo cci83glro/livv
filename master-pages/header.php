@@ -14,6 +14,10 @@
 </head>
 
 <body class="br-secondary-color">
+
+    <div class="page-loader">
+        <div class="spinner"></div>
+    </div>
     
     <!-- Header -->
     <section class="bg-secondary-color py-3">

@@ -1,12 +1,10 @@
 var bi = $($("p#bi")[0]).text();
 var bp = $($("p#bp")[0]).text();
+var loader = $('.page-loader');
 
 function assignUserToBooking(bookingId, userId) {
-    var data = {
-        booking_id: bookingId,
-        user_id: userId
-    };
 
+    $(loader).show();
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     formData.append('user_id', userId);
@@ -27,6 +25,9 @@ function assignUserToBooking(bookingId, userId) {
     })
     .catch(error => {
         console.error('Error assigning user:', error);
+    })
+    .finally(e => {
+        $(loader).hide();
     });
 }
 
@@ -44,6 +45,7 @@ function assignUser(bookingId) {
 
 function unassignUser(bookingId) {
 
+    $(loader).show();
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     
@@ -63,15 +65,20 @@ function unassignUser(bookingId) {
     })
     .catch(error => {
         console.error('Error unassigning user:', error);
+    })
+    .finally(p => {
+        $(loader).hide();
     });
 }
 
-function changeBookingStatus(bookingId, newStatus) {
+function changeBookingStatus(bookingId, newStatus, email = '') {
 
     var formData = new FormData();
     formData.append('booking_id', bookingId);
     formData.append('new_status_id', newStatus);
+    formData.append('email', email);
     
+    $(loader).show();
     fetch('booking/change-booking-status.php', {
         method: 'POST',
         body: formData
@@ -88,6 +95,9 @@ function changeBookingStatus(bookingId, newStatus) {
     })
     .catch(error => {
         console.error('Error unassigning user:', error);
+    })
+    .finally(e => {
+        $(loader).hide();
     });
 }
 
@@ -132,12 +142,12 @@ function getStatusData(booking) {
         if (booking.status_id == 5) {
             statusText = 'Inaktiv';
             if (bp == 2) {
-                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 10)">Aktiver</button>`;
+                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 10, '${booking.created_by_email}')">Aktiver</button>`;
             }
         }if (booking.status_id == 10) {
             statusText = 'Oprettet';
             if (bp == 2 && booking.assigned_user_id) {
-                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20)">Marker som afsluttet</button>`;
+                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20, '${booking.created_by_email}')">Marker som afsluttet</button>`;
             }
         } else if (booking.status_id == 20) {
             statusText = 'Afsluttet';
@@ -177,7 +187,7 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
 
     var element =  `<div class="accordion-item">
                         <div class="accordion-item-header bg-secondary-color primary-color">
-                            {{bookingHeader}}
+                            <p>{{bookingHeader}}</p>
                             <span class="indicator">+</span>
                         </div>
                         <div class="accordion-item-content" data-id="{{booking_id}}">
@@ -488,14 +498,20 @@ function reloadBookings() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    if (bp == 1 || bp == 2) {
-        loadBookings(1);
-    } else if (bp == 3) {
-        loadBookingsForWorker(1);
-        loadAvailableBookings(1);
+    try {
+        $(loader).show();
+        if (bp == 1 || bp == 2) {
+            loadBookings(1);
+        } else if (bp == 3) {
+            loadBookingsForWorker(1);
+            loadAvailableBookings(1);
+        }
+        
+        $('#add-booking-submit-button').click(addBooking);
+        $('#add-booking-cancel-button').click(cancelBooking);
     }
-    
-    
-    $('#add-booking-submit-button').click(addBooking);
-    $('#add-booking-cancel-button').click(cancelBooking);
+    catch(e) {}
+    finally {
+        $(loader).hide();
+    }
 });

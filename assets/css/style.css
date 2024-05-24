@@ -806,53 +806,31 @@ a.social-item {
     margin-right: 1rem;
 }
 
-.request-loader {
-    position: relative;
-    height: 60px;
-    width: 60px;
-    border-radius: 50% !important;
-    background-color: var(--secondary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-.request-loader:hover {
-    color: #464646;
-    background-color: var(--secondary-color);
-}
-
-
-.request-loader::after,
-.request-loader::before {
-    opacity: 0.2;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    content: '';
-    height: 100%;
+.page-loader {
+    background-color: var(--black-color);
+    opacity: .7;
+    position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
-    color: rgb(238, 238, 238);
-    border: 4px solid currentColor;
+    height: 100%;
+    z-index: 9999999;
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    aspect-ratio: 1;
     border-radius: 50%;
-    animation-name: ripple;
-    animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(.65, 0, .34, 1);
-    z-index: 0;
+    border: 8px solid;
+    border-color: var(--primary-color) var(--secondary-color);
+    animation: l1 1s infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
+@keyframes l1 {to{transform: rotate(.5turn)}}
 
-.request-loader::after {
-    animation-delay: 0.5s;
-    animation-duration: 3s;
-}
-
-.request-loader::before {
-    animation-delay: 0.2s;
-    animation-duration: 3s;
-}
 
 .ifr-video {
     aspect-ratio: 16/9;
@@ -936,9 +914,14 @@ a.social-item {
     position: relative;
 }
 
+.accordion-item-header > p {
+    width: 95%;
+}
+
 .accordion-item-header .indicator {
     position: absolute;
     right: 1rem;
+    top: 1.5rem;
     font-size: 1.8rem;
     line-height: 1rem;
 }

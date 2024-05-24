@@ -2,8 +2,7 @@
 
 $public = false;
 $permissions = [1,2];
-require_once __DIR__.'/../helpers/generic-helpers.php';
-require_once __DIR__.'/../um/current-user-data.php';
+require_once __DIR__.'/../master-pages/master.php';
 
 // Retrieve form data
 $id = $_POST['id'];
@@ -22,9 +21,6 @@ if(($user_permission == 2 && empty($district_id)) || empty($place) || empty($dat
     // Handle validation errors
     die("Please fill in all required fields.");
 }
-
-$db = DB::getInstance();
-//$query = $db->query("INSERT INTO Bookings (place, date, hours, shift_id, qualification_id) VALUES (?, ?, ?, ?, ?)", [$place, $date, $hours, $shift_id, $qualification_id]);
 
 if (!isNullOrEmptyString($id)) {
 

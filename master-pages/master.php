@@ -1,11 +1,13 @@
 <?php
 
-require_once __DIR__.'/../um/current-user-data.php';
-//require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
-
-if (!$public && !in_array($user_permission, $permissions)) {
-    Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
-}
+$admin_email_list = [
+	'kt@livvikar.dk',
+	'eg@livvikar.dk',
+	'ik@livvikar.dk',
+	'dd@livvikar.dk',
+	//'ciprian_condurachi@yahoo.com',
+	//'cci83glro@gmail.com'
+];
 
 $company_name = "Liv-Vikar ApS";
 $company_cvr = "44803003";
@@ -17,6 +19,12 @@ $company_contact_email = "kontakt@livvikar.dk";
 $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";
 
+require_once __DIR__.'/../um/current-user-data.php';
+//require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
+
+if (!$public && !in_array($user_permission, $permissions)) {
+    Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
+}
 
 $login_page_url = $us_url_root."um/login.php";
 $users_page_url = $us_url_root."um/admin/users.php";
@@ -24,19 +32,10 @@ $application_page_url = $us_url_root."applications/application.php?id=";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 
-$admin_email_list = [
-	'kt@livvikar.dk',
-	'eg@livvikar.dk',
-	'ik@livvikar.dk',
-	'dd@livvikar.dk',
-	//'ciprian_condurachi@yahoo.com',
-	//'cci83glro@gmail.com'
-];
 
-$db = DB::getInstance();
-
-include_once __DIR__.'/../helpers/generic-helpers.php';
+//include_once __DIR__.'/../helpers/db.php';
 include_once __DIR__.'/../helpers/db-helpers.php';
+include_once __DIR__.'/../helpers/generic-helpers.php';
 include_once __DIR__.'/../helpers/email-helpers.php';
 
 $url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";

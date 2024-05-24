@@ -2,7 +2,7 @@
 
 $public = false;
 $permissions = [1,2,3];
-require_once __DIR__.'/../um/current-user-data.php';
+require_once __DIR__.'/../master-pages/master.php';
 
 // $page = $_GET['page']; // Current page number
 // $records_per_page = $_GET['records_per_page']; // Number of records per page
@@ -29,7 +29,6 @@ if (isset($_GET['bookingId'])) {
     }
 }
 
-$db = DB::getInstance();
 $query = $db->query(
     "SELECT b.*, d.district_name, t.time_id, t.time_value, s.shift_id, s.shift_name, q.qualification_id, q.qualification_name, CONCAT(uassigned.fname, ' ', uassigned.lname) as user_name, CONCAT(ucreated.fname, ' ', ucreated.lname) as created_by_name, ucreated.email as created_by_email
     FROM Bookings b

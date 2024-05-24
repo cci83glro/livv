@@ -1,8 +1,7 @@
 <?php
 
-require_once '../users/init.php';
+require_once __DIR__.'/../master-pages/master.php';
 
-$db = DB::getInstance();
 $query = $db->query(
     "SELECT u.id, CONCAT(u.fname, ' ', u.lname) as name
     FROM livv.users u INNER JOIN user_permission_matches up ON u.id=up.user_id
