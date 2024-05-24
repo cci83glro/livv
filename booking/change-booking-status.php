@@ -1,5 +1,7 @@
 <?php
 
+$public = false;
+$permissions = [2];
 require_once __DIR__.'/../master-pages/master.php';
 
 if (!isset($_POST['booking_id']) || !isset($_POST['new_status_id'])) {
