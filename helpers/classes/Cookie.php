@@ -9,7 +9,7 @@ class Cookie {
 		return $_COOKIE[$name];
 	}
 
-	public static function put($name, $value, $expiry, $path="/", $domain="", $secure=true, $httponly=true, $samesite = "Strict"){
+	public static function put($name, $value, $expiry, $path="/", $domain="localhost", $secure=true, $httponly=true, $samesite = "Strict"){
 		if (PHP_VERSION_ID < 70300) {
 		setcookie($name, $value, time() + $expiry, "$path; samesite=$samesite", $domain, $secure, $httponly);
 		return true;

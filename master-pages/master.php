@@ -30,14 +30,15 @@ $GLOBALS['config'] = array(
 )
 );
 
-require_once __DIR__.'/../helpers/Config.php';
+require_once __DIR__.'/../helpers/classes/Hash.php';
+require_once __DIR__.'/../helpers/classes/Config.php';
 require_once __DIR__.'/../helpers/roots.php';
-require_once __DIR__.'/../helpers/Redirect.php';
-require_once __DIR__.'/../helpers/Input.php';
-require_once __DIR__.'/../helpers/Session.php';
-require_once __DIR__.'/../helpers/Cookie.php';
-require_once __DIR__.'/../helpers/Token.php';
-require_once __DIR__.'/../helpers/User.php';
+require_once __DIR__.'/../helpers/classes/Redirect.php';
+require_once __DIR__.'/../helpers/classes/Input.php';
+require_once __DIR__.'/../helpers/classes/Session.php';
+require_once __DIR__.'/../helpers/classes/Cookie.php';
+require_once __DIR__.'/../helpers/classes/Token.php';
+require_once __DIR__.'/../helpers/classes/User.php';
 require_once __DIR__.'/../um/current-user-data.php';
 
 if (!$public && !in_array($user_permission, $permissions)) {
@@ -53,6 +54,7 @@ $bookings_page_url = $us_url_root."bookings.php";
 
 
 include_once __DIR__.'/../helpers/dbo.php';
+require_once __DIR__.'/../helpers/classes/Validator.php';
 include_once __DIR__.'/../helpers/db-helpers.php';
 include_once __DIR__.'/../helpers/generic-helpers.php';
 include_once __DIR__.'/../helpers/email-helpers.php';

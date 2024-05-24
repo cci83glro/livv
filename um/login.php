@@ -1,7 +1,7 @@
 <?php
 
 $public = true;
-
+session_start();
 require_once __DIR__.'/../master-pages/header.php';
 
 $errors = $successes = [];
@@ -16,11 +16,11 @@ if (isset($user) && $user->isLoggedIn()) {
 if (!empty($_POST)) {
   $token = Input::get('csrf');
   if (!Token::check($token)) {
-    include($abs_us_root . $us_url_root . 'usersc/scripts/token_error.php');
+    include(__DIR__.'/admin/token_error.php');
   }
 
-  $validate = new Validate();
-  $validation = $validate->check(
+  $validator = new Validator($dbo);
+  $validation = $validator->check(
     $_POST,
     array(
       'email' => array('display' => 'Email', 'required' => true),
@@ -31,11 +31,11 @@ if (!empty($_POST)) {
   // Set $validated to False to kill validation, or run additional checks, in your post hook
   $email = Input::get('email');
   $password = trim(Input::get('password'));
-  $remember = false;
+  $remember = true;
 
   if ($validated) {
     //Log user in
-    $user = new User();
+    $user = new User($dbo);
     $login = $user->loginEmail($email, $password, $remember);
     if ($login) {
       # if user was attempting to get to a page before login, go there

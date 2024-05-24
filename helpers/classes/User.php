@@ -10,9 +10,9 @@ class User
     private $_isNewAccount;
     public $tableName = 'users';
 
-    public function __construct($user = null, $loginHandler = null)
+    public function __construct($dbo, $user = null, $loginHandler = null)
     {
-        $this->_db = DB::getInstance();
+        $this->_db = $dbo;
         $this->_sessionName = Config::get('session/session_name');
         $this->_cookieName = Config::get('remember/cookie_name');
 
@@ -45,36 +45,15 @@ class User
 
     public function find($user = null, $loginHandler = null)
     {
-        if (isset($_SESSION['cloak_to'])) {
-            $user = $_SESSION['cloak_to'];
-        }
-
         if ($user) {
-            // $field = 'email';
-            if ($loginHandler !== null) {                
-                if($loginHandler == "forceEmail"){
-                   $field = 'email';
-                }  elseif (!filter_var($user, FILTER_VALIDATE_EMAIL) === false) {
-                    $field = 'email';
-                } else {
-                    $field = 'username';
-                }
-            } else {
-                if (is_numeric($user)) {
-                    $field = 'id';
-                } elseif (!filter_var($user, FILTER_VALIDATE_EMAIL) === false) {
-                    $field = 'email';
-                } else {
-                    $field = 'username';
-                }
-            }
+            $field = 'email';
+            
+            $query = "SELECT * FROM users WHERE email = '" . $user . "'";
+            $data = $this->_db->query($query)->fetchAll();
 
-            //$data = $this->_db->get('users', [$field, '=', $user], ['active', '=', '1']);
-            $data = $this->_db->get('users', [$field, '=', $user]);
-
-            if ($data->count()) {
-                $this->_data = $data->first();
-                return $this->_data->active > 0;
+            if (sizeof($data) > 0) {
+                $this->_data = $data[0];
+                return $this->_data['active'] > 0;
             }
         }
 
@@ -138,40 +117,29 @@ class User
             $user = $this->find($email, 1);
 
             if ($user) {
-                if (password_verify($password, $this->data()->password)) {
-                    Session::put($this->_sessionName, $this->data()->id);
+                if (password_verify($password, $this->data()['password'])) {
+                    Session::put($this->_sessionName, $this->data()['id']);
 
                     if ($remember) {
                         $hash = Hash::unique();
-                        $hashCheck = $this->_db->get('users_session', ['user_id', '=', $this->data()->id]);
+                        // $hashCheck = $this->_db->get('users_session', ['user_id', '=', $this->data()['id']]);
 
-                        $this->_db->insert('users_session', [
-                            'user_id' => $this->data()->id,
-                            'hash' => $hash,
-                            'uagent' => Session::uagent_no_version(),
-                        ]);
-
+                        $this->_db->query('INSERT INTO users_session (`user_id`, `hash`, `uagent`) VALUES(?,?,?)', $this->data()['id'], $hash, Session::uagent_no_version());
                         Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                     }
                     $date = date('Y-m-d H:i:s');
-                    $this->_db->query('UPDATE users SET last_login = ?, logins = logins + 1 WHERE id = ?', [$date, $this->data()->id]);
-                    $_SESSION['last_confirm'] = date('Y-m-d H:i:s');
+                    $this->_db->query('UPDATE users SET last_login = ?, logins = logins + 1 WHERE id = ?', [$date, $this->data()['id']]);
+                    $_SESSION['last_confirm'] = date('Y-m-d H:i:s');                    
+                    logger($this->data()['id'], 'login', 'User logged in.');
+
                     $ip = ipCheck();
-                    $this->_db->insert('logs', ['logdate' => $date, 'user_id' => $this->data()->id, 'logtype' => 'login', 'lognote' => 'User logged in.', 'ip' => $ip]);
-                    
-                    $q = $this->_db->query('SELECT id FROM us_ip_list WHERE ip = ?', [$ip]);
-                    $c = $q->count();
+                    $q = $this->_db->query('SELECT id FROM us_ip_list WHERE ip = ?', [$ip])->fetchAll();
+                    $c = sizeof($q);
                     if ($c < 1) {
-                        $this->_db->insert('us_ip_list', [
-                            'user_id' => $this->data()->id,
-                            'ip' => $ip,
-                        ]);
+                        $this->_db->query('INSERT INTO us_ip_list(`user_id`, `ip`) VALUES(?,?)', $this->data()['id'], $ip);
                     } else {
-                        $f = $q->first();
-                        $this->_db->update('us_ip_list', $f->id, [
-                            'user_id' => $this->data()->id,
-                            'ip' => $ip,
-                        ]);
+                        $f = $q[0];
+                        $this->_db->query('UPDATE us_ip_list SET `user_id`=?, `ip`=? WHERE id=?', $this->data()['id'], $ip, $f['id']);
                     }
 
                     return true;
