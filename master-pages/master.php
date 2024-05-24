@@ -19,15 +19,32 @@ $company_contact_email = "kontakt@livvikar.dk";
 $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";
 
+$GLOBALS['config'] = array(
+'remember'        => array(
+  'cookie_name'   => 'pEF9bfPrPfPSSDeIf2kK',
+  'cookie_expiry' => 604800  //One week
+),
+'session' => array(
+  'session_name' => 'XgE8It8SrULg6WAoRLGm',
+  'token_name' => 'token',
+)
+);
+
+require_once __DIR__.'/../helpers/Config.php';
+require_once __DIR__.'/../helpers/roots.php';
 require_once __DIR__.'/../helpers/Redirect.php';
 require_once __DIR__.'/../helpers/Input.php';
+require_once __DIR__.'/../helpers/Session.php';
+require_once __DIR__.'/../helpers/Cookie.php';
+require_once __DIR__.'/../helpers/Token.php';
+require_once __DIR__.'/../helpers/User.php';
 require_once __DIR__.'/../um/current-user-data.php';
-//require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
 if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
 }
 
+$home_page_url = $us_url_root;
 $login_page_url = $us_url_root."um/login.php";
 $users_page_url = $us_url_root."um/admin/users.php";
 $application_page_url = $us_url_root."applications/application.php?id=";

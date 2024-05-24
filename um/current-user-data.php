@@ -1,22 +1,13 @@
 <?php
 
-//require_once __DIR__.'/../users/init.php';
+if(Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
+	$hash = Cookie::get(Config::get('remember/cookie_name'));
+	$hashCheck = DB::getInstance()->query("SELECT * FROM users_session WHERE hash = ? AND uagent = ?",array($hash,Session::uagent_no_version()));
 
-$abs_us_root=$_SERVER['DOCUMENT_ROOT'];
+	if ($hashCheck->count()) {
+		$user = new User($hashCheck->first()->user_id);
+		$user->login();
 
-$self_path=explode("/", $_SERVER['PHP_SELF']);
-$self_path_length=count($self_path);
-$file_found=FALSE;
-
-for($i = 1; $i < $self_path_length; $i++){
-	array_splice($self_path, $self_path_length-$i, $i);
-	$us_url_root=implode("/",$self_path)."/";
-
-	if (file_exists($abs_us_root.$us_url_root.'z_us_root.php')){
-		$file_found=TRUE;
-		break;
-	}else{
-		$file_found=FALSE;
 	}
 }
 

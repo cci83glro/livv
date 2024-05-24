@@ -1,6 +1,5 @@
 <?php
 
-ini_set("allow_url_fopen", 1);
 $public = true;
 
 require_once __DIR__.'/../master-pages/header.php';
@@ -10,7 +9,7 @@ if (Input::get('err') != '') {
   $errors[] = Input::get('err');
 }
 
-if ($user->isLoggedIn()) {
+if (isset($user) && $user->isLoggedIn()) {
   Redirect::to($us_url_root . $settings->redirect_uri_after_login);
 }
 
@@ -39,19 +38,14 @@ if (!empty($_POST)) {
     $user = new User();
     $login = $user->loginEmail($email, $password, $remember);
     if ($login) {
-      $dest = sanitizedDest('dest');
       # if user was attempting to get to a page before login, go there
       $_SESSION['last_confirm'] = date("Y-m-d H:i:s");
 
-      if (!empty($dest)) {
-        Redirect::to($dest);
+      $redirect = Input::get('redirect');
+      if (!empty($redirect) || $redirect !== '') {
+        Redirect::to(html_entity_decode($redirect));
       } else {
-        $redirect = Input::get('redirect');
-        if (!empty($redirect) || $redirect !== '') {
-          Redirect::to(html_entity_decode($redirect));
-        } else {
-          Redirect::to($us_url_root);
-        }
+        Redirect::to($us_url_root);
       }
     } else {
       logger("0", "Login Fail", "A failed login on login.php");
@@ -63,9 +57,6 @@ if (!empty($_POST)) {
     $errors = $validation->errors();
   }
   sessionValMessages($errors, $successes, NULL);
-}
-if (empty($dest = sanitizedDest('dest'))) {
-  $dest = '';
 }
 ?>
 <style media="screen">
@@ -120,6 +111,7 @@ if (empty($dest = sanitizedDest('dest'))) {
   </div>
 </div>
 
+<?php require_once __DIR__.'/../master-pages/footer.php';?>
 <script src="<?=$us_url_root?>assets/js/um/login.js"></script>
 
 </body>

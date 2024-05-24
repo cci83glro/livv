@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=$pageTitle?>- LivVikar </title>
     <!-- Stylesheet -->
-    <?php include_once __DIR__."/../config/css.php"?>    
+    <?php include_once __DIR__."/../config/css.php"?>
     <?php if (isset($extra_head_html)) echo $extra_head_html;?>
 </head>
 
@@ -48,7 +48,7 @@
         <div class="r-container">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="<?=$us_url_root?>">
+                    <a class="navbar-brand" href="<?=$home_page_url?>">
                         <div class="logo-container">
                             <img src="<?=$us_url_root?>assets/images/logo-white-background.svg" alt="Logo with white background" class="img-fluid">
                         </div>
@@ -61,7 +61,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto font-2 fw-semibold gap-lg-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?=$us_url_root?>">Hjem</a>
+                                <a class="nav-link active" aria-current="page" href="<?=$home_page_url?>">Hjem</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Ydelser</a>

@@ -2,7 +2,7 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 global $abs_us_root, $us_url_root;
-include_once $abs_us_root . $us_url_root . "config/smtp.php";
+include_once __DIR__."/../config/smtp.php";
 
 if (!function_exists('send_email')) {
   function send_email($to, $subject, $body, $opts = [], $attachment = null)

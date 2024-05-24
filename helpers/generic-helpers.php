@@ -21,4 +21,12 @@ if (!function_exists('isNullOrEmptyString')) {
     return ($str === null || trim($str) === '');
   }
 }
+
+if(!function_exists("tokenHere")){
+  function tokenHere(){
+    ?>
+    <input type="hidden" name="csrf" value="<?=Token::generate();?>">
+    <?php
+  }
+}
 ?>
