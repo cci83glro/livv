@@ -2,4 +2,4 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 DirectoryIndex index.php index.html
-ErrorDocument 404 /letvikar/404page.php
+ErrorDocument 404 /livv/404.php

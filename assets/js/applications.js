@@ -22,7 +22,7 @@ $(document).ready(function(offsetHandled, offsetUnhandled) {
                     <button class="save" type="submit" name="mark_handled">Marker som behandlet</button>
                 </div>
             </form>
-            <a class="create-account" target=_blank href="um/admin/users.php"?create=1&fname=${record.fname}&lname=${record.lname}&email=${record.email}&phone=${record.phone}">Opret brugerkonto</a>`);
+            <a class="create-account" target=_blank href="../um/admin/users.php?create=1&fname=${record.fname}&lname=${record.lname}&email=${record.email}&phone=${record.phone}">+ Opret brugerkonto</a>`);
     }
 
     function getHandledHtmlElement(record) {

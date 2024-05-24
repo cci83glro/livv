@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/../um/current-user-data.php';
-require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
+//require_once $abs_us_root.$us_url_root.'users/includes/template/prep.php';
 
 if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);

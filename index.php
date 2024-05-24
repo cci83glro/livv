@@ -1,5 +1,6 @@
 <?php
 	$public = true;
+	$pageTitla = "Hjem";
 	include_once __DIR__."/master-pages/header.php";
 ?>
 

@@ -53,4 +53,9 @@ $(window).ready(function() {
         $("#header").removeClass("glass-effect");
        }
      })
+
+    $('a.nav-link.dropdown-content').unbind();
+    $('a.dropdown-content').click(function(){
+        $(this).next('.dropdown-menu').slideToggle();
+    });
    })
