@@ -8,13 +8,13 @@
 		die("Invalid token");
 	}
 	
-    $db = DB::getInstance();
+    $db = dbo::getInstance();
 
-    $times = $db->query("SELECT time_id, time_value FROM Times")->results();
-    $shifts = $db->query("SELECT shift_id, shift_name FROM Shifts")->results();
-    $qualifications = $db->query("SELECT qualification_id, qualification_name FROM Qualifications")->results();
-	$employees = $db->query("SELECT id, CONCAT(fname, ' ', lname) as name FROM livv.users WHERE permissions = 3")->results();
-	$districts = $db->query("SELECT * FROM districts ORDER BY district_name ASC")->results();
+    $times = $db->query("SELECT time_id, time_value FROM Times")->fetchAll();
+    $shifts = $db->query("SELECT shift_id, shift_name FROM Shifts")->fetchAll();
+    $qualifications = $db->query("SELECT qualification_id, qualification_name FROM Qualifications")->fetchAll();
+	$employees = $db->query("SELECT id, CONCAT(fname, ' ', lname) as name FROM livv.users WHERE permissions = 3")->fetchAll();
+	$districts = $db->query("SELECT * FROM districts ORDER BY district_name ASC")->fetchAll();
 ?>
 
 <main>
@@ -34,7 +34,7 @@
 					<div id="add-booking-button-wrapper" class="form-actions">
 						<button id="add-booking-button" class="save no-margin" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
 					</div>
-					<?php include_once "booking/add-booking-form.php"; ?>
+					<?php include_once __DIR__."/booking/add-booking-form.php"; ?>
 					<div id="filter-wrapper" class="form-actions align-left">
 						<span>Søg efter booking ID </span><input id="booking-id-filter" class="form-control w-10p" placeholder="Indtast ID">
 						<button id="search" class="save w-10p" onclick="filterBookingsById()">Søg</button>

@@ -44,7 +44,7 @@
                         <option value="">Vælg kommune</option>
                         <?php 
                             foreach($districts as $district){
-                                echo "<option value='$district->district_id'>$district->district_name</option>"; 
+                                echo "<option value='".$district['district_id']."'>".$district['district_name']."</option>"; 
                             }            
                         ?>
                     </select>
@@ -84,7 +84,7 @@
                     <option value="">Vælg starttid</option>
                     <?php 
                         foreach($times as $time){
-                            echo "<option value='$time->time_id'>$time->time_value</option>"; 
+                            echo "<option value='".$time['time_id']."'>".$time['time_value']."</option>"; 
                         }            
                     ?>
                 </select>
@@ -105,7 +105,7 @@
                     <option value="">Vælg stilling</option>
                     <?php 
                         foreach($shifts as $shift){
-                            echo "<option value='$shift->shift_id'>$shift->shift_name</option>"; 
+                            echo "<option value='".$shift['shift_id']."'>".$shift['shift_name']."</option>";
                         }            
                     ?>
                 </select>
@@ -119,7 +119,7 @@
                     <option value="">Vælg uddannelse</option>
                     <?php 
                         foreach($qualifications as $qualification){
-                            echo "<option value='$qualification->qualification_id'>$qualification->qualification_name</option>"; 
+                            echo "<option value='".$qualification['qualification_id']."'>".$qualification['qualification_name']."</option>";
                         }            
                     ?>
                 </select>
@@ -132,7 +132,7 @@
                     <option value="">Vælg vikar</option>
                     <?php 
                         foreach($employees as $employee){
-                            echo "<option value='$employee->id'>$employee->name</option>"; 
+                            echo "<option value='".$employee['id']."'>".$employee['name']."</option>";
                         }            
                     ?>
                 </select>

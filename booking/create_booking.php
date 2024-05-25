@@ -54,7 +54,9 @@ if (!isNullOrEmptyString($id)) {
         'status_id' => $status_id
     ];
 
-    if($dbo->insert('bookings', $fields)) {
+    $query = 'INSERT INTO bookings(district_id, createdBy, place, date, time_id, hours, shift_id, qualification_id, created_by_user_id, status_id) VALUES(?,?,?,?,?,?,?,?,?,?)';
+
+    if($dbo->query($query, $district_id, $createdBy, $place, $date, $time_id, $hours, $shift_id, $qualification_id, $bi, $status_id)) {
         // Booking successful
         echo "success";
     } else {
