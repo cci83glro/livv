@@ -87,13 +87,13 @@ if (!empty($_POST)) {
     } //Validation
 } //Input exists
 else {
-    $qualifications = $db->query("SELECT qualification_id, qualification_name FROM Qualifications")->results();
+    $qualifications = $dbo->query("SELECT qualification_id, qualification_name FROM Qualifications")->fetchAll();
 }
 
-require $abs_us_root.$us_url_root.'applications/views/_join_form.php';
+require __DIR__.'/views/_join_form.php';
 ?>
 
-<?php include_once $abs_us_root.$us_url_root."master-pages/footer.php"?>
+<?php include_once __DIR__."/../master-pages/footer.php"?>
 
 </body>
 </html>

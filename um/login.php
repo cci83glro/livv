@@ -1,8 +1,13 @@
 <?php
 
 $public = true;
+$pageTitle = "Login";
 session_start();
-require_once __DIR__.'/../master-pages/header.php';
+require_once __DIR__.'/../helpers/classes/Config.php';
+require_once __DIR__.'/../helpers/classes/Input.php';
+require_once __DIR__.'/../helpers/classes/Session.php';
+require_once __DIR__.'/../helpers/classes/Token.php';
+require_once __DIR__.'/../helpers/classes/Validator.php';
 
 $errors = $successes = [];
 if (Input::get('err') != '') {
@@ -19,7 +24,9 @@ if (!empty($_POST)) {
     include(__DIR__.'/admin/token_error.php');
   }
 
-  $validator = new Validator($dbo);
+  include_once __DIR__.'/../helpers/dbo.php';
+
+  $validator = new Validator(dbo::getInstance());
   $validation = $validator->check(
     $_POST,
     array(
@@ -34,8 +41,13 @@ if (!empty($_POST)) {
   $remember = true;
 
   if ($validated) {
+    
+    include_once __DIR__.'/../helpers/generic-helpers.php';
+    require_once __DIR__.'/../helpers/classes/Cookie.php';
+    require_once __DIR__.'/../helpers/classes/Hash.php';
+    require_once __DIR__.'/../helpers/classes/User.php';
     //Log user in
-    $user = new User($dbo);
+    $user = new User();
     $login = $user->loginEmail($email, $password, $remember);
     if ($login) {
       # if user was attempting to get to a page before login, go there
@@ -59,6 +71,8 @@ if (!empty($_POST)) {
   }
   sessionValMessages($errors, $successes, NULL);
 }
+
+require_once __DIR__.'/../master-pages/header.php';
 ?>
 <style media="screen">
   .img-responsive {

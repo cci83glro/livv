@@ -19,17 +19,6 @@ $company_contact_email = "kontakt@livvikar.dk";
 $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";
 
-$GLOBALS['config'] = array(
-	'remember'        => array(
-	'cookie_name'   => 'pEF9bfPrPfPSSDeIf2kK',
-	'cookie_expiry' => 604800  //One week
-	),
-	'session' => array(
-	'session_name' => 'XgE8It8SrULg6WAoRLGm',
-	'token_name' => 'token',
-	)
-);
-
 require_once __DIR__.'/../helpers/classes/Hash.php';
 require_once __DIR__.'/../helpers/classes/Config.php';
 require_once __DIR__.'/../helpers/roots.php';
@@ -38,6 +27,7 @@ require_once __DIR__.'/../helpers/classes/Input.php';
 require_once __DIR__.'/../helpers/classes/Session.php';
 require_once __DIR__.'/../helpers/classes/Cookie.php';
 require_once __DIR__.'/../helpers/classes/Token.php';
+include_once __DIR__.'/../helpers/dbo.php';
 require_once __DIR__.'/../helpers/classes/User.php';
 require_once __DIR__.'/../um/current-user-data.php';
 
@@ -53,7 +43,6 @@ $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 
 
-include_once __DIR__.'/../helpers/dbo.php';
 require_once __DIR__.'/../helpers/classes/Validator.php';
 include_once __DIR__.'/../helpers/db-helpers.php';
 include_once __DIR__.'/../helpers/generic-helpers.php';

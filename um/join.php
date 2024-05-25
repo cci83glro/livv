@@ -165,7 +165,7 @@ if (Input::exists()) {
 
 
 
-require $abs_us_root.$us_url_root.'um/views/_join.php';
+require __DIR__.'/views/_join.php';
 ?>
 
 <?php include_once $abs_us_root.$us_url_root."master-pages/footer.php"?>

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__.'/../../config/globals_config.php';
+
 class Config {
 	public static function get($path = null){
 		if($path){
