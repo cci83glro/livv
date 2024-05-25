@@ -6,4 +6,5 @@
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/vendor/regular.css">
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/vendor/solid.css">
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/vendor/swiper-bundle.min.css">
+<link rel="stylesheet" href="<?=$us_url_root?>assets/css/vendor/datatables.min.css">
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/style.css">

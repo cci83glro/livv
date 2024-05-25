@@ -6,4 +6,5 @@
 <script src="<?=$us_url_root?>assets/js/vendor/isotope.pkgd.min.js"></script>
 <script src="<?=$us_url_root?>assets/js/vendor/fslightbox.js"></script>
 <script src="<?=$us_url_root?>assets/js/masonry.js"></script>
+<script src="<?=$us_url_root?>assets/js/vendor/datatables.min.js"></script>
 <script src="<?=$us_url_root?>assets/js/script.js"></script>

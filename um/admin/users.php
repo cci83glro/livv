@@ -12,12 +12,10 @@ require_once __DIR__.'/../../master-pages/header.php';
 $dbo = dbo::getInstance();
 
 $errors = $successes = [];
-$act = $dbo->query('SELECT * FROM email')->first();
-$act = $act->email_act;
 $form_valid = true;
 $permissions = $dbo->query('SELECT * FROM permissions')->fetchAll();
 
-$validation = new Validate();
+$validator = new Validator($dbo);
 
 if (!empty($_POST)) {
   if (!Token::check(Input::get('csrf'))) {
@@ -40,7 +38,7 @@ if (!empty($_POST)) {
 
     $form_valid = false; // assume the worst
 
-    $validation->check($_POST, [
+    $validator->check($_POST, [
       'fname' => ['display' => 'Fornavn', 'required' => true, 'min' => 1, 'max' => 200],
       'lname' => ['display' => 'Efternavn', 'required' => true, 'min' => 1, 'max' => 200],
       'phone' => ['display' => 'Telefon', 'required' => false, 'min' => 8, 'max' => 12],
@@ -49,7 +47,7 @@ if (!empty($_POST)) {
       'confirm' => ['display' => 'Bekræft adgangskode', 'required' => true, 'matches' => 'password']
     ]);
 
-    if ($validation->passed()) {
+    if ($validator->passed()) {
       $form_valid = true;
       if (isset($_SESSION['us_lang'])) {
         $newLang = $_SESSION['us_lang'];
@@ -78,11 +76,6 @@ if (!empty($_POST)) {
         $db->insert('users', $fields);
         $theNewId = $db->lastId();
 
-        // $perm = Input::get('perm');
-        // $addNewPermission = ['user_id' => $theNewId, 'permission_id' => $permission_id];
-        // $db->insert('user_permission_matches', $addNewPermission);
-
-        include $abs_us_root . $us_url_root . 'usersc/scripts/during_user_creation.php';
         if (isset($_POST['sendEmail'])) {
 
           $params = [
@@ -111,7 +104,7 @@ if (!empty($_POST)) {
   }
 }
 
-if($settings->uman_search == 0){
+// if($settings->uman_search == 0){
   $usernameReq = $user_id > 1 ? " AND username <> 'admin' " : "";
   $query = "SELECT
     u.*, p.name AS permission_name
@@ -124,11 +117,11 @@ if($settings->uman_search == 0){
     $query .= " AND (fname LIKE '%" . $search . "%' OR lname LIKE '%" . $search . "%' OR email LIKE '%" . $search . "%')";
   }
 
-  $userData = $db->query($query) -> results();
-}
+  $userData = $dbo->query($query) -> fetchAll();
+// }
 $random_password = random_password();
 
-foreach ($validation->errors() as $error) {
+foreach ($validator->errors() as $error) {
   usError($error);
 } ?>
 
@@ -143,21 +136,6 @@ foreach ($validation->errors() as $error) {
                 </div>
               </div>
             </div>
-        <?php
-        if($settings->uman_search == 1){ ?>
-            <div class="row">
-            <div class="col-12 col-sm-6 offset-sm-3">
-                <form class="" action="" method="post">
-                <?=tokenHere();?>
-                <div class="input-group">
-                    <input type="text" name="searchTerm" value="" class="form-control" placeholder="Søg ...">
-                    <input type="submit" name="search" value="Search" class="btn btn-outline-primary">
-                </div>
-                <small>Søg efter fornavn, efternavn eller email</small>
-                </form>
-            </div>
-            </div>
-        <?php } ?>
         </div>
         <div class="col-12">
             <div class="card">
@@ -175,26 +153,22 @@ foreach ($validation->errors() as $error) {
                     </thead>
                     <tbody>
                         <?php foreach ($userData as $v1) { 
-                            $user_url = $us_url_root . "um/admin/user.php?id=" . $v1->id;
+                            $user_url = $us_url_root . "um/admin/user.php?id=" . $v1['id'];
                         ?>
                         <tr>
-                            <td> <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1->fname; ?> <?php echo $v1->lname; ?></a> </td>
-                            <td> <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1->phoneNumber; ?></a> </td>
-                            <td> <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1->email; ?></a> </td>
+                            <td> <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1['fname']; ?> <?php echo $v1['lname']; ?></a> </td>
+                            <td> <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1['phoneNumber']; ?></a> </td>
+                            <td> <a class="nounderline text-dark" href='<?=$user_url ?>'><?php echo $v1['email']; ?></a> </td>
                             <td>
-                              <?php if ($v1->last_login != "0000-00-00 00:00:00") {
-                                echo $v1->last_login;
+                              <?php if ($v1['last_login'] != "0000-00-00 00:00:00") {
+                                echo $v1['last_login'];
                               } else { ?>
                                   <i>Aldrig</i>
                               <?php } ?>
                             </td>
-                            <td><?= $v1->permission_name ?></td>
+                            <td><?= $v1['permission_name'] ?></td>
                             <td>
-                              <?php if($v1->active == 0){ ?> Inaktiv <?php } else { ?> Aktiv <?php } ?>
-                              <?php
-                                if ($act == 1 && $v1->email_verified == 1) { ?>
-                                  <i class='fa fa-envelope' data-bs-toggle="tooltip" title="User email is verified"></i>
-                              <?php } ?>
+                              <?php if($v1['active'] == 0){ ?> Inaktiv <?php } else { ?> Aktiv <?php } ?>
                             </td>
                         </tr>
                         <?php } ?>
@@ -220,7 +194,7 @@ foreach ($validation->errors() as $error) {
             <label for="permission_id">Brugertype</label>
             <select class="district-list dropdown form-control" id="permission_id" name="permission_id">
                   <?php foreach($permissions as $permission) { ?>
-                    <option value="<?=$permission -> id ?>"><?=$permission -> name ?></option>
+                    <option value="<?=$permission['id']?>"><?=$permission['name']?></option>
                   <?php } ?>                  
             </select>
           </div>
@@ -258,18 +232,8 @@ foreach ($validation->errors() as $error) {
                   <span class="fa fa-eye"></span>
                 </span>
               </div>
+              <input class="form-control" type="password" name="password" id="password" placeholder="Password" required autocomplete="off" aria-describedby="passwordhelp">
 
-              <input class="form-control" type="password" name="password" id="password" <?php if ($settings->force_pr == 1) { ?> value="<?php echo $random_password; ?>" readonly<?php } ?> placeholder="Password" required autocomplete="off" aria-describedby="passwordhelp">
-
-              <?php if ($settings->force_pr == 1) { ?>
-                <div class="input-group-append">
-                  <span class="input-group-text" id="addon2">
-                    <a class="nounderline pwpopover" data-container="body" data-toggle="popover" data-placement="top" title="Why can't I edit this?" data-bs-toggle="tooltip" title="The Administrator has manual creation password resets enabled. If you choose to send an email to this user, it will supply them with the password reset link and let them know they have an account. If you choose to not, you should manually supply them with this password (discouraged).">
-                      <i class="fa fa-question"></i>
-                    </a>
-                  </span>
-                </div>
-              <?php } ?>
             </div>
           </div>
           <div class="form-group">
@@ -280,18 +244,8 @@ foreach ($validation->errors() as $error) {
                   <span class="fa fa-eye"></span>
                 </span>
               </div>
+              <input type="password" id="confirm" name="confirm" class="form-control" autocomplete="off" placeholder="Confirm Password" required>
 
-              <input type="password" id="confirm" name="confirm" <?php if ($settings->force_pr == 1) { ?> value="<?php echo $random_password; ?>" readonly <?php } ?> class="form-control" autocomplete="off" placeholder="Confirm Password" required>
-
-              <?php if ($settings->force_pr == 1) { ?>
-                <div class="input-group-append">
-                  <span class="input-group-text" id="addon2">
-                    <a class="nounderline pwpopover" data-container="body" data-toggle="popover" data-placement="top" title="Why can't I edit this?" data-bs-toggle="tooltip" title="The Administrator has manual creation password resets enabled. If you choose to send an email to this user, it will supply them with the password reset link and let them know they have an account. If you choose to not, you should manually supply them with this password (discouraged).">
-                      <i class="fa fa-question"></i>
-                    </a>
-                  </span>
-                </div>
-              <?php } ?>
             </div>
           </div>
         </div>
@@ -307,7 +261,6 @@ foreach ($validation->errors() as $error) {
 
 <?php include_once __DIR__."/../../master-pages/footer.php"?>
 
-<script type="text/javascript" src="<?= $us_url_root ?>users/js/pagination/datatables.min.js"></script>
 <script src="<?=$us_url_root?>assets/js/um/admin/users.js"></script>
 
 </body>

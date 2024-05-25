@@ -2,6 +2,7 @@
 <?php
 	$public = false;
 	$permissions = [1, 2, 3];
+	$pageTitle = 'Vagter';
 	include_once __DIR__."/master-pages/header.php";
 
 	if ($user_id == 0) {
