@@ -44,9 +44,10 @@ if (!empty($_POST)) {
       $redirect = Input::get('redirect');
       if (!empty($redirect) || $redirect !== '') {
         Redirect::to(html_entity_decode($redirect));
-      } else {
-        Redirect::to($us_url_root);
       }
+      // } else {
+      //   Redirect::to($us_url_root);
+      // }
     } else {
       logger("0", "Login Fail", "A failed login on login.php");
       $msg = 'Log ind fejlede';

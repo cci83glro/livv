@@ -65,4 +65,43 @@ if (!function_exists('logger')) {
     return $lastId;
   }
 }
+
+if (!function_exists('currentPage')) {
+  function currentPage()
+  {
+    $uri = $_SERVER['PHP_SELF'];
+    $path = explode('/', $uri);
+    $currentPage = end($path);
+
+    return $currentPage;
+  }
+}
+
+if (!function_exists('sessionValMessages')) {
+  function sessionValMessages($valErr = [], $valSuc = [], $genMsg = [])
+  {
+    $keys = ['valErr', 'valSuc', 'genMsg'];
+    foreach ($keys as $key) {
+        if(isset($_SESSION[Config::get('session/session_name').$key])
+        && is_array($_SESSION[Config::get('session/session_name').$key])
+        && $$key != []
+        && $$key != null
+      ) {
+        $_SESSION[Config::get('session/session_name').$key][] = $$key;
+      } elseif (
+        isset($_SESSION[Config::get('session/session_name').$key])
+        && $_SESSION[Config::get('session/session_name').$key] != ''
+        && $$key != []
+        && $$key != null
+      ) {
+        $save = $_SESSION[Config::get('session/session_name').$key];
+        $_SESSION[Config::get('session/session_name').$key] = [];
+        $_SESSION[Config::get('session/session_name').$key][] = $save;
+        $_SESSION[Config::get('session/session_name').$key][] = $$key;
+      } elseif ($$key != [] && $$key != null) {
+        $_SESSION[Config::get('session/session_name').$key] = $$key;
+      }
+    }
+  }
+}
 ?>

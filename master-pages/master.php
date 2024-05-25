@@ -20,14 +20,14 @@ $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";
 
 $GLOBALS['config'] = array(
-'remember'        => array(
-  'cookie_name'   => 'pEF9bfPrPfPSSDeIf2kK',
-  'cookie_expiry' => 604800  //One week
-),
-'session' => array(
-  'session_name' => 'XgE8It8SrULg6WAoRLGm',
-  'token_name' => 'token',
-)
+	'remember'        => array(
+	'cookie_name'   => 'pEF9bfPrPfPSSDeIf2kK',
+	'cookie_expiry' => 604800  //One week
+	),
+	'session' => array(
+	'session_name' => 'XgE8It8SrULg6WAoRLGm',
+	'token_name' => 'token',
+	)
 );
 
 require_once __DIR__.'/../helpers/classes/Hash.php';
@@ -58,6 +58,7 @@ require_once __DIR__.'/../helpers/classes/Validator.php';
 include_once __DIR__.'/../helpers/db-helpers.php';
 include_once __DIR__.'/../helpers/generic-helpers.php';
 include_once __DIR__.'/../helpers/email-helpers.php';
+$currentPage = currentPage();
 
 $url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
 $url_uri = $_SERVER['REQUEST_URI'];
