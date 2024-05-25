@@ -4,6 +4,8 @@ $public = false;
 $permissions = [1,2,3];
 require_once __DIR__.'/../master-pages/master.php';
 
+$dbo = dbo::getInstance();
+
 // $page = $_GET['page']; // Current page number
 // $records_per_page = $_GET['records_per_page']; // Number of records per page
 // $offset = ($page - 1) * $records_per_page;
