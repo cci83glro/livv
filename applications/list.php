@@ -35,7 +35,7 @@
 </section>
 
 
-<?php include_once $abs_us_root.$us_url_root."master-pages/footer.php"?>
+<?php include_once __DIR__.'/../master-pages/footer.php'?>
 <script src="<?=$us_url_root?>assets/js/applications.js"></script>
 
 </body>

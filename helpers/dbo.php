@@ -137,11 +137,6 @@ class dbo {
 	}
 }
 
-function getDbInstance($h, $u, $p, $n) {
-	return new dbo($h, $u, $p, $n);
-}
-
 include_once __DIR__.'/../config/mysql.php';
 
-$dbo = getDbInstance($db_host, $db_username, $db_password, $db_name);
 ?>

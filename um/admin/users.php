@@ -6,20 +6,22 @@
 
 $public = false;
 $permissions = [2];
-$pageTitle = 'Brugere';
+$pageTitle = 'Brugerliste';
 require_once __DIR__.'/../../master-pages/header.php';
 
+$dbo = dbo::getInstance();
+
 $errors = $successes = [];
-$act = $db->query('SELECT * FROM email')->first();
+$act = $dbo->query('SELECT * FROM email')->first();
 $act = $act->email_act;
 $form_valid = true;
-$permissions = $db->query('SELECT * FROM permissions')->results();
+$permissions = $dbo->query('SELECT * FROM permissions')->fetchAll();
 
 $validation = new Validate();
 
 if (!empty($_POST)) {
   if (!Token::check(Input::get('csrf'))) {
-    include $abs_us_root . $us_url_root . 'um/admin/token_error.php';
+    include __DIR__ . '/token_error.php';
   }
 
   //Manually Add User
