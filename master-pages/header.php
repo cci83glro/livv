@@ -96,6 +96,9 @@
                                         <li><a class="dropdown-item" href="<?=$us_url_root?>applications/list.php">Ansøgninger</a></li>
                                         <li><a class="dropdown-item" href="<?=$us_url_root?>um/admin/users.php">Brugere</a></li>
                                     <?php } ?>
+                                    <?php if($user_permission == 2 || $user_permission == 3) { ?>
+                                        <li><a class="dropdown-item" href="<?=$chat_page_url?>">Chat</a></li>
+                                    <?php } ?>
                                     <li><a class="dropdown-item with-top-separator" href="<?php echo $user_page_url.$user_id;?>">Min profil</a></li>
                                     <li><a class="dropdown-item" href="<?=$us_url_root?>um/logout.php">Log ud</a></li>
                                 </ul>                                

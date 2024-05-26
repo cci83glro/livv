@@ -7,3 +7,4 @@
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/vendor/swiper-bundle.min.css">
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/vendor/datatables.min.css">
 <link rel="stylesheet" href="<?=$us_url_root?>assets/css/style.css">
+<link rel="stylesheet" href="<?=$us_url_root?>assets/css/chat.css">

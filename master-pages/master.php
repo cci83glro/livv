@@ -23,7 +23,7 @@ $instagram_url = "instagram.com";
 
 require_once __DIR__.'/../helpers/classes/Hash.php';
 require_once __DIR__.'/../helpers/classes/Config.php';
-require_once __DIR__.'/../helpers/roots.php';
+require_once __DIR__.'/../config/roots.php';
 require_once __DIR__.'/../helpers/classes/Redirect.php';
 require_once __DIR__.'/../helpers/classes/Input.php';
 require_once __DIR__.'/../helpers/classes/Session.php';
@@ -43,7 +43,7 @@ $users_page_url = $us_url_root."um/admin/users.php";
 $application_page_url = $us_url_root."applications/application.php?id=";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
-
+$chat_page_url = $us_url_root."chat.php";
 
 require_once __DIR__.'/../helpers/classes/Validator.php';
 include_once __DIR__.'/../helpers/db-helpers.php';
