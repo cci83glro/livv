@@ -19,6 +19,7 @@
         <div class="spinner"></div>
     </div>
     
+    <?php if(!isset($hideHeaderAndFooter)) { ?>
     <!-- Header -->
     <section class="bg-secondary-color py-3">
         <div class="r-container">
@@ -28,15 +29,11 @@
                     <li><i class="fa-solid fa-location-dot"></i>&nbsp; <a class="location" target=_blank href="<?=$company_address_google_url?>"><?=$company_address?></li>
                     <li><i class="fa-solid fa-phone"></i>&nbsp; <a class="phone" href="tel:<?=$company_phone?>"><?=$company_phone_display?></li>
                     <li><i class="fa-solid fa-envelope"></i>&nbsp; <a class="email" href="mailto:<?=$company_contact_email?>"><?=$company_contact_email?></li>
-                    <!-- <li>Email : hello@awesomesite.com</li>
-                    <li>Opening Hours : 08:00am to 07:00Pm</li> -->
                 </ul>
                 <div class="social-container justify-content-center">
                     <a href="<?=$facebook_url?>" class="social-item">
                         <i class="fa-brands fa-facebook"></i>
                     </a>
-                <!-- </li>
-                <li> -->
                     <a href="<?=$instagram_url?>" class="social-item">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
@@ -44,6 +41,7 @@
             </div>
         </div>
     </section>
+
     <section class="sticky-top bg-white">
         <div class="r-container">
             <nav class="navbar navbar-expand-lg">
@@ -75,20 +73,17 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Kontakt</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?=$us_url_root.'applications/create-application.php'?>">Ansøg som vikar</a>
-                            </li>
                         </ul>                        
                         <p id="bi"><?=$user_id?></p>
                         <p id="bp"><?=$user_permission?></p>
                         <div class="nav-item dropdown">                            
                             <?php if($user_id == 0){ ?>
                                 <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Log ind / Registrer
+                                    Log ind / Ansøg som vikar
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="<?=$us_url_root?>um/login.php">Log ind</a></li>
-                                    <li><a class="dropdown-item" href="<?=$us_url_root?>um/join.php">Registrer som vikar</a></li>
+                                    <li><a class="dropdown-item" href="<?=$us_url_root?>applications/create-application.php">Ansøg som vikar</a></li>
                                 </ul>                            
                             <?php } else { ?>
                                 <a class="nav-link dropdown-content dropdown-toggle" onclick="toggleMenuItem(this)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -111,4 +106,5 @@
             </nav>
         </div>
     </section>
+    <?php } ?>
     <!-- End  of Header -->

@@ -30,7 +30,7 @@ if ($act == 1) {
 if (Input::exists()) {
     $token = $_POST['csrf'];
     if (!Token::check($token)) {
-        include $abs_us_root.$us_url_root.'usersc/scripts/token_error.php';
+        include __DIR__.'token_error.php';
     }
 
     $sex = Input::get('sex');
@@ -139,8 +139,7 @@ if (Input::exists()) {
         } catch (Exception $e) {            
             die($e->getMessage());
         }
-        if ($form_valid == true) {            
-            include $abs_us_root.$us_url_root.'usersc/scripts/during_user_creation.php';
+        if ($form_valid == true) {
 
             if ($act == 1) {
                 logger($theNewId, 'User', 'Registration completed and verification email sent.');
@@ -148,7 +147,7 @@ if (Input::exists()) {
 
             } else {
                 logger($theNewId, 'User', 'Registration completed.');
-                if (file_exists($abs_us_root.$us_url_root.'um/views/_joinThankYou.php')) {
+                if (file_exists($us_url_root.'um/views/_joinThankYou.php')) {
                     Redirect::to($us_url_root . "um/complete.php?action=thank_you_join");
                 } else {
                     Redirect::to($us_url_root . "um/complete.php?action=thank_you");
@@ -168,7 +167,7 @@ if (Input::exists()) {
 require __DIR__.'/views/_join.php';
 ?>
 
-<?php include_once $abs_us_root.$us_url_root."master-pages/footer.php"?>
+<?php include_once __DIR__."/../master-pages/footer.php"?>
 <script src="<?=$us_url_root?>assets/js/um/join.js"></script>
 
 </body>

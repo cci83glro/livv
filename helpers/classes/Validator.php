@@ -41,7 +41,7 @@ class Validator
 				$verb   = is_array($value) ? "are"         : "is";
 
 				if ($rule==='required'  &&  $length==0) {
-					$str = lang("GEN_REQ");
+					$str = 'Kræves';
 					if ($rule_value){
 						$this->addError(["{$display} $str",$item]);
 						$this->ruleBroken([$item,"required",true]);
@@ -53,9 +53,9 @@ class Validator
 						case 'min':
 						if (is_array($rule_value))
 						$rule_value = max($rule_value);
-						$str = lang("GEN_MIN");
-						$str1 = lang("GEN_CHAR");
-						$str2 = lang("GEN_REQ");
+						$str = 'min';
+						$str1 = 'karakter';
+						$str2 = 'Kræves';
 						if ($length < $rule_value){
 							$this->addError(["{$display} $str {$rule_value} $str1 $str2",$item]);
 							$this->ruleBroken([$item,"min",$rule_value]);
@@ -65,9 +65,9 @@ class Validator
 						case 'max':
 						if (is_array($rule_value))
 						$rule_value = min($rule_value);
-						$str = lang("GEN_MAX");
-						$str1 = lang("GEN_CHAR");
-						$str2 = lang("GEN_REQ");
+						$str = 'min';
+						$str1 = 'karakter';
+						$str2 = 'Kræves';
 						if ($length > $rule_value){
 							$this->addError(["{$display} $str {$rule_value} $str1 $str2",$item]);
 							$this->ruleBroken([$item,"max",$rule_value]);
@@ -77,8 +77,8 @@ class Validator
 						case 'matches':
 						if (!is_array($rule_value))
 						$array = [$rule_value];
-						$str = lang("GEN_AND");
-						$str1 = lang("VAL_SAME");
+						$str = 'Og';
+						$str1 = 'Skal være det samme';
 						foreach ($array as $rule_value)
 						if ($value != trim($source[$rule_value])){
 							$this->addError(["{$items[$rule_value]['display']} $str {$display} $str1",$item]);
@@ -102,12 +102,12 @@ class Validator
 							} else {
 								// Standard logic for other tables/fields
 								$query = "SELECT id FROM {$table} WHERE {$field} = ?";
-								$count = $this->_db->query($query, [$value])->count();
+								$count = sizeof($this->_db->query($query, [$value])->fetchAll());
 							}
 							if(isset($orig)){
 								$item = $orig;
 							}
-							$str = lang("VAL_EXISTS");
+							$str = 'Findes allerede. Vælg venligst en anden';
 							if ($count > 0) {
 								$this->addError(["{$display} $str {$display}", $item]);
 								$this->ruleBroken([$item, "unique", false]);
@@ -127,15 +127,15 @@ class Validator
 							if ($table == "users" && ($item == "username" || $item == "email")) {
 						
 								$query = "SELECT id FROM users WHERE id != ? AND ((email = ?) OR (username = ?))";
-								$count = $this->_db->query($query, [$id, $value, $value])->count();
+								$count = sizeof($this->_db->query($query, [$id, $value, $value])->fetchAll());
 							} else {
 								$query = "SELECT id FROM {$table} WHERE id != ? AND {$item} = ?";
-								$count = $this->_db->query($query, [$id, $value])->count();
+								$count = sizeof($this->_db->query($query, [$id, $value])->fetchAll());
 							}
 							if(isset($orig)){
 								$item = $orig;
 							}
-							$str = lang("VAL_EXISTS");
+							$str = 'Findes allerede. Vælg venligst en anden';
 							if ($count > 0) {
 								$this->addError(["{$display} $str {$display}", $item]);
 								$this->ruleBroken([$item, "unique_update", false]);
@@ -144,7 +144,7 @@ class Validator
 							break;
 
 						case 'is_numeric': case 'is_num':
-						$str = lang("VAL_NUM");
+						$str = 'Skal være et tal';
 						if ($rule_value  &&  !is_numeric($value)){
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"is_numeric",false]);
@@ -153,7 +153,7 @@ class Validator
 						break;
 
 						case 'valid_email':
-						$str = lang("VAL_EMAIL");
+						$str = 'Skal være en gyldig e-mailadresse';
 						if(!filter_var($value,FILTER_VALIDATE_EMAIL)){
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"valid_email",false]);
@@ -163,7 +163,7 @@ class Validator
 
 						case 'is_not_email':
 						if($rule_value){
-							$str = lang("VAL_NO_EMAIL");
+							$str = 'Kan ikke være en e-mailadresse';
 							if(filter_var($value,FILTER_VALIDATE_EMAIL)){
 								$this->addError(["{$display} $str",$item]);
 								$this->ruleBroken([$item,"is_not_email",false]);
@@ -172,14 +172,14 @@ class Validator
 						break;
 
 						case 'valid_email_beta':
-						$str = lang("VAL_EMAIL");
+						$str = 'Skal være en gyldig e-mailadresse';
 						if(!filter_var($value,FILTER_VALIDATE_EMAIL)){
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"valid_email_beta",false]);
 						}
 
 						$email_parts = explode('@', $value);
-						$str = lang("VAL_SERVER");
+						$str = 'Skal tilhøre en gyldig server';
 						if ((!filter_var(gethostbyname($email_parts[1]), FILTER_VALIDATE_IP) && !filter_var(gethostbyname('www.' . $email_parts[1]), FILTER_VALIDATE_IP)) && !getmxrr($email_parts[1], $mxhosts)){
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"valid_email_server",false]);
@@ -204,43 +204,43 @@ class Validator
 							}
 
 							if ($rule=="<"  &&  $value>=$rule_value){
-								$str = lang("VAL_LESS");
+								$str = 'Skal være mindre end';
 								$this->addError(["{$display} $str {$rule_value_display}",$item]);
 								$this->ruleBroken([$item,"<",$rule_value]);
 							}
 
 							if ($rule==">"  &&  $value<=$rule_value){
-								$str = lang("VAL_GREAT");
+								$str = 'Skal være større end';
 								$this->addError(["{$display} $str {$rule_value_display}",$item]);
 								$this->ruleBroken([$item,">",$rule_value]);
 							}
 
 							if ($rule=="<="  &&  $value>$rule_value){
-								$str = lang("VAL_LESS_EQ");
+								$str = 'Skal være mindre end eller lig med';
 								$this->addError(["{$display} $str {$rule_value_display}",$item]);
 								$this->ruleBroken([$item,"<=",$rule_value]);
 							}
 
 							if ($rule==">="  &&  $value<$rule_value){
-								$str = lang("VAL_GREAT_EQ");
+								$str = 'Skal være større end eller lig med';
 								$this->addError(["{$display} $str {$rule_value_display}",$item]);
 								$this->ruleBroken([$item,">=",$rule_value]);
 							}
 
 							if ($rule=="!="  &&  $value==$rule_value){
-								$str = lang("VAL_NOT_EQ");
+								$str = 'Må ikke være lig med';
 								$this->addError(["{$display} $str {$rule_value_display}",$item]);
 								$this->ruleBroken([$item,"!=",$rule_value]);
 							}
 
 							if ($rule=="=="  &&  $value!=$rule_value){
-								$str = lang("VAL_EQ");
+								$str = 'Skal være lig med';
 								$this->addError(["{$display} $str {$rule_value_display}",$item]);
 								$this->ruleBroken([$item,"==",$rule_value]);
 							}
 						}
 						else{
-							$str = lang("VAL_NUM");
+							$str = 'Skal være et tal';
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"val_num",false]);
 						}
@@ -248,7 +248,7 @@ class Validator
 
 						case 'is_integer': case 'is_int':
 						if ($rule_value  &&  filter_var($value, FILTER_VALIDATE_INT)===false){
-							$str = lang("VAL_INT");
+							$str = 'Skal være et helt tal';
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"is_int",false]);
 						}
@@ -257,16 +257,14 @@ class Validator
 						case 'is_timezone':
 						if ($rule_value)
 						if (array_search($value, DateTimeZone::listIdentifiers(DateTimeZone::ALL)) === FALSE){
-							$str = lang("VAL_TZ");
+							$str = 'Skal være et gyldigt tidszonenavn';
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"is_timezone",false]);
 						}
 						break;
 
-
-
 						case 'in':
-						$verb           = lang("VAL_MUST");
+						$verb           = 'Skal være';
 						$list_of_names  = [];	// if doesn't match then display these in an error message
 						$list_of_values = [];	// to compare it against
 
@@ -284,7 +282,7 @@ class Validator
 						}
 
 						if (!is_array($value)) {
-							$verb  = lang("VAL_MUST_LIST");
+							$verb  = 'Skal være en af følgende';
 							$value = [$value];
 						}
 
@@ -302,7 +300,7 @@ class Validator
 							$object = DateTime::createFromFormat((empty($rule_value) || is_bool($rule_value) ? "Y-m-d H:i:s" : $rule_value), $value);
 
 							if (!$object  ||  DateTime::getLastErrors()["warning_count"]>0  ||  DateTime::getLastErrors()["error_count"]>0){
-								$str = lang("VAL_TIME");
+								$str = 'Skal være et gyldigt tidspunkt';
 								$this->addError(["{$display} $str",$item]);
 								$this->ruleBroken([$item,"is_datetime",false]);
 
@@ -312,13 +310,13 @@ class Validator
 
 						case 'is_in_array':
 						if(!is_array($rule_value)){ //If we're not checking $value against an array, that's a developer fail.
-							$str = lang("2FA_FATAL");
+							$str = 'Fatal fejl  Kontakt venligst system administratoren';
 							$this->addError(["{$display} $str",$item]);
 						} else {
 							$to_be_checked = $value; //The value to checked
 							$array_to_check_in = $rule_value; //The array to check $value against
 							if(!in_array($to_be_checked, $array_to_check_in)){
-								$str = lang("VAL_SEL");
+								$str = 'Er ikke et gyldigt valg';
 								$this->addError(["{$display} $str",$item]);
 								$this->ruleBroken([$item,"is_in_array",$array_to_check_in]);
 							}
@@ -330,8 +328,8 @@ class Validator
 						$fields = is_array($rule_value) ? $rule_value[1] : [$item, '=', $value];
 
 						if ($this->_db->get($table, $fields)) {
-							$str = lang("VAL_EXISTS");
-							$str1 = lang("VAL_DB");
+							$str = 'Findes allerede. Vælg venligst en anden';
+							$str1 = 'Databasefejl';
 							if ($this->_db->count()==0) {
 								$this->addError(["{$display} $str {$display}",$item]);
 								$this->ruleBroken([$item,"is_in_database",false]);
@@ -345,7 +343,7 @@ class Validator
 
 						case 'is_valid_north_american_phone':
 						$numeric_only_phone = preg_replace("/[^0-9]/", "", $value); //Strip out all non-numeric characters
-						$str = lang("VAL_NA_PHONE");
+						$str = 'Skal være et gyldigt nordamerikansk telefonnummer';
 						if($numeric_only_phone[0] == 0 || $numeric_only_phone[0] == 1){ //It the number starts with a 0 or 1, it's not a valid North American phone number.
 							$this->addError(["{$display} $str",$item]);
 							$this->ruleBroken([$item,"is_valid_north_american_phone",false]);

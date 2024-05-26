@@ -1,23 +1,18 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-global $abs_us_root, $us_url_root;
+global $us_url_root;
 include_once __DIR__."/../config/smtp.php";
+include_once __DIR__."/classes/phpmailer/Exception.php";
+include_once __DIR__."/classes/phpmailer/OAuth.php";
+include_once __DIR__."/classes/phpmailer/POP3.php";
+include_once __DIR__."/classes/phpmailer/SMTP.php";
+include_once __DIR__."/classes/phpmailer/PHPMailer.php";
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 if (!function_exists('send_email')) {
   function send_email($to, $subject, $body, $opts = [], $attachment = null)
   {
-    /*
-    As of v5.6, $to can now be an array of email addresses
-    you can now pass in
-    $opts = array(
-      'email' => 'from_email@aol.com',
-      'name'  => 'Bob Smith',
-      'cc'    => 'cc@example.com',
-      'bcc'   => 'bcc@example.com'
-    );
-    */
-
     global $smtp_host, $smtp_port, $smtp_auth, $smtp_usr, $smtp_pwd, $smtp_secure, $smtp_fromEmail, $smtp_fromName;
 
     $mail = new PHPMailer();
@@ -76,8 +71,9 @@ if (!function_exists('send_email')) {
 if (!function_exists('get_email_body')) {
   function get_email_body($template)
   {
-    global $abs_us_root, $us_url_root;
-    $template_path = $abs_us_root . $us_url_root . 'mails/um/' . $template;
+    global  $us_url_root;
+    //$template_path = $us_url_root . 'mails/um/' . $template;
+    $template_path = __DIR__ . '/../mails/um/' . $template;
     ob_start();
     if (file_exists($template_path)) {
       require $template_path;

@@ -3,14 +3,14 @@
 if (!function_exists('log_error')) {
   function log_error($text = "")
   {
-    $db = DB::getInstance();
+    $dbo = dbo::getInstance();
     
     $fields = [
       'text' => $text
     ];
 
-    $db->insert('errors', $fields);
-    $lastId = $db->lastId();
+    $dbo->query("INSERT errors('text') VALUES(?)", $text);
+    $lastId = $db->lastInsertID();
 
     return $lastId;
   }
@@ -41,7 +41,8 @@ if (!function_exists('ipCheck')) {
 if (!function_exists('logger')) {
   function logger($user_id = "", $logtype = "", $lognote = "", $metadata = null)
   {
-    global $user, $dbo;
+    global $user;
+    $dbo = dbo::getInstance();
 
     if(!isset($user_id) || $user_id == ""){
       if(isset($user) && $user->isLoggedIn()){
@@ -128,4 +129,29 @@ if (!function_exists('random_password')) {
     return $password;
   }
 }
+
+if(!function_exists("usError")){
+  function usError($msg){
+    sessionValMessages($msg);
+  }
+}
+
+if(!function_exists("usSuccess")){
+  function usSuccess($msg){
+    sessionValMessages("",$msg);
+  }
+}
+
+if (!function_exists('display_errors')) {
+  function display_errors($errors = [])
+  {
+    foreach ($errors as $k => $v) {
+      if (array_key_exists($errors[$k][1], $errors)) {
+        unset($errors[$k][1]);
+      }
+    }
+    sessionValMessages($errors);
+  }
+}
+
 ?>

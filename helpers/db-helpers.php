@@ -11,12 +11,12 @@ if (!function_exists('getDistricts')) {
       $query .= " WHERE district_id = " . $id;
     }
 
-    return $db->query($query)->results();
+    return $dbo->query($query)->fetchAll();
   }
 }
 
 if (!function_exists('getUsers')) {
-  function getUsers($id = "")
+  function getUsers($dbo, $id = "")
   {    
     $query = "SELECT u.*, p.name as permission_name, d.district_name
     FROM users u 
@@ -27,7 +27,7 @@ if (!function_exists('getUsers')) {
       $query .= " AND u.id = " . $id;
     }
 
-    return $db->query($query)->results();
+    return $dbo->query($query)->fetchAll();
   }
 }
 
@@ -35,7 +35,7 @@ if (!function_exists('getAssignedUserDetailsForBooking')) {
   function getAssignedUserDetailsForBooking($id)
   {
     $query = "SELECT b.assigned_user_id, u.fname, u.lname, u.email from Bookings b INNER JOIN Users u ON b.assigned_user_id = u.id where booking_id = " . $id;
-    return $db->query($query)->results();
+    return $dbo->query($query)->fetchAll();
   }
 }
 

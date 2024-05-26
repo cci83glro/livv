@@ -3,6 +3,7 @@
     header('X-Frame-Options: DENY');
     $public = false;
     $permissions = [2];
+    $pageTitle = 'Ansøgninger';
     require_once __DIR__.'/../master-pages/header.php';
 
 ?>

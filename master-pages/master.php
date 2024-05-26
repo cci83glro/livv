@@ -9,6 +9,8 @@ $admin_email_list = [
 	//'cci83glro@gmail.com'
 ];
 
+$company_name_display = "Liv-Vikar";
+
 $company_name = "Liv-Vikar ApS";
 $company_cvr = "44803003";
 $company_address = "Lidsøvej, 2730 Herlev";
