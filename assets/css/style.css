@@ -192,6 +192,16 @@ p.service {
     display: inline-block;
 }
 
+p.course {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
 .bg-secondary-color.company-highlight span {
     color: var(--primary-color);
 }
@@ -200,11 +210,51 @@ p.service {
     color: var(--secondary-color);
 }
 
-.services-container {
+.services-container,
+.courses-container {
     border: 3px solid var(--secondary-color);
     border-radius: 10px;
-    padding: 1rem .5rem .5rem .5rem;
+}
+
+.services-container {
     margin-left: 1rem;
+    padding: 1rem .5rem .5rem .5rem;
+}
+
+.courses-container {
+    margin-left: 0;
+    padding: 2rem 1.5rem;
+}
+
+.services-container div.rounded-circle{
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+/* .services-container div.subsection-title-wrapper{
+    margin-bottom: 10px;
+} */
+
+.services-container h2,
+.services-container h3{
+    color: var(--secondary-color);
+}
+
+.services-container h2{
+    display: inline-block;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.courses-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--black-color);
+}
+
+.services-container h3{
+    font-size: 1.3rem;
+    margin-top: 1rem;
 }
 
 .center {
@@ -365,7 +415,7 @@ p.form-actions,
 }
 
 a.social-item {
-    color: var(--secondary-color);    
+    color: var(--secondary-color);
 }
 
 .nav-link {

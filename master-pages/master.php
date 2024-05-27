@@ -13,10 +13,10 @@ $site_name = "Liv-Vikar";
 
 $company_name = "Liv-Vikar ApS";
 $company_cvr = "44803003";
-$company_address = "Lidsøvej, 2730 Herlev";
-$company_address_google_url = "https://maps.app.goo.gl/aJnuGj3JGwNK5J5m9";
-$company_phone = "11223344";
-$company_phone_display = "1122 3344";
+$company_address = "Theilgaards Alle 7, 4600 Køge";
+$company_address_google_url = "https://maps.app.goo.gl/mS6qS7yU7VKQ66gr5";
+$company_phone = "73738800";
+$company_phone_display = "7373 8800";
 $company_contact_email = "kontakt@livvikar.dk";
 $facebook_url = "facebook.com";
 $instagram_url = "instagram.com";

@@ -62,16 +62,16 @@
                                 <a class="nav-link active" aria-current="page" href="<?=$home_page_url?>">Hjem</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Ydelser</a>
+                                <a class="nav-link" href="#services-section">Ydelser</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Kurser</a>
+                                <a class="nav-link" href="#courses-section">Kurser</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Om os</a>
+                                <a class="nav-link" href="#about-us-section">Om os</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Kontakt</a>
+                                <a class="nav-link" href="#contact-section">Kontakt</a>
                             </li>
                         </ul>                        
                         <p id="bi"><?=$user_id?></p>

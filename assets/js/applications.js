@@ -4,6 +4,7 @@ $(document).ready(function(offsetHandled, offsetUnhandled) {
         return `
             <div class="record" data-id="${record.id}">
                 <p><span>ID:</span> ${record.id}</p>
+                <p><span>Oprettet:</span> ${record.dateCreated}</p>
                 <p><span>Name:</span> ${record.fname} ${record.lname}</p>
                 <p><span>Telefon:</span> ${record.phone}</p>
                 <p><span>Email:</span> ${record.email}</p>

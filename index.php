@@ -14,10 +14,10 @@
 			<div class="d-flex flex-column justify-content-center gap-3 h-100 position-relative"
 				style="max-width: 768px; z-index: 2;">
 				<h1 class="text-title text-white fw-bold font-1 lh-1">Liv Vikar</h1>
-				<h6 class="text-white uppercase mb-15">Liv der redes skal leves</h6>
+				<h6 class="text-white uppercase mb-15">Liv der redes, skal leves</h6>
 				<div class="form-actions align-left">
 					<div class="buttons-wrapper">
-						<a type="button" href="about_us.html" class="save">Om os</a>
+						<a type="button" href="#about-us-section" class="save">Om os</a>
 					</div>
 				</div>
 			</div>
@@ -70,10 +70,10 @@
 		</div>
 	</section>
 
-	<section class="section">
+	<section class="section" id="services-section">
 		<div class="r-container">
 			<h6 class="font-2 accent-color">Hvem er vi?</h6>
-			<h3 class="font-1 lh-1 fw-bold fs-1 mb-3">Læs lidt om os herunder</h3>
+			<h3 class="font-1 lh-1 fw-bold fs-1 mb-3">Kort om os</h3>
 			<div class="d-flex  gap-2 text-center">
 				
 				<!-- <p class="text-gray mx-auto" style="max-width: 768px;">
@@ -134,16 +134,18 @@
 					</div>
 				</div>
 				<div class="col text-white gap-3 col-lg-6 bg-primary-color text-center justify-content-center align-items-center services-container">
-					<div class="rounded-circle p-1 bg-secondary-color primary-color center mb-15" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
-						<i class="fa-solid fa-clipboard"></i>
-					</div>
-					<h4 class="font-1 lh-1 fw-bold secondary-color mb-15">Vores ydelser</h4>
-					<p class="font-1 lh-1 fw-bold service">Personlig hjælp: støtte i livskvalitet</p>
+					<div class="subsection-title-wrapper">
+						<div class="rounded-circle p-1 bg-secondary-color primary-color center" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
+							<i class="fa-solid fa-clipboard"></i>						
+						</div>
+						<h2 class="font-1 lh-1 fw-bold secondary-color">Vores ydelser</h2>
+					</div>					
+					<h3>Personlig hjælp / Støtte i livskvalitet</h3>					
 					<p class="font-1 lh-1 fw-bold service">Hjælp til vask/bad, toiletbesøg, af- og påklædning</p>
 					<p class="font-1 lh-1 fw-bold service">Hjælp til at tage medicin</p>
 					<p class="font-1 lh-1 fw-bold service">Hjælp i forbindelse med anretning/servering af mad</p>
 					<p class="font-1 lh-1 fw-bold service">Hjælp til at komme i og op af sengen/ kørestol</p>
-					<p class="font-1 lh-1 fw-bold service">Praktisk hjælp</p>
+					<h3>Praktisk hjælp</h3>
 					<p class="font-1 lh-1 fw-bold service">Rengøring</p>
 					<p class="font-1 lh-1 fw-bold service">Støvsugning / gulvvask</p>
 					<p class="font-1 lh-1 fw-bold service">Tøjvask</p>
@@ -152,7 +154,25 @@
 		</div>
 	</section>
 
-	<section class="section">
+	<section class="section" id="courses-section">
+		<div class="r-container">
+			<h6 class="font-2 accent-color">Kurser</h6>
+			<div class="d-flex  gap-2 text-center">				
+				<div class="col text-white gap-3 bg-primary-color text-center justify-content-center align-items-center courses-container">
+					<h2 class="font-1 lh-1 fw-bold secondary-color">Vi tilbyder også følgende kurser</h2>
+					<p class="font-1 lh-1 fw-bold course">Førstehjælp</p>
+					<p class="font-1 lh-1 fw-bold course">Medicinhåndtering</p>
+					<p class="font-1 lh-1 fw-bold course">Supervision (arbejdsmiljø)</p>
+					<p class="font-1 lh-1 fw-bold course">Palliativ pleje</p>
+					<p class="font-1 lh-1 fw-bold course">Terminal pleje</p>
+					<p class="font-1 lh-1 fw-bold course">Demens kursus</p>
+					<p class="font-1 lh-1 fw-bold course">Kompetence skema</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section" id="about-us-section">
 		<div class="r-container">
 			<div class="row row-cols-1 row-cols-lg-2">
 				<div class="col mb-3 pe-lg-3 position-relative">
@@ -237,7 +257,6 @@
 		</div>
 	</section>
 
-	<!-- Why Choose Seniorsy -->
 	<section class="section">
 		<div class="r-container">
 			<div class="d-flex flex-lg-row flex-column-reverse">

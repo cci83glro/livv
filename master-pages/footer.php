@@ -15,10 +15,10 @@
                             <h5 class="font-1 fw-bold mb-3">Links</h5>
                             <div class="d-flex flex-column gap-2">
                                 <a href="<?=$home_page_url?>" class="d-flex flex-row gap-2 align-items-center link-light">Home</a>
-                                <a href="#" class="d-flex flex-row gap-2 align-items-center link-light">Ydelser</a>
-                                <a href="#" class="d-flex flex-row gap-2 align-items-center link-light">Kurser</a>
-                                <a href="#" class="d-flex flex-row gap-2 align-items-center link-light">Om Os</a>
-                                <a href="#" class="d-flex flex-row gap-2 align-items-center link-light">Kontakt</a>
+                                <a href="#services-section" class="d-flex flex-row gap-2 align-items-center link-light">Ydelser</a>
+                                <a href="#courses-section" class="d-flex flex-row gap-2 align-items-center link-light">Kurser</a>
+                                <a href="#about-us-section" class="d-flex flex-row gap-2 align-items-center link-light">Om Os</a>
+                                <a href="#contact-section" class="d-flex flex-row gap-2 align-items-center link-light">Kontakt</a>
                             </div>
                         </div>
                     </div>               
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="w-100" style="border-bottom: 1px solid var(--primary-color);"></div>
-                <div class="text-center p-2">©Copyright <?php echo date("Y"); ?> - LivVikar</div>
+                <div class="text-center p-2">© Copyright <?php echo date("Y"); ?> - <?php echo $site_name; ?></div>
             </div>
         </section>
     </footer>
