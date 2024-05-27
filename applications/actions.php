@@ -38,7 +38,7 @@
         $handled_value = $handled ? "b'1'" : "b'0'";
         $sql = "SELECT COUNT(*) as count FROM applications WHERE handled = $handled_value";
         $result = $dbo->query($sql)->fetchAll();
-        return $result[0]->count > $offset + $limit;
+        return $result[0]['count'] > $offset + $limit;
     }
 
     if (isset($_GET['ajax']) && isset($_GET['initial'])) {

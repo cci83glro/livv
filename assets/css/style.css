@@ -1037,6 +1037,7 @@ div.pagination .count-info{
 .bookings-subsection-header {
     font-weight: 700;
     font-size: 1.2rem;
+    text-transform: capitalize;
 }
 
 #filter-wrapper {

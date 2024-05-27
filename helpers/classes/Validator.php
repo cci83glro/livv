@@ -97,7 +97,7 @@ class Validator
 							if ($table == "users" && ($field == "username" || $field == "email")) {
 								// Special logic for users table when checking username or email
 								$query = "SELECT id FROM users WHERE (email = ?) OR (username = ?)";
-								$count = $this->_db->query($query, [$value, $value])->count();
+								$count = sizeof($this->_db->query($query, [$value, $value])->fetchAll());
 				
 							} else {
 								// Standard logic for other tables/fields
@@ -330,7 +330,7 @@ class Validator
 						if ($this->_db->get($table, $fields)) {
 							$str = 'Findes allerede. Vælg venligst en anden';
 							$str1 = 'Databasefejl';
-							if ($this->_db->count()==0) {
+							if (sizeof($this->_db->fetchAll())==0) {
 								$this->addError(["{$display} $str {$display}",$item]);
 								$this->ruleBroken([$item,"is_in_database",false]);
 

@@ -9,7 +9,7 @@ $admin_email_list = [
 	//'cci83glro@gmail.com'
 ];
 
-$company_name_display = "Liv-Vikar";
+$site_name = "Liv-Vikar";
 
 $company_name = "Liv-Vikar ApS";
 $company_cvr = "44803003";

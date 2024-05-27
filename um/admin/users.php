@@ -18,14 +18,14 @@ $permissions = $dbo->query('SELECT * FROM permissions')->fetchAll();
 $validator = new Validator($dbo);
 
 if (!empty($_POST)) {
-  if (!Token::check(Input::get('csrf'))) {
-    include __DIR__ . '/token_error.php';
-  }
+  // if (!Token::check(Input::get('csrf'))) {
+  //   include __DIR__ . '/token_error.php';
+  // }
 
   //Manually Add User
   if (!empty($_POST['addUser'])) {
 
-    $vericode_expiry = date('Y-m-d H:i:s', strtotime("+$settings->join_vericode_expiry hours", strtotime(date('Y-m-d H:i:s'))));
+    $vericode_expiry = date('Y-m-d H:i:s', strtotime("+24 hours", strtotime(date('Y-m-d H:i:s'))));
     $join_date = date('Y-m-d H:i:s');
     $permission_id = Input::get('permission_id');
     $fname = Input::get('fname');
@@ -52,44 +52,30 @@ if (!empty($_POST)) {
       if (isset($_SESSION['us_lang'])) {
         $newLang = $_SESSION['us_lang'];
       } else {
-        $newLang = $settings->default_language;
+        $newLang = 'da-DK';
       }
 
       try {
-        $fields = [
-          'fname' => $fname,
-          'lname' => $lname,
-          'phoneNumber' => $phone,
-          'email' => $email,
-          'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]),
-          'permissions' => $permission_id,
-          'join_date' => $join_date,
-          'email_verified' => 1,
-          'vericode' => $vericode,
-          'force_pr' => $settings->force_pr,
-          'vericode_expiry' => $vericode_expiry,
-          'oauth_tos_accepted' => true,
-          'language' => $newLang,
-          'active' => 1,
-        ];
+        $dbo->query(
+          "INSERT INTO users (fname, lname, phoneNumber, email, password, permissions, join_date, email_verified, vericode, force_pr, vericode_expiry, oauth_tos_accepted, language,active)
+          VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", $fname, $lname, $phone, $email, password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]), $permission_id, $join_date, 1, $vericode, 0, $vericode_expiry, 1, $newLang, 1);
 
-        $db->insert('users', $fields);
-        $theNewId = $db->lastId();
+        $theNewId = $dbo->lastInsertID();
 
         if (isset($_POST['sendEmail'])) {
 
           $params = [
             'username' => $username,
             'password' => $password,
-            'sitename' => $settings->site_name,
-            'force_pr' => $settings->force_pr,
+            'sitename' => 'Liv-Vikar',
+            'force_pr' => 0,
             'fname' => $fname,
             'email' => rawurlencode($email),
             'vericode' => $vericode,
-            'join_vericode_expiry' => $settings->join_vericode_expiry,
+            'join_vericode_expiry' => 24,
           ];
           $to = rawurlencode($email);
-          $subject = html_entity_decode($settings->site_name, ENT_QUOTES);
+          $subject = html_entity_decode($site_name, ENT_QUOTES);
           $body = email_body('_email_adminUser.php', $params);
           email($to, $subject, $body);
         }
@@ -104,21 +90,19 @@ if (!empty($_POST)) {
   }
 }
 
-// if($settings->uman_search == 0){
-  $usernameReq = $user_id > 1 ? " AND username <> 'admin' " : "";
-  $query = "SELECT
-    u.*, p.name AS permission_name
-    FROM users AS u
-    LEFT OUTER JOIN permissions AS p ON u.permissions = p.id
-    WHERE u.permissions <> 2" . $usernameReq;
-  
-  if(!empty($_POST['search'])){
-    $search = Input::get('searchTerm');
-    $query .= " AND (fname LIKE '%" . $search . "%' OR lname LIKE '%" . $search . "%' OR email LIKE '%" . $search . "%')";
-  }
+$usernameReq = $user_id > 1 ? " AND username <> 'admin' " : "";
+$query = "SELECT
+  u.*, p.name AS permission_name
+  FROM users AS u
+  LEFT OUTER JOIN permissions AS p ON u.permissions = p.id
+  WHERE u.permissions <> 2" . $usernameReq;
 
-  $userData = $dbo->query($query) -> fetchAll();
-// }
+if(!empty($_POST['search'])){
+  $search = Input::get('searchTerm');
+  $query .= " AND (fname LIKE '%" . $search . "%' OR lname LIKE '%" . $search . "%' OR email LIKE '%" . $search . "%')";
+}
+
+$userData = $dbo->query($query) -> fetchAll();
 $random_password = random_password();
 
 foreach ($validator->errors() as $error) {
@@ -132,7 +116,7 @@ foreach ($validator->errors() as $error) {
             <div class="row" style="margin-top:1vw;">            
               <div class="form-actions">
                 <div class="buttons-wrapper">
-                  <button class="save w-40 no-margin" data-bs-toggle="modal" data-bs-target="#adduser" id="add-user-button"><i class="fa fa-plus"></i> Tilføj bruger</button>
+                  <button class="save w-40p no-margin" data-bs-toggle="modal" data-bs-target="#adduser" id="add-user-button"><i class="fa fa-plus"></i> Tilføj bruger</button>
                 </div>
               </div>
             </div>

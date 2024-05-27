@@ -202,23 +202,6 @@ if (!empty($_POST)) {
         $dbo->query('UPDATE users SET `password`=? WHERE id=?', $new_password_hash, $userId);
         $successes[] = 'Adgangskoden er opdateret.';
         logger($user->data()['id'], 'User Manager', "Updated password for ".$userdetails['fname']);
-        if ($settings->session_manager == 1) {
-          if ($userId == $user->data()['id']) {
-            $passwordResetKillSessions = passwordResetKillSessions();
-          } else {
-            $passwordResetKillSessions = passwordResetKillSessions($userId);
-          }
-          if (is_numeric($passwordResetKillSessions)) {
-            if ($passwordResetKillSessions == 1) {
-              $successes[] = 'Successfully Killed 1 Session';
-            }
-            if ($passwordResetKillSessions > 1) {
-              $successes[] = "Successfully Killed $passwordResetKillSessions Session";
-            }
-          } else {
-            $errors[] = 'Failed to kill active sessions, Error: ' . $passwordResetKillSessions;
-          }
-        }
       } else {
         usError("Validering af adgangskode fejlede");
         Redirect::to($user_page_url . $userId);
@@ -230,7 +213,7 @@ if (!empty($_POST)) {
     $dbo->query('UPDATE users SET vericode=?, vericode_expiry=? WHERE id=?', $vericode, $vericode_expiry, $userId);
     if (isset($_POST['sendPwReset'])) {
       $params = [
-        'sitename' => $company_name_display,
+        'sitename' => $site_name,
         'fname' => $userdetails['fname'],
         'email' => rawurlencode($userdetails['email']),
         'vericode' => $vericode,
