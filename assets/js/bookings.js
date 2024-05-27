@@ -245,13 +245,20 @@ function getSliceBoundaries(length, page) {
 
 function setBookingListHtml(bookingsContainer, paginationContainer, data, page, loadBookingsFunction, pageLinkExtraClass = '') {
     var employees = Array.from($('#employee option'));
-    bookingsContainer.html(''); // Clear existing data
+    bookingsContainer.html('');
     bookingsContainer.attr("data-active-page", page);
 
     var totalCount = data.length;
     var {newPage, lowerBound, upperBound} = getSliceBoundaries(totalCount, page);
 
+    var month = '';
     data.slice(lowerBound, upperBound).forEach(function(booking) {
+        var currentDate = new Date(booking.date);
+        var currentMonth = currentDate.toLocaleString('da-dk', { month: 'long' });
+        if (currentMonth != month) {
+            month = currentMonth;
+            bookingsContainer.append(`<p2 class="bookings-subsection-header">` + month + ` ` + currentDate.getFullYear() +`</p2>`);
+        }
         var {statusText, statusHtml} = getStatusData(booking);
         var {assignText, assignHtml} = getAssignData(booking, employees, statusText);
         var formActionsHtml = getFormActions(booking);

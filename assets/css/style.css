@@ -1034,6 +1034,11 @@ div.pagination .count-info{
     width: 20%;
 }
 
+.bookings-subsection-header {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
 #filter-wrapper {
     margin-bottom: 1rem;
 }
