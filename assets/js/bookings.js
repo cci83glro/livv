@@ -1,5 +1,6 @@
 var bi = $($("p#bi")[0]).text();
 var bp = $($("p#bp")[0]).text();
+const recordsPerPage = 10;
 var loader = $('.page-loader');
 
 function assignUserToBooking(bookingId, userId) {
@@ -229,7 +230,7 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
     return element;
 }
 
-function getSliceBoundaries(length, page, recordsPerPage) {
+function getSliceBoundaries(length, page) {
     var totalCount = length;
     var newPage = page;
     var lowerBound = (newPage-1) * recordsPerPage;
@@ -242,13 +243,13 @@ function getSliceBoundaries(length, page, recordsPerPage) {
     return {newPage, lowerBound, upperBound};
 }
 
-function setBookingListHtml(bookingsContainer, paginationContainer, data, page, recordsPerPage, loadBookingsFunction, pageLinkExtraClass = '') {
+function setBookingListHtml(bookingsContainer, paginationContainer, data, page, loadBookingsFunction, pageLinkExtraClass = '') {
     var employees = Array.from($('#employee option'));
     bookingsContainer.html(''); // Clear existing data
     bookingsContainer.attr("data-active-page", page);
 
     var totalCount = data.length;
-    var {newPage, lowerBound, upperBound} = getSliceBoundaries(totalCount, page, recordsPerPage);
+    var {newPage, lowerBound, upperBound} = getSliceBoundaries(totalCount, page);
 
     data.slice(lowerBound, upperBound).forEach(function(booking) {
         var {statusText, statusHtml} = getStatusData(booking);
@@ -265,10 +266,10 @@ function setBookingListHtml(bookingsContainer, paginationContainer, data, page, 
         $(element).text(newContent);
     });
 
-    setPaginationHtml(paginationContainer, lowerBound, upperBound, totalCount, recordsPerPage, newPage, loadBookingsFunction, pageLinkExtraClass);
+    setPaginationHtml(paginationContainer, lowerBound, upperBound, totalCount, newPage, loadBookingsFunction, pageLinkExtraClass);
 }
 
-function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, recordsPerPage, page, loadBookingsFunction, pageLinkExtraClass) {
+function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, page, loadBookingsFunction, pageLinkExtraClass) {
     paginationDiv.html('');
     var paginationHtml = '';
 
@@ -327,56 +328,56 @@ function resetEmployeeBookingsFilter() {
 }
 
 function filterEmployeeBookingsById() {
-    var id = $('#search-text').val();
+    var searchText = $('#search-text').val();
     var activePage = $('#my-bookings-container').data('active-page');
-    loadBookingsForWorker(activePage, id);
+    loadBookingsForWorker(activePage, searchText);
 
     activePage = $('#available-bookings-container').data('active-page');
-    loadAvailableBookings(activePage, id);
+    loadAvailableBookings(activePage, searchText);
 }
 
-function loadBookings(page, search = '') {
-    var recordsPerPage = 5;
+function loadBookings(page, searchText = '') {
 
     var url = `booking/retrieve_bookings.php`;
-    if (search != '') {
-        url += '?search=' + search;
+    if (searchText != '') {
+        url += '?search=' + searchText;
+        page = 1;
     }
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, recordsPerPage, loadBookings);
+        setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, loadBookings);
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
     });
 }
 
-function loadBookingsForWorker(page, bookingId = '') {
-    var recordsPerPage = 5;
+function loadBookingsForWorker(page, searchText = '') {
 
     var url = `booking/retrieve_bookings.php?bi=` + bi;
-    if (bookingId != '') {
-        url += '&bookingId=' + bookingId;
+    if (searchText != '') {
+        url += '&search=' + searchText;
+        page = 1;
     }
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#my-bookings-container'), $('#my-bookings-pagination'), data, page, recordsPerPage, loadBookingsForWorker, 'page-link-my-bookings');
+        setBookingListHtml($('#my-bookings-container'), $('#my-bookings-pagination'), data, page, loadBookingsForWorker, 'page-link-my-bookings');
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
     });
 }
 
-function loadAvailableBookings(page, bookingId = '') {
-    var recordsPerPage = 5;
+function loadAvailableBookings(page, searchText = '') {
 
     var url = `booking/retrieve_bookings.php?unassigned=1`;
-    if (bookingId != '') {
-        url += '&bookingId=' + bookingId;
+    if (searchText != '') {
+        url += '&search=' + searchText;
+        page = 1;
     }
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#available-bookings-container'), $('#available-bookings-pagination'), data, page, recordsPerPage, loadAvailableBookings, 'page-link-available-bookings');
+        setBookingListHtml($('#available-bookings-container'), $('#available-bookings-pagination'), data, page, loadAvailableBookings, 'page-link-available-bookings');
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
