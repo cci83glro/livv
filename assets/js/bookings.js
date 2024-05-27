@@ -305,20 +305,20 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, re
 }
 
 function resetBookingsFilter() {
-    $('#booking-id-filter').val('');
+    $('#search-text').val('');
     var activePage = $('#bookings-container').data('active-page');
     loadBookings(activePage);
 }
 
 function filterBookingsById() {
-    var id = $('#booking-id-filter').val();
+    var id = $('#search-text').val();
     var activePage = $('#bookings-container').data('active-page');
 
     loadBookings(activePage, id);
 }
 
 function resetEmployeeBookingsFilter() {
-    $('#booking-id-filter').val('');
+    $('#search-text').val('');
     var activePage = $('#my-bookings-container').data('active-page');
     loadBookingsForWorker(activePage);
 
@@ -327,7 +327,7 @@ function resetEmployeeBookingsFilter() {
 }
 
 function filterEmployeeBookingsById() {
-    var id = $('#booking-id-filter').val();
+    var id = $('#search-text').val();
     var activePage = $('#my-bookings-container').data('active-page');
     loadBookingsForWorker(activePage, id);
 
@@ -335,12 +335,12 @@ function filterEmployeeBookingsById() {
     loadAvailableBookings(activePage, id);
 }
 
-function loadBookings(page, bookingId = '') {
+function loadBookings(page, search = '') {
     var recordsPerPage = 5;
 
     var url = `booking/retrieve_bookings.php`;
-    if (bookingId != '') {
-        url += '?bookingId=' + bookingId;
+    if (search != '') {
+        url += '?search=' + search;
     }
 
     $.getJSON(url, function(data) {
@@ -509,6 +509,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         $('#add-booking-submit-button').click(addBooking);
         $('#add-booking-cancel-button').click(cancelBooking);
+
+        $('#search-text').on( "keydown", function( event ) {
+            if(event.which==13){
+                if (bp == 1 || bp == 2) {
+                    filterBookingsById();
+                } else if (bp == 3) {
+                    filterEmployeeBookingsById();
+                }
+            }
+        });
     }
     catch(e) {}
     finally {

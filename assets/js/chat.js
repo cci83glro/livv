@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         //User hits enter key 
-        $( "#message" ).on( "keydown", function( event ) {
+        $("#message").on( "keydown", function( event ) {
             if(event.which==13){
                 addChatMessage();
             }

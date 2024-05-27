@@ -12,6 +12,8 @@ $booking_id = $_POST['booking_id'];
 $new_status_id = $_POST['new_status_id'];
 $email = $_POST['email'];
 
+$dbo = dbo::getInstance();
+
 if ($dbo->query("UPDATE Bookings SET status_id = $new_status_id WHERE booking_id = $booking_id")) {
     if ($new_status_id == 20) {
         try {

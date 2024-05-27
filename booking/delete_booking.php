@@ -9,6 +9,8 @@ if (!isset($_POST['booking_id'])) {
     die("Booking ID is not provided.");
 }
 
+$dbo = dbo::getInstance();
+
 // Retrieve booking ID from frontend
 $booking_id = $_POST['booking_id'];
 

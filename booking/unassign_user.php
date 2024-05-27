@@ -30,6 +30,8 @@ if ($user_permission == 2) {
     $assigned_user_id = $booking_data->assigned_user_id;
 }
 
+$dbo = dbo::getInstance();
+
 if ($dbo->query("UPDATE Bookings SET assigned_user_id = NULL WHERE booking_id = $booking_id")) {
     
     $body = get_email_body('_email_booking_unassign_notify_user.php');

@@ -11,6 +11,12 @@ $dbo = dbo::getInstance();
 // $offset = ($page - 1) * $records_per_page;
 
 $where = " WHERE 1=1";
+
+$search = Input::get('search');
+if(!isNullOrEmptyString($search)){
+    $where .= " AND (booking_id LIKE '%" . $search . "%' OR place LIKE '%" . $search . "%' OR district_name LIKE '%" . $search . "%' OR uassigned.fname LIKE '%" . $search . "%' OR uassigned.lname LIKE '%" . $search . "%')";
+  }
+
 if ($user_permission == 1) {
     $where .= " AND b.district_id = " . $user_district_id;
 } elseif ($user_permission == 3) {

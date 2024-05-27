@@ -24,6 +24,8 @@ if(($user_permission == 2 && empty($district_id)) || empty($place) || empty($dat
 
 if (!isNullOrEmptyString($id)) {
 
+    $dbo = dbo::getInstance();
+
     $query = "UPDATE Bookings SET ";
     if ($user_permission == 2) {
         $query .= "district_id = '$district_id', ";
