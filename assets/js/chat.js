@@ -1,5 +1,8 @@
+var bi = $($("p#bi")[0]).text();
+var loader = $('.page-loader');
 var msgBox = $('#message-box');
-var wsUri = "ws://localhost:9000/demo/server.php"; 	
+
+//var wsUri = "ws://localhost:9000/demo/server.php"; 	
 // websocket = new WebSocket(wsUri); 
 
 // websocket.onopen = function(ev) { // connection is open 
@@ -29,58 +32,72 @@ var wsUri = "ws://localhost:9000/demo/server.php";
 // websocket.onerror	= function(ev){ msgBox.append('<div class="system_error">Error Occurred - ' + ev.data + '</div>'); }; 
 // websocket.onclose 	= function(ev){ msgBox.append('<div class="system_msg">Connection Closed</div>'); }; 
 
-//Message send button
-$('#send-message').click(function(){
-    send_message();
-});
-
-//User hits enter key 
-$( "#message" ).on( "keydown", function( event ) {
-    if(event.which==13){
-        send_message();
-    }
-});
 
 //Send message
-function send_message(){
+function addChatMessage(){
     var message_input = $('#message'); //user message text
-    var name_input = $('#name'); //user name
     
-    if(message_input.val() == ""){ //empty name?
-        alert("Enter your Name please!");
-        return;
-    }
     if(message_input.val() == ""){ //emtpy message?
-        alert("Enter Some message Please!");
+        //alert("Indtast venligst en besked!");
         return;
     }
 
-    //prepare json data
-    var msg = {
-        message: message_input.val(),
-        name: name_input.val(),
-        color : '<?php echo $colors[$color_pick]; ?>'
-    };
-    //convert and send data to server
-    websocket.send(JSON.stringify(msg));	
-    message_input.val(''); //reset message input
+    var formData = new FormData();
+    formData.append('message', message_input.val());
+
+    $(loader).show();
+    fetch('chat/add-chat-message.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        message_input.val('');
+        loadChatMessages();
+    })
+    .catch(error => {
+        console.error('Error adding chat message:', error);
+    })
+    .finally(e => {
+        $(loader).hide();
+    });
+    
 }
 
-function setBookingListHtml(container) {
-    data.forEach(function(booking) {
-        var {statusText, statusHtml} = getStatusData(booking);
-        var {assignText, assignHtml} = getAssignData(booking, employees, statusText);
-        var formActionsHtml = getFormActions(booking);
-        bookingsContainer.append(getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml, formActionsHtml));
+function getChatMessageHtml(chatMessage) {
+    var element =  `<div class="chat-message {{extraClasses}}">
+                        <span class="message-info">{{messageInfo}}</span><p>{{messageText}}</p>
+                    </div>`;
+
+    var extraClasses = "";
+    if (chatMessage.user_id == bi) {
+        extraClasses += "me ";
+    }
+
+    element = element.replaceAll('{{extraClasses}}', extraClasses);
+    element = element.replaceAll('{{messageInfo}}', '[' + chatMessage.author + ' - ' + chatMessage.date_created + ']');
+    element = element.replaceAll('{{messageText}}', chatMessage.message);
+    return element;
+}
+
+function setChatMessagesListHtml(container, data) {
+    container.html('');
+    if (!data) return;
+    data.forEach(function(chatMessage) {
+        container.append(getChatMessageHtml(chatMessage));
     });
 }
 
 function loadChatMessages() {
-    var url = `chat/retrieve_chat_messages.php`;
+    var url = `chat/retrieve-chat-messages.php`;
 
     $.getJSON(url, function(data) {
-        setBookingListHtml($('#chat-messages-container'));
-
+        setChatMessagesListHtml($('#chat-messages-container'), data);
     })
     .fail(function(xhr, status, error) {
         console.error('Error:', error);
@@ -91,6 +108,18 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
         $(loader).show();
         loadChatMessages();
+
+        //Message send button
+        $('#send-message').click(function(){
+            addChatMessage();
+        });
+
+        //User hits enter key 
+        $( "#message" ).on( "keydown", function( event ) {
+            if(event.which==13){
+                addChatMessage();
+            }
+        });
     }
     catch(e) {}
     finally {

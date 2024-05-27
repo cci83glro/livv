@@ -18,7 +18,8 @@ $errors = [];
 $successes = [];
 $userId = (int) Input::get('id');
 
-$userdetailsQ = getUsers($dbo, $userId);
+$options = ['id' => $userId];
+$userdetailsQ = getUsers($dbo, $options);
 if (count($userdetailsQ) < 1) {
   usError("Brugersiden findes ikke");
   Redirect::to($users_page_url);

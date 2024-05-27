@@ -33,6 +33,10 @@ include_once __DIR__.'/../helpers/dbo.php';
 require_once __DIR__.'/../helpers/classes/User.php';
 require_once __DIR__.'/../um/current-user-data.php';
 
+$url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
+$url_uri = $_SERVER['REQUEST_URI'];
+$url = $url_host . $url_uri;
+
 if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
 }
@@ -50,9 +54,5 @@ include_once __DIR__.'/../helpers/db-helpers.php';
 include_once __DIR__.'/../helpers/generic-helpers.php';
 include_once __DIR__.'/../helpers/email-helpers.php';
 $currentPage = currentPage();
-
-$url_host = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]";
-$url_uri = $_SERVER['REQUEST_URI'];
-$url = $url_host . $url_uri;
 
 ?>

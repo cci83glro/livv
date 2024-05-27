@@ -1,4 +1,4 @@
-<?php if(!isset($hideHeaderAndFooter)) { ?>
+<?php if(!isset($hideFooter)) { ?>
     <footer>
         <section class="px-lg-0 px-4 py-lg-5 py-4 bg-accent-color-1">
             <div class="r-container text-white">

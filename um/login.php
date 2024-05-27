@@ -74,7 +74,7 @@ if (!empty($_POST)) {
   sessionValMessages($errors, $successes, NULL);
 }
 
-$hideHeaderAndFooter = true;
+$hideHeader = $hideFooter = true;
 require_once __DIR__.'/../master-pages/header.php';
 ?>
 <style media="screen">

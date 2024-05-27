@@ -16,15 +16,22 @@ if (!function_exists('getDistricts')) {
 }
 
 if (!function_exists('getUsers')) {
-  function getUsers($dbo, $id = "")
+  function getUsers($dbo, $options)
   {    
     $query = "SELECT u.*, p.name as permission_name, d.district_name
     FROM users u 
     LEFT JOIN permissions p on u.permissions = p.id 
     LEFT JOIN districts d on u.district_id = d.district_id 
     WHERE 1=1";
-    if (!isNullOrEmptyString($id)) {
-      $query .= " AND u.id = " . $id;
+
+    if(isset($options["id"]) && !isNullOrEmptyString($options["id"])) {
+      $query .= " AND u.id = " . $options["id"];
+    }
+    if(isset($options["permission"]) && !isNullOrEmptyString($options["permission"])) {
+      $query .= " AND u.permissions IN " . $options["permission"];
+    }
+    if(isset($options["active"]) && !isNullOrEmptyString($options["active"])) {
+      $query .= " AND u.active = " . $options["active"];
     }
 
     return $dbo->query($query)->fetchAll();

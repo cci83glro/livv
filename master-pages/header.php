@@ -19,7 +19,7 @@
         <div class="spinner"></div>
     </div>
     
-    <?php if(!isset($hideHeaderAndFooter)) { ?>
+    <?php if(!isset($hideHeader)) { ?>
     <!-- Header -->
     <section class="bg-secondary-color py-3">
         <div class="r-container">
