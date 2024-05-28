@@ -27,7 +27,10 @@ class User
                 }
             }
         } else {
-            $this->find($user,$loginHandler);
+            if ($this->find($user,$loginHandler)) {
+                $this->_isLoggedIn = true;
+            }
+            
         }
     }
 

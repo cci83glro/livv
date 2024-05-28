@@ -11,7 +11,7 @@ if (!function_exists('getDistricts')) {
       $query .= " WHERE district_id = " . $id;
     }
 
-    return $dbo->query($query)->fetchAll();
+    return dbo::getInstance()->query($query)->fetchAll();
   }
 }
 
@@ -42,7 +42,7 @@ if (!function_exists('getAssignedUserDetailsForBooking')) {
   function getAssignedUserDetailsForBooking($id)
   {
     $query = "SELECT b.assigned_user_id, u.fname, u.lname, u.email from bookings b INNER JOIN uacc u ON b.assigned_user_id = u.id where booking_id = " . $id;
-    return $dbo->query($query)->fetchAll();
+    return dbo::getInstance()->query($query)->fetchAll();
   }
 }
 

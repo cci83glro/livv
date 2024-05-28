@@ -20,9 +20,11 @@ if ($user_permission != 2 && $assigned_user_id != $user_id) {
 $fname = $user_fname;
 $lname = $user_lname;
 $email = $user_email;
+$dbo = dbo::getInstance();
 
 if ($user_permission == 2) {
-    $users_data = getUsers($assigned_user_id);
+	$options = ['id' => $assigned_user_id];
+    $users_data = getUsers($dbo, $options);
     if (count($users_data) < 1) {
         die("Brugeren findes ikke");
         Redirect::to($bookings_page_url);
@@ -33,8 +35,6 @@ if ($user_permission == 2) {
     $lname = $user_data->lname;
     $email = $user_data->email;
 }
-
-$dbo = dbo::getInstance();
 
 if ($dbo->query("UPDATE bookings SET assigned_user_id = $assigned_user_id WHERE booking_id = $booking_id")) {
 
