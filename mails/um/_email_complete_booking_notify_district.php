@@ -9,6 +9,6 @@
   <p>Du kan se din booking <a href="{{bookings_page_link}}" target=_blank>her</a>.</p>
   <br/>
   <p>Venlig hilsen,</p>
-  <p>LivVikar holdet</p>
+  <p>Liv Vikar holdet</p>
 </body>
 </html>

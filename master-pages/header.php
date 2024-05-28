@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=$pageTitle?>- LivVikar </title>
+    <title><?=$pageTitle?>- <?=$site_name?> </title>
     <!-- Stylesheet -->
     <?php include_once __DIR__."/../config/css.php"?>
     <?php if (isset($extra_head_html)) echo $extra_head_html;?>
@@ -20,26 +20,6 @@
     </div>
     
     <?php if(!isset($hideHeader)) { ?>
-    <!-- Header -->
-    <section class="bg-secondary-color py-3">
-        <div class="r-container">
-            <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-center gap-3 banner">
-                <ul class="d-flex m-0 flex-lg-row flex-column justify-content-center align-items-center gap-3 text-white font-2 text-center text-lg-start"
-                    style="list-style: none;">
-                    <li><i class="fa-solid fa-phone"></i>&nbsp; <a class="phone" href="tel:<?=$company_phone?>"><?=$company_phone_display?></li>
-                    <li><i class="fa-solid fa-envelope"></i>&nbsp; <a class="email" href="mailto:<?=$company_contact_email?>"><?=$company_contact_email?></li>
-                </ul>
-                <div class="social-container justify-content-center">
-                    <a href="<?=$facebook_url?>" class="social-item">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                    <a href="<?=$instagram_url?>" class="social-item">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="sticky-top bg-white">
         <div class="r-container">

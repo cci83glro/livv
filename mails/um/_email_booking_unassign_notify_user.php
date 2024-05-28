@@ -10,6 +10,6 @@
   <p>Du er blevet unassignet fra bookingen med id {{booking_id}}. Læs mere om den på <a href="{{bookings_page_link}}" target=_blank>bookingernes hjemmeside</a>.</p>
   <br/>
   <p>Venlig hilsen,</p>
-  <p>LivVikar holdet</p>
+  <p>Liv Vikar holdet</p>
 </body>
 </html>

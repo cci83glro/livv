@@ -179,7 +179,7 @@ if (!empty($_POST)) {
       $body = str_replace("{{lname}}", $lname, $body);
       $body = str_replace("{{active_state}}", $active_state, $body);
       $body = str_replace("{{login_text}}", $login_text, $body);
-      send_email($email, 'Din LivVikar konto har skiftet status', $body);
+      send_email($email, 'Din '.$site_name.' konto har skiftet status', $body);
     }
 
     if (!empty($_POST['pwx'])) {

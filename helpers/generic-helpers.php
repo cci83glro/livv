@@ -46,7 +46,7 @@ if (!function_exists('logger')) {
 
     if(!isset($user_id) || $user_id == ""){
       if(isset($user) && $user->isLoggedIn()){
-        $user_id = $user->data()->id;
+        $user_id = $user->data()['id'];
       }else{
         $user_id = 0;
       }

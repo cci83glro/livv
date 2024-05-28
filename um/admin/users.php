@@ -32,7 +32,6 @@ if (!empty($_POST)) {
     $lname = Input::get('lname');
     $phone = Input::get('phone');
     $email = Input::get('email');
-    $username = Input::get('username');
     $password = Input::get('password');
     $vericode = randomstring(15);
 
@@ -67,7 +66,7 @@ if (!empty($_POST)) {
           $params = [
             'username' => $username,
             'password' => $password,
-            'sitename' => 'Liv-Vikar',
+            'sitename' => $site_name,
             'force_pr' => 0,
             'fname' => $fname,
             'email' => rawurlencode($email),
@@ -80,7 +79,7 @@ if (!empty($_POST)) {
           email($to, $subject, $body);
         }
 
-        logger($user->data()->id, 'User Manager', "Added user $username.");
+        logger($user->data()['id'], 'User Manager', "Added user $username.");
         usSuccess("$username oprettet");
         Redirect::to($user_page_url . '?action=new&id=' . $theNewId);
       } catch (Exception $e) {

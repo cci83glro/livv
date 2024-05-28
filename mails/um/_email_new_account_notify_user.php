@@ -7,9 +7,9 @@
 <body>
   <p>Kære {{fname}} {{lname}},</p>  
   <br/>
-  <p>Nu er du tilmeldt som vikar hos LivVikar, men bemærk at din konto ikke er aktiv endnu. Når den bliver aktiveret får du en bekræftelse på email.</p>
+  <p>Nu er du tilmeldt som vikar hos Liv Vikar, men bemærk at din konto ikke er aktiv endnu. Når den bliver aktiveret får du en bekræftelse på email.</p>
   <br/>
   <p>Venlig hilsen,</p>
-  <p>LivVikar holdet</p>
+  <p>Liv Vikar holdet</p>
 </body>
 </html>

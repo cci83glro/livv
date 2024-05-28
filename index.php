@@ -267,7 +267,7 @@
 									Formålet med fritvalgsordningen er at fjerne 'begrænsninger' fra problemløsende tiltag. Dette gør det lettere for borgeren at få dækket aktuelle behov og styrker livskvaliteten. Med en privat hjemmeplejeleverandør har du muligheden for at vælge Liv Vikar uden selv at skulle betale.
 									</p>
 									<p>
-										Du skal bare følge disse trin til at vælge Liv Vikar:
+									Du skal blot følge disse simple trin for at vælge Liv Vikar:
 									</p>
 									<div class="d-flex flex-column gap-2">
 										<div class="d-flex flex-row gap-2 align-items-center">

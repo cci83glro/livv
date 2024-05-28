@@ -34,7 +34,7 @@ if(Input::get('message')) {
     try {
         $body = get_email_body('_email_new_chat_message_notify_users.php');
         $body = str_replace("{{chat_page_url}}", $chat_page_url, $body);
-        send_email($recipients, 'Liv-Vikar - Der er nye chat beskeder', $body);
+        send_email($recipients, $site_name.' - Der er nye chat beskeder', $body);
     }
     catch(Exception $e) {
         echo $e;

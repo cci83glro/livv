@@ -2,6 +2,7 @@
 
     $public = false;
     $permissions = [2];
+    require_once __DIR__.'/../helpers/classes/Config.php';
     require_once __DIR__.'/../helpers/dbo.php';
 
     $dbo = dbo::getInstance();

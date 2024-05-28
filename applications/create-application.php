@@ -64,7 +64,7 @@ if (!empty($_POST)) {
                 $body = get_email_body('_email_new_application_notify_admins.php');
                 $body = str_replace("{{fname}}", $fname, $body);
                 $body = str_replace("{{lname}}", $lname, $body);
-                $body = str_replace("{{application_url}}", $url_host.$application_page_url.$theNewId, $body);
+                $body = str_replace("{{application_url}}", $application_page_url, $body);
                 send_email($admin_email_list, 'Ny vikar ansøgning', $body);
                 if (file_exists(__DIR__.'/views/_joinThankYou.php')) {
                     include_once(__DIR__.'/views/_joinThankYou.php');

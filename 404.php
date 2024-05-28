@@ -1,7 +1,7 @@
 <?php
-  	$pageTitle = "Siden findes ikke - LivVikar";
+  	$pageTitle = "Siden findes ikke - ".$site_name;
 	$public = true;
-	include_once __DIR__."/master-pages/master.php";
+	include_once __DIR__."/master-pages/header.php";
 ?>
 
 <main>

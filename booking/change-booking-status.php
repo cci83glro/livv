@@ -20,7 +20,7 @@ if ($dbo->query("UPDATE bookings SET status_id = $new_status_id WHERE booking_id
             $body = get_email_body('_email_complete_booking_notify_district.php');
             $body = str_replace("{{booking_id}}", $booking_id, $body);
             $body = str_replace("{{bookings_page_link}}", $url_host.$bookings_page_url."?search=".$booking_id, $body);
-            send_email($email, 'Liv-Vikar - En af dine bookings er markeret som klar', $body);
+            send_email($email, $site_name.' - En af dine bookings er markeret som klar', $body);
         }
         catch(Exception $e) {
             echo $e;

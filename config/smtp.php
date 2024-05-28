@@ -7,6 +7,6 @@
   $smtp_usr = "cci83glro@gmail.com";
   $smtp_pwd = "dgxhniipwpzriplg";
   $smtp_fromEmail = 'cci83glro@gmail.com';
-  $smtp_fromName = 'LivVikar automatisk email';
+  $smtp_fromName = 'Liv Vikar automatisk email';
   
 ?>

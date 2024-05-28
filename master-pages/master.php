@@ -9,7 +9,7 @@ $admin_email_list = [
 	//'cci83glro@gmail.com'
 ];
 
-$site_name = "Liv-Vikar";
+$site_name = "Liv Vikar";
 
 $company_name = "Liv-Vikar ApS";
 $company_cvr = "44803003";
@@ -41,10 +41,9 @@ if (!$public && !in_array($user_permission, $permissions)) {
     Redirect::to($us_url_root.'/um/login.php?redirect=' . $url);
 }
 
-$home_page_url = $us_url_root;
 $login_page_url = $us_url_root."um/login.php";
 $users_page_url = $us_url_root."um/admin/users.php";
-$application_page_url = $us_url_root."applications/application.php?id=";
+$application_page_url = $us_url_root."applications/list.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 $chat_page_url = $us_url_root."chat.php";

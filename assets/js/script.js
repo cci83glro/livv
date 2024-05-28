@@ -44,6 +44,21 @@ function validateRecaptcha() {
     }
 }
 
+$(window).on('scroll', function () {
+    if ($(this).scrollTop() > 200) {
+        $('#scroll-top').fadeIn(200);
+    } else {
+        $('#scroll-top').fadeOut(200);
+    }
+});
+
+$('#scroll-top').on('click', function (event) {
+    event.preventDefault();
+    $('html, body').animate({
+        scrollTop: 0
+    }, 1000);
+});
+
 $(window).ready(function() {
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
@@ -57,5 +72,5 @@ $(window).ready(function() {
     $('a.nav-link.dropdown-content').unbind();
     $('a.dropdown-content').click(function(){
         $(this).next('.dropdown-menu').slideToggle();
-    });
-   })
+    });    
+})

@@ -10,6 +10,6 @@
   <p>Din ansøgning til stillingen som vikar er blevet sendt. Vi vender tilbage hurtigst muligt indenfor de næste 48 timer.</p>
   <br/>
   <p>Venlig hilsen,</p>
-  <p>LivVikar holdet</p>
+  <p>Liv Vikar holdet</p>
 </body>
 </html>

@@ -43,7 +43,7 @@ if ($dbo->query("UPDATE bookings SET assigned_user_id = $assigned_user_id WHERE 
     $body = str_replace("{{lname}}", $lname, $body);
     $body = str_replace("{{booking_id}}", $booking_id, $body);
     $body = str_replace("{{bookings_page_link}}", $url_host.$bookings_page_url, $body);
-    send_email($email, 'Ny LivVikar booking assignet til dig', $body);
+    send_email($email, 'Ny '.$site_name.' booking assignet til dig', $body);
 
     if ($user_id == $assigned_user_id) {
         $body = get_email_body('_email_booking_assign_notify_admins.php');

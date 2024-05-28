@@ -64,4 +64,31 @@
         </section>
     </footer>
 <?php } ?>
+
+<div id="scroll-top">
+  <i class="fa-solid fa-arrow-up"></i>
+</div>
+<aside id="aside-contact-widgets">
+  <a target=_blank href="<?=$facebook_url?>">
+    <div class="facebook-link ">
+      <i class="fab fa-facebook-f"></i>
+    </div>
+  </a>
+  <a target=_blank href="<?=$instagram_url?>">
+    <div class="linkedin-link ">
+      <i class="fab fa-instagram"></i>
+    </div>
+  </a>
+  <a href="tel:<?=$company_phone?>">
+    <div class="call-us ">
+      <i class="fa-solid fa-phone"></i>
+    </div>
+  </a>
+  <a href="mailto:<?=$company_contact_email?>">
+    <div class="mail-us ">
+      <i class="fa fa-envelope"></i>
+    </div>
+  </a>
+</aside>
+
 <?php include_once __DIR__."/../config/js.php"?>
