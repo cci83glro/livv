@@ -95,7 +95,7 @@ if (!empty($_POST)) {
     } //Validation
 } //Input exists
 else {
-    $qualifications = $dbo->query("SELECT qualification_id, qualification_name FROM Qualifications")->fetchAll();
+    $qualifications = $dbo->query("SELECT qualification_id, qualification_name FROM qualifications")->fetchAll();
 }
 
 require __DIR__.'/views/_join_form.php';

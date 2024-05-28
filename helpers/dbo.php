@@ -9,12 +9,12 @@ class dbo {
     protected $query_closed = TRUE;
 	public $query_count = 0;
 
-	public function __construct($dbhost = 'localhost', $dbuser = 'root', $dbpass = '', $dbname = 'livv', $charset = 'utf8') {
-		$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+	public function __construct() {
+		$this->connection = new mysqli(Config::get('mysql/host'), Config::get('mysql/username'), Config::get('mysql/password'), Config::get('mysql/db'));
 		if ($this->connection->connect_error) {
 			$this->error('Failed to connect to MySQL - ' . $this->connection->connect_error);
 		}
-		$this->connection->set_charset($charset);
+		$this->connection->set_charset(Config::get('mysql/charset')? Config::get('mysql/charset') : 'utf8');
 	}
 
 	public static function getInstance(){
@@ -136,7 +136,5 @@ class dbo {
 	    return 'b';
 	}
 }
-
-include_once __DIR__.'/../config/mysql.php';
 
 ?>

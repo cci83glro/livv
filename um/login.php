@@ -21,8 +21,6 @@ if (!empty($_POST)) {
     include(__DIR__.'/admin/token_error.php');
   }
 
-  include_once __DIR__.'/../helpers/dbo.php';
-
   $validator = new Validator(dbo::getInstance());
   $validation = $validator->check(
     $_POST,

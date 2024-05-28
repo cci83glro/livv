@@ -87,9 +87,9 @@
           </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="g-recaptcha" data-sitekey="6LeMldwpAAAAAHsHbEJecHb2jxkLkZ9X67IwpCCl"></div>
-        </div>
+        <!-- <div class="row mb-3">
+          <div class="g-recaptcha" data-sitekey=<?=$recaptchaKey?>></div>
+        </div> -->
 
         <input type="hidden" value="<?= Token::generate(); ?>" name="csrf">
 
