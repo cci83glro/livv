@@ -4,12 +4,6 @@ $public = true;
 $pageTitle = "Login";
 session_start();
 
-// require_once __DIR__.'/../helpers/classes/Redirect.php';
-// require_once __DIR__.'/../helpers/classes/Config.php';
-// require_once __DIR__.'/../helpers/classes/Input.php';
-// require_once __DIR__.'/../helpers/classes/Session.php';
-// require_once __DIR__.'/../helpers/classes/Token.php';
-// require_once __DIR__.'/../helpers/classes/Validator.php';
 require_once __DIR__.'/../master-pages/master.php';
 
 $errors = $successes = [];
@@ -18,7 +12,7 @@ if (Input::get('err') != '') {
 }
 
 if (isset($user) && $user->isLoggedIn()) {
-  //Redirect::to($us_url_root . $settings->redirect_uri_after_login);
+  Redirect::to($home_page_url);
 }
 
 if (!empty($_POST)) {
@@ -60,7 +54,7 @@ if (!empty($_POST)) {
       if (!empty($redirect) || $redirect !== '') {
         Redirect::to(html_entity_decode($redirect));
       } else {
-        Redirect::to($us_url_root);
+        Redirect::to($home_page_url);
       }
     } else {
       logger("0", "Login Fail", "A failed login on login.php");
@@ -116,7 +110,7 @@ require_once __DIR__.'/../master-pages/header.php';
           </form>
           <div class="row">
               <div class="col-12 text-center"><br>
-                <a class="secondary-color" href='<?= $us_url_root ?>users/forgot_password.php'><i class="fa fa-wrench"></i> Glemt adgangskode</a>
+                <a class="secondary-color" href='<?= $us_url_root ?>um/forgot_password.php'><i class="fa fa-wrench"></i> Glemt adgangskode</a>
                 <br>
               </div>
               <div class="col-12 text-center"><br>

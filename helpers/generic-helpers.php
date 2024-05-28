@@ -58,7 +58,7 @@ if (!function_exists('logger')) {
       $metadata = json_encode($metadata);
     }
 
-    $dbo->query('INSERT INTO logs (`user_id`, `logdate`, `logtype`, `lognote`, `ip`, `metadata`)
+    $dbo->query('INSERT logs (`user_id`, `logdate`, `logtype`, `lognote`, `ip`, `metadata`)
     VALUES (?,?,?,?,?,?)', $user_id, date('Y-m-d H:i:s'), $logtype, $lognote, ipCheck(), $metadata);
 
     $lastId = $dbo->lastInsertID();

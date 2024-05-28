@@ -6,16 +6,17 @@
 	include_once __DIR__."/master-pages/header.php";
 
 	if ($user_id == 0) {
+		echo('Invalid token');
 		die("Invalid token");
 	}
 	
-    $db = dbo::getInstance();
+    $dbo = dbo::getInstance();
 
-    $times = $db->query("SELECT time_id, time_value FROM Times")->fetchAll();
-    $shifts = $db->query("SELECT shift_id, shift_name FROM Shifts")->fetchAll();
-    $qualifications = $db->query("SELECT qualification_id, qualification_name FROM Qualifications")->fetchAll();
-	$employees = $db->query("SELECT id, CONCAT(fname, ' ', lname) as name FROM livv.users WHERE permissions = 3")->fetchAll();
-	$districts = $db->query("SELECT * FROM districts ORDER BY district_name ASC")->fetchAll();
+    $times = $dbo->query("SELECT time_id, time_value FROM times")->fetchAll();
+    $shifts = $dbo->query("SELECT shift_id, shift_name FROM shifts")->fetchAll();
+    $qualifications = $dbo->query("SELECT qualification_id, qualification_name FROM qualifications")->fetchAll();
+	$employees = $dbo->query("SELECT id, CONCAT(fname, ' ', lname) as name FROM uacc WHERE permissions = 3")->fetchAll();
+	$districts = $dbo->query("SELECT * FROM districts ORDER BY district_name ASC")->fetchAll();
 ?>
 
 <main>

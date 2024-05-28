@@ -13,7 +13,7 @@ if(Input::get('message')) {
     $dbo = dbo::getInstance();
     $message = Input::get('message');
 
-    $query = 'INSERT INTO chat_messages(user_id, `message`) VALUES(?,?)';
+    $query = 'INSERT chat_messages(user_id, `message`) VALUES(?,?)';
 
     if($dbo->query($query, $user_id, $message)) {
         echo "success";

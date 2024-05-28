@@ -19,7 +19,7 @@ if (!function_exists('getUsers')) {
   function getUsers($dbo, $options)
   {    
     $query = "SELECT u.*, p.name as permission_name, d.district_name
-    FROM users u 
+    FROM uacc u 
     LEFT JOIN permissions p on u.permissions = p.id 
     LEFT JOIN districts d on u.district_id = d.district_id 
     WHERE 1=1";
@@ -41,7 +41,7 @@ if (!function_exists('getUsers')) {
 if (!function_exists('getAssignedUserDetailsForBooking')) {
   function getAssignedUserDetailsForBooking($id)
   {
-    $query = "SELECT b.assigned_user_id, u.fname, u.lname, u.email from Bookings b INNER JOIN Users u ON b.assigned_user_id = u.id where booking_id = " . $id;
+    $query = "SELECT b.assigned_user_id, u.fname, u.lname, u.email from bookings b INNER JOIN uacc u ON b.assigned_user_id = u.id where booking_id = " . $id;
     return $dbo->query($query)->fetchAll();
   }
 }

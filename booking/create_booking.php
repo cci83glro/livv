@@ -26,7 +26,7 @@ $dbo = dbo::getInstance();
 
 if (!isNullOrEmptyString($id)) {
     
-    $query = "UPDATE Bookings SET ";
+    $query = "UPDATE bookings SET ";
     if ($user_permission == 2) {
         $query .= "district_id = '$district_id', ";
     }
@@ -56,7 +56,7 @@ if (!isNullOrEmptyString($id)) {
         'status_id' => $status_id
     ];
 
-    $query = 'INSERT INTO bookings(district_id, createdBy, place, date, time_id, hours, shift_id, qualification_id, created_by_user_id, status_id) VALUES(?,?,?,?,?,?,?,?,?,?)';
+    $query = 'INSERT bookings(district_id, createdBy, place, date, time_id, hours, shift_id, qualification_id, created_by_user_id, status_id) VALUES(?,?,?,?,?,?,?,?,?,?)';
 
     if($dbo->query($query, $district_id, $createdBy, $place, $date, $time_id, $hours, $shift_id, $qualification_id, $bi, $status_id)) {
         // Booking successful

@@ -8,7 +8,7 @@
 	<!-- Banner -->
 	<section class="section image-infinite-bg position-relative"
 		style="background-size: cover; background-position: center ;padding: 10em 1em 10em 1em;"
-		data-images='["assets/images/index-page-banner-1.webp" , "assets/images/index-page-banner-2.webp"]'>
+		data-images='["<?=$us_url_root?>assets/images/index-page-banner-1.webp" , "<?=$us_url_root?>assets/images/index-page-banner-2.webp"]'>
 		<div class="r-container h-100">
 			<div class="image-overlay"></div>
 			<div class="d-flex flex-column justify-content-center gap-3 h-100 position-relative"
@@ -178,7 +178,7 @@
 				<div class="col mb-3 pe-lg-3 position-relative">
 					<div class="overlay right mt-2"></div>
 					<div class="position-relative pe-5">
-						<img src="assets/images/hands-with-values.webp" alt="" class="img-fluid" style="z-index: -2;">
+						<img src="<?=$us_url_root?>assets/images/hands-with-values.webp" alt="Billede med værdier" class="img-fluid" style="z-index: -2;">
 					</div>
 				</div>
 				<div class="col mb-3">
@@ -297,7 +297,7 @@
 				<div class="col mb-5 pe-lg-5 position-relative">
 					<div class="overlay left mt-2"></div>
 					<div class="position-relative ps-5">
-						<img src="assets/images/hvordan-vaelge-os.webp" alt="" class="img-fluid rounded-3"
+						<img src="<?=$us_url_root?>assets/images/how-to-choose-us.webp" alt="Vikar sammen med en gammel dame" class="img-fluid rounded-3"
 							style="z-index: -2;">						
 					</div>
 				</div>

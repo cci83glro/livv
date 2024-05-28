@@ -57,7 +57,7 @@ if (!empty($_POST)) {
 
       try {
         $dbo->query(
-          "INSERT INTO users (fname, lname, phoneNumber, email, password, permissions, join_date, email_verified, vericode, force_pr, vericode_expiry, oauth_tos_accepted, language,active)
+          "INSERT INTO uacc (fname, lname, phoneNumber, email, password, permissions, join_date, email_verified, vericode, force_pr, vericode_expiry, oauth_tos_accepted, language,active)
           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", $fname, $lname, $phone, $email, password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]), $permission_id, $join_date, 1, $vericode, 0, $vericode_expiry, 1, $newLang, 1);
 
         $theNewId = $dbo->lastInsertID();
@@ -93,7 +93,7 @@ if (!empty($_POST)) {
 $usernameReq = $user_id > 1 ? " AND username <> 'admin' " : "";
 $query = "SELECT
   u.*, p.name AS permission_name
-  FROM users AS u
+  FROM uacc AS u
   LEFT OUTER JOIN permissions AS p ON u.permissions = p.id
   WHERE u.permissions <> 2" . $usernameReq;
 

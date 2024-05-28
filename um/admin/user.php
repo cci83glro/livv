@@ -36,7 +36,7 @@ if (!empty($_POST)) {
   // if (!Token::check($token)) {
   //   include __DIR__.'/token_error.php';
   // } else {
-    $dbo->query('UPDATE users SET modified=? WHERE id=?', date("Y-m-d"), $userId);
+    $dbo->query('UPDATE uacc SET modified=? WHERE id=?', date("Y-m-d"), $userId);
 
     $district_id = ucfirst(Input::get('district_id'));
     if ($userdetails['district_id'] != $district_id) {
@@ -51,7 +51,7 @@ if (!empty($_POST)) {
         ],
       ]);
       if ($validator->passed()) {
-        $dbo->query('UPDATE users SET district_id=? WHERE id=?', $district_id, $userId);
+        $dbo->query('UPDATE uacc SET district_id=? WHERE id=?', $district_id, $userId);
         $successes[] = 'Kommune opdateret';
         logger($user->data()['id'], 'User Manager', "Updated kommune for ".$userdetails['fname']." from ".$userdetails['district_id']." to ".$district_id);
       } else {
@@ -76,7 +76,7 @@ if (!empty($_POST)) {
       ]);
     }
     if ($validator->passed()) {
-      $dbo->query('UPDATE users SET email=? WHERE id=?', $email, $userId);
+      $dbo->query('UPDATE uacc SET email=? WHERE id=?', $email, $userId);
       $successes[] = 'Email opdateret';
       logger($user->data()['id'], 'User Manager', "Updated email for ".$userdetails['fname']." from ".$userdetails['email']." to ".$email);
     } else {
@@ -97,7 +97,7 @@ if (!empty($_POST)) {
         ],
       ]);
       if ($validator->passed()) {
-        $dbo->query('UPDATE users SET fname=? WHERE id=?', $fname, $userId);
+        $dbo->query('UPDATE uacc SET fname=? WHERE id=?', $fname, $userId);
         $successes[] = 'Fornavn opdateret';
         logger($user->data()['id'], 'User Manager', "Updated first name for ".$userdetails['fname']." from ".$userdetails['fname']." to ".$fname);
       } else {
@@ -119,7 +119,7 @@ if (!empty($_POST)) {
         ],
       ]);
       if ($validator->passed()) {
-        $dbo->query('UPDATE users SET lname=? WHERE id=?', $lname, $userId);
+        $dbo->query('UPDATE uacc SET lname=? WHERE id=?', $lname, $userId);
         $successes[] = 'Efternavn opdateret';
         logger($user->data()['id'], 'User Manager', "Updated last name for ".$userdetails['fname']." from ".$userdetails['lname']." to ".$lname);
       } else {
@@ -142,7 +142,7 @@ if (!empty($_POST)) {
         ],
       ]);
       if ($validator->passed()) {
-        $dbo->query('UPDATE users SET phoneNumber=? WHERE id=?', $phone, $userId);
+        $dbo->query('UPDATE uacc SET phoneNumber=? WHERE id=?', $phone, $userId);
         $successes[] = 'Telefonnummer opdateret';
         logger($user->data()['id'], 'User Manager', "Updated telefonnummer for ".$userdetails['fname']." from ".$userdetails['phoneNumber']." to ".$phone);
       } else {
@@ -157,7 +157,7 @@ if (!empty($_POST)) {
     if (isset($_POST['active']) && $_POST['active'] == 'on') {
       if ($userdetails['active'] === 0)
       {
-        $dbo->query('UPDATE users SET active=1 WHERE id=?', $userId);
+        $dbo->query('UPDATE uacc SET active=1 WHERE id=?', $userId);
         $active_state = 'aktiv';
         $login_text = ' Du kan logge på <a href="'.$url_host.$login_page_url.'">her</a>';
         $successes[] = 'Brugerkontoen er opdateret til aktiv.';
@@ -166,7 +166,7 @@ if (!empty($_POST)) {
     } else {
       if ($userdetails['active'] === 1)
       {
-        $dbo->query('UPDATE users SET active=0 WHERE id=?', $userId);
+        $dbo->query('UPDATE uacc SET active=0 WHERE id=?', $userId);
         $active_state = 'inaktiv';
         $successes[] = 'Brugerkontoen er opdateret til inaktiv.';
         logger($user->data()['id'], 'User Manager', "Updated active status for user id ".$userdetails['id']." from Active to Inactive.");
@@ -199,7 +199,7 @@ if (!empty($_POST)) {
 
       if (!$validator->errors()) {
         $new_password_hash = password_hash(Input::get('pwx', true), PASSWORD_BCRYPT, ['cost' => 12]);
-        $dbo->query('UPDATE users SET `password`=? WHERE id=?', $new_password_hash, $userId);
+        $dbo->query('UPDATE uacc SET `password`=? WHERE id=?', $new_password_hash, $userId);
         $successes[] = 'Adgangskoden er opdateret.';
         logger($user->data()['id'], 'User Manager', "Updated password for ".$userdetails['fname']);
       } else {
@@ -210,7 +210,7 @@ if (!empty($_POST)) {
 
     $vericode_expiry = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime(date('Y-m-d H:i:s'))));
     $vericode = randomstring(15);
-    $dbo->query('UPDATE users SET vericode=?, vericode_expiry=? WHERE id=?', $vericode, $vericode_expiry, $userId);
+    $dbo->query('UPDATE uacc SET vericode=?, vericode_expiry=? WHERE id=?', $vericode, $vericode_expiry, $userId);
     if (isset($_POST['sendPwReset'])) {
       $params = [
         'sitename' => $site_name,

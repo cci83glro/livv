@@ -95,8 +95,7 @@ class Validator
 
 							$field = $item; // The field name to be checked
 							if ($table == "users" && ($field == "username" || $field == "email")) {
-								// Special logic for users table when checking username or email
-								$query = "SELECT id FROM users WHERE (email = ?) OR (username = ?)";
+								$query = "SELECT id FROM uacc WHERE (email = ?) OR (username = ?)";
 								$count = sizeof($this->_db->query($query, [$value, $value])->fetchAll());
 				
 							} else {
@@ -126,7 +125,7 @@ class Validator
 
 							if ($table == "users" && ($item == "username" || $item == "email")) {
 						
-								$query = "SELECT id FROM users WHERE id != ? AND ((email = ?) OR (username = ?))";
+								$query = "SELECT id FROM uacc WHERE id != ? AND ((email = ?) OR (username = ?))";
 								$count = sizeof($this->_db->query($query, [$id, $value, $value])->fetchAll());
 							} else {
 								$query = "SELECT id FROM {$table} WHERE id != ? AND {$item} = ?";

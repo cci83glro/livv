@@ -12,7 +12,7 @@ $results = $query->first();
 <body>
   <p><?=lang("EML_HI")?> <?=$fname;?>,</p>
   <p><?=lang("EML_MSG");?> <?=$sendfname;?>!</p>
-  <p><a href="<?=$results->verify_url?>users/message.php?id=<?=$msg_thread?>" class="nounderline"><?=lang("EML_REPLY")?></a> </p>
+  <p><a href="<?=$results->verify_url?>um/message.php?id=<?=$msg_thread?>" class="nounderline"><?=lang("EML_REPLY")?></a> </p>
   <hr />
   <?=html_entity_decode($body)?>
 </body>

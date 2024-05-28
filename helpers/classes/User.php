@@ -8,7 +8,7 @@ class User
     private $_isLoggedIn;
     private $_cookieName;
     private $_isNewAccount;
-    public $tableName = 'users';
+    private $tableName = 'uacc';
 
     public function __construct($user = null, $loginHandler = null)
     {
@@ -31,18 +31,6 @@ class User
         }
     }
 
-    public function create($fields = [])
-    {
-        if (!$this->_db->insert('users', $fields)) {
-            throw new Exception($this->_db->errorString());
-        } else {
-            $user_id = $this->_db->lastId();
-        }
-        $query = $this->_db->insert('user_permission_matches', ['user_id' => $user_id, 'permission_id' => 1]);
-
-        return $user_id;
-    }
-
     public function find($user = null, $loginHandler = null)
     {
         if (isset($_SESSION['cloak_to'])) {
@@ -54,23 +42,23 @@ class User
         if ($user) {
             if ($loginHandler !== null) {                
                 if($loginHandler == "forceEmail"){
-                    $query = "SELECT * FROM users WHERE email = '" . $user . "'";
+                    $query = "SELECT * FROM " . $this->tableName . " WHERE email = '" . $user . "'";
                 }  elseif (!filter_var($user, FILTER_VALIDATE_EMAIL) === false) {
-                    $query = "SELECT * FROM users WHERE email = '" . $user . "'";
+                    $query = "SELECT * FROM " . $this->tableName . " WHERE email = '" . $user . "'";
                 } else {
-                    $query = "SELECT * FROM users WHERE username = '" . $user . "'";
+                    $query = "SELECT * FROM " . $this->tableName . " WHERE username = '" . $user . "'";
                 }
             } else {
                 if (is_numeric($user)) {
-                    $query = "SELECT * FROM users WHERE id = " . $user;
+                    $query = "SELECT * FROM " . $this->tableName . " WHERE id = " . $user;
                 } elseif (!filter_var($user, FILTER_VALIDATE_EMAIL) === false) {
-                    $query = "SELECT * FROM users WHERE email = '" . $user . "'";
+                    $query = "SELECT * FROM " . $this->tableName . " WHERE email = '" . $user . "'";
                 } else {
-                    $query = "SELECT * FROM users WHERE username = '" . $user . "'";
+                    $query = "SELECT * FROM " . $this->tableName . " WHERE username = '" . $user . "'";
                 }
             }
 
-            //$data = $this->_db->get('users', [$field, '=', $user], ['active', '=', '1']);
+            //$data = $this->_db->get($tableName, [$field, '=', $user], ['active', '=', '1']);
             $data = $this->_db->query($query)->fetchAll();
 
             if (sizeof($data) > 0) {
@@ -93,34 +81,24 @@ class User
                     Session::put($this->_sessionName, $this->data()['id']);
                     if ($remember) {
                         $hash = Hash::unique();
-                        $hashCheck = $this->_db->get('users_session', ['user_id', '=', $this->data()['id']]);
+                        //$hashCheck = $this->_db->get('users_session', ['user_id', '=', $this->data()['id']]);
 
-                        $this->_db->insert('users_session', [
-                            'user_id' => $this->data()['id'],
-                            'hash' => $hash,
-                            'uagent' => Session::uagent_no_version(),
-                        ]);
+                        $this->_db->query('INSERT users_session(user_id, hash, uagent) VALUES(?,?,?)', $this->data()['id'], $hash, Session::uagent_no_version());
 
                         Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                     }
                     $date = date('Y-m-d H:i:s');
-                    $this->_db->query('UPDATE users SET last_login = ?, logins = logins + 1 WHERE id = ?', [$date, $this->data()['id']]);
+                    $this->_db->query('UPDATE ' . $this->tableName . ' SET last_login = ?, logins = logins + 1 WHERE id = ?', [$date, $this->data()['id']]);
                     $_SESSION['last_confirm'] = date('Y-m-d H:i:s');
-                    $this->_db->insert('logs', ['logdate' => $date, 'user_id' => $this->data()['id'], 'logtype' => 'Login', 'lognote' => 'User logged in.', 'ip' => ipCheck()]);
+                    $this->_db->query('INSERT logs(logdate, user_id, logtype, lognote, ip) VALUES(?,?,?,?,?)',  $date, $this->data()['id'], 'Login', 'User logged in.', ipCheck());
                     $ip = ipCheck();
                     $q = $this->_db->query('SELECT id FROM us_ip_list WHERE ip = ?', [$ip]);
                     $c = sizeof($q->fetchAll());
                     if ($c < 1) {
-                        $this->_db->insert('us_ip_list', [
-                            'user_id' => $this->data()['id'],
-                            'ip' => $ip,
-                        ]);
+                        $this->_db->query('INSERT us_ip_list(user_id, ip) VALUES(?,?)', $this->data()['id'], $ip);
                     } else {
-                        $f = $q->first();
-                        $this->_db->update('us_ip_list', $f['id'], [
-                            'user_id' => $this->data()['id'],
-                            'ip' => $ip,
-                        ]);
+                        $f = ($q->fetchAll())[0];
+                        $this->_db->query('UPDATE us_ip_list SET user_id=?, ip=? WHERE id=?', $this->data()['id'], $ip, $f['id']);
                     }
 
                     return true;
@@ -150,7 +128,7 @@ class User
                         Cookie::put($this->_cookieName, $hash, Config::get('remember/cookie_expiry'));
                     }
                     $date = date('Y-m-d H:i:s');
-                    $this->_db->query('UPDATE users SET last_login = ?, logins = logins + 1 WHERE id = ?', [$date, $this->data()['id']]);
+                    $this->_db->query('UPDATE ' . $this->tableName . ' SET last_login = ?, logins = logins + 1 WHERE id = ?', [$date, $this->data()['id']]);
                     $_SESSION['last_confirm'] = date('Y-m-d H:i:s');                    
                     logger($this->data()['id'], 'login', 'User logged in.');
 
@@ -207,14 +185,4 @@ class User
         session_destroy();
     }
 
-    public function update($fields = [], $id = null)
-    {
-        if (!$id && $this->isLoggedIn()) {
-            $id = $this->data()['id'];
-        }
-
-        if (!$this->_db->update('users', $id, $fields)) {
-            throw new Exception('There was a problem updating.');
-        }
-    }
 }

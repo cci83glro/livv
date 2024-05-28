@@ -14,9 +14,9 @@ $dbo = dbo::getInstance();
 // Retrieve booking ID from frontend
 $booking_id = $_POST['booking_id'];
 
-if ($dbo->query("DELETE FROM Bookings WHERE booking_id = $booking_id")) {
+if ($dbo->query("DELETE FROM bookings WHERE booking_id = $booking_id")) {
     // Deletion successful
-    echo "Booking deleted successfully!";
+    echo "Bookingen er slettet!";
 } else {
     // Handle errors
     echo "Error deleting booking: " . $dbo->error;
