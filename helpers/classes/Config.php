@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../../config/globals_config.php';
+require_once __DIR__.'/../../config/globals.php';
 
 class Config {
 	public static function get($path = null){

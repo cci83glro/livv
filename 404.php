@@ -20,7 +20,7 @@
 						<h3 class="font-1 fw-bold">Siden findes ikke</h3>
 						<p style="max-width: 768px;">Den side, du leder efter, findes ikke i vores system.</p>
 						<div class="form-actions">
-							<a href="<?=$us_url_root;?>" type="button" class="save " type="submit">Hjem</a>
+							<a href="<?=$home_page_url;?>" type="button" class="save " type="submit">Hjem</a>
 						</div>
 					</div>
 				</div>
