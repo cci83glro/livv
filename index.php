@@ -92,7 +92,7 @@
 						<div id="collapseOne" class="accordion-collapse collapse show"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-								Liv vikar er en arbejdsplads for sociale- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, forflytningsvejledere og vi er også åbne for elever.
+							Liv vikar udgør en arbejdsplads for fagpersoner indenfor sundhedssektoren, herunder social- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, pædagoger, ergoterapeuter og forflytningsvejledere. Vi er ligeledes åben for elever under uddannelse.
 							</div>
 						</div>
 					</div>
@@ -107,10 +107,7 @@
 						<div id="collapseTwo" class="accordion-collapse collapse"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-								Vi har stort fokus på borgere, som har brug for støtte og hjælp i dagligdagen.
-								Vi leverer hjemmepleje af høj kvalitet og arbejder udefra et værdisæt, der sætter rammerne for, hvad vi gør og siger.
-								Det er vigtigt for os at betragte alle som hele mennesker. Derfor hjælper vi dig med at bevare din personlighed og livskvalitet.
-								Ydermere er vi stolte af at sige, at vi ikke kører på tid, men på ydelser.
+							Vi prioriterer højt borgere, der kræver støtte og assistance i deres daglige liv. Vores tilbud om hjemmepleje er af høj kvalitet og styres af et værdisæt, der definerer vores handlinger og kommunikation. Det er essentielt for os at anerkende hver enkelt person som et helt menneske. Derfor er det vores mål at bevare og understøtte individets personlighed og livskvalitet. Desuden er vi stolte over at arbejde baseret på kvaliteten af de ydelser, vi leverer, fremfor den tid, det tager at udføre dem.
 							</div>
 						</div>
 					</div>
@@ -125,15 +122,12 @@
 						<div id="collapseThree" class="accordion-collapse collapse"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-								Hos Liv vikar  privat hjemmepleje leverer vi hjælp døgnet rundt.
-								Vi tilbyder både praktisk hjælp og hjælp til personlig pleje.
-								Liv Vikar er et stærkt team, som arbejder tæt sammen og har altid hjertet med på det rette sted.
-								Vores team er bygget på høj faglighed og vi stræber altid efter, at du og dine kære oplever tryghed, respekt for dig og dit liv og omsorg.
+							Hos Liv Vikar Privat Hjemmepleje tilbyder vi hjælp døgnet rundt, herunder både praktisk hjælp og hjælp til personlig pleje. Liv Vikar består af et dedikeret team, der samarbejder tæt og altid handler med empati og engagement. Vores team er bygget på høj faglighed, og vi er konstant engagerede i at sikre, at både du og dine nærmeste oplever tryghed, respekt for den enkeltes livssituation, og omsorg.
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col text-white gap-3 col-lg-6 bg-primary-color text-center justify-content-center align-items-center services-container">
+				<div class="col text-white col-lg-6 bg-primary-color text-center justify-content-center align-items-center services-container">
 					<div class="subsection-title-wrapper">
 						<div class="rounded-circle p-1 bg-secondary-color primary-color center" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
 							<i class="fa-solid fa-clipboard"></i>						
@@ -167,6 +161,7 @@
 					<p class="font-1 lh-1 fw-bold course">Terminal pleje</p>
 					<p class="font-1 lh-1 fw-bold course">Demens kursus</p>
 					<p class="font-1 lh-1 fw-bold course">Kompetence skema</p>
+					<p class="font-1 lh-1 fw-bold course">Forflytningskursus</p>
 				</div>
 			</div>
 		</div>
@@ -193,7 +188,7 @@
 							Vi prioriterer minimum 3 års erfaring ved ansættelser.
 						</p>
 						<p class=" mb-15">
-							Ansvarshavende sygeplejersker skal have minimum 2 års erfaring ude i den akute medicinske regi.
+							Ansvarshavende sygeplejersker skal have minimum 2 års erfaring ude i den akutte medicinske regi.
 						</p>
 						<div class="row row-cols-2">
 							<div class="col mb-1">
@@ -237,7 +232,7 @@
 										style="font-size: 20px; width: 3rem; height: 3rem;">
 										<i class="fa-solid fa-user-nurse"></i>
 									</div>
-									<span class="font-1 fs-5 lh-1 fw-semibold">Vi er eksperter på vores område</span>
+									<span class="font-1 fs-5 lh-1 fw-semibold">Vi er eksperter inden for vores område</span>
 								</div>
 							</div>
 							<div class="col mb-3">
@@ -269,17 +264,20 @@
 							<div class="col col-lg-12">
 								<div class="d-flex flex-column ps-3 mb-15">
 									<p>
-										Formålet med fritvalgsordning er at adskille “begrænsninger” fra problemstillinde løsninger.
-										Det gør det lettere får borgeren at få dækket aktuelle behov samt støtte end livskvalitet.
-										Med en privat hjemmepleje leverandør har du mulighed til at vælge Liv Vikar uden selv at skulle betale.
+									Formålet med fritvalgsordningen er at fjerne 'begrænsninger' fra problemløsende tiltag. Dette gør det lettere for borgeren at få dækket aktuelle behov og styrker livskvaliteten. Med en privat hjemmeplejeleverandør har du muligheden for at vælge Liv Vikar uden selv at skulle betale.
 									</p>
 									<p>
 										Du skal bare følge disse trin til at vælge Liv Vikar:
 									</p>
 									<div class="d-flex flex-column gap-2">
 										<div class="d-flex flex-row gap-2 align-items-center">
-											<i class="fa-solid fa-square-check accent-color"></i>
-											Kontakt din kommune, ansøg om hjemmehjælp til personlig pleje og vælg Liv Vikar som leverandør
+											- Kontakt din kommune
+										</div>
+										<div class="d-flex flex-row gap-2 align-items-center">
+											- Ansøg om hjemmehjælp til personlig pleje
+										</div>
+										<div class="d-flex flex-row gap-2 align-items-center">
+											- Vælg Liv Vikar som leverandør
 										</div>
 										<div class="d-flex flex-row gap-2 align-items-center">
 											<i class="fa-solid fa-square-check accent-color"></i>

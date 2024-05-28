@@ -26,7 +26,6 @@
             <div class="d-flex flex-lg-row flex-column justify-content-lg-between justify-content-center gap-3 banner">
                 <ul class="d-flex m-0 flex-lg-row flex-column justify-content-center align-items-center gap-3 text-white font-2 text-center text-lg-start"
                     style="list-style: none;">
-                    <li><i class="fa-solid fa-location-dot"></i>&nbsp; <a class="location" target=_blank href="<?=$company_address_google_url?>"><?=$company_address?></li>
                     <li><i class="fa-solid fa-phone"></i>&nbsp; <a class="phone" href="tel:<?=$company_phone?>"><?=$company_phone_display?></li>
                     <li><i class="fa-solid fa-envelope"></i>&nbsp; <a class="email" href="mailto:<?=$company_contact_email?>"><?=$company_contact_email?></li>
                 </ul>
