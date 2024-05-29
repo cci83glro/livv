@@ -17,6 +17,7 @@ $act = $email['email_act'];
 $errors = [];
 $successes = [];
 $userId = (int) Input::get('id');
+$forcePR = Input::get('forcePR') ? Input::get('forcePR') : false;
 
 $options = ['id' => $userId];
 $userdetailsQ = getUsers($dbo, $options);
@@ -208,23 +209,25 @@ if (!empty($_POST)) {
       }
     }
 
-    $vericode_expiry = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime(date('Y-m-d H:i:s'))));
-    $vericode = randomstring(15);
-    $dbo->query('UPDATE uacc SET vericode=?, vericode_expiry=? WHERE id=?', $vericode, $vericode_expiry, $userId);
-    if (isset($_POST['sendPwReset'])) {
-      $params = [
-        'sitename' => $site_name,
-        'fname' => $userdetails['fname'],
-        'email' => rawurlencode($userdetails['email']),
-        'vericode' => $vericode,
-        'reset_vericode_expiry' => 15,
-      ];
-      $to = rawurlencode($userdetails['email']);
-      $subject = "Nulstil adgangskoden";
-      $body = email_body('_email_adminPwReset.php', $params);
-      email($to, $subject, $body);
-      $successes[] = 'Sendt email om nulstilling af adgangskode.';
-      logger($user->data()['id'], 'User Manager', "Sent password reset email to ".$userdetails['fname'].", Vericode expires at $vericode_expiry.");
+    if ($forcePR) {
+      $vericode_expiry = date('Y-m-d H:i:s', strtotime("+15 minutes", strtotime(date('Y-m-d H:i:s'))));
+      $vericode = randomstring(15);
+      $dbo->query('UPDATE uacc SET vericode=?, vericode_expiry=? WHERE id=?', $vericode, $vericode_expiry, $userId);
+      if (isset($_POST['sendPwReset'])) {
+        $params = [
+          'sitename' => $site_name,
+          'fname' => $userdetails['fname'],
+          'email' => rawurlencode($userdetails['email']),
+          'vericode' => $vericode,
+          'reset_vericode_expiry' => 15,
+        ];
+        $to = rawurlencode($userdetails['email']);
+        $subject = "Nulstil adgangskoden";
+        $body = email_body('_email_adminPwReset.php', $params);
+        email($to, $subject, $body);
+        $successes[] = 'Sendt email om nulstilling af adgangskode.';
+        logger($user->data()['id'], 'User Manager', "Sent password reset email to ".$userdetails['fname'].", Vericode expires at $vericode_expiry.");
+      }
     }
 
   //}

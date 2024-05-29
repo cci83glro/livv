@@ -17,6 +17,10 @@ $GLOBALS['config'] = array(
 		'token_name' => 'token',
 	),
 	'recaptchaKey' => '6LeMldwpAAAAAHsHbEJecHb2jxkLkZ9X67IwpCCl',
+	'vericode' => array(
+		'join_expiry' => 24,
+		'reset_expiry' => 15,
+	),
 );
 
 ?>
