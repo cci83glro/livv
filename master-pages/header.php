@@ -41,16 +41,16 @@
                                 <a class="nav-link active" aria-current="page" href="<?=$home_page_url?>">Hjem</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#services-section">Ydelser</a>
+                                <a class="nav-link" href="<?=$home_page_url?>#services-section">Ydelser</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#courses-section">Kurser</a>
+                                <a class="nav-link" href="<?=$home_page_url?>#courses-section">Kurser</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about-us-section">Om os</a>
+                                <a class="nav-link" href="<?=$home_page_url?>#about-us-section">Om os</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#contact-section">Kontakt</a>
+                                <a class="nav-link" href="<?=$contact_page_url?>">Kontakt</a>
                             </li>
                         </ul>                        
                         <p id="bi"><?=$user_id?></p>

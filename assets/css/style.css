@@ -345,6 +345,9 @@ p.form-actions,
 
 .form-actions .save,
 .form-actions .cancel {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     display: inline-block;
     width: 30%;
     border-width: 2px;
@@ -371,6 +374,7 @@ p.form-actions,
 .form-actions .save:hover {
     color: var(--primary-color);
     background-color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
 }
 
 .form-actions .cancel {

@@ -46,6 +46,7 @@ $users_page_url = $us_url_root."um/admin/users.php";
 $application_page_url = $us_url_root."applications/list.php";
 $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
+$contact_page_url = $us_url_root."contact.php";
 $chat_page_url = $us_url_root."chat.php";
 
 require_once __DIR__.'/../helpers/classes/Validator.php';
