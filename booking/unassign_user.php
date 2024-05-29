@@ -38,7 +38,7 @@ if ($dbo->query("UPDATE bookings SET assigned_user_id = NULL WHERE booking_id = 
     $body = str_replace("{{fname}}", $fname, $body);
     $body = str_replace("{{lname}}", $lname, $body);
     $body = str_replace("{{booking_id}}", $booking_id, $body);
-    $body = str_replace("{{bookings_page_link}}", $url_host.$bookings_page_url, $body);
+    $body = str_replace("{{bookings_page_link}}", $bookings_page_url, $body);
     send_email($email, 'Unassignment af '.$site_name.' booking', $body);
 
     if ($user_id == $assigned_user_id) {
@@ -46,7 +46,7 @@ if ($dbo->query("UPDATE bookings SET assigned_user_id = NULL WHERE booking_id = 
         $body = str_replace("{{fname}}", $fname, $body);
         $body = str_replace("{{lname}}", $lname, $body);
         $body = str_replace("{{booking_id}}", $booking_id, $body);
-        $body = str_replace("{{bookings_page_link}}", $url_host.$bookings_page_url, $body);
+        $body = str_replace("{{bookings_page_link}}", $bookings_page_url, $body);
         send_email($admin_email_list, 'Booking unassignet fra vikar', $body);
     }
 

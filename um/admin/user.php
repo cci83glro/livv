@@ -160,7 +160,7 @@ if (!empty($_POST)) {
       {
         $dbo->query('UPDATE uacc SET active=1 WHERE id=?', $userId);
         $active_state = 'aktiv';
-        $login_text = ' Du kan logge på <a href="'.$url_host.$login_page_url.'">her</a>';
+        $login_text = ' Du kan logge på <a href="'.$login_page_url.'">her</a>';
         $successes[] = 'Brugerkontoen er opdateret til aktiv.';
         logger($user->data()['id'], 'User Manager', "Updated active status for user id ".$userdetails['id']." from Inactive to Active.");
       }

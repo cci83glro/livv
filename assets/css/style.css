@@ -1297,6 +1297,7 @@ margin-bottom: 3rem;
 #aside-contact-widgets .mail-us,
 #aside-contact-widgets .facebook-link,
 #aside-contact-widgets .linkedin-link {
+    border: 2px solid var(--primary-color);
 	background: var(--secondary-color);
 	color: var(--primary-color);
 	font-size: 20px;
@@ -1308,6 +1309,15 @@ margin-bottom: 3rem;
 	cursor: pointer;
 	border-radius: 50%;
 	opacity: 0.5;
+}
+
+#scroll-top i,
+#aside-contact-widgets i,
+#aside-contact-widgets i,
+#aside-contact-widgets i,
+#aside-contact-widgets i {
+    position: relative;
+    top: -5px;
 }
 
 #scroll-top:hover,
