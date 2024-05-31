@@ -35,12 +35,13 @@
 
 		if (empty($errors)) {
 			include_once __DIR__."/helpers/email-helpers.php";
-			//echo "Form submitted successfully!";
+
 			$body = get_email_body('_email_contact_form.php');
 			$body = str_replace("{{name}}", $_POST['name'], $body);
 			$body = str_replace("{{email}}", $_POST['email'], $body);
 			$body = str_replace("{{phone}}", $_POST['phone'], $body);
 			$body = str_replace("{{message}}", $_POST['message'], $body);
+			//$result = send_email('ciprian_condurachi@yahoo.com', 'Ny besked via kontaktformularen', $body);
 			$result = send_email('kontakt@livvikar.dk', 'Ny besked via kontaktformularen', $body);
 
 			if ($result=='ok') {
@@ -244,6 +245,7 @@ document.getElementById('contactForm').addEventListener('submit', function(event
     isValid &= validateMessage();
 
     if (isValid) {
+		$('.page-loader').show();
         this.submit();
     }
 });
