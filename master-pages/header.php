@@ -38,7 +38,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto font-2 fw-semibold gap-lg-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?=$home_page_url?>">Hjem</a>
+                                <a class="nav-link <?php if ($pageTitle=='Hjem') echo 'active';?>" aria-current="page" href="<?=$home_page_url?>">Hjem</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?=$home_page_url?>#services-section">Ydelser</a>
@@ -50,7 +50,7 @@
                                 <a class="nav-link" href="<?=$home_page_url?>#about-us-section">Om os</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?=$contact_page_url?>">Kontakt</a>
+                                <a class="nav-link <?php if ($pageTitle=='Kontakt') echo 'active';?>" href="<?=$contact_page_url?>">Kontakt</a>
                             </li>
                         </ul>                        
                         <p id="bi"><?=$user_id?></p>
