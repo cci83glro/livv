@@ -171,8 +171,7 @@
 		<div class="r-container">
 			<div class="row row-cols-1 row-cols-lg-2">
 				<div class="col mb-3 pe-lg-3 position-relative">
-					<div class="overlay right mt-2"></div>
-					<div class="position-relative pe-5">
+					<div class="position-relative">
 						<img src="<?=$us_url_root?>assets/images/hands-with-values.webp" alt="Billede med værdier" class="img-fluid" style="z-index: -2;">
 					</div>
 				</div>
@@ -224,12 +223,11 @@
 							</div>
 						</div>
 						<div class="my-4 border-bottom w-100"></div>
-						<div class="row row-cols-1 row-cols-lg-2">
+						<div class="row row-cols-1 row-cols-lg-2 about-us ">
 							<div class="col mb-3">
 								<div
 									class="d-flex flex-lg-row flex-column justify-content-lg-start align-items-center gap-2 justify-content-center">
-									<div class="bg-accent-color text-white rounded-3 icon-box"
-										style="font-size: 20px; width: 3rem; height: 3rem;">
+									<div class="bg-accent-color text-white rounded-3 icon-box">
 										<i class="fa-solid fa-user-nurse"></i>
 									</div>
 									<span class="font-1 fs-5 lh-1 fw-semibold">Vi er eksperter inden for vores område</span>
@@ -238,8 +236,7 @@
 							<div class="col mb-3">
 								<div
 									class="d-flex flex-lg-row flex-column justify-content-lg-start align-items-center gap-2 justify-content-center">
-									<div class="bg-accent-color text-white rounded-3 icon-box"
-										style="font-size: 20px; width: 3rem; height: 3rem;">
+									<div class="bg-accent-color text-white rounded-3 icon-box">
 										<i class="fa-solid fa-house-medical-circle-check"></i>
 									</div>
 									<span class="font-1 fs-5 lh-1 fw-semibold">Vi tilbyder sikkerhed og tillid</span>
@@ -286,14 +283,13 @@
 									</div>
 								</div>
 								<div class="col text-white gap-3 rounded-2 bg-accent-color p-3 text-center d-flex flex-column justify-content-center align-items-center">
-								<h5 class="font-1 lh-1 fw-bold mb-0">Har du brug for hjælp? <a class="primary-color underlined" href="kontakt.php">Kontakt os</a></h5>								
+								<h5 class="font-1 lh-1 fw-bold mb-0"><a class="primary-color underlined" href="kontakt.php">Har du brug for hjælp? Kontakt os</a></h5>								
 							</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col mb-5 pe-lg-5 position-relative">
-					<div class="overlay left mt-2"></div>
+				<div class="col mb-5 position-relative">
 					<div class="position-relative ps-5">
 						<img src="<?=$us_url_root?>assets/images/how-to-choose-us.webp" alt="Vikar sammen med en gammel dame" class="img-fluid rounded-3"
 							style="z-index: -2;">						

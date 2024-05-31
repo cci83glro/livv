@@ -1,8 +1,10 @@
 
 <?php
+	session_start();
 	$public = true;
 	$pageTitle = 'Kontakt';
 	include_once __DIR__."/master-pages/header.php";
+
 ?>
 
 <main>
@@ -22,16 +24,23 @@
 					<div class="d-flex flex-column gap-3 h-100 justify-content-center">
 						<h6 class="font-2 accent-color">Kontakt os</h6>
 						<h3 class="font-1 lh-1 fw-bold fs-1">Vi glæder os til at høre fra dig</h3>
-						<p>Du kan komme i kontakt med os enten via telefon, email, kontaktformularen her på siden eller bare dukke fysisk op på vores kontor. Ligemeget hvad du vælger glæder vi os til at snakke med dig!</p>
-						<div class="d-flex flex-column">
+						<p>Du kan komme i kontakt med os enten via telefon, email, kontaktformularen her på siden eller bare dukke fysisk op på vores kontor. Ligemeget hvad du vælger så glæder vi os til at snakke med dig!</p>
+						<div class="d-flex flex-column opening-hours mb-4">
 							<div class="py-1 border-bottom">
 								<h6 class="font-1 fw-bold">Åbningstider</h6>
 							</div>
-							<div class="py-2 border-bottom d-flex flex-row gap-5">
-								<span>Mandag - Fredag</span>
+							<div class="py-2 d-flex flex-row gap-5">
+								<span class="days">Mandag - Torsdag</span>
 								<span class="d-flex align-items-center gap-2">
 									<i class="fa-regular fa-clock accent-color"></i>
-									08:00 - 18:00
+									08:00 - 16:00
+								</span>
+							</div>
+							<div class="py-2 border-bottom d-flex flex-row gap-5">
+								<span class="days">Fredag</span>
+								<span class="d-flex align-items-center gap-2">
+									<i class="fa-regular fa-clock accent-color"></i>
+									08:00 - 15:00
 								</span>
 							</div>
 						</div>
@@ -82,21 +91,68 @@
 					<div class="bg-secondary-color rounded-4">
 						<div class="h-100 d-flex flex-column p-5">
 							<h3 class="font-1 lh-1 fw-bold fs-1 mb-3 text-white">Skriv til os</h3>
-							<div class="success_msg toast align-items-center w-100 shadow-none mb-3 border border-success rounded-0 my-4"
+							
+							<form id="contact-form" action="contact/send-contact-message.php"
+								class="flex-column h-100 justify-content-center w-100 needs-validation mb-3 form"
+								novalidate>
+								<div class="mb-3 title-wrapper">
+									<input type="text" class="form-control py-2 px-4" name="title" id="title"
+										placeholder="Title">
+									<div class="invalid-feedback">
+										Ugyldig værdi.
+									</div>
+								</div>
+								<div class="mb-3 name-wrapper">
+									<input type="text" class="form-control py-2 px-4" name="name" id="name"
+										placeholder="Navn" required>
+									<div class="invalid-feedback">
+										Feltet skal udfyldes.
+									</div>
+								</div>
+								<div class="mb-3 email-wrapper">
+									<input type="email" class="form-control py-2 px-4" name="email" id="email"
+										placeholder="Email" required>
+									<div class="invalid-feedback">
+										Feltet skal udfyldes.
+									</div>
+								</div>
+								<div class="mb-3 phone-wrapper">
+									<input type="phone" class="form-control py-2 px-4" name="phone" id="phone"
+										placeholder="Telefon" required>
+									<div class="invalid-feedback">
+										Feltet skal udfyldes.
+									</div>
+								</div>
+								<div class="mb-3 subject-wrapper">
+									<input type="text" class="form-control py-2 px-4" name="subject" id="subject"
+										placeholder="Subjekt" required>
+									<div class="invalid-feedback">
+										Feltet skal udfyldes.
+									</div>
+								</div>
+								<div class="mb-3 message-wrapper">
+									<textarea class="form-control py-2 px-4" id="message" name="message" rows="5"
+										placeholder="Besked"></textarea>
+								</div>
+								<input type="hidden" value="<?= Token::generate(); ?>" name="csrf">
+								<div class="form-actions">
+									<button id="contact-send-button" type="submit" class="save submit_form w-50p">
+										Send
+									</button>
+								</div>
+							</form>
+
+							<div id="success-state" class="success_msg toast align-items-center w-100 shadow-none mb-3 border border-success rounded-0 my-4"
 								role="alert" aria-live="assertive" aria-atomic="true">
 								<div class="d-flex p-2">
 									<div
 										class="toast-body f-18 d-flex flex-row gap-3 align-items-center text-success">
 										<i class="fa-solid fa-check f-36 text-success"></i>
-										Din besked blev sendt.
+										Din besked er blevet sendt.
 									</div>
-									<button type="button"
-										class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-success"
-										data-bs-dismiss="toast" aria-label="Close"><i
-											class="fa-solid fa-xmark"></i></button>
 								</div>
 							</div>
-							<div class="error_msg toast align-items-center w-100 shadow-none border-danger mb-3 my-4 border rounded-0"
+							<div id="error-state" class="toast align-items-center w-100 shadow-none border-danger mb-3 my-4 border rounded-0"
 								role="alert" aria-live="assertive" aria-atomic="true">
 								<div class="d-flex p-2">
 									<div
@@ -104,47 +160,8 @@
 										<i class="fa-solid fa-triangle-exclamation f-36 text-danger"></i>
 										Det skete en fejl.
 									</div>
-									<button type="button"
-										class="me-2 m-auto bg-transparent border-0 ps-1 pe-0 text-danger"
-										data-bs-dismiss="toast" aria-label="Close"><i
-											class="fa-solid fa-xmark"></i></button>
 								</div>
 							</div>
-							<form action=""
-								class="d-flex flex-column h-100 justify-content-center w-100 needs-validation mb-3 form"
-								novalidate>
-								<div class="mb-3">
-									<input type="text" class="form-control py-2 px-4" name="name" id="name"
-										placeholder="Navn" required>
-									<div class="invalid-feedback">
-										Feltet skal udfyldes.
-									</div>
-								</div>
-								<div class="mb-3">
-									<input type="email" class="form-control py-2 px-4" name="email" id="email"
-										placeholder="Email" required>
-									<div class="invalid-feedback">
-										Feltet skal udfyldes.
-									</div>
-								</div>
-								<div class="mb-3">
-									<input type="text" class="form-control py-2 px-4" name="subject" id="subject"
-										placeholder="Subject" required>
-									<div class="invalid-feedback">
-										Feltet skal udfyldes.
-									</div>
-								</div>
-								<div class="mb-3">
-									<textarea class="form-control py-2 px-4" id="message" name="message" rows="5"
-										placeholder="Message"></textarea>
-								</div>
-								<div class="form-actions">
-									<button type="submit" class="save submit_form w-50p">
-										Send
-									</button>
-								</div>
-							</form>
-
 						</div>
 					</div>
 				</div>
@@ -166,6 +183,7 @@
 </main>
 
 <?php include_once __DIR__."/master-pages/footer.php"?>
+<script src="assets/js/contact.js"></script>
 
 </body>
 </html>

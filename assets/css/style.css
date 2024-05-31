@@ -639,7 +639,7 @@ a.social-item {
 }
 
 .logo-container > img{
-    width: 150px;
+    width: 200px;
 }
 
 .divider {
@@ -859,6 +859,12 @@ a.social-item {
     width: 4rem;
     height: 4rem;
     margin-right: 1rem;
+}
+
+.about-us .icon-box {
+    font-size: 20px;
+    width: 100px;
+    height: 50px;
 }
 
 .page-loader {
@@ -1353,6 +1359,18 @@ margin-bottom: 3rem;
 }
 
 #username-group {
+    display: none;
+}
+
+.opening-hours .days{
+    width: 30%;
+}
+
+#contact-form {
+    display: flex;
+}
+
+#contact-form .title-wrapper {
     display: none;
 }
 

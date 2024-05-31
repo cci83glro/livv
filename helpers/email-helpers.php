@@ -60,7 +60,7 @@ if (!function_exists('send_email')) {
     if (!empty($attachment)) $mail->addAttachment($attachment);
     if (!$mail->send()) {
       log_error($mail->ErrorInfo);
-      throw new Exception($mail->ErrorInfo);
+      //throw new Exception($mail->ErrorInfo);
       return 'error';
     }
 
