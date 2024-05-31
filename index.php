@@ -170,12 +170,10 @@
 	<section class="section" id="about-us-section">
 		<div class="r-container">
 			<div class="row row-cols-1 row-cols-lg-2">
-				<div class="col mb-3 pe-lg-3 position-relative">
-					<div class="position-relative">
-						<img src="<?=$us_url_root?>assets/images/hands-with-values.webp" alt="Billede med værdier" class="img-fluid" style="z-index: -2;">
-					</div>
+				<div class="col values-image pe-lg-3 position-relative">
+					<img src="<?=$us_url_root?>assets/images/hands-with-values.webp" alt="Billede med værdier" class="img-fluid" style="z-index: -2;">
 				</div>
-				<div class="col mb-3">
+				<div class="col">
 					<div class="d-flex flex-column gap-3 p-3">
 						<h6 class="accent-color font-2 ">Erfaring og kvalifikationer</h6>
 						<h3 class="text-black font-1 lh-1 fw-semibold mb-15">Dette definerer os som firma
@@ -222,7 +220,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="my-4 border-bottom w-100"></div>
+						<div class="my-2 border-bottom w-100"></div>
 						<div class="row row-cols-1 row-cols-lg-2 about-us ">
 							<div class="col mb-3">
 								<div
