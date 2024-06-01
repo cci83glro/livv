@@ -17,7 +17,7 @@
 				<h6 class="text-white uppercase mb-15">Liv der redes, skal leves</h6>
 				<div class="form-actions align-left">
 					<div class="buttons-wrapper">
-						<a type="button" href="#about-us-section" class="save">Om os</a>
+						<a type="button" href="#about-us-section" class="save no-margin">Om os</a>
 					</div>
 				</div>
 			</div>
@@ -74,14 +74,8 @@
 		<div class="r-container">
 			<h6 class="font-2 accent-color">Hvem er vi?</h6>
 			<h3 class="font-1 lh-1 fw-bold fs-1 mb-3">Kort om os</h3>
-			<div class="d-flex  gap-2 text-center">
-				
-				<!-- <p class="text-gray mx-auto" style="max-width: 768px;">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed pharetra erat. Integer
-					ullamcorper quis est in vehicula. Sed eu cursus dui. Aenean vel velit non neque dictum interdum
-					a nec ex.
-				</p> -->
-				<div class="accordion d-inline-flex flex-column gap-2 text-start col-lg-6" id="accordionAboutUs">
+			<div class="services-wrapper">	
+				<div class="accordion text-start services-group" id="accordionAboutUs">
 					<div class="accordion-item">
 						<h2 class="accordion-header">
 							<button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
@@ -92,7 +86,7 @@
 						<div id="collapseOne" class="accordion-collapse collapse show"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-							Liv vikar udgør en arbejdsplads for fagpersoner indenfor sundhedssektoren, herunder social- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, pædagoger, ergoterapeuter og forflytningsvejledere. Vi er ligeledes åben for elever under uddannelse.
+								Liv vikar udgør en arbejdsplads for fagpersoner indenfor sundhedssektoren, herunder social- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, pædagoger, ergoterapeuter og forflytningsvejledere. Vi er ligeledes åben for elever under uddannelse.
 							</div>
 						</div>
 					</div>
@@ -107,7 +101,7 @@
 						<div id="collapseTwo" class="accordion-collapse collapse"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-							Vi prioriterer højt borgere, der kræver støtte og assistance i deres daglige liv. Vores tilbud om hjemmepleje er af høj kvalitet og styres af et værdisæt, der definerer vores handlinger og kommunikation. Det er essentielt for os at anerkende hver enkelt person som et helt menneske. Derfor er det vores mål at bevare og understøtte individets personlighed og livskvalitet. Desuden er vi stolte over at arbejde baseret på kvaliteten af de ydelser, vi leverer, fremfor den tid, det tager at udføre dem.
+								Vi prioriterer højt borgere, der kræver støtte og assistance i deres daglige liv. Vores tilbud om hjemmepleje er af høj kvalitet og styres af et værdisæt, der definerer vores handlinger og kommunikation. Det er essentielt for os at anerkende hver enkelt person som et helt menneske. Derfor er det vores mål at bevare og understøtte individets personlighed og livskvalitet. Desuden er vi stolte over at arbejde baseret på kvaliteten af de ydelser, vi leverer, fremfor den tid, det tager at udføre dem.
 							</div>
 						</div>
 					</div>
@@ -122,12 +116,12 @@
 						<div id="collapseThree" class="accordion-collapse collapse"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-							Hos Liv Vikar Privat Hjemmepleje tilbyder vi hjælp døgnet rundt, herunder både praktisk hjælp og hjælp til personlig pleje. Liv Vikar består af et dedikeret team, der samarbejder tæt og altid handler med empati og engagement. Vores team er bygget på høj faglighed, og vi er konstant engagerede i at sikre, at både du og dine nærmeste oplever tryghed, respekt for den enkeltes livssituation, og omsorg.
+								Hos Liv Vikar Privat Hjemmepleje tilbyder vi hjælp døgnet rundt, herunder både praktisk hjælp og hjælp til personlig pleje. Liv Vikar består af et dedikeret team, der samarbejder tæt og altid handler med empati og engagement. Vores team er bygget på høj faglighed, og vi er konstant engagerede i at sikre, at både du og dine nærmeste oplever tryghed, respekt for den enkeltes livssituation, og omsorg.
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col text-white col-lg-6 bg-primary-color text-center justify-content-center align-items-center services-container">
+				<div class="col text-white services-group text-center services-container">
 					<div class="subsection-title-wrapper">
 						<div class="rounded-circle p-1 bg-secondary-color primary-color center" style="width: 4rem; height: 4rem; font-size: 2.3rem;">
 							<i class="fa-solid fa-clipboard"></i>						
@@ -220,7 +214,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="my-2 border-bottom w-100"></div>
+						<div class="border-bottom w-100"></div>
 						<div class="row row-cols-1 row-cols-lg-2 about-us ">
 							<div class="highlight-wrapper col mb-3">
 								<div class="highlight justify-content-lg-start align-items-center gap-2 ">

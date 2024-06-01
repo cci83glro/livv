@@ -219,7 +219,6 @@ p.course {
 .services-container {
     margin-left: 1rem;
     padding: 1rem .5rem .5rem .5rem;
-    width: 48%;
 }
 
 .courses-container {
@@ -256,6 +255,7 @@ p.course {
 .services-container h3{
     font-size: 1.3rem;
     margin-top: 1rem;
+    margin-bottom: .6rem;
 }
 
 .center {
@@ -1121,7 +1121,7 @@ div.pagination .count-info{
 
 .fa-brands {
     font-size: 21px;
-    margin-top: 3px;
+    margin-top: 1px;
     margin-left: 3px;
 }
 
@@ -1423,6 +1423,14 @@ footer .links-group a{
     margin-bottom: 10px;
 }
 
+.services-wrapper {
+    display: flex;
+}
+
+.services-wrapper .services-group {
+    width: 50%;
+}
+
 .w-10p
 {
     width: 10% !important;
@@ -1479,7 +1487,7 @@ footer .links-group a{
     }
 
     .section {
-        padding: 6em 2em 6em 2em;
+        padding: 4em 2em;
     }
 
     .divider {
@@ -1532,10 +1540,11 @@ footer .links-group a{
 
     #about-us-section .values-image {
         text-align: center;
-        margin-bottom: -75px;
+        margin-bottom: -150px;
         z-index: -1;
     }
     
+    #services-section,
     #courses-section {
         padding-bottom: 0;
     }
@@ -1544,16 +1553,31 @@ footer .links-group a{
         min-width: 65px;
     }
 
-    #how-to-choose-us-section {
+    #how-to-choose-us-section,
+    #about-us-section {
         padding-top: 0;
     }
-    
 
     footer .logo img {
         max-width: 180px;
         margin-top: -20px;
     }
+
+    .services-container {
+        margin-left: 0;
+    }
+
+    .services-wrapper {
+        display: inline-grid;
+    }
     
+    .services-wrapper .services-group {
+        width: 100%;
+    }
+
+    #accordionAboutUs {
+        margin-bottom: 15px;
+    }
 }
 
 @media only screen and (max-width:765px) {
@@ -1593,6 +1617,18 @@ footer .links-group a{
 
     footer .links-group {
         margin-right: 1rem;
+    }
+
+    #about-us-section .values-image {
+        margin-bottom: -120px;
+    }
+    
+}
+
+@media only screen and (max-width:400px) {
+
+    #about-us-section .values-image {
+        margin-bottom: -80px;
     }
     
 }
