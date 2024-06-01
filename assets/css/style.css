@@ -1129,8 +1129,13 @@ footer {
     background-color: var(--secondary-color);
 }
 
+footer .contact {
+    margin-top: 0;
+}
+
 footer .contact-detail {
-    margin-right: 1.5rem;
+    margin-bottom: 10px;
+
 }
 
 footer .contact-detail:last-child {
@@ -1152,8 +1157,12 @@ footer a:hover {
     color: var(--primary-color);
 }
 
-footer .logo-container img {
-    width: 200px;
+footer .logo {
+    text-align: center;
+}
+
+footer .logo img {
+    max-width: 200px;
     margin-top: -40px;
 }
 
@@ -1399,6 +1408,21 @@ form .error {
     margin-bottom: 10px;
 }
 
+footer .links-group {
+    width: auto;
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+footer .links-group:last-child {
+    margin-right: 0;
+}
+
+footer .links-group a{
+    display: block;
+    margin-bottom: 10px;
+}
+
 .w-10p
 {
     width: 10% !important;
@@ -1524,14 +1548,41 @@ form .error {
         padding-top: 0;
     }
     
+
+    footer .logo img {
+        max-width: 180px;
+        margin-top: -20px;
+    }
+    
 }
 
 @media only screen and (max-width:765px) {
-        
+    
+    footer .contact,
+    footer .links {
+        margin-top: 20px;
+    }
 
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:576px) {
+    .form-actions .save {
+        width: 100%;
+    }
+
+    footer .logo {
+        width: 100%;
+    }
+
+    footer .links {
+        width: 50%;
+        /* padding-left: 10%; */
+    }
+
+    footer .contact {
+        width: 50%;
+    }
+
     .about-us .highlight-wrapper {
         width: 100%;
     }
@@ -1539,23 +1590,9 @@ form .error {
     .education-wrapper .education-element {
         width: 100%;
     }
-}
 
-@media only screen and (max-width:465px) {
-    .form-actions .save {
-        width: 100%;
+    footer .links-group {
+        margin-right: 1rem;
     }
-
-    footer .logo {
-        width: 50%;
-    }
-
-    footer .links {
-        width: 50%;
-        padding-left: 10%;
-    }
-
-    footer .contact {
-        width: 100%;
-    }
+    
 }
