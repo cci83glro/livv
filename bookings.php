@@ -38,8 +38,44 @@
 					</div>
 					<?php include_once __DIR__."/booking/add-booking-form.php"; ?>
 					<div id="filter-wrapper" class="form-actions align-left">
+						<span class="hidden" id="active-bookings-type"></span>
+						<span class="hidden" id="active-district-id"></span>
+						<span class="hidden" id="active-qualification-id"></span>
+						<span class="hidden" id="active-shift-id"></span>
+						<span class="hidden" id="active-search-text"></span>
+						<span>Vis </span>
+						<select class="form-control dropdown py-2 px-4" name="bookings-type" id="filter-bookings-type">
+							<option value="coming">kommende</option>
+							<option value="passed">tidligere</option>
+							<option value="terminated">bestilte</option>
+						</select>
+						<select class="form-control dropdown py-2 px-4" name="district-id" id="filter-district-id" placeholder="Vælg kommune">
+							<option value="">Vælg kommune</option>
+							<?php 
+								foreach($districts as $district){
+									echo "<option value='".$district['district_id']."'>".$district['district_name']."</option>"; 
+								}            
+							?>
+						</select>
+						<select class="form-control dropdown py-2 px-4" name="qualification-id" id="filter-qualification-id">
+							<option value="">Vælg uddannelse</option>
+							<?php 
+								foreach($qualifications as $qualification){
+									echo "<option value='".$qualification['qualification_id']."'>".$qualification['qualification_name']."</option>";
+								}            
+							?>
+						</select>
+						<select class="form-control dropdown py-2 px-4" name="shift-id" id="filter-shift-id" >
+							<option value="">Vælg stilling</option>
+							<?php 
+								foreach($shifts as $shift){
+									echo "<option value='".$shift['shift_id']."'>".$shift['shift_name']."</option>";
+								}            
+							?>
+						</select>
+						<br/>
 						<span>Søg </span><input id="search-text" class="form-control w-20p" placeholder="">
-						<button id="search" class="save w-10p" onclick="filterBookingsById()">Søg</button>
+						<button id="search" class="save w-10p" onclick="filterBookings()">Søg</button>
 						<button id="search" class="cancel w-10p" onclick="resetBookingsFilter()">Nulstil</button>
 					</div>
 					<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page=""></div>

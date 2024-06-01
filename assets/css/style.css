@@ -340,7 +340,7 @@ p.form-actions,
 
 .form-actions .buttons-wrapper {
     display: inline-block;
-    width: 50%;
+    width: 100%;
 }
 
 .form-actions .save,
@@ -349,7 +349,7 @@ p.form-actions,
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     display: inline-block;
-    width: 30%;
+    width: 8rem;
     border-width: 2px;
     border-style: solid;
     font-size: 1.2rem;
@@ -1092,7 +1092,7 @@ div.pagination .count-info{
 }
 
 #add-booking-button {
-    width: 20%;
+    width: 15rem;
 }
 
 .bookings-subsection-header {
@@ -1103,6 +1103,15 @@ div.pagination .count-info{
 
 #filter-wrapper {
     margin-bottom: 1rem;
+}
+
+#filter-wrapper #filter-bookings-type,
+#filter-wrapper #filter-district-id,
+#filter-wrapper #filter-qualification-id,
+#filter-wrapper #filter-shift-id {
+    width: 12rem;
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
 #filter-wrapper span {
@@ -1433,12 +1442,12 @@ footer .links-group a{
 
 .w-10p
 {
-    width: 10% !important;
+    width: 6rem !important;
 }
 
 .w-20p
 {
-    width: 20% !important;
+    width: 12rem !important;
 }
 
 .w-30p {
@@ -1540,10 +1549,6 @@ footer .links-group a{
         width: 150px;
     }
 
-    .form-actions .save {
-        width: 50%;
-    }
-
     #about-us-section .values-image {
         text-align: center;
         margin-bottom: -150px;
@@ -1588,6 +1593,7 @@ footer .links-group a{
     .desktop-only {
         display: none;
     }
+
 }
 
 @media only screen and (max-width:765px) {
@@ -1600,10 +1606,7 @@ footer .links-group a{
 }
 
 @media only screen and (max-width:576px) {
-    .form-actions .save {
-        width: 100%;
-    }
-
+    
     footer .logo {
         width: 100%;
     }
@@ -1632,7 +1635,7 @@ footer .links-group a{
     #about-us-section .values-image {
         margin-bottom: -120px;
     }
-    
+
 }
 
 @media only screen and (max-width:400px) {
@@ -1641,4 +1644,25 @@ footer .links-group a{
         margin-bottom: -80px;
     }
     
+    #add-booking-button {
+        width: 70%;
+    }
+
+    .form-actions .buttons-wrapper {
+        width: 100%;
+    }
+
+    .form-actions .save,
+    .form-actions .cancel {
+        width: 100%;
+    }
+
+    .form-actions .cancel {
+        margin: 20px 0 10px 0;
+    }
+
+    .form-actions .save:not(.no-margin){
+        margin-left: 0;
+    }
+
 }

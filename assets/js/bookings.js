@@ -318,10 +318,9 @@ function resetBookingsFilter() {
     loadBookings(activePage);
 }
 
-function filterBookingsById() {
-    var id = $('#search-text').val();
+function filterBookings() {
+    
     var activePage = $('#bookings-container').data('active-page');
-
     loadBookings(activePage, id);
 }
 
@@ -343,13 +342,53 @@ function filterEmployeeBookingsById() {
     loadAvailableBookings(activePage, searchText);
 }
 
-function loadBookings(page, searchText = '') {
+function loadBookings(page) {
 
     var url = `booking/retrieve_bookings.php`;
-    if (searchText != '') {
-        url += '?search=' + searchText;
+
+    var bookingsType = $('#filter-bookings-type').val();
+    url += '?bookingsType=' + bookingsType;
+    if($('#active-bookings-type').text() !== bookingsType) {
+        $('#active-bookings-type').text(bookingsType);
         page = 1;
     }
+
+    var districtId = $('#filter-district-id').val();
+    if (districtId != '') {
+        url += '&districtId=' + districtId;
+    }
+    if($('#active-district-id').text() !== districtId) {
+        $('#active-district-id').text(districtId);
+        page = 1;
+    }
+
+    var qualificationId = $('#filter-qualification-id').val();
+    if (qualificationId != '') {
+        url += '&qualificationId=' + qualificationId;
+    }
+    if($('#active-qualification-id').text() !== qualificationId) {
+        $('#active-qualification-id').text(qualificationId);
+        page = 1;
+    }
+
+    var shiftId = $('#filter-shift-id').val();
+    if (shiftId != '') {
+        url += '&shiftId=' + shiftId;
+    }
+    if($('#active-shift-id').text() !== shiftId) {
+        $('#active-shift-id').text(shiftId);
+        page = 1;
+    }
+
+    var searchText = $('#search-text').val();
+    if (searchText != '') {
+        url += '&searchText=' + searchText;
+    }
+    if ($('#active-search-text').text() !== searchText) {
+        page = 1;
+        $('#active-search-text').text(searchText);
+    }
+    
 
     $.getJSON(url, function(data) {
         setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, loadBookings);
@@ -521,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#search-text').on( "keydown", function( event ) {
             if(event.which==13){
                 if (bp == 1 || bp == 2) {
-                    filterBookingsById();
+                    filterBookings();
                 } else if (bp == 3) {
                     filterEmployeeBookingsById();
                 }

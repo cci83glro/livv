@@ -11,11 +11,41 @@ $dbo = dbo::getInstance();
 // $offset = ($page - 1) * $records_per_page;
 
 $where = " WHERE 1=1";
+$order = "";
 
-$search = Input::get('search');
-if(!isNullOrEmptyString($search)){
+$bookingsType = Input::get('bookingsType');
+if(!isNullOrEmptyString($bookingsType)){
+    if ($bookingsType == 'coming') {
+        $where .= " AND date > CURRENT_TIMESTAMP()";
+        $order = "ORDER BY DATE ASC, b.time_id ASC";
+    } else if ($bookingsType == 'passed' || $bookingsType == 'terminated') {
+        $where .= " AND date <= CURRENT_TIMESTAMP()";
+        $order = "ORDER BY DATE DESC, b.time_id DESC";
+        if ($bookingsType == 'terminated') {
+            $where .= " AND status_id = 20";
+        }
+    }
+}
+
+$districtId = Input::get('districtId');
+if(!isNullOrEmptyString($districtId)){
+    $where .= " AND b.district_id=" . $districtId;
+}
+
+$qualificationId = Input::get('qualificationId');
+if(!isNullOrEmptyString($qualificationId)){
+    $where .= " AND b.qualification_id=" . $qualificationId;
+}
+
+$shiftId = Input::get('shiftId');
+if(!isNullOrEmptyString($shiftId)){
+    $where .= " AND b.shift_id=" . $shiftId;
+}
+
+$searchText = Input::get('searchText');
+if(!isNullOrEmptyString($searchText)){
     $where .= " AND (booking_id LIKE '%" . $search . "%' OR place LIKE '%" . $search . "%' OR district_name LIKE '%" . $search . "%' OR uassigned.fname LIKE '%" . $search . "%' OR uassigned.lname LIKE '%" . $search . "%')";
-  }
+}
 
 if ($user_permission == 1) {
     $where .= " AND b.district_id = " . $user_district_id;
@@ -45,8 +75,7 @@ $query = $dbo->query(
     INNER JOIN qualifications q ON b.qualification_id = q.qualification_id
     INNER JOIN times t ON b.time_id = t.time_id
     LEFT JOIN uacc uassigned ON b.assigned_user_id = uassigned.id
-    LEFT JOIN uacc ucreated ON b.created_by_user_id = ucreated.id" . $where . "
-    ORDER BY date desc");
+    LEFT JOIN uacc ucreated ON b.created_by_user_id = ucreated.id" . $where . " " . $order);
 //$query = $db->query("SELECT * FROM Bookings LIMIT $offset, $records_per_page");
 //$query = $db->query("SELECT * FROM Bookings LIMIT " . $offset . ", " . $records_per_page);
 $results = $query->fetchAll();
