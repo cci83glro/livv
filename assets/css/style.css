@@ -863,8 +863,8 @@ a.social-item {
 
 .about-us .icon-box {
     font-size: 20px;
-    width: 100px;
-    height: 50px;
+    min-width: 60px;
+    min-height: 50px;
 }
 
 .page-loader {
@@ -1385,6 +1385,20 @@ form .error {
     display: none;
 }
 
+.about-us .highlight-wrapper {
+    width: 50%;
+}
+
+.about-us .highlight {
+    display: flex;
+}
+
+.education-wrapper .education-element {
+    display: inline-block;
+    width: 49%;
+    margin-bottom: 10px;
+}
+
 .w-10p
 {
     width: 10% !important;
@@ -1493,6 +1507,7 @@ form .error {
     }
 
     #about-us-section .values-image {
+        text-align: center;
         margin-bottom: -75px;
         z-index: -1;
     }
@@ -1500,11 +1515,30 @@ form .error {
     #courses-section {
         padding-bottom: 0;
     }
+
+    .about-us .icon-box {
+        min-width: 65px;
+    }
+
+    #how-to-choose-us-section {
+        padding-top: 0;
+    }
+    
 }
 
 @media only screen and (max-width:765px) {
-    
+        
 
+}
+
+@media only screen and (max-width:600px) {
+    .about-us .highlight-wrapper {
+        width: 100%;
+    }
+
+    .education-wrapper .education-element {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width:465px) {

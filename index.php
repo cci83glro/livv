@@ -187,33 +187,33 @@
 						<p class=" mb-15">
 							Ansvarshavende sygeplejersker skal have minimum 2 års erfaring ude i den akutte medicinske regi.
 						</p>
-						<div class="row row-cols-2">
-							<div class="col mb-1">
+						<div class="education-wrapper">
+							<div class="col education-element">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
 									<span >Sygeplejersker</span>
 								</div>
 							</div>
-							<div class="col mb-1">
+							<div class="col education-element">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
 									<span >Social og sundhedsassistenter</span>
 								</div>
 							</div>
-							<div class="col mb-1">
+							<div class="col education-element">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
 									<span >Social og sundheds hjælpere
 									</span>
 								</div>
 							</div>
-							<div class="col mb-1">
+							<div class="col education-element">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
 									<span >Pædagoger</span>
 								</div>
 							</div>
-							<div class="col mb-1">
+							<div class="col education-element">
 								<div class="d-flex flex-row gap-2 align-items-center">
 									<i class="fa-solid fa-circle-arrow-right accent-color"></i>
 									<span >Ergoterapeuter</span>
@@ -222,18 +222,16 @@
 						</div>
 						<div class="my-2 border-bottom w-100"></div>
 						<div class="row row-cols-1 row-cols-lg-2 about-us ">
-							<div class="col mb-3">
-								<div
-									class="d-flex flex-lg-row flex-column justify-content-lg-start align-items-center gap-2 justify-content-center">
+							<div class="highlight-wrapper col mb-3">
+								<div class="highlight justify-content-lg-start align-items-center gap-2 ">
 									<div class="bg-accent-color text-white rounded-3 icon-box">
 										<i class="fa-solid fa-user-nurse"></i>
 									</div>
 									<span class="font-1 fs-5 lh-1 fw-semibold">Vi er eksperter inden for vores område</span>
 								</div>
 							</div>
-							<div class="col mb-3">
-								<div
-									class="d-flex flex-lg-row flex-column justify-content-lg-start align-items-center gap-2 justify-content-center">
+							<div class="highlight-wrapper col mb-3">
+								<div class="highlight justify-content-lg-start align-items-center gap-2 ">
 									<div class="bg-accent-color text-white rounded-3 icon-box">
 										<i class="fa-solid fa-house-medical-circle-check"></i>
 									</div>
@@ -247,7 +245,7 @@
 		</div>
 	</section>
 
-	<section class="section">
+	<section class="section" id="how-to-choose-us-section">
 		<div class="r-container">
 			<div class="d-flex flex-lg-row flex-column-reverse">
 				<div class="col mb-3">
