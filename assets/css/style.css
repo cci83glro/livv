@@ -364,6 +364,12 @@ p.form-actions,
     text-align: center;
 }
 
+.form-actions button.mark-as-terminated {
+    width: 18rem;
+}
+
+
+
 .form-actions .save {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
@@ -1623,6 +1629,10 @@ footer .links-group a{
         margin-left: .8rem;
     }
 
+    .applications-list > .record > p {
+        width: 49%;
+    }
+
 }
 
 @media only screen and (max-width:765px) {
@@ -1691,6 +1701,19 @@ footer .links-group a{
         font-size: 17px;
     }
 
+    .form-actions button.mark-as-terminated {
+        width: 100%;
+        margin: 15px 0;
+    }
+
+}
+
+@media only screen and (max-width:476px) {
+
+    #filter-wrapper .filter-option,
+    #filter-wrapper .filter-option .form-control {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width:400px) {
@@ -1722,11 +1745,6 @@ footer .links-group a{
 
     #filter-wrapper .save {
         margin-top: 20px;
-    }
-
-    #filter-wrapper .filter-option,
-    #filter-wrapper .filter-option .form-control {
-        width: 100%;
     }
 
 }

@@ -90,7 +90,7 @@
 		},
 		readCookie: function (name) {
 		    var nameEQ = name + "=";
-		    var ca = document.cookie.split(',');
+		    var ca = document.cookie.split(';');
 		    for(var i=0;i < ca.length;i++) {
 		        var c = ca[i];
 		        while (c.charAt(0) === ' ') {

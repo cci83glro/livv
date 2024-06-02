@@ -10,7 +10,8 @@
 	<!-- Banner -->
 	<section class="section image-infinite-bg position-relative"
 		style="background-size: cover; background-position: center ;padding: 10em 1em 10em 1em;"
-		data-images='["<?=$us_url_root?>assets/images/index-page-banner-1.webp" , "<?=$us_url_root?>assets/images/index-page-banner-2.webp"]'>
+		data-mobile-images='["<?=$us_url_root?>assets/images/index-page-banner-mobile-1.webp" , "<?=$us_url_root?>assets/images/index-page-banner-mobile-2.webp"]'
+		data-desktop-images='["<?=$us_url_root?>assets/images/index-page-banner-1.webp" , "<?=$us_url_root?>assets/images/index-page-banner-2.webp"]'>
 		<div class="r-container h-100">
 			<div class="image-overlay"></div>
 			<div class="d-flex flex-column justify-content-center gap-3 h-100 position-relative"
@@ -25,6 +26,20 @@
 			</div>
 		</div>
 	</section>
+
+	<script>
+        function updateBackgroundImages() {
+            const section = document.querySelector('.image-infinite-bg');
+            const desktopImages = section.getAttribute('data-desktop-images');
+            const mobileImages = section.getAttribute('data-mobile-images');
+            
+            const imagesToUse = window.innerWidth <= 768 ? mobileImages : desktopImages;
+            section.setAttribute('data-images', imagesToUse);
+        }
+
+        updateBackgroundImages();
+        window.addEventListener('resize', updateBackgroundImages);
+    </script>
 
 	<section class="position-relative" style="margin-top: -60px;">
 		<div class="r-container px-lg-0 px-4">
