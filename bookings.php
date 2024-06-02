@@ -59,7 +59,7 @@
 						<br/>
 						<div class="filter-option">
 							<p>Fritekst søgning</p>
-							<input id="search-text" class="form-control w-20p" placeholder="">
+							<input id="search-text" class="form-control" placeholder="">
 						</div>
 						<div class="filter-option">
 							<p>Kommune</p>
@@ -127,8 +127,8 @@
 						</div>
 						<br/>
 
-						<button id="search" class="save w-10p" onclick="filterBookings()">Søg</button>
-						<button id="search" class="cancel w-10p" onclick="resetBookingsFilter()">Nulstil</button>
+						<button id="search" class="save" onclick="filterBookings()">Søg</button>
+						<button id="search" class="cancel" onclick="resetBookingsFilter()">Nulstil</button>
 					</div>
 					<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page=""></div>
 					<div class="pagination" id="pagination"></div>

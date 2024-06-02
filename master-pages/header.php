@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=$pageTitle?>- <?=$site_name?> </title>
-    <!-- Stylesheet -->
     <?php include_once __DIR__."/../config/css.php"?>
     <?php if (isset($extra_head_html)) echo $extra_head_html;?>
 </head>
@@ -67,4 +66,3 @@
         </div>
     </section>
     <?php } ?>
-    <!-- End  of Header -->

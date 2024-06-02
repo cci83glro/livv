@@ -1118,14 +1118,7 @@ div.pagination .count-info{
     margin-bottom: 0;
 }
 
-#filter-wrapper #filter-bookings-type,
-#filter-wrapper #filter-district-id,
-#filter-wrapper #filter-qualification-id,
-#filter-wrapper #filter-shift-id,
-#filter-wrapper #filter-from-date,
-#filter-wrapper #filter-to-date,
-#filter-wrapper #filter-from-time-id,
-#filter-wrapper #filter-to-time-id
+#filter-wrapper .filter-option
 {
     width: 12rem;
     display: inline-block;
@@ -1676,11 +1669,20 @@ footer .links-group a{
     }
 
     .form-actions .cancel {
-        margin: 20px 0 10px 0;
+        margin: 10px 0 10px 0;
     }
 
-    .form-actions .save:not(.no-margin){
+    .form-actions .save:not(.no-margin) {
         margin-left: 0;
+    }
+
+    #filter-wrapper .save {
+        margin-top: 20px;
+    }
+
+    #filter-wrapper .filter-option,
+    #filter-wrapper .filter-option .form-control {
+        width: 100%;
     }
 
 }
