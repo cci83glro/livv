@@ -59,6 +59,39 @@ $('#scroll-top').on('click', function (event) {
     }, 1000);
 });
 
+const monthNames = ["jan", "feb", "mar", "apr", "maj", "juni", "juli", "aug", "sep", "okt", "nov", "dec"];
+
+function formatDateToDisplay(dateStr) {
+    const [year, month, day] = dateStr.split('-');
+    return `${day} ${monthNames[parseInt(month, 10) - 1]} ${year}`;
+}
+
+function formatDateToValue(dateStr) {
+    const [day, month, year] = dateStr.split(' ');
+    const monthIndex = monthNames.indexOf(month);
+    const monthNumber = (monthIndex + 1).toString().padStart(2, '0');
+    return `${year}-${monthNumber}-${day}`;
+}
+
+$('.date-picker').on('focus', function() {
+    $(this).attr('type', 'date');
+    const actualDate = $(this).attr('data-actual-date');
+    if (actualDate) {
+        $(this).val(actualDate);
+    }
+});
+
+$('.date-picker').on('blur', function() {
+    $(this).attr('type', 'text');
+    if ($(this).val()) {
+        const formattedValue = formatDateToDisplay($(this).val());
+        if (!isNaN(Date.parse($(this).val()))) {
+            $(this).attr('data-actual-date', $(this).val());
+            $(this).val(formattedValue);
+        }
+    }
+});
+
 $(window).ready(function() {
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();

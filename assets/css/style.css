@@ -1105,10 +1105,28 @@ div.pagination .count-info{
     margin-bottom: 1rem;
 }
 
+#filter-wrapper .save {
+    margin: 15px 10px 0 0;
+}
+
+#filter-wrapper .filter-option {
+    display: inline-block;
+    margin-right: .5rem;
+}
+
+#filter-wrapper .filter-option p {
+    margin-bottom: 0;
+}
+
 #filter-wrapper #filter-bookings-type,
 #filter-wrapper #filter-district-id,
 #filter-wrapper #filter-qualification-id,
-#filter-wrapper #filter-shift-id {
+#filter-wrapper #filter-shift-id,
+#filter-wrapper #filter-from-date,
+#filter-wrapper #filter-to-date,
+#filter-wrapper #filter-from-time-id,
+#filter-wrapper #filter-to-time-id
+{
     width: 12rem;
     display: inline-block;
     margin-bottom: 10px;

@@ -42,39 +42,91 @@
 						<span class="hidden" id="active-district-id"></span>
 						<span class="hidden" id="active-qualification-id"></span>
 						<span class="hidden" id="active-shift-id"></span>
+						<span class="hidden" id="active-from-date"></span>
+						<span class="hidden" id="active-to-date"></span>
+						<span class="hidden" id="active-from-time-id"></span>
+						<span class="hidden" id="active-to-time-id"></span>
 						<span class="hidden" id="active-search-text"></span>
-						<span>Vis </span>
-						<select class="form-control dropdown py-2 px-4" name="bookings-type" id="filter-bookings-type">
-							<option value="coming">kommende</option>
-							<option value="passed">tidligere</option>
-							<option value="terminated">bestilte</option>
-						</select>
-						<select class="form-control dropdown py-2 px-4" name="district-id" id="filter-district-id" placeholder="Vælg kommune">
-							<option value="">Vælg kommune</option>
-							<?php 
-								foreach($districts as $district){
-									echo "<option value='".$district['district_id']."'>".$district['district_name']."</option>"; 
-								}            
-							?>
-						</select>
-						<select class="form-control dropdown py-2 px-4" name="qualification-id" id="filter-qualification-id">
-							<option value="">Vælg uddannelse</option>
-							<?php 
-								foreach($qualifications as $qualification){
-									echo "<option value='".$qualification['qualification_id']."'>".$qualification['qualification_name']."</option>";
-								}            
-							?>
-						</select>
-						<select class="form-control dropdown py-2 px-4" name="shift-id" id="filter-shift-id" >
-							<option value="">Vælg stilling</option>
-							<?php 
-								foreach($shifts as $shift){
-									echo "<option value='".$shift['shift_id']."'>".$shift['shift_name']."</option>";
-								}            
-							?>
-						</select>
+						
+						<div class="filter-option">
+							<p>Vis</p>
+							<select class="form-control dropdown py-2 px-4" name="bookings-type" id="filter-bookings-type">
+								<option value="coming">kommende</option>
+								<option value="passed">tidligere</option>
+								<option value="terminated">bestilte</option>
+							</select>
+						</div>
 						<br/>
-						<span>Søg </span><input id="search-text" class="form-control w-20p" placeholder="">
+						<div class="filter-option">
+							<p>Fritekst søgning</p>
+							<input id="search-text" class="form-control w-20p" placeholder="">
+						</div>
+						<div class="filter-option">
+							<p>Kommune</p>
+							<select class="form-control dropdown py-2 px-4" name="district-id" id="filter-district-id" placeholder="Vælg kommune">
+								<option value="">Vælg kommune</option>
+								<?php 
+									foreach($districts as $district){
+										echo "<option value='".$district['district_id']."'>".$district['district_name']."</option>"; 
+									}            
+								?>
+							</select>
+						</div>
+						<div class="filter-option">
+							<p>Uddannelse</p>
+							<select class="form-control dropdown py-2 px-4" name="qualification-id" id="filter-qualification-id">
+								<option value="">Vælg uddannelse</option>
+								<?php 
+									foreach($qualifications as $qualification){
+										echo "<option value='".$qualification['qualification_id']."'>".$qualification['qualification_name']."</option>";
+									}            
+								?>
+							</select>
+						</div>
+						<div class="filter-option">
+							<p>Stilling</p>
+							<select class="form-control dropdown py-2 px-4" name="shift-id" id="filter-shift-id" >
+								<option value="">Vælg stilling</option>
+								<?php 
+									foreach($shifts as $shift){
+										echo "<option value='".$shift['shift_id']."'>".$shift['shift_name']."</option>";
+									}            
+								?>
+							</select>
+						</div>
+						<br/>
+						<div class="filter-option">
+							<p>Fra dato</p>
+							<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control py-2 px-4 date-picker" id="filter-from-date" name="from-date" placeholder="Fra dato" data-actual-date="">
+						</div>
+						<div class="filter-option">
+							<p>Til dato</p>
+							<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control py-2 px-4 date-picker" id="filter-to-date" name="to-date" placeholder="Til dato" data-actual-date="">
+						</div>
+						<div class="filter-option">
+							<p>Fra starttid</p>							
+							<select class="form-control dropdown py-2 px-4" name="from-time-id" id="filter-from-time-id" >
+								<option value="">Fra starttid</option>
+								<?php 
+									foreach($times as $time){
+										echo "<option value='".$time['time_id']."'>".$time['time_value']."</option>"; 
+									}
+								?>
+							</select>
+						</div>
+						<div class="filter-option">
+							<p>Til starttid</p>
+							<select class="form-control dropdown py-2 px-4" name="to-time-id" id="filter-to-time-id" >
+								<option value="">Til starttid</option>
+								<?php 
+									foreach($times as $time){
+										echo "<option value='".$time['time_id']."'>".$time['time_value']."</option>"; 
+									}
+								?>
+							</select>
+						</div>
+						<br/>
+
 						<button id="search" class="save w-10p" onclick="filterBookings()">Søg</button>
 						<button id="search" class="cancel w-10p" onclick="resetBookingsFilter()">Nulstil</button>
 					</div>

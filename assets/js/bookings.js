@@ -314,6 +314,14 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, pa
 
 function resetBookingsFilter() {
     $('#search-text').val('');
+    $('#filter-district-id').val('');
+    $('#filter-qualification-id').val('');
+    $('#filter-shift-id').val('');
+    $('#filter-from-date').val('');
+    $('#filter-to-date').val('');
+    $('#filter-from-time-id').val('');
+    $('#filter-to-time-id').val('');
+    
     var activePage = $('#bookings-container').data('active-page');
     loadBookings(activePage);
 }
@@ -380,6 +388,30 @@ function loadBookings(page) {
         page = 1;
     }
 
+    // if ($('#filter-from-date').attr('type') === 'date' && $('#filter-from-date').val()) {
+    //     $('#filter-from-date').data('actual-date', $('#filter-from-date').val());
+    // }
+    var fromDate = $('#filter-from-date').attr('data-actual-date');
+    if (fromDate != '') {
+        url += '&fromDate=' + fromDate;
+    }
+    if($('#active-from-date').text() !== fromDate) {
+        $('#active-from-date').text(fromDate);
+        page = 1;
+    }
+
+    // if ($('#filter-tp-date').attr('type') === 'date' && $('#filter-to-date').val()) {
+    //     $('#filter-to-date').data('actual-date', $('#filter-to-date').val());
+    // }
+    var toDate = $('#filter-to-date').attr('data-actual-date');
+    if (toDate != '') {
+        url += '&toDate=' + toDate;
+    }
+    if($('#active-to-date').text() !== toDate) {
+        $('#active-to-date').text(toDate);
+        page = 1;
+    }
+
     var searchText = $('#search-text').val();
     if (searchText != '') {
         url += '&searchText=' + searchText;
@@ -388,7 +420,24 @@ function loadBookings(page) {
         page = 1;
         $('#active-search-text').text(searchText);
     }
+
+    var fromTime = $('#filter-from-time-id').val();
+    if (fromTime != '') {
+        url += '&fromTime=' + fromTime;
+    }
+    if($('#active-from-time-id').text() !== fromTime) {
+        $('#active-from-time-id').text(fromTime);
+        page = 1;
+    }
     
+    var toTime = $('#filter-to-time-id').val();
+    if (toTime != '') {
+        url += '&toTime=' + toTime;
+    }
+    if($('#active-to-time-id').text() !== toTime) {
+        $('#active-to-time-id').text(toTime);
+        page = 1;
+    }
 
     $.getJSON(url, function(data) {
         setBookingListHtml($('#bookings-container'), $('#pagination'), data, page, loadBookings);
