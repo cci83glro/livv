@@ -48,6 +48,8 @@ $user_page_url = $us_url_root."um/admin/user.php?id=";
 $bookings_page_url = $us_url_root."bookings.php";
 $contact_page_url = $us_url_root."contact.php";
 $chat_page_url = $us_url_root."chat.php";
+$cookies_policy_page_url = $us_url_root."cookies-politik";
+$persondata_policy_page_url = $us_url_root."persondata-politik";
 
 require_once __DIR__.'/../helpers/classes/Validator.php';
 include_once __DIR__.'/../helpers/db-helpers.php';

@@ -6,7 +6,11 @@
 ?>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="<?php echo $description; ?>" />
+	<meta name="robots" content="max-image-preview:large" />
+	<meta name="author" content="Trepavo Creative Agency">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=$pageTitle?>- <?=$site_name?> </title>
     <?php include_once __DIR__."/../config/css.php"?>
     <?php if (isset($extra_head_html)) echo $extra_head_html;?>
@@ -29,14 +33,14 @@
                             <img src="<?=$us_url_root?>assets/images/logo-white-background.svg" alt="Logo with white background" class="img-fluid">
                         </div>
                     </a>
-                    <div class="nav-item dropdown user-info mobile-only">
-                        <?php include __DIR__."/user-info.php"?>
-                    </div>
                     <button class="navbar-toggler accent-color border-0" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa-solid fa-bars-staggered"></i>
                     </button>
+                    <div class="nav-item dropdown user-info mobile-only">
+                        <?php include __DIR__."/user-info.php"?>
+                    </div>                    
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto font-2 fw-semibold gap-lg-3">
                             <li class="nav-item">

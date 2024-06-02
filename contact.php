@@ -55,6 +55,8 @@
 
 	$public = true;
 	$pageTitle = 'Kontakt';
+	$canonical = "https://livvikar.dk/contact";
+	$description = "Du kan komme i kontakt med os enten via telefon, email, kontaktformularen her på siden eller bare dukke fysisk op på vores kontor. Ligemeget hvad du vælger så glæder vi os til at snakke med dig!";
 	include_once __DIR__."/master-pages/header.php";
 ?>
 

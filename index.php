@@ -1,6 +1,8 @@
 <?php
 	$public = true;
-	$pageTitle = "Hjem";
+	$pageTitle = "Vikarbureau";
+	$canonical = "https://livvikar.dk";
+	$description = "Liv Vikar udgør en arbejdsplads for fagpersoner indenfor sundhedssektoren, herunder social- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, pædagoger, ergoterapeuter og forflytningsvejledere";
 	include_once __DIR__."/master-pages/header.php";
 ?>
 
@@ -86,7 +88,7 @@
 						<div id="collapseOne" class="accordion-collapse collapse show"
 							data-bs-parent="#accordionAboutUs">
 							<div class="accordion-body">
-								Liv vikar udgør en arbejdsplads for fagpersoner indenfor sundhedssektoren, herunder social- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, pædagoger, ergoterapeuter og forflytningsvejledere. Vi er ligeledes åben for elever under uddannelse.
+								Liv Vikar udgør en arbejdsplads for fagpersoner indenfor sundhedssektoren, herunder social- og sundhedshjælpere, social- og sundhedsassistenter, sygeplejersker, pædagoger, ergoterapeuter og forflytningsvejledere. Vi er ligeledes åben for elever under uddannelse.
 							</div>
 						</div>
 					</div>
@@ -249,12 +251,12 @@
 						</h3>
 						<div class="d-flex flex-lg-row flex-column">							
 							<div class="col col-lg-12">
-								<div class="d-flex flex-column ps-3 mb-15">
+								<div class="d-flex flex-column mb-15">
 									<p>
-									Formålet med fritvalgsordningen er at fjerne 'begrænsninger' fra problemløsende tiltag. Dette gør det lettere for borgeren at få dækket aktuelle behov og styrker livskvaliteten. Med en privat hjemmeplejeleverandør har du muligheden for at vælge Liv Vikar uden selv at skulle betale.
+										Formålet med fritvalgsordningen er at fjerne 'begrænsninger' fra problemløsende tiltag. Dette gør det lettere for borgeren at få dækket aktuelle behov og styrker livskvaliteten. Med en privat hjemmeplejeleverandør har du muligheden for at vælge Liv Vikar uden selv at skulle betale.
 									</p>
 									<p>
-									Du skal blot følge disse simple trin for at vælge Liv Vikar:
+										Du skal blot følge disse simple trin for at vælge Liv Vikar:
 									</p>
 									<div class="d-flex flex-column gap-2">
 										<div class="d-flex flex-row gap-2 align-items-center">
@@ -266,7 +268,7 @@
 										<div class="d-flex flex-row gap-2 align-items-center">
 											- Vælg Liv Vikar som leverandør
 										</div>
-										<div class="d-flex flex-row gap-2 align-items-center">
+										<div class="d-flex flex-row gap-2">
 											<i class="fa-solid fa-square-check accent-color"></i>
 											Når ansøgningen er godkendt og visitationen har foretaget deres vurdering, vil Liv Vikar besøge dig. Sammen tilrettelægger vi den løsning, der bedst passer til dine ønsker og behov
 										</div>

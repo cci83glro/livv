@@ -17,8 +17,8 @@
                             </div>
                             <div class="links-group">
                                 <a href="#contact-section" class="align-items-center">Kontakt</a>
-                                <a href="#" class="align-items-center">Cookies politik</a>
-                                <a href="#" class="align-items-center">Persondata politik</a>                            
+                                <a href="<?=$cookies_policy_page_url?>" class="align-items-center">Cookies politik</a>
+                                <a href="<?=$persondata_policy_page_url?>" class="align-items-center">Persondata politik</a>                            
                             </div>
                         </div>
                     </div>               

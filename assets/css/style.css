@@ -131,10 +131,12 @@ body {
 
 h1 {
     font-size: 60px;
+    margin-bottom: 30px;
 }
 
 h2 {
     font-size: 50px;
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -1481,6 +1483,11 @@ footer .links-group a{
     width: 100% !important;
 }
 
+.dropdown-menu[data-bs-popper] {
+    left: auto;
+    right: 1rem;
+}
+
 @media only screen and (min-width:992px) {
     .mobile-only {
         display: none;
@@ -1580,6 +1587,10 @@ footer .links-group a{
         padding-top: 0;
     }
 
+    #how-to-choose-us-section i.fa-square-check {
+        margin-top: 5px;
+    }
+
     footer .logo img {
         max-width: 180px;
         margin-top: -20px;
@@ -1603,6 +1614,13 @@ footer .links-group a{
 
     .desktop-only {
         display: none;
+    }
+
+    .user-info.mobile-only {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-left: .8rem;
     }
 
 }
@@ -1645,6 +1663,32 @@ footer .links-group a{
 
     #about-us-section .values-image {
         margin-bottom: -120px;
+    }
+
+    h1 {
+        font-size: 40px;
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        font-size: 35px;
+        margin-bottom: 20px;
+    }
+    
+    h3 {
+        font-size: 30px;
+    }
+    
+    h4 {
+        font-size: 25px;
+    }
+    
+    h5 {
+        font-size: 20px;
+    }
+    
+    h6 {
+        font-size: 17px;
     }
 
 }
