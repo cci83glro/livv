@@ -24,10 +24,10 @@ if ($user_permission == 2) {
     }
 
     $booking_data = $bookings_data[0];
-    $fname = $booking_data->fname;
-    $lname = $booking_data->lname;
-    $email = $booking_data->email;
-    $assigned_user_id = $booking_data->assigned_user_id;
+    $fname = $booking_data['fname'];
+    $lname = $booking_data['lname'];
+    $email = $booking_data['email'];
+    $assigned_user_id = $booking_data['assigned_user_id'];
 }
 
 $dbo = dbo::getInstance();

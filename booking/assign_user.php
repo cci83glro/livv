@@ -31,9 +31,9 @@ if ($user_permission == 2) {
     }
 
     $user_data = $users_data[0];
-    $fname = $user_data->fname;
-    $lname = $user_data->lname;
-    $email = $user_data->email;
+    $fname = $user_data['fname'];
+    $lname = $user_data['lname'];
+    $email = $user_data['email'];
 }
 
 if ($dbo->query("UPDATE bookings SET assigned_user_id = $assigned_user_id WHERE booking_id = $booking_id")) {

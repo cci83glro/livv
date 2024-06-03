@@ -343,10 +343,10 @@ function resetEmployeeBookingsFilter() {
 
 function filterEmployeeBookingsById() {    
     var activePage = $('#my-bookings-container').data('active-page');
-    loadBookingsForWorker(activePage, searchText);
+    loadBookingsForWorker(activePage);
 
     activePage = $('#available-bookings-container').data('active-page');
-    loadAvailableBookings(activePage, searchText);
+    loadAvailableBookings(activePage);
 }
 
 function loadBookings(page) {
@@ -449,9 +449,10 @@ function loadBookings(page) {
 function loadBookingsForWorker(page) {
 
     var url = `booking/retrieve_bookings.php?bi=` + bi;
+
     var searchText = $('#search-text').val();
     if (searchText != '') {
-        url += '&search=' + searchText;
+        url += '&searchText=' + searchText;
         page = 1;
     }
 
@@ -468,7 +469,7 @@ function loadAvailableBookings(page) {
     var url = `booking/retrieve_bookings.php?unassigned=1`;
     var searchText = $('#search-text').val();
     if (searchText != '') {
-        url += '&search=' + searchText;
+        url += '&searchText=' + searchText;
         page = 1;
     }
 
