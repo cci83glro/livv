@@ -360,7 +360,10 @@ function loadBookings(page) {
         page = 1;
     }
 
-    var districtId = $('#filter-district-id').val();
+var districtId = '';
+if ($('#filter-district-id').length)
+    {
+    districtId = $('#filter-district-id').val();
     if (districtId != '') {
         url += '&districtId=' + districtId;
     }
@@ -368,6 +371,7 @@ function loadBookings(page) {
         $('#active-district-id').text(districtId);
         page = 1;
     }
+}
 
     var qualificationId = $('#filter-qualification-id').val();
     if (qualificationId != '') {

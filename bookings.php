@@ -36,31 +36,36 @@
 					<div id="add-booking-button-wrapper" class="form-actions">
 						<button id="add-booking-button" class="save no-margin" onclick="showAddBookingForm()"><i class="fa fa-plus"></i> Tilføj booking</button>
 					</div>
-					<?php include_once __DIR__."/booking/add-booking-form.php"; ?>
-					<div id="filter-wrapper" class="form-actions align-left">
-						<span class="hidden" id="active-bookings-type"></span>
-						<span class="hidden" id="active-district-id"></span>
-						<span class="hidden" id="active-qualification-id"></span>
-						<span class="hidden" id="active-shift-id"></span>
-						<span class="hidden" id="active-from-date"></span>
-						<span class="hidden" id="active-to-date"></span>
-						<span class="hidden" id="active-from-time-id"></span>
-						<span class="hidden" id="active-to-time-id"></span>
-						<span class="hidden" id="active-search-text"></span>
-						
-						<div class="filter-option">
-							<p>Vis</p>
-							<select class="form-control dropdown py-2 px-4" name="bookings-type" id="filter-bookings-type">
-								<option value="coming">kommende</option>
-								<option value="passed">tidligere</option>
-								<option value="terminated">bestilte</option>
-							</select>
-						</div>
-						<br/>
-						<div class="filter-option">
-							<p>Fritekst søgning</p>
-							<input id="search-text" class="form-control" placeholder="">
-						</div>
+					<?php include_once __DIR__."/booking/add-booking-form.php"; 
+				}
+				?>
+				
+				<div id="filter-wrapper" class="form-actions align-left">
+					<span class="hidden" id="active-bookings-type"></span>
+					<span class="hidden" id="active-district-id"></span>
+					<span class="hidden" id="active-qualification-id"></span>
+					<span class="hidden" id="active-shift-id"></span>
+					<span class="hidden" id="active-from-date"></span>
+					<span class="hidden" id="active-to-date"></span>
+					<span class="hidden" id="active-from-time-id"></span>
+					<span class="hidden" id="active-to-time-id"></span>
+					<span class="hidden" id="active-search-text"></span>
+					
+					<div class="filter-option">
+						<p>Vis</p>
+						<select class="form-control dropdown py-2 px-4" name="bookings-type" id="filter-bookings-type">
+							<option value="coming">kommende</option>
+							<option value="passed">tidligere</option>
+							<option value="terminated">bestilte</option>
+						</select>
+					</div>
+					<br/>
+					<div class="filter-option">
+						<p>Fritekst søgning</p>
+						<input id="search-text" class="form-control" placeholder="">
+					</div>
+					<?php if ($user_permission == 1 || $user_permission == 2) { ?>
+						<?php if ($user_permission == 2) { ?>
 						<div class="filter-option">
 							<p>Kommune</p>
 							<select class="form-control dropdown py-2 px-4" name="district-id" id="filter-district-id" placeholder="Vælg kommune">
@@ -72,6 +77,7 @@
 								?>
 							</select>
 						</div>
+						<?php } ?>
 						<div class="filter-option">
 							<p>Uddannelse</p>
 							<select class="form-control dropdown py-2 px-4" name="qualification-id" id="filter-qualification-id">
@@ -132,11 +138,9 @@
 					</div>
 					<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page=""></div>
 					<div class="pagination" id="pagination"></div>
-				<?php } ?>
-
-				<?php if ($user_permission == 3) { ?>
-					<div id="filter-wrapper" class="form-actions align-left">
-						<span>Søg </span><input id="search-text" class="form-control w-20p" placeholder="">
+				<?php
+				}
+				if ($user_permission == 3) { ?>
 						<button id="search" class="save w-10p" onclick="filterEmployeeBookingsById()">Søg</button>
 						<button id="search" class="cancel w-10p" onclick="resetEmployeeBookingsFilter()">Nulstil</button>
 					</div>
