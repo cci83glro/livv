@@ -106,7 +106,7 @@ function getAssignData(booking, employees) {
     var assignHtml = ``;
     var assignText = '';
     if (bp == 2 || bp == 3) {
-        var assignAction = `<br/><button class="cancel no-margin w-50 mt-05" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
+        var assignAction = `<br/><button class="cancel unassign-user" onclick="unassignUser(${booking.booking_id})">Unassign</button>`;
         var assignText = '...';
         if (!booking.assigned_user_id) {
             if (bp == 2) {
@@ -115,9 +115,9 @@ function getAssignData(booking, employees) {
                     assignAction += `<option value="${e.value}">${e.text}</option>`;
                 });
                 assignAction += `</select>`;
-                assignAction += `<button class="save w-30p mt-05" onclick="assignUser(${booking.booking_id})">Assign</button>`;
+                assignAction += `<br/><button class="save assign-user" onclick="assignUser(${booking.booking_id})">Assign</button>`;
             } else if (bp == 3) {
-                assignAction = `<br/><button class="save no-margin mt-05 w-50" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
+                assignAction = `<br/><button class="save assign-to-me" onclick="assignToMe(${booking.booking_id})">Assign til mig</button>`;
             }            
         } else {
             assignText = booking.user_name;
@@ -126,7 +126,7 @@ function getAssignData(booking, employees) {
         if (booking.status_id == 5 || booking.status_id == 20) {
             assignAction = ``;
         }
-        assignHtml = `<div class="col-md-6"><p class="form-actions mt-0""><span>Vikar - </span> ${assignText}${assignAction}</p></div>`;
+        assignHtml = `<div class="action-wrapper"><p class="form-actions""><span>Vikar - </span> ${assignText}${assignAction}</p></div>`;
     }
 
     return {
@@ -143,18 +143,18 @@ function getStatusData(booking) {
         if (booking.status_id == 5) {
             statusText = 'Inaktiv';
             if (bp == 2) {
-                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 10, '${booking.created_by_email}')">Aktiver</button>`;
+                statusAction = `<br/><button class="save change-booking-status" onclick="changeBookingStatus(${booking.booking_id}, 10, '${booking.created_by_email}')">Aktiver</button>`;
             }
         }if (booking.status_id == 10) {
             statusText = 'Oprettet';
             if (bp == 2 && booking.assigned_user_id) {
-                statusAction = `<br/><button class="save w-50 no-margin change-booking-status mt-05" onclick="changeBookingStatus(${booking.booking_id}, 20, '${booking.created_by_email}')">Marker som afsluttet</button>`;
+                statusAction = `<br/><button class="save change-booking-status" onclick="changeBookingStatus(${booking.booking_id}, 20, '${booking.created_by_email}')">Marker som afsluttet</button>`;
             }
         } else if (booking.status_id == 20) {
             statusText = 'Afsluttet';
         }
 
-        statusHtml = `<div class="col-md-6"><p class="form-actions mt-0"><span>Tilstand - </span> ${statusText}${statusAction}</p></div>`;
+        statusHtml = `<div class="action-wrapper"><p class="form-actions mt-0"><span>Tilstand - </span> ${statusText}${statusAction}</p></div>`;
     }
 
     return {
@@ -186,21 +186,21 @@ function getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml,
         bookingHeader +=  " | Vikar - " +  assignText;
     }
 
-    var element =  `<div class="accordion-item">
+    var element =  `<div class="accordion-item booking">
                         <div class="accordion-item-header bg-secondary-color primary-color">
                             <p>{{bookingHeader}}</p>
                             <span class="indicator">+</span>
                         </div>
                         <div class="accordion-item-content" data-id="{{booking_id}}">
-                            <p class="district" data-value="{{booking_district_id}}"><span>Kommune - </span> {{booking_district_name}}</p>
-                            <p class="createdBy" data-value="{{booking_createdBy}}"><span>Oprettet af - </span> {{booking_createdBy}}</p>
-                            <p class="user-data" data-value="{{booking_user_data}}"><span>Bruger - </span> {{booking_user_data}}</p>
-                            <p class="place" data-value="{{booking_place}}"><span>Sted - </span> {{booking_place}}</p>
-                            <p class="date" data-value="{{booking_date}}"><span>Dato - </span> {{booking_date}}</p>
-                            <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt - </span> kl. {{booking_time_value}}</p>
-                            <p class="hours" data-value="{{booking_hours}}"><span>Antal timer - </span> {{booking_hours}}</p>
-                            <p class="shift" data-value="{{booking_shift_id}}"><span>Stilling - </span> {{booking_shift_name}}</p>
-                            <p class="qualification" data-value="{{booking_qualification_id}}"><span>Uddannelse - </span> {{booking_qualification_name}}</p>
+                            <p class="district" data-value="{{booking_district_id}}"><span>Kommune</span> {{booking_district_name}}</p>
+                            <p class="createdBy" data-value="{{booking_createdBy}}"><span>Oprettet af</span> {{booking_createdBy}}</p>
+                            <p class="user-data" data-value="{{booking_user_data}}"><span>Bruger</span> {{booking_user_data}}</p>
+                            <p class="place" data-value="{{booking_place}}"><span>Sted</span> {{booking_place}}</p>
+                            <p class="date" data-value="{{booking_date}}"><span>Dato</span> {{booking_date}}</p>
+                            <p class="time" data-value="{{booking_time_id}}"><span>Tidspunkt</span> kl. {{booking_time_value}}</p>
+                            <p class="hours" data-value="{{booking_hours}}"><span>Antal timer</span> {{booking_hours}}</p>
+                            <p class="shift" data-value="{{booking_shift_id}}"><span>Stilling</span> {{booking_shift_name}}</p>
+                            <p class="qualification" data-value="{{booking_qualification_id}}"><span>Uddannelse</span> {{booking_qualification_name}}</p>
                             <div class="extra-actions">
                                {{assignHtml}}
                                {{statusHtml}}
@@ -341,8 +341,7 @@ function resetEmployeeBookingsFilter() {
     loadAvailableBookings(activePage);
 }
 
-function filterEmployeeBookingsById() {
-    var searchText = $('#search-text').val();
+function filterEmployeeBookingsById() {    
     var activePage = $('#my-bookings-container').data('active-page');
     loadBookingsForWorker(activePage, searchText);
 
@@ -447,9 +446,10 @@ function loadBookings(page) {
     });
 }
 
-function loadBookingsForWorker(page, searchText = '') {
+function loadBookingsForWorker(page) {
 
     var url = `booking/retrieve_bookings.php?bi=` + bi;
+    var searchText = $('#search-text').val();
     if (searchText != '') {
         url += '&search=' + searchText;
         page = 1;
@@ -463,9 +463,10 @@ function loadBookingsForWorker(page, searchText = '') {
     });
 }
 
-function loadAvailableBookings(page, searchText = '') {
+function loadAvailableBookings(page) {
 
     var url = `booking/retrieve_bookings.php?unassigned=1`;
+    var searchText = $('#search-text').val();
     if (searchText != '') {
         url += '&search=' + searchText;
         page = 1;
@@ -596,6 +597,15 @@ function reloadBookings() {
 document.addEventListener('DOMContentLoaded', function() {
     try {
         $(loader).show();
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        const inputValue = getQueryParam('searchText');
+        if (inputValue) {
+            $('#search-text').val(inputValue);
+        }
+
         if (bp == 1 || bp == 2) {
             loadBookings(1);
         } else if (bp == 3) {

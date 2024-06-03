@@ -351,7 +351,7 @@ p.form-actions,
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     display: inline-block;
-    width: 8rem;
+    width: 10rem;
     border-width: 2px;
     border-style: solid;
     font-size: 1.2rem;
@@ -368,15 +368,9 @@ p.form-actions,
     width: 18rem;
 }
 
-
-
 .form-actions .save {
     color: var(--secondary-color);
     border-color: var(--secondary-color);
-}
-
-.form-actions .save:not(.no-margin) {
-    margin-left: 5px;
 }
 
 .form-actions .save:hover {
@@ -1034,6 +1028,31 @@ a.social-item {
     margin-right: 0;
 }
 
+.booking .accordion-item-content > p > span {
+    display: block;
+}
+
+.booking .extra-actions button,
+.booking .extra-actions .assign-users-select {
+    margin-top: 5px;
+}
+
+.booking .extra-actions button.assign-user {
+    margin-top: 10px;
+}
+
+.booking .extra-actions .action-wrapper {
+    width: 50%;
+}
+
+.booking .extra-actions .action-wrapper .form-actions{
+    margin-top: 0;
+}
+
+.booking .change-booking-status {
+    width: 15rem;
+}
+
 div.pagination {
     display: block;
     /* text-align: center; */
@@ -1138,8 +1157,7 @@ div.pagination .count-info{
 }
 
 .assign-users-select {
-    /* margin-left: 1rem; */
-    width: 50%;
+    width: 90%;
     display: inline-block;
 }
 
@@ -1629,7 +1647,8 @@ footer .links-group a{
         margin-left: .8rem;
     }
 
-    .applications-list > .record > p {
+    .applications-list > .record > p,
+    .accordion-item > .accordion-item-content > p {
         width: 49%;
     }
 
@@ -1714,6 +1733,24 @@ footer .links-group a{
     #filter-wrapper .filter-option .form-control {
         width: 100%;
     }
+
+    .booking .accordion-item-content > p {
+        width: 100%;
+    }
+
+    .booking .accordion-item-content .extra-actions {
+        display: block;
+    }
+
+    .booking .extra-actions .action-wrapper {
+        width: 100%;
+    }
+    
+    .booking .extra-actions button,
+    .booking .extra-actions .assign-users-select {
+        width: 100%;
+    }
+
 }
 
 @media only screen and (max-width:400px) {
