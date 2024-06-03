@@ -164,8 +164,7 @@ if (!empty($_POST)) {
         $successes[] = 'Brugerkontoen er opdateret til aktiv.';
         logger($user->data()['id'], 'User Manager', "Updated active status for user id ".$userdetails['id']." from Inactive to Active.");
       }
-    } else {
-      if ($userdetails['active'] === 1)
+      else if ($userdetails['active'] === 1)
       {
         $dbo->query('UPDATE uacc SET active=0 WHERE id=?', $userId);
         $active_state = 'inaktiv';
@@ -248,7 +247,11 @@ if (!empty($_POST)) {
 
   if ($errors == []) {
     usSuccess("Gemt");
-    Redirect::to($users_page_url);
+    if ($user_permission == 2) {
+      Redirect::to($users_page_url);
+    } else {
+      Redirect::to($bookings_page_url);
+    }
   } else {
     Redirect::to($user_page_url . $userId);
   }
@@ -337,6 +340,7 @@ if (!empty($_POST)) {
           <input class='form-control' type='password' autocomplete="off" name='confirm' id='confirm'/>
         </div>
 
+        <?php if($user_permission == 2) { ?>
         <div class="form-group active">
           <label for='active'>Aktiv: </label>
           <label class="toggle-switch">
@@ -344,6 +348,7 @@ if (!empty($_POST)) {
             <span class="slider round"></span>
           </label>
         </div>
+        <?php } ?>
 
         <input type="hidden" name="csrf" value="<?= Token::generate(); ?>" />
         <div class="form-actions">
