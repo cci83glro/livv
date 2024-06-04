@@ -252,7 +252,9 @@ function setBookingListHtml(bookingsContainer, paginationContainer, data, page, 
     var {newPage, lowerBound, upperBound} = getSliceBoundaries(totalCount, page);
 
     var month = '';
+    var totalHours = 0;
     data.slice(lowerBound, upperBound).forEach(function(booking) {
+        totalHours += booking.hours;
         var currentDate = new Date(booking.date);
         var currentMonth = currentDate.toLocaleString('da-dk', { month: 'long' });
         if (currentMonth != month) {
@@ -264,6 +266,7 @@ function setBookingListHtml(bookingsContainer, paginationContainer, data, page, 
         var formActionsHtml = getFormActions(booking);
         bookingsContainer.append(getBookingHtml(booking, assignText, assignHtml, statusText, statusHtml, formActionsHtml));
     });
+    $('#total-hours').text('Antal timer: ' + totalHours);
 
     $('.accordion-item-header').unbind();
     $('.accordion-item-header').click(function(){
@@ -315,10 +318,11 @@ function setPaginationHtml(paginationDiv, lowerBound, upperBound, totalCount, pa
 function resetBookingsFilter() {
     $('#search-text').val('');
     $('#filter-district-id').val('');
+    $('#filter-employee-id').val('');
     $('#filter-qualification-id').val('');
     $('#filter-shift-id').val('');
-    $('#filter-from-date').val('');
-    $('#filter-to-date').val('');
+    $('#filter-from-date-value').val('');
+    $('#filter-to-date-value').val('');
     $('#filter-from-time-id').val('');
     $('#filter-to-time-id').val('');
     
@@ -360,18 +364,29 @@ function loadBookings(page) {
         page = 1;
     }
 
-var districtId = '';
-if ($('#filter-district-id').length)
-    {
-    districtId = $('#filter-district-id').val();
-    if (districtId != '') {
-        url += '&districtId=' + districtId;
+    var districtId = '';
+    if ($('#filter-district-id').length) {
+        districtId = $('#filter-district-id').val();
+        if (districtId != '') {
+            url += '&districtId=' + districtId;
+        }
+        if($('#active-district-id').text() !== districtId) {
+            $('#active-district-id').text(districtId);
+            page = 1;
+        }
     }
-    if($('#active-district-id').text() !== districtId) {
-        $('#active-district-id').text(districtId);
-        page = 1;
+
+    var employeeId = '';
+    if ($('#filter-employee-id').length) {
+        employeeId = $('#filter-employee-id').val();
+        if (employeeId != '') {
+            url += '&employeeId=' + employeeId;
+        }
+        if($('#active-employee-id').text() !== employeeId) {
+            $('#active-employee-id').text(employeeId);
+            page = 1;
+        }
     }
-}
 
     var qualificationId = $('#filter-qualification-id').val();
     if (qualificationId != '') {
@@ -394,7 +409,7 @@ if ($('#filter-district-id').length)
     // if ($('#filter-from-date').attr('type') === 'date' && $('#filter-from-date').val()) {
     //     $('#filter-from-date').data('actual-date', $('#filter-from-date').val());
     // }
-    var fromDate = $('#filter-from-date').attr('data-actual-date');
+    var fromDate = $('#filter-from-date-value').attr('data-actual-date');
     if (fromDate != '') {
         url += '&fromDate=' + fromDate;
     }
@@ -406,7 +421,7 @@ if ($('#filter-district-id').length)
     // if ($('#filter-tp-date').attr('type') === 'date' && $('#filter-to-date').val()) {
     //     $('#filter-to-date').data('actual-date', $('#filter-to-date').val());
     // }
-    var toDate = $('#filter-to-date').attr('data-actual-date');
+    var toDate = $('#filter-to-date-value').attr('data-actual-date');
     if (toDate != '') {
         url += '&toDate=' + toDate;
     }
@@ -596,6 +611,26 @@ function reloadBookings() {
     } else if (bp == 3) {
         loadBookingsForWorker($('#my-bookings-container').attr("data-active-page"));
         loadAvailableBookings($('#available-bookings-container').attr("data-active-page"));
+    }
+}
+
+function onDisplayTypeChange() {
+    var bookingsType = $('#filter-bookings-type').val();
+    if (bookingsType=='reports') {
+        $('#free-text-search').hide();
+        $('#filter-qualifications').hide();
+        $('#filter-shifts').hide();
+        $('#filter-from-start-time').hide();
+        $('#filter-to-start-time').hide();
+        //$('#total-hours').show();
+        resetBookingsFilter();
+    } else {
+        $('#free-text-search').show();
+        $('#filter-qualifications').show();
+        $('#filter-shifts').show();
+        $('#filter-from-start-time').show();
+        $('#filter-to-start-time').show();
+        //$('#total-hours').hide();
     }
 }
 

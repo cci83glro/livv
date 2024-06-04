@@ -17,19 +17,27 @@ $bookingsType = Input::get('bookingsType');
 if(!isNullOrEmptyString($bookingsType)){
     if ($bookingsType == 'coming') {
         $where .= " AND date > CURRENT_TIMESTAMP()";
-        $order = "ORDER BY DATE ASC, b.time_id ASC";
-    } else if ($bookingsType == 'passed' || $bookingsType == 'terminated') {
+    } else if ($bookingsType == 'passed') {
         $where .= " AND date <= CURRENT_TIMESTAMP()";
         $order = "ORDER BY DATE DESC, b.time_id DESC";
-        if ($bookingsType == 'terminated') {
-            $where .= " AND status_id = 20";
-        }
+    } else if ($bookingsType == 'terminated') {
+        $where .= " AND date <= CURRENT_TIMESTAMP()";
+        $order = "ORDER BY DATE DESC, b.time_id DESC";
+        $where .= " AND status_id = 20";
+    } else if ($bookingsType == 'reports') {
+        $order = "ORDER BY DATE ASC, b.time_id ASC";
+        $where .= " AND status_id = 20";
     }
 }
 
 $districtId = Input::get('districtId');
 if(!isNullOrEmptyString($districtId)){
     $where .= " AND b.district_id=" . $districtId;
+}
+
+$employeeId = Input::get('employeeId');
+if(!isNullOrEmptyString($employeeId)){
+    $where .= " AND b.assigned_user_id=" . $employeeId;
 }
 
 $qualificationId = Input::get('qualificationId');
