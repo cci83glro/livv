@@ -1156,6 +1156,14 @@ div.pagination .count-info{
     font-size: 1.3rem;
 }
 
+.filter-option#filter-employees {
+    width: 25rem;
+}
+
+#filter-employee-id {
+    width: 25rem;
+}
+
 .assign-users-select {
     width: 90%;
     display: inline-block;
@@ -1515,6 +1523,12 @@ footer .links-group a{
 #total-hours {
     display: inline-block;
     margin-left: 2rem;
+    font-size: 1.3rem;
+}
+
+#bookingForm .form-actions #add-booking-cancel-button {
+    margin-right: .5rem;
+    margin-top: 10px;
 }
 
 @media only screen and (min-width:992px) {

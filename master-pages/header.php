@@ -40,7 +40,7 @@
                     </button>
                     <div class="nav-item dropdown user-info mobile-only">
                         <?php include __DIR__."/user-info.php"?>
-                    </div>                    
+                    </div>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto font-2 fw-semibold gap-lg-3">
                             <li class="nav-item">
@@ -58,7 +58,7 @@
                             <li class="nav-item">
                                 <a class="nav-link <?php if ($pageTitle=='Kontakt') echo 'active';?>" href="<?=$contact_page_url?>">Kontakt</a>
                             </li>
-                        </ul>                        
+                        </ul>
                         <p id="bi"><?=$user_id?></p>
                         <p id="bp"><?=$user_permission?></p>
                         <div class="nav-item dropdown user-info desktop-only">

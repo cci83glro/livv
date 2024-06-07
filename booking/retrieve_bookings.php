@@ -77,12 +77,16 @@ if(!isNullOrEmptyString($searchText)){
 
 if ($user_permission == 1) {
     $where .= " AND b.district_id = " . $user_district_id;
-} elseif ($user_permission == 3) {
+}
+elseif ($user_permission == 3) {
     $where .= " AND b.status_id <> 5";
-    if (isset($_GET['bi'])) {
-        $where .= " AND b.assigned_user_id = " . $_GET['bi'];
+    $whoseBookings = Input::get('whoseBookings');
+    if (isNullOrEmptyString($whoseBookings)){ die(); }
+    
+    if ($whoseBookings == "mine") {
+        $where .= " AND b.assigned_user_id = " . $user_id;
     }
-    if (isset($_GET['unassigned'])) {
+    else if ($whoseBookings == "available") {
         $where .= " AND b.assigned_user_id IS NULL";
     }
 }

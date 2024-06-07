@@ -145,7 +145,6 @@
 						<div class="h-100 d-flex flex-column p-5">
 							<h3 class="font-1 lh-1 fw-bold fs-1 mb-3 text-white">Skriv til os</h3>
 							<?php
-								//session_start();
 								if (empty($_SESSION['csrf_token'])) {
 									$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 								}

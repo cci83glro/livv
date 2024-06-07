@@ -40,7 +40,7 @@
             <?php if($user_permission == 2) { ?>
                 <div class="mb-3 col-md-6">
                     <label for="district" class="form-field-label">Kommune</label>
-                    <select class="form-control dropdown py-2 px-4" id="district" name="district" placeholder="Vælg kommune" required>
+                    <select class="form-control dropdown" id="district" name="district" placeholder="Vælg kommune" required>
                         <option value="">Vælg kommune</option>
                         <?php 
                             foreach($districts as $district){
@@ -58,7 +58,7 @@
             
             <div class="mb-3 col-md-6">                
                 <label for="place" class="form-field-label">Oprettet af</label>
-                <input type="text" class="form-control py-2 px-4" name="createdBy" id="createdBy" placeholder="Indtast navn" required>
+                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="Indtast navn" required>
                 <div class="invalid-feedback">
                     <?php echo $textFieldRequiredText; ?>
                 </div>
@@ -66,21 +66,21 @@
 
             <div class="mb-3 col-md-6">                
                 <label for="place" class="form-field-label">Sted</label>
-                <input type="text" class="form-control py-2 px-4" name="place" id="place" placeholder="Indtast sted" required>
+                <input type="text" class="form-control" name="place" id="place" placeholder="Indtast sted" required>
                 <div class="invalid-feedback">
                     <?php echo $textFieldRequiredText; ?>
                 </div>
             </div>
             <div class="mb-3 col-md-6">
                 <label for="date" class="form-field-label">Dato</label>
-                <input type="date" class="form-control py-2 px-4" id="date" name="date" placeholder="Dato" required>
+                <input type="date" class="form-control" id="date" name="date" placeholder="Dato" required>
                 <div class="invalid-feedback">
                     <?php echo $textFieldRequiredText; ?>
                 </div>
             </div>
             <div class="mb-3 col-md-6">
                 <label for="time" class="form-field-label">Starttid</label>
-                <select class="form-control dropdown py-2 px-4" id="time" name="time" placeholder="Tid" required>
+                <select class="form-control dropdown" id="time" name="time" placeholder="Tid" required>
                     <option value="">Vælg starttid</option>
                     <?php 
                         foreach($times as $time){
@@ -94,14 +94,14 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="hours" class="form-field-label">Antal timer</label>
-                <input type="number" class="form-control py-2 px-4" id="hours" name="hours" placeholder="Indtast antal timer" required>
+                <input type="number" class="form-control" id="hours" name="hours" placeholder="Indtast antal timer" required>
                 <div class="invalid-feedback">
                     <?php echo $textFieldRequiredText; ?>
                 </div>
             </div>
             <div class="mb-3 col-md-6">
                 <label for="shift" class="form-field-label">Stilling</label>
-                <select class="form-control dropdown py-2 px-4" id="shift" name="shift" required>
+                <select class="form-control dropdown" id="shift" name="shift" required>
                     <option value="">Vælg stilling</option>
                     <?php 
                         foreach($shifts as $shift){
@@ -115,7 +115,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="qualification" class="form-field-label">Uddannelse</label>
-                <select class="form-control dropdown py-2 px-4" id="qualification" name="qualification" required>
+                <select class="form-control dropdown" id="qualification" name="qualification" required>
                     <option value="">Vælg uddannelse</option>
                     <?php 
                         foreach($qualifications as $qualification){

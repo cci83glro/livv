@@ -1,4 +1,6 @@
 <?php
+//	session_start();
+
 	$public = true;
 	$pageTitle = "Vikarbureau";
 	$canonical = "https://livvikar.dk";

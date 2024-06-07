@@ -56,7 +56,7 @@
         <div class="row mb-3 experience">
           <label for="experience" id="experience-label" class="col-form-label col-12 col-md-4 text-md-right text-md-end">Uddannelse *</label>
           <div class="col-12 col-md-8">
-            <select class="form-control dropdown py-2 px-4" id="qualification" name="qualification" required>
+            <select class="form-control dropdown" id="qualification" name="qualification" required>
                 <option value="">Vælg uddannelse</option>
                 <?php 
                     foreach($qualifications as $qualification){

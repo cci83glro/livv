@@ -272,13 +272,14 @@ if (!empty($_POST)) {
       <span id="permission">(<?= $userdetails['permission_name']; ?>)</span>
     </h3>
 
-    <p><label>ID: <?= $userdetails['id']; ?>
-        <?php if ($act == 1) { ?>
-          <?php if ($userdetails['email_verified'] == 1) { ?>
-            (Email Verified)</label> <input type="hidden" name="email_verified" value="1" />
-
-    <?php } elseif ($userdetails['email_verified'] == 0) { ?>
-      (Email Unverified)</label>
+    <?php if($userdetails['permissions'] == 3) { ?>
+      <p><label>Lønnummer: <?= $userdetails['id']; ?>
+    <?php } ?>
+    <?php if ($act == 1) { ?>
+      <?php if ($userdetails['email_verified'] == 1) { ?>
+        (Email Verified)</label> <input type="hidden" name="email_verified" value="1" />
+      <?php } elseif ($userdetails['email_verified'] == 0) { ?>
+        (Email Unverified)</label>
     <?php } } ?>
     </p>
     <p><label>Oprettet: </label> <?= $userdetails['join_date']; ?></p>

@@ -1,5 +1,6 @@
 
 <?php
+
 	$public = false;
 	$permissions = [1, 2, 3];
 	$pageTitle = 'Vagter';
@@ -43,16 +44,27 @@
 					
 					<div class="filter-option">
 						<p>Vis</p>
-						<select onchange="onDisplayTypeChange()" class="form-control dropdown py-2 px-4" name="bookings-type" id="filter-bookings-type">
-							<option value="coming">kommende</option>
-							<option value="passed">tidligere</option>
-							<option value="terminated">bestilte</option>
+						<select onchange="onDisplayTypeChange()" class="form-control dropdown" name="bookings-type" id="filter-bookings-type">
+							<option value="coming">Kommende bookings</option>
+							<option value="passed">Tidligere bookings</option>
+							<option value="terminated">Bestilte bookings</option>
 							<?php if ($user_permission == 2) { ?>
-								<option value="reports">rapporter</option>
+								<option value="reports">Rapport</option>
 							<?php } ?>
 						</select>
 						<span class="hidden" id="active-bookings-type"></span>
-					</div>					
+					</div>
+
+					<?php if ($user_permission == 3) { ?>
+						<div class="filter-option">
+						<p>Vis</p>
+						<select class="form-control dropdown" name="whose-bookings" id="filter-whose-bookings">
+							<option value="mine">Mine bookings</option>
+							<option value="available">Tilgængelige bookings</option>
+						</select>
+						<span class="hidden" id="active-whose-bookings"></span>
+					</div>
+					<?php } ?>
 
 					<div class="filter-option" id="free-text-search">
 						<p>Fritekst søgning</p>
@@ -65,7 +77,7 @@
 					<?php if ($user_permission == 2 || $user_permission == 3) { ?>
 						<div class="filter-option" id="filter-districts">
 							<p>Kommune</p>
-							<select class="form-control dropdown py-2 px-4" name="district-id" id="filter-district-id" placeholder="Vælg kommune">
+							<select class="form-control dropdown" name="district-id" id="filter-district-id" placeholder="Vælg kommune">
 								<option value="">Alle</option>
 								<?php 
 									foreach($districts as $district){
@@ -80,21 +92,23 @@
 					<?php if ($user_permission == 2) { ?>
 						<div class="filter-option" id="filter-employees">
 							<p>Ansat</p>
-							<select class="form-control dropdown py-2 px-4" name="employee-id" id="filter-employee-id" placeholder="Vælg ansat">
+							<select class="form-control dropdown" name="employee-id" id="filter-employee-id" placeholder="Vælg ansat">
 								<option value="">Alle</option>
 								<?php 
 									foreach($employees as $employee){
-										echo "<option value='".$employee['id']."'>".$employee['name']."</option>";
+										echo "<option value='".$employee['id']."'>".$employee['name']." (Lønnummer: ".$employee['id'].")</option>";
 									}   
 								?>
 							</select>
 						</div>
 					<?php } ?>
 
+					<br/>
+
 					<?php if ($user_permission == 1 || $user_permission == 2) { ?>
 						<div class="filter-option" id="filter-qualifications">
 							<p>Uddannelse</p>
-							<select class="form-control dropdown py-2 px-4" name="qualification-id" id="filter-qualification-id">
+							<select class="form-control dropdown" name="qualification-id" id="filter-qualification-id">
 								<option value="">Alle</option>
 								<?php 
 									foreach($qualifications as $qualification){
@@ -109,7 +123,7 @@
 					<?php if ($user_permission == 1 || $user_permission == 2) { ?>
 						<div class="filter-option" id="filter-shifts">
 							<p>Stilling</p>
-							<select class="form-control dropdown py-2 px-4" name="shift-id" id="filter-shift-id" >
+							<select class="form-control dropdown" name="shift-id" id="filter-shift-id" >
 								<option value="">Alle</option>
 								<?php 
 									foreach($shifts as $shift){
@@ -119,25 +133,24 @@
 							</select>
 							<span class="hidden" id="active-shift-id"></span>
 						</div>
+						<br/>
 					<?php } ?>
-
-					<br/>
 
 					<div class="filter-option" id="filter-from-date" data-actual-date=''>
 						<p>Fra dato</p>
-						<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control py-2 px-4 date-picker" id="filter-from-date-value" name="from-date" placeholder="Fra dato" data-actual-date="">
+						<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control date-picker" id="filter-from-date-value" name="from-date" placeholder="Fra dato" data-actual-date="">
 						<span class="hidden" id="active-from-date"></span>
 					</div>
 
 					<div class="filter-option" id="filter-to-date" data-actual-date=''>
 						<p>Til dato</p>
-						<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control py-2 px-4 date-picker" id="filter-to-date-value" name="to-date" placeholder="Til dato" data-actual-date="">
+						<input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control date-picker" id="filter-to-date-value" name="to-date" placeholder="Til dato" data-actual-date="">
 						<span class="hidden" id="active-to-date"></span>
 					</div>
 
 					<div class="filter-option" id="filter-from-start-time">
 						<p>Fra starttid</p>							
-						<select class="form-control dropdown py-2 px-4" name="from-time-id" id="filter-from-time-id" >
+						<select class="form-control dropdown" name="from-time-id" id="filter-from-time-id" >
 							<option value="">Alle</option>
 							<?php 
 								foreach($times as $time){
@@ -150,7 +163,7 @@
 
 					<div class="filter-option" id="filter-to-start-time">
 						<p>Til starttid</p>
-						<select class="form-control dropdown py-2 px-4" name="to-time-id" id="filter-to-time-id" >
+						<select class="form-control dropdown" name="to-time-id" id="filter-to-time-id" >
 							<option value="">Alle</option>
 							<?php 
 								foreach($times as $time){
@@ -170,17 +183,6 @@
 				<div class="accordion-custom d-flex flex-column gap-2" id="bookings-container" data-active-page=""></div>
 				<div class="pagination" id="pagination"></div>
 
-				<?php if ($user_permission == 3) { ?>
-						<button id="search" class="save w-10p" onclick="filterEmployeeBookingsById()">Søg</button>
-						<button id="search" class="cancel w-10p" onclick="resetEmployeeBookingsFilter()">Nulstil</button>
-					</div>
-					<h2>Mine bookings</h2>
-					<div class="accordion-custom d-flex flex-column gap-2" id="my-bookings-container" data-active-page=""></div>
-					<div class="pagination" id="my-bookings-pagination"></div>
-					<h2>Ledige bookings</h2>
-					<div class="accordion-custom d-flex flex-column gap-2" id="available-bookings-container" data-active-page=""></div>
-					<div class="pagination" id="available-bookings-pagination"></div>
-				<?php } ?>
 			</div>
 		</div>
 	</section>

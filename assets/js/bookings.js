@@ -333,7 +333,7 @@ function resetBookingsFilter() {
 function filterBookings() {
     
     var activePage = $('#bookings-container').data('active-page');
-    loadBookings(activePage, id);
+    loadBookings(activePage);
 }
 
 function resetEmployeeBookingsFilter() {
@@ -364,6 +364,16 @@ function loadBookings(page) {
         page = 1;
     }
 
+    var whoseBookings = '';
+    if ($('#filter-whose-bookings').length) {
+        whoseBookings = $('#filter-whose-bookings').val();
+        url += '&whoseBookings=' + whoseBookings;
+        if($('#active-whose-bookings').text() !== whoseBookings) {
+            $('#active-whose-bookings').text(whoseBookings);
+            page = 1;
+        }
+    }
+
     var districtId = '';
     if ($('#filter-district-id').length) {
         districtId = $('#filter-district-id').val();
@@ -388,27 +398,30 @@ function loadBookings(page) {
         }
     }
 
-    var qualificationId = $('#filter-qualification-id').val();
-    if (qualificationId != '') {
-        url += '&qualificationId=' + qualificationId;
-    }
-    if($('#active-qualification-id').text() !== qualificationId) {
-        $('#active-qualification-id').text(qualificationId);
-        page = 1;
-    }
-
-    var shiftId = $('#filter-shift-id').val();
-    if (shiftId != '') {
-        url += '&shiftId=' + shiftId;
-    }
-    if($('#active-shift-id').text() !== shiftId) {
-        $('#active-shift-id').text(shiftId);
-        page = 1;
+    var qualificationId = '';
+    if ($('#filter-qualification-id').length) {
+        qualificationId = $('#filter-qualification-id').val();
+        if (qualificationId != '') {
+            url += '&qualificationId=' + qualificationId;
+        }
+        if($('#active-qualification-id').text() !== qualificationId) {
+            $('#active-qualification-id').text(qualificationId);
+            page = 1;
+        }
     }
 
-    // if ($('#filter-from-date').attr('type') === 'date' && $('#filter-from-date').val()) {
-    //     $('#filter-from-date').data('actual-date', $('#filter-from-date').val());
-    // }
+    var shiftId = '';
+    if ($('#filter-shift-id').length) {
+        shiftId = $('#filter-shift-id').val();
+        if (shiftId != '') {
+            url += '&shiftId=' + shiftId;
+        }
+        if($('#active-shift-id').text() !== shiftId) {
+            $('#active-shift-id').text(shiftId);
+            page = 1;
+        }
+    }
+
     var fromDate = $('#filter-from-date-value').attr('data-actual-date');
     if (fromDate != '') {
         url += '&fromDate=' + fromDate;
@@ -418,9 +431,6 @@ function loadBookings(page) {
         page = 1;
     }
 
-    // if ($('#filter-tp-date').attr('type') === 'date' && $('#filter-to-date').val()) {
-    //     $('#filter-to-date').data('actual-date', $('#filter-to-date').val());
-    // }
     var toDate = $('#filter-to-date-value').attr('data-actual-date');
     if (toDate != '') {
         url += '&toDate=' + toDate;
@@ -555,10 +565,10 @@ function addBooking() {
 
 function cancelBooking() {
 
-//    if (confirm("Er du sikker på, du vil fortryde?")) {
+    if (confirm("Er du sikker på, du vil fortryde?")) {
         hideAddBookingForm();
         resetAddBookingForm($('#bookingForm'));
-  //  }
+    }
 }
 
 function editBooking(id) {
@@ -598,8 +608,6 @@ function editBooking(id) {
         scrollTop: $("#add-booking-section").offset().top - 50
     }, 500);
 
-    //$('.accordion-item-content[style.display=block]').slideToggle();
-
     $('.accordion-item-content').animate({
         scrollTop: $("#add-booking-section").offset().top - 50
     }, 500);
@@ -622,7 +630,6 @@ function onDisplayTypeChange() {
         $('#filter-shifts').hide();
         $('#filter-from-start-time').hide();
         $('#filter-to-start-time').hide();
-        //$('#total-hours').show();
         resetBookingsFilter();
     } else {
         $('#free-text-search').show();
@@ -630,7 +637,6 @@ function onDisplayTypeChange() {
         $('#filter-shifts').show();
         $('#filter-from-start-time').show();
         $('#filter-to-start-time').show();
-        //$('#total-hours').hide();
     }
 }
 
@@ -646,12 +652,14 @@ document.addEventListener('DOMContentLoaded', function() {
             $('#search-text').val(inputValue);
         }
 
-        if (bp == 1 || bp == 2) {
-            loadBookings(1);
-        } else if (bp == 3) {
-            loadBookingsForWorker(1);
-            loadAvailableBookings(1);
-        }
+        loadBookings(1);
+
+        // if (bp == 1 || bp == 2) {
+        //     loadBookings(1);
+        // } else if (bp == 3) {
+        //     loadBookingsForWorker(1);
+        //     loadAvailableBookings(1);
+        // }
         
         $('#add-booking-submit-button').click(addBooking);
         $('#add-booking-cancel-button').click(cancelBooking);
